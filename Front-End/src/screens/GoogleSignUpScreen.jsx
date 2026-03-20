@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { FaUser } from 'react-icons/fa'
 import AuthLayout from '../components/layout/AuthLayout'
 import BackButton from '../components/common/BackButton'
 import '../styles/GoogleSignUp.css'
 
 function GoogleSignUpScreen() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const accounts = [
     { name: 'Account 1', email: 'account1@gmail.com' },
@@ -15,35 +18,30 @@ function GoogleSignUpScreen() {
   return (
     <AuthLayout>
       <BackButton onClick={() => navigate(-1)} />
-
       <div className="google-signup-content">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
           alt="Google"
           className="google-logo"
         />
+        <h3 className="choose-title">{t('google.chooseAccount')}</h3>
 
-        <div className="choose-account">
-          <h3>Choose your Account</h3>
-        </div>
-
-        <div className="accounts-list">
+        <div className="account-list">
           {accounts.map((account, index) => (
-            <div key={index} className="account-item" onClick={() => {
-              console.log('Selected:', account.name)
-              navigate('/')
-            }}>
-              <div className="account-avatar">👤</div>
-              <span>{account.name}</span>
+            <div key={index} className="account-item" onClick={() => navigate('/')}>
+              <div className="account-avatar">
+                <FaUser />
+              </div>
+              <div className="account-info">
+                <span className="account-name">{account.name}</span>
+                <span className="account-email">{account.email}</span>
+              </div>
             </div>
           ))}
         </div>
 
-        <a href="#" className="other-account" onClick={(e) => {
-          e.preventDefault()
-          console.log('Other account')
-        }}>
-          Other account
+        <a href="#" className="other-account" onClick={(e) => e.preventDefault()}>
+          {t('google.otherAccount')}
         </a>
       </div>
     </AuthLayout>

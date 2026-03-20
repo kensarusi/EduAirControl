@@ -179,3 +179,143 @@
 .toggle.active .toggle-circle {
   transform: translateX(24px);
 }
+
+/* Modal */
+.profile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.profile-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 35px 30px;
+  width: 380px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-modal h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+.profile-modal-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.profile-modal-input:focus {
+  outline: none;
+  border-color: #5de6c8;
+}
+
+.profile-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-modal-cancel {
+  padding: 10px 20px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  background: transparent;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-modal-cancel:hover {
+  border-color: #999;
+  color: #333;
+}
+
+.btn-modal-save {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #5de6c8;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-modal-save:hover {
+  background: #4dd4b6;
+}
+
+/* Dark Mode */
+body.dark-mode .profile-page {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .profile-header-card,
+body.dark-mode .profile-section-card {
+  background-color: #16213e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .profile-header-card h1,
+body.dark-mode .profile-section-card h2,
+body.dark-mode .field-value {
+  color: #e0e0e0;
+}
+
+body.dark-mode .field-label,
+body.dark-mode .section-description {
+  color: #888;
+}
+
+body.dark-mode .field-icon {
+  background-color: #1a2a4a;
+}
+
+body.dark-mode .profile-field {
+  border-bottom-color: #2a2a4a;
+}
+
+body.dark-mode .profile-modal {
+  background-color: #16213e;
+}
+
+body.dark-mode .profile-modal h3 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .profile-modal-input {
+  background-color: #1a2a4a;
+  border-color: #2a3a5a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .profile-modal-input::placeholder {
+  color: #666;
+}
+
+body.dark-mode .btn-modal-cancel {
+  border-color: #2a3a5a;
+  color: #aaa;
+}
+
+body.dark-mode .btn-modal-cancel:hover {
+  border-color: #5de6c8;
+  color: #e0e0e0;
+}

@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "environments": "Environments",
+    "profile": "My Profile",
+    "activity": "Activity",
+    "favorites": "Favorites",
+    "settings": "Settings",
+    "logout": "Log Out"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "placeholder": "Value",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginBtn": "Login",
+    "signUpBtn": "Sign Up",
+    "orWith": "Sign in using your account with"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Re-type password",
+    "agreeTerms": "I agree to the ",
+    "termsLink": "Terms of Use and Privacy Policy.",
+    "signUpBtn": "Sign Up",
+    "passwordMismatch": "Passwords do not match!",
+    "mustAgreeTerms": "You must agree to the Terms and Conditions"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "Enter your email address and we'll send you a recovery code.",
+    "emailLabel": "Email Address",
+    "sendBtn": "Send Recovery Code",
+    "tryAnother": "Try Another Way"
+  },
+  "verifyCode": {
+    "title": "Verify Code",
+    "description": "Enter the 5-digit code sent to your email.",
+    "resend": "Resend Code",
+    "verifyBtn": "Verify Code"
+  },
+  "changePassword": {
+    "title": "Forgot Password",
+    "description": "Update your password to keep your account secure.",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "confirmBtn": "Confirm Change",
+    "mismatch": "Passwords do not match!"
+  },
+  "terms": {
+    "title": "Terms and Conditions",
+    "intro": "By accessing and using EduAirControl, you agree to comply with the following terms:",
+    "item1": "You will provide accurate and complete information.",
+    "item2": "You are responsible for maintaining the confidentiality of your account credentials.",
+    "item3": "The platform must be used only for authorized and lawful purposes.",
+    "item4": "Environmental data provided by the system is for monitoring and reporting purposes only.",
+    "footer1": "EduAirControl reserves the right to update these terms at any time.",
+    "footer2": "By clicking \"Accept\", you confirm that you have read and agreed to these Terms and Conditions.",
+    "acceptBtn": "ACCEPT"
+  },
+  "dashboard": {
+    "clickDetails": "Click To See Details",
+    "idealRange": "Ideal range",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "noise": "Noise Level",
+    "airQuality": "Air Quality",
+    "env1": "Environment 290-1",
+    "env2": "Environment 290-2",
+    "env3": "Environment 290-3",
+    "statusWarning": "Warning",
+    "statusAlert": "Alert",
+    "statusNormal": "Normal",
+    "qualityRegular": "Regular",
+    "qualityGood": "Good",
+    "qualityBad": "Bad"
+  },
+  "filterBar": {
+    "all": "All Environments",
+    "allSub": "Click to see all",
+    "normal": "Normal Status",
+    "warnings": "Warnings",
+    "alerts": "Alerts"
+  },
+  "allEnvironments": {
+    "title": "All Environments",
+    "ambiente": "Environment",
+    "statusNormal": "Normal Status",
+    "statusWarning": "Warnings",
+    "statusAlert": "Alerts",
+    "airQuality": "Air quality:",
+    "humidity": "Humidity",
+    "temp": "Temp",
+    "db": "dB",
+    "co2": "CO2"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "description": "Notifications from your favorite environments",
+    "empty": "You have no favorite environments",
+    "emptyHint": "Mark a heart on the dashboard to add favorites",
+    "notif1": "⚠️ High temperature: 26°C",
+    "notif2": "🔴 High CO₂: 1200 ppm",
+    "notif3": "⚠️ Low humidity: 28%",
+    "ago5": "5 min ago",
+    "ago15": "15 min ago",
+    "ago10": "10 min ago"
+  },
+  "profile": {
+    "title": "Personal Information",
+    "description": "This information will be displayed publicly so be careful what you share.",
+    "fullName": "Full name",
+    "email": "Email address",
+    "titleLabel": "Title",
+    "updateBtn": "Update",
+    "logoutBtn": "Log Out"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "darkMode": "Dark Mode",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "langAndDates": "Languages and Dates",
+    "langDescription": "Choose what language and date format to use throughout your account.",
+    "language": "Language",
+    "dateFormat": "Date format",
+    "autoTimezone": "Automatic timezone",
+    "updateBtn": "Update"
+  },
+  "google": {
+    "chooseAccount": "Choose your Account",
+    "otherAccount": "Other account"
+  },
+  "status": {
+    "normal": "Normal",
+    "warning": "Warning",
+    "alert": "Alert",
+    "excellent": "Excellent",
+    "regular": "Regular",
+    "bad": "Bad"
+  }
+}

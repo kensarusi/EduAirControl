@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { MdOutlineMeetingRoom } from 'react-icons/md'
 import { FaUser, FaHeart } from 'react-icons/fa'
 import { IoStatsChart, IoSettings, IoLogOut } from 'react-icons/io5'
@@ -7,17 +8,17 @@ import '../../styles/Navbar.css'
 function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useTranslation()
 
   const menuItems = [
-    { icon: <MdOutlineMeetingRoom />, label: 'Ambientes', path: '/dashboard' },
-    { icon: <FaUser />, label: 'Mi perfil', path: '/profile' },
-    { icon: <IoStatsChart />, label: 'Actividad', path: '/all-environments' },
-    { icon: <FaHeart />, label: 'Favoritos', path: '/favorites' },
-    { icon: <IoSettings />, label: 'Configuración', path: '/settings' },
+    { icon: <MdOutlineMeetingRoom />, label: t('nav.environments'), path: '/dashboard' },
+    { icon: <FaUser />, label: t('nav.profile'), path: '/profile' },
+    { icon: <IoStatsChart />, label: t('nav.activity'), path: '/all-environments' },
+    { icon: <FaHeart />, label: t('nav.favorites'), path: '/favorites' },
+    { icon: <IoSettings />, label: t('nav.settings'), path: '/settings' },
   ]
 
   const handleLogout = () => {
-    console.log('Cerrando sesión...')
     navigate('/')
   }
 
@@ -29,7 +30,7 @@ function Navbar() {
       <div className="navbar-menu">
         {menuItems.map((item) => (
           <div
-            key={item.id}
+            key={item.path}
             className={`navbar-item ${location.pathname === item.path ? 'active' : ''}`}
             onClick={() => navigate(item.path)}
           >
@@ -39,7 +40,7 @@ function Navbar() {
         ))}
         <div className="navbar-item logout" onClick={handleLogout}>
           <IoLogOut />
-          <span>Cerrar sesión</span>
+          <span>{t('nav.logout')}</span>
         </div>
       </div>
     </nav>

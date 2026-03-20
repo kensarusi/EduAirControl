@@ -1,48 +1,50 @@
+import { useTranslation } from 'react-i18next'
 import '../../styles/AllEnvironments.css'
 
-function EnvironmentSummaryCard({ name, status, co2, db, temp, humidity, airQuality }) {
+function EnvironmentSummaryCard({ nameKey, statusKey, co2, db, temp, humidity, qualityKey }) {
+  const { t } = useTranslation()
 
   const statusColor = () => {
-    if (status === 'Normal') return '#4CAF50'
-    if (status === 'Alert') return '#F44336'
+    if (statusKey === 'dashboard.statusNormal') return '#4CAF50'
+    if (statusKey === 'dashboard.statusAlert') return '#F44336'
     return '#FFC107'
   }
 
   const qualityColor = () => {
-    if (airQuality === 'Excelent') return '#4CAF50'
-    if (airQuality === 'Bad') return '#F44336'
+    if (qualityKey === 'dashboard.qualityGood') return '#4CAF50'
+    if (qualityKey === 'dashboard.qualityBad') return '#F44336'
     return '#FFC107'
   }
 
   return (
     <div className="summary-card">
       <div className="summary-card-header">
-        <h3>{name}</h3>
-        <span style={{ color: statusColor() }}>{status}</span>
+        <h3>{t(nameKey)}</h3>
+        <span style={{ color: statusColor() }}>{t(statusKey)}</span>
       </div>
 
       <div className="summary-card-grid">
         <div className="summary-item">
-          <span className="summary-label">CO2</span>
+          <span className="summary-label">{t('allEnvironments.co2')}</span>
           <span className="summary-value">{co2}</span>
         </div>
         <div className="summary-item">
-          <span className="summary-label">dB</span>
+          <span className="summary-label">{t('allEnvironments.db')}</span>
           <span className="summary-value">{db}</span>
         </div>
         <div className="summary-item">
-          <span className="summary-label">Temp</span>
+          <span className="summary-label">{t('allEnvironments.temp')}</span>
           <span className="summary-value">{temp}</span>
         </div>
         <div className="summary-item">
-          <span className="summary-label">Humidity</span>
+          <span className="summary-label">{t('allEnvironments.humidity')}</span>
           <span className="summary-value">{humidity}</span>
         </div>
       </div>
 
       <div className="summary-card-footer">
-        <span>Air quality:</span>
-        <span style={{ color: qualityColor() }}>{airQuality}</span>
+        <span>{t('allEnvironments.airQuality')}</span>
+        <span style={{ color: qualityColor() }}>{t(qualityKey)}</span>
       </div>
     </div>
   )

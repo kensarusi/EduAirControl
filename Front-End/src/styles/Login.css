@@ -43,23 +43,25 @@
 /* Inputs */
 .input-group {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .input-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
   color: #333;
+  font-size: 14px;
 }
 
 .input-group input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
   box-sizing: border-box;
+  color: #333;
 }
 
 .input-group input:focus {
@@ -80,6 +82,7 @@
   align-items: center;
   gap: 5px;
   font-size: 14px;
+  color: #333;
 }
 
 .remember-me input[type="checkbox"] {
@@ -199,4 +202,52 @@
 
 .back-button:hover {
   color: #5de6c8;
+}
+
+/* Dark Mode */
+body.dark-mode .login-container {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .login-card {
+  background-color: #16213e;
+}
+
+body.dark-mode .login-header h1 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .input-group label {
+  color: #e0e0e0;
+}
+
+body.dark-mode .input-group input {
+  background-color: #1a2a4a;
+  border-color: #2a3a5a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .input-group input::placeholder {
+  color: #666;
+}
+
+body.dark-mode .remember-me {
+  color: #aaa;
+}
+
+body.dark-mode .social-text {
+  color: #aaa;
+}
+
+body.dark-mode .divider::before,
+body.dark-mode .divider::after {
+  border-bottom-color: #2a3a5a;
+}
+
+body.dark-mode .divider span {
+  color: #666;
+}
+
+body.dark-mode .back-button {
+  color: #aaa;
 }

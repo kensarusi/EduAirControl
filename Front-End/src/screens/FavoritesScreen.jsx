@@ -1,27 +1,28 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Navbar from '../components/layout/Navbar'
 import { FaHeart, FaBell } from 'react-icons/fa'
-import { WiThermometer } from 'react-icons/wi'
-import { MdCo2 } from 'react-icons/md'
 import '../styles/Favorites.css'
 
 function FavoritesScreen() {
+  const { t } = useTranslation()
+
   const [favorites] = useState([
     {
       id: 1,
-      name: 'Ambiente de Formación 1',
-      status: 'Advertencia',
+      nameKey: 'dashboard.env1',
+      statusKey: 'dashboard.statusWarning',
       notifications: [
-        { id: 1, message: '⚠️ Temperatura elevada: 26°C', time: 'Hace 5 min', type: 'warning' },
-        { id: 2, message: '🔴 CO₂ alto: 1200 ppm', time: 'Hace 15 min', type: 'alert' },
+        { id: 1, messageKey: 'favorites.notif1', timeKey: 'favorites.ago5', type: 'warning' },
+        { id: 2, messageKey: 'favorites.notif2', timeKey: 'favorites.ago15', type: 'alert' },
       ]
     },
     {
       id: 3,
-      name: 'Ambiente de Formación 3',
-      status: 'Advertencia',
+      nameKey: 'dashboard.env3',
+      statusKey: 'dashboard.statusWarning',
       notifications: [
-        { id: 3, message: '⚠️ Humedad baja: 28%', time: 'Hace 10 min', type: 'warning' },
+        { id: 3, messageKey: 'favorites.notif3', timeKey: 'favorites.ago10', type: 'warning' },
       ]
     }
   ])
@@ -33,44 +34,42 @@ function FavoritesScreen() {
   }
 
   return (
-    <div>
+    <div className="favorites-page">
       <Navbar />
-      <div className="favorites-page">
-        <h1><FaHeart className="favorites-title-icon" /> Favoritos</h1>
-        <p className="favorites-description">
-          Notificaciones de tus ambientes favoritos
-        </p>
+      <div className="favorites-content">
+        <h1><FaHeart style={{ color: '#ff6b6b' }} /> {t('favorites.title')}</h1>
+        <p className="favorites-subtitle">{t('favorites.description')}</p>
 
         {favorites.length === 0 ? (
           <div className="favorites-empty">
-            <FaHeart className="empty-heart" />
-            <p>No tienes ambientes favoritos</p>
-            <span>Marca un corazón en el dashboard para agregar favoritos</span>
+            <FaHeart style={{ fontSize: 48, color: '#ddd' }} />
+            <h2>{t('favorites.empty')}</h2>
+            <p>{t('favorites.emptyHint')}</p>
           </div>
         ) : (
           favorites.map(fav => (
-            <div key={fav.id} className="favorite-card">
-              <div className="favorite-card-header">
+            <div key={fav.id} className="fav-card">
+              <div className="fav-card-header">
                 <div>
-                  <h3>{fav.name}</h3>
-                  <span className="favorite-status">{fav.status}</span>
+                  <h2>{t(fav.nameKey)}</h2>
+                  <span
+                    className="fav-status"
+                    style={{ color: fav.statusKey === 'dashboard.statusAlert' ? '#F44336' : '#FFC107' }}
+                  >
+                    {t(fav.statusKey)}
+                  </span>
                 </div>
-                <FaHeart className="heart-filled-fav" />
+                <button className="fav-heart"><FaHeart /></button>
               </div>
 
-              <div className="favorite-notifications">
+              <div className="fav-notifications">
                 {fav.notifications.map(notif => (
-                  <div
-                    key={notif.id}
-                    className="notification-item"
-                    style={{ borderLeft: `4px solid ${getStatusColor(notif.type)}` }}
-                  >
-                    <div className="notification-content">
-                      <FaBell className="notification-bell" style={{ color: getStatusColor(notif.type) }} />
-                      <div>
-                        <p className="notification-message">{notif.message}</p>
-                        <span className="notification-time">{notif.time}</span>
-                      </div>
+                  <div key={notif.id} className="fav-notification">
+                    <div className={`fav-notif-border ${notif.type}`} />
+                    <FaBell className={`fav-notif-icon ${notif.type}`} />
+                    <div className="fav-notif-info">
+                      <p>{t(notif.messageKey)}</p>
+                      <span>{t(notif.timeKey)}</span>
                     </div>
                   </div>
                 ))}

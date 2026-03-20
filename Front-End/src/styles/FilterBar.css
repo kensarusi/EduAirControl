@@ -54,3 +54,21 @@
 .filter-icon {
   font-size: 28px;
 }
+
+/* Dark Mode */
+body.dark-mode .filter-btn {
+  background: #16213e;
+  border-color: #2a2a4a;
+}
+
+body.dark-mode .filter-label {
+  color: #e0e0e0;
+}
+
+body.dark-mode .filter-sublabel {
+  color: #888;
+}
+
+body.dark-mode .filter-btn.active {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

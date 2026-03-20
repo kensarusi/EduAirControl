@@ -23,19 +23,20 @@
 .verify-icon {
   font-size: 60px;
   color: #5de6c8;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .verify-card h1 {
   font-size: 24px;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.verify-card p {
+.verify-description {
   font-size: 14px;
   color: #666;
   margin-bottom: 25px;
+  line-height: 1.6;
 }
 
 /* Inputs del código */
@@ -54,6 +55,7 @@
   border: 2px solid #ccc;
   border-radius: 8px;
   outline: none;
+  color: #333;
 }
 
 .code-inputs input:focus {
@@ -89,4 +91,31 @@
 
 .btn-verify:hover {
   background-color: #4dd4b6;
+}
+
+/* Dark Mode */
+body.dark-mode .verify-container {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .verify-card {
+  background-color: #16213e;
+}
+
+body.dark-mode .verify-card h1 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .verify-description {
+  color: #aaa;
+}
+
+body.dark-mode .code-inputs input {
+  background-color: #1a2a4a;
+  border-color: #2a3a5a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .code-inputs input:focus {
+  border-color: #5de6c8;
 }

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import AuthLayout from '../components/layout/AuthLayout'
 import LoginForm from '../components/forms/LoginForm'
 import Divider from '../components/common/Divider'
@@ -7,27 +8,21 @@ import '../styles/Login.css'
 
 function LoginScreen() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   return (
     <AuthLayout>
       <div className="login-header">
-        <h1>Login</h1>
+        <h1>{t('login.title')}</h1>
         <div className="login-avatar">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYh5ktN6ivxkuHo-AYZ9v1njCxhjyPdBArvA&s" alt="avatar" />
         </div>
       </div>
-
       <LoginForm />
-
       <Divider text="OR" />
-
-      <button
-        className="btn-signup"
-        onClick={() => navigate('/signup')}
-      >
-        Sign Up
+      <button className="btn-signup" onClick={() => navigate('/signup')}>
+        {t('login.signUpBtn')}
       </button>
-
       <SocialLogin />
     </AuthLayout>
   )

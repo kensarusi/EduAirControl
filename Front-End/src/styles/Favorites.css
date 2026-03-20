@@ -1,10 +1,15 @@
 .favorites-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 67px 20px;
+  min-height: 100vh;
+  background-color: #f0fafa;
 }
 
-.favorites-page h1 {
+.favorites-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 100px 30px 30px;
+}
+
+.favorites-content h1 {
   font-size: 28px;
   color: #333;
   display: flex;
@@ -13,42 +18,14 @@
   margin-bottom: 5px;
 }
 
-.favorites-title-icon {
-  color: #ff6b6b;
-}
-
-.favorites-description {
+.favorites-subtitle {
   color: #999;
   font-size: 14px;
   margin-bottom: 30px;
 }
 
-.favorites-empty {
-  text-align: center;
-  padding: 60px 20px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.empty-heart {
-  font-size: 60px;
-  color: #ddd;
-  margin-bottom: 15px;
-}
-
-.favorites-empty p {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 5px;
-}
-
-.favorites-empty span {
-  font-size: 14px;
-  color: #999;
-}
-
-.favorite-card {
+/* Tarjeta de ambiente favorito */
+.fav-card {
   background: white;
   border-radius: 15px;
   padding: 25px;
@@ -56,66 +33,153 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.favorite-card-header {
+.fav-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 15px;
 }
 
-.favorite-card-header h3 {
-  font-size: 18px;
+.fav-card-header h2 {
+  font-size: 20px;
   color: #333;
-  margin: 0 0 5px 0;
+  margin: 0;
 }
 
-.favorite-status {
-  color: #FFC107;
+.fav-status {
   font-weight: bold;
   font-size: 14px;
 }
 
-.heart-filled-fav {
+.fav-heart {
+  background: none;
+  border: none;
+  font-size: 22px;
   color: #ff6b6b;
-  font-size: 24px;
+  cursor: pointer;
 }
 
-.favorite-notifications {
+/* Notificaciones */
+.fav-notifications {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.notification-item {
-  background: #f9f9f9;
-  border-radius: 10px;
-  padding: 15px;
-  transition: background 0.3s;
-}
-
-.notification-item:hover {
-  background: #f0f0f0;
-}
-
-.notification-content {
+.fav-notification {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }
 
-.notification-bell {
-  font-size: 20px;
+.fav-notif-icon {
+  font-size: 24px;
+  flex-shrink: 0;
 }
 
-.notification-message {
+.fav-notif-icon.warning {
+  color: #FFC107;
+}
+
+.fav-notif-icon.alert {
+  color: #F44336;
+}
+
+.fav-notif-border {
+  width: 4px;
+  height: 100%;
+  min-height: 40px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.fav-notif-border.warning {
+  background-color: #FFC107;
+}
+
+.fav-notif-border.alert {
+  background-color: #F44336;
+}
+
+.fav-notif-info p {
+  margin: 0;
   font-size: 14px;
   color: #333;
-  margin: 0 0 3px 0;
+  font-weight: 500;
 }
 
-.notification-time {
+.fav-notif-info span {
   font-size: 12px;
   color: #999;
+}
+
+/* Empty state */
+.favorites-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.favorites-empty h2 {
+  color: #999;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.favorites-empty p {
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* ============================================ */
+/* DARK MODE                                     */
+/* ============================================ */
+
+body.dark-mode .favorites-page {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .favorites-content h1 {
+  color: #5de6c8;
+}
+
+body.dark-mode .favorites-subtitle {
+  color: #999;
+}
+
+body.dark-mode .fav-card {
+  background-color: #16213e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .fav-card-header {
+  border-bottom-color: #2a2a4a;
+}
+
+body.dark-mode .fav-card-header h2 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .fav-notification {
+  background-color: #1a1a3e;
+}
+
+body.dark-mode .fav-notif-info p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .fav-notif-info span {
+  color: #888;
+}
+
+body.dark-mode .favorites-empty h2 {
+  color: #888;
+}
+
+body.dark-mode .favorites-empty p {
+  color: #666;
 }

@@ -71,3 +71,31 @@
   color: white;
   border-color: #5de6c8;
 }
+
+/* Dark Mode */
+body.dark-mode .terms-page {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .terms-container {
+  background-color: #16213e;
+}
+
+body.dark-mode .terms-header h1 {
+  color: #5de6c8;
+}
+
+body.dark-mode .terms-content {
+  color: #e0e0e0;
+}
+
+body.dark-mode .btn-accept {
+  border-color: #e0e0e0;
+  color: #e0e0e0;
+}
+
+body.dark-mode .btn-accept:hover {
+  background-color: #5de6c8;
+  border-color: #5de6c8;
+  color: white;
+}

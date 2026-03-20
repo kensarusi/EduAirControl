@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import AuthLayout from '../components/layout/AuthLayout'
 import BackButton from '../components/common/BackButton'
 import Input from '../components/common/Input'
@@ -8,38 +9,25 @@ import '../styles/ForgotPassword.css'
 function ForgotPasswordScreen() {
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleSendCode = (e) => {
     e.preventDefault()
-    console.log('Recovery code sent to:', email)
     navigate('/verify-code')
   }
 
   return (
     <AuthLayout>
       <BackButton onClick={() => navigate('/')} />
-
       <div className="forgot-password-content">
         <div className="forgot-icon">🔒</div>
-        <h1>Forgot Password</h1>
-        <p className="forgot-description">
-          Enter your email address and we'll send you a recovery code.
-        </p>
-
+        <h1>{t('forgotPassword.title')}</h1>
+        <p className="forgot-description">{t('forgotPassword.description')}</p>
         <form onSubmit={handleSendCode}>
-          <Input
-            label="Email Address"
-            type="email"
-            placeholder="Value"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit" className="btn-send-code">
-            Send Recovery Code
-          </button>
+          <Input label={t('forgotPassword.emailLabel')} type="email" placeholder={t('login.placeholder')} value={email} onChange={(e) => setEmail(e.target.value)} />
+          <button type="submit" className="btn-send-code">{t('forgotPassword.sendBtn')}</button>
         </form>
-
-        <p className="try-another">Try Another Way</p>
+        <p className="try-another">{t('forgotPassword.tryAnother')}</p>
       </div>
     </AuthLayout>
   )
