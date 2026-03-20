@@ -1,0 +1,121 @@
+.favorites-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 67px 20px;
+}
+
+.favorites-page h1 {
+  font-size: 28px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.favorites-title-icon {
+  color: #ff6b6b;
+}
+
+.favorites-description {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.favorites-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.empty-heart {
+  font-size: 60px;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+.favorites-empty p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.favorites-empty span {
+  font-size: 14px;
+  color: #999;
+}
+
+.favorite-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.favorite-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.favorite-card-header h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.favorite-status {
+  color: #FFC107;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.heart-filled-fav {
+  color: #ff6b6b;
+  font-size: 24px;
+}
+
+.favorite-notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notification-item {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  transition: background 0.3s;
+}
+
+.notification-item:hover {
+  background: #f0f0f0;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-bell {
+  font-size: 20px;
+}
+
+.notification-message {
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 3px 0;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: #999;
+}

@@ -1,0 +1,156 @@
+.settings-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 70px 20px;
+}
+
+.settings-page h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.settings-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.settings-card h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.settings-card-description {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.settings-field {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.settings-field:last-child {
+  border-bottom: none;
+}
+
+.settings-field-icon {
+  font-size: 20px;
+  color: #5de6c8;
+  margin-right: 15px;
+}
+
+.settings-field-info {
+  flex: 1;
+}
+
+.settings-field-label {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 3px;
+}
+
+.settings-field-value {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.4s;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #5de6c8;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.btn-update {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  border: 2px solid #5de6c8;
+  border-radius: 8px;
+  background: transparent;
+  color: #5de6c8;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.btn-update:hover {
+  background-color: #5de6c8;
+  color: white;
+}
+
+/* Dark Mode */
+.dark-mode {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .settings-page h1 {
+  color: #fff;
+}
+
+.dark-mode .settings-card {
+  background: #16213e;
+}
+
+.dark-mode .settings-card h3 {
+  color: #fff;
+}
+
+.dark-mode .settings-field-value {
+  color: #fff;
+}
+
+.dark-mode .settings-field-label {
+  color: #aaa;
+}

@@ -1,0 +1,92 @@
+/* Contenedor principal */
+.verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0fafa;
+  font-family: Arial, sans-serif;
+}
+
+/* Tarjeta */
+.verify-card {
+  background: white;
+  border: 2px solid #5de6c8;
+  border-radius: 15px;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+/* Ícono */
+.verify-icon {
+  font-size: 60px;
+  color: #5de6c8;
+  margin-bottom: 15px;
+}
+
+.verify-card h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.verify-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* Inputs del código */
+.code-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.code-inputs input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 24px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.code-inputs input:focus {
+  border-color: #5de6c8;
+}
+
+/* Resend code */
+.resend-code {
+  color: #5de6c8;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.resend-code:hover {
+  text-decoration: underline;
+}
+
+/* Botón verify */
+.btn-verify {
+  width: 100%;
+  padding: 12px;
+  background-color: #5de6c8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-verify:hover {
+  background-color: #4dd4b6;
+}

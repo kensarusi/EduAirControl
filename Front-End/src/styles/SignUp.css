@@ -1,0 +1,99 @@
+/* Contenedor principal */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0fafa;
+  font-family: Arial, sans-serif;
+}
+
+/* Tarjeta */
+.signup-card {
+  background: white;
+  border: 2px solid #5de6c8;
+  border-radius: 15px;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+}
+
+/* Header */
+.signup-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.signup-header h1 {
+  color: #333;
+  font-size: 28px;
+  margin: 0;
+}
+
+.signup-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #5de6c8;
+}
+
+/* Checkbox términos */
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  accent-color: #5de6c8;
+}
+
+.terms-checkbox a {
+  color: #5de6c8;
+  text-decoration: none;
+}
+
+/* Botón Sign Up */
+.btn-signup-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #5de6c8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-signup-submit:hover {
+  background-color: #4dd4b6;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  accent-color: #5de6c8;
+}
+
+.terms-link {
+  color: #5de6c8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.terms-link:hover {
+  color: #4dd4b6;
+}

@@ -1,0 +1,86 @@
+/* Contenedor principal */
+.google-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0fafa;
+  font-family: Arial, sans-serif;
+}
+
+/* Tarjeta */
+.google-card {
+  background: white;
+  border: 2px solid #5de6c8;
+  border-radius: 15px;
+  padding: 40px;
+  width: 450px;
+  text-align: center;
+  position: relative;
+}
+
+/* Logo Google */
+.google-logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+/* Choose your account */
+.choose-text {
+  background-color: #5de6c8;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+
+/* Lista de cuentas */
+.account-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.account-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.account-item:hover {
+  border-color: #5de6c8;
+  background-color: #f0fafa;
+}
+
+.account-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #5de6c8;
+}
+
+.account-name {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Other account */
+.other-account {
+  color: #666;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.other-account:hover {
+  color: #5de6c8;
+}
