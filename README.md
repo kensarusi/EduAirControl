@@ -6,7 +6,7 @@ Sistema de monitoreo y control de calidad del aire en ambientes educativos.
 
 ## 📋 Descripción
 
-EduAirControl es una plataforma web que permite monitorear en tiempo real las condiciones ambientales (temperatura, humedad, CO₂, nivel de ruido) de diferentes ambientes de formación. El sistema genera alertas y advertencias cuando los valores están fuera de los rangos ideales.
+EduAirControl es una plataforma web que permite monitorear en tiempo real las condiciones ambientales (temperatura, humedad, CO₂, nivel de ruido) de diferentes ambientes de formación. El sistema genera alertas y advertencias cuando los valores están fuera de los rangos ideales, soporta modo oscuro y está disponible en español e inglés.
 
 ---
 
@@ -14,10 +14,12 @@ EduAirControl es una plataforma web que permite monitorear en tiempo real las co
 
 | Tecnología | Versión | Uso |
 |---|---|---|
-| React | 18+ | Librería principal |
-| Vite | 5+ | Bundler y servidor de desarrollo |
-| React Router DOM | 6+ | Navegación entre pantallas |
+| React | 19+ | Librería principal |
+| Vite | 8+ | Bundler y servidor de desarrollo |
+| React Router DOM | 7+ | Navegación entre pantallas |
 | React Icons | 5+ | Íconos del proyecto |
+| i18next | latest | Internacionalización (i18n) |
+| react-i18next | latest | Integración de i18next con React |
 | CSS3 | - | Estilos personalizados |
 
 ---
@@ -28,10 +30,8 @@ EduAirControl es una plataforma web que permite monitorear en tiempo real las co
 EDUAIRCONTROL/
 │
 ├── Back-End/
-│   └── Back-End.txt
 │
 ├── Docs/
-│   └── Docs.txt
 │
 ├── Front-End/
 │   ├── public/
@@ -71,6 +71,11 @@ EDUAIRCONTROL/
 │   │   │       ├── AuthLayout.jsx
 │   │   │       ├── DashboardLayout.jsx
 │   │   │       └── Navbar.jsx
+│   │   │
+│   │   ├── i18n/
+│   │   │   ├── i18n.js
+│   │   │   ├── es.json
+│   │   │   └── en.json
 │   │   │
 │   │   ├── screens/
 │   │   │   ├── AllEnvironmentsScreen.jsx
@@ -165,7 +170,7 @@ npm run dev
 
 5. Abrir en el navegador:
 ```
-http://localhost:5174
+http://localhost:5173
 ```
 
 ---
@@ -174,12 +179,47 @@ http://localhost:5174
 
 ```json
 {
-  "react": "^18.x",
-  "react-dom": "^18.x",
-  "react-router-dom": "^6.x",
-  "react-icons": "^5.x"
+  "react": "^19.x",
+  "react-dom": "^19.x",
+  "react-router-dom": "^7.x",
+  "react-icons": "^5.x",
+  "i18next": "latest",
+  "react-i18next": "latest"
 }
 ```
+
+---
+
+## 🌐 Internacionalización (i18n)
+
+La aplicación soporta múltiples idiomas gracias a `react-i18next`. Actualmente disponible en:
+
+| Idioma | Código | Archivo |
+|---|---|---|
+| Español | `es` | `src/i18n/es.json` |
+| Inglés | `en` | `src/i18n/en.json` |
+
+El idioma se puede cambiar desde **Configuración → Idioma** y se guarda automáticamente para futuras sesiones.
+
+---
+
+## 🌙 Modo Oscuro
+
+La aplicación incluye modo oscuro completo, activable desde **Configuración → Apariencia**. La preferencia se guarda en `localStorage` y se mantiene al recargar la página.
+
+---
+
+## 💾 Persistencia Local
+
+Los siguientes datos se guardan en `localStorage` y se mantienen entre sesiones:
+
+| Dato | Clave |
+|---|---|
+| Idioma seleccionado | `language` |
+| Modo oscuro | `darkMode` |
+| Perfil del usuario | `profile` |
+| Configuración general | `settings` |
+| Zona horaria automática | `autoTimezone` |
 
 ---
 
@@ -192,7 +232,7 @@ http://localhost:5174
 | `Button` | Botón genérico reutilizable |
 | `Checkbox` | Checkbox con label |
 | `Divider` | Separador con texto (OR) |
-| `EnvironmentCard` | Tarjeta de ambiente con datos |
+| `EnvironmentCard` | Tarjeta de ambiente con datos detallados |
 | `EnvironmentSummaryCard` | Tarjeta resumen de ambiente |
 | `FilterBar` | Barra de filtros del dashboard |
 | `Input` | Input genérico con label |
@@ -203,8 +243,8 @@ http://localhost:5174
 |---|---|
 | `LoginForm` | Formulario de inicio de sesión |
 | `SignUpForm` | Formulario de registro |
-| `ForgotPasswordForm` | Formulario de recuperación |
-| `VerifyCodeForm` | Formulario de verificación |
+| `ForgotPasswordForm` | Formulario de recuperación de contraseña |
+| `VerifyCodeForm` | Formulario de verificación de código |
 | `ChangePasswordForm` | Formulario de cambio de contraseña |
 
 ### Layout (Estructuras)
@@ -220,9 +260,8 @@ http://localhost:5174
 
 | Nombre | Rol |
 |---|---|
-| Keneth Santiago Rubiano Silva | Desarrollador Full Stack, Especialidad en Front-End |
-| Jhon Jiaro Cortéz Vargas  | Desarrollador Full Stack,. Especialidad Back-End |
-| Maria De Los Angeles Olaya Garcia | Desarrollador Full Stack,. Especialidad Docume tación |
-
+| Keneth Santiago Rubiano Silva | Desarrollador Full Stack — Especialidad Front-End |
+| Jhon Jiaro Cortéz Vargas | Desarrollador Full Stack — Especialidad Back-End |
+| Maria De Los Angeles Olaya Garcia | Desarrollador Full Stack — Especialidad Documentación |
 
 ---
