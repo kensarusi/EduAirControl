@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import Navbar from '../components/layout/Navbar'
 import { FaHeart, FaBell } from 'react-icons/fa'
@@ -6,31 +6,17 @@ import '../styles/Favorites.css'
 
 function FavoritesScreen() {
   const { t } = useTranslation()
+  const [favorites, setFavorites] = useState([])
 
-  const [favorites] = useState([
-    {
-      id: 1,
-      nameKey: 'dashboard.env1',
-      statusKey: 'dashboard.statusWarning',
-      notifications: [
-        { id: 1, messageKey: 'favorites.notif1', timeKey: 'favorites.ago5', type: 'warning' },
-        { id: 2, messageKey: 'favorites.notif2', timeKey: 'favorites.ago15', type: 'alert' },
-      ]
-    },
-    {
-      id: 3,
-      nameKey: 'dashboard.env3',
-      statusKey: 'dashboard.statusWarning',
-      notifications: [
-        { id: 3, messageKey: 'favorites.notif3', timeKey: 'favorites.ago10', type: 'warning' },
-      ]
-    }
-  ])
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('favorites')) || []
+    setFavorites(saved)
+  }, [])
 
-  const getStatusColor = (type) => {
-    if (type === 'warning') return '#FFC107'
-    if (type === 'alert') return '#F44336'
-    return '#4CAF50'
+  const getStatusColor = (statusKey) => {
+    if (statusKey === 'dashboard.statusNormal') return '#4CAF50'
+    if (statusKey === 'dashboard.statusAlert') return '#F44336'
+    return '#FFC107'
   }
 
   return (
@@ -54,25 +40,36 @@ function FavoritesScreen() {
                   <h2>{t(fav.nameKey)}</h2>
                   <span
                     className="fav-status"
-                    style={{ color: fav.statusKey === 'dashboard.statusAlert' ? '#F44336' : '#FFC107' }}
+                    style={{ color: getStatusColor(fav.statusKey) }}
                   >
                     {t(fav.statusKey)}
                   </span>
                 </div>
-                <button className="fav-heart"><FaHeart /></button>
+                <FaHeart style={{ color: '#ff6b6b', fontSize: 22 }} />
               </div>
 
-              <div className="fav-notifications">
-                {fav.notifications.map(notif => (
-                  <div key={notif.id} className="fav-notification">
-                    <div className={`fav-notif-border ${notif.type}`} />
-                    <FaBell className={`fav-notif-icon ${notif.type}`} />
-                    <div className="fav-notif-info">
-                      <p>{t(notif.messageKey)}</p>
-                      <span>{t(notif.timeKey)}</span>
-                    </div>
-                  </div>
-                ))}
+              <div className="fav-card-body">
+                <div className="fav-metric">
+                  <span className="fav-metric-label">🌡️ {t('dashboard.temperature')}</span>
+                  <span className="fav-metric-value">{fav.temp}°C</span>
+                </div>
+                <div className="fav-metric">
+                  <span className="fav-metric-label">💧 {t('dashboard.humidity')}</span>
+                  <span className="fav-metric-value">{fav.humidity}%</span>
+                </div>
+                <div className="fav-metric">
+                  <span className="fav-metric-label">🌫️ CO₂</span>
+                  <span className="fav-metric-value">{fav.co2} ppm</span>
+                </div>
+                <div className="fav-metric">
+                  <span className="fav-metric-label">🔊 {t('dashboard.noise')}</span>
+                  <span className="fav-metric-value">{fav.noise} dB</span>
+                </div>
+              </div>
+
+              <div className="fav-card-footer">
+                <span>{t('dashboard.airQuality')}</span>
+                <strong>{t(fav.qualityKey)}</strong>
               </div>
             </div>
           ))

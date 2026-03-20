@@ -183,3 +183,71 @@ body.dark-mode .favorites-empty h2 {
 body.dark-mode .favorites-empty p {
   color: #666;
 }
+.fav-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 0;
+}
+
+.fav-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.fav-metric:last-child {
+  border-bottom: none;
+}
+
+.fav-metric-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.fav-metric-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.fav-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 5px;
+}
+
+.fav-card-footer span {
+  color: #999;
+  font-size: 14px;
+}
+
+.fav-card-footer strong {
+  font-size: 14px;
+  color: #333;
+}
+
+body.dark-mode .fav-metric {
+  border-bottom-color: #2a2a4a;
+}
+
+body.dark-mode .fav-metric-label {
+  color: #aaa;
+}
+
+body.dark-mode .fav-metric-value {
+  color: #e0e0e0;
+}
+
+body.dark-mode .fav-card-footer {
+  border-top-color: #2a2a4a;
+}
+
+body.dark-mode .fav-card-footer strong {
+  color: #e0e0e0;
+}

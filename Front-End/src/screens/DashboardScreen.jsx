@@ -8,14 +8,23 @@ import '../styles/Dashboard.css'
 function DashboardScreen() {
   const { t } = useTranslation()
   const [activeFilter, setActiveFilter] = useState('')
+
+  const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || []
+
   const [environments, setEnvironments] = useState([
-    { id: 1, nameKey: 'dashboard.env1', statusKey: 'dashboard.statusWarning', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', isFavorite: false },
-    { id: 2, nameKey: 'dashboard.env2', statusKey: 'dashboard.statusAlert', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', isFavorite: false },
-    { id: 3, nameKey: 'dashboard.env3', statusKey: 'dashboard.statusWarning', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', isFavorite: false },
+    { id: 1, nameKey: 'dashboard.env1', statusKey: 'dashboard.statusWarning', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', isFavorite: savedFavorites.some(f => f.id === 1) },
+    { id: 2, nameKey: 'dashboard.env2', statusKey: 'dashboard.statusAlert', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', isFavorite: savedFavorites.some(f => f.id === 2) },
+    { id: 3, nameKey: 'dashboard.env3', statusKey: 'dashboard.statusWarning', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', isFavorite: savedFavorites.some(f => f.id === 3) },
   ])
 
   const handleToggleFavorite = (id, isFav) => {
-    setEnvironments(environments.map(env => env.id === id ? { ...env, isFavorite: isFav } : env))
+    const updated = environments.map(env =>
+      env.id === id ? { ...env, isFavorite: isFav } : env
+    )
+    setEnvironments(updated)
+
+    const favorites = updated.filter(env => env.isFavorite)
+    localStorage.setItem('favorites', JSON.stringify(favorites))
   }
 
   const filteredEnvironments = environments.filter(env => {
