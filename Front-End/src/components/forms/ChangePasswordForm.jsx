@@ -1,44 +1,37 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Input from '../common/Input'
-import Button from '../common/Button'
+import { useTranslation } from 'react-i18next'
+import { Input, Button } from '../ui'
 
 function ChangePasswordForm() {
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (newPassword !== confirmPassword) {
-      alert('Las contraseñas no coinciden')
-      return
-    }
-    console.log('Contraseña cambiada')
+    if (newPassword !== confirmPassword) { alert(t('changePassword.mismatch')); return }
     navigate('/')
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <Input
-        label="New Password"
+        label={t('changePassword.newPassword')}
         type="password"
-        placeholder="Enter new password"
+        placeholder={t('login.placeholder')}
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
       />
       <Input
-        label="Confirm Password"
+        label={t('changePassword.confirmPassword')}
         type="password"
-        placeholder="Confirm new password"
+        placeholder={t('login.placeholder')}
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <Button
-        text="Confirm Change"
-        className="btn-login"
-        type="submit"
-      />
+      <Button text={t('changePassword.confirmBtn')} className="btn-confirm" type="submit" />
     </form>
   )
 }

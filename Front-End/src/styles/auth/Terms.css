@@ -1,0 +1,101 @@
+.terms-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0fafa;
+  font-family: Arial, sans-serif;
+}
+
+.terms-container {
+  max-width: 500px;
+  width: 90%;
+  padding: 30px;
+  border: 2px solid #5de6c8;
+  border-radius: 15px;
+  background: white;
+  text-align: center;
+}
+
+.terms-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.terms-header h1 {
+  font-size: 22px;
+  color: #333;
+  margin: 0;
+}
+
+.terms-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #5de6c8;
+}
+
+.terms-content {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.terms-content ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.terms-content li {
+  margin-bottom: 8px;
+}
+
+.btn-accept {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 2px solid #333;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-accept:hover {
+  background-color: #5de6c8;
+  color: white;
+  border-color: #5de6c8;
+}
+
+/* Dark Mode */
+body.dark-mode .terms-page {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .terms-container {
+  background-color: #16213e;
+}
+
+body.dark-mode .terms-header h1 {
+  color: #5de6c8;
+}
+
+body.dark-mode .terms-content {
+  color: #e0e0e0;
+}
+
+body.dark-mode .btn-accept {
+  border-color: #e0e0e0;
+  color: #e0e0e0;
+}
+
+body.dark-mode .btn-accept:hover {
+  background-color: #5de6c8;
+  border-color: #5de6c8;
+  color: white;
+}

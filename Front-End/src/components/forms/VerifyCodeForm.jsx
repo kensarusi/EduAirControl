@@ -1,26 +1,23 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from '../common/Button'
+import { useTranslation } from 'react-i18next'
+import { Button } from '../ui'
 
 function VerifyCodeForm() {
   const [code, setCode] = useState(['', '', '', '', ''])
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleChange = (index, value) => {
     if (value.length > 1) return
     const newCode = [...code]
     newCode[index] = value
     setCode(newCode)
-
-    // Auto-focus al siguiente input
-    if (value && index < 4) {
-      document.getElementById(`code-${index + 1}`).focus()
-    }
+    if (value && index < 4) document.getElementById(`code-${index + 1}`).focus()
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Código:', code.join(''))
     navigate('/change-password')
   }
 
@@ -39,12 +36,10 @@ function VerifyCodeForm() {
           />
         ))}
       </div>
-      <p className="resend-code">Resend Code</p>
-      <Button
-        text="Verify Code"
-        className="btn-login"
-        type="submit"
-      />
+      <a href="#" className="resend-code" onClick={(e) => e.preventDefault()}>
+        {t('verifyCode.resend')}
+      </a>
+      <Button text={t('verifyCode.verifyBtn')} className="btn-login" type="submit" />
     </form>
   )
 }
