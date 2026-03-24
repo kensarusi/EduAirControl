@@ -1,8 +1,8 @@
 {
   "nav": {
-    "environments": "Ambientes",
+    "environments": "Ranking",
     "profile": "Mi perfil",
-    "activity": "Actividad",
+    "activity": "Ambientes",
     "favorites": "Favoritos",
     "settings": "Configuración",
     "logout": "Cerrar sesión"
