@@ -16,7 +16,7 @@ body {
   width: 100%;
 }
 /* ============================================ */
-/* 🌙 MODO OSCURO GLOBAL                       */
+/*  MODO OSCURO GLOBAL                       */
 /* ============================================ */
 
 /* --- Body --- */
@@ -470,7 +470,7 @@ body.dark-mode::-webkit-scrollbar-thumb {
 }
 
 /* ============================================ */
-/* 🔧 CORRECCIONES MODO OSCURO                 */
+/* CORRECCIONES MODO OSCURO                 */
 /* ============================================ */
 
 /* --- AllEnvironments: tarjetas de métricas (CO2, dB, Temp, Humidity) --- */
@@ -510,7 +510,7 @@ body.dark-mode .all-env-title {
 }
 
 /* ============================================ */
-/* 🔧 CORRECCIONES DASHBOARD MODO OSCURO       */
+/* CORRECCIONES DASHBOARD MODO OSCURO       */
 /* ============================================ */
 
 /* --- Layout general del dashboard --- */
@@ -672,4 +672,180 @@ body.dark-mode .badge-warning {
 body.dark-mode .badge-alert {
   background-color: #b71c1c;
   color: #ffffff;
+}
+
+/* ============================================ */
+/* FIX GLOBAL RESPONSIVE                     */
+/* ============================================ */
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  max-width: 100%;
+}
+
+/* Imágenes e inputs adaptables */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button {
+  max-width: 100%;
+}
+
+/* ============================================ */
+/* LAYOUT PRINCIPAL (DASHBOARD)              */
+/* ============================================ */
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ============================================ */
+/*  CARDS                                     */
+/* ============================================ */
+
+.env-card,
+.summary-card,
+.filter-card {
+  width: 100%;
+}
+
+/* ============================================ */
+/*  NAVBAR RESPONSIVE                         */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .navbar-item {
+    width: 100%;
+    padding: 10px 0;
+  }
+}
+
+/* ============================================ */
+/*  TABLETS                                   */
+/* ============================================ */
+
+@media (max-width: 1024px) {
+  .dashboard-layout {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .filter-card {
+    flex: 1 1 45%;
+  }
+}
+
+/* ============================================ */
+/* CELULARES                                 */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .env-card,
+  .summary-card,
+  .filter-card {
+    margin-bottom: 15px;
+  }
+
+  .toggle {
+    transform: scale(0.9);
+  }
+}
+
+/* ============================================ */
+/* MINI CELULARES                            */
+/* ============================================ */
+
+@media (max-width: 480px) {
+  .dashboard-layout {
+    padding: 8px;
+  }
+
+  .env-card-title h3 {
+    font-size: 14px;
+  }
+
+  .env-metric p {
+    font-size: 12px;
+  }
+
+  .filter-card {
+    width: 100%;
+  }
+}
+
+/* ============================================ */
+/* FIX PROFILE MOBILE                        */
+/* ============================================ */
+
+@media (max-width: 768px) {
+
+  /* Card principal (perfil) */
+  .profile-header-card {
+    padding: 20px 15px;
+    text-align: center;
+  }
+
+  .profile-header-card h1 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  /* Botón cerrar sesión */
+  .profile-header-card button {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  /* Sección info personal */
+  .profile-section-card {
+    padding: 15px;
+  }
+
+  /* Cada campo (nombre, correo, etc) */
+  .profile-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Botón actualizar */
+  .btn-update {
+    width: 100%;
+    text-align: center;
+  }
+
 }
