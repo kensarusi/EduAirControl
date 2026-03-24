@@ -21,13 +21,37 @@
 .all-env-headers {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background-color: #5de6c8;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  text-align: center;
+  gap: 10px;
+  background: rgba(0, 168, 89, 0.15);
+  padding: 12px;
+  border-radius: 12px;
   margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 168, 89, 0.15);
+}
+
+/* INPUTS */
+.all-env-headers input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  outline: none;
+  text-align: center;
+  font-size: 14px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.all-env-headers input:hover {
+  border: 1px solid #00A859;
+}
+
+/* FOCUS (cuando escribes) */
+.all-env-headers input:focus {
+  border: 1px solid #00A859;
+  box-shadow: 0 0 8px rgba(0, 168, 89, 0.5);
+  transform: scale(1.03);
 }
 
 /* Tarjetas */
