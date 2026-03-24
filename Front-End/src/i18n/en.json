@@ -1,8 +1,8 @@
 {
   "nav": {
-    "environments": "Environments",
+    "environments": "Ranking",
     "profile": "My Profile",
-    "activity": "Activity",
+    "activity": "Enviroments",
     "favorites": "Favorites",
     "settings": "Settings",
     "logout": "Log Out"
