@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { MdOutlineMeetingRoom } from 'react-icons/md'
 import { FaUser, FaHeart } from 'react-icons/fa'
 import { IoStatsChart, IoSettings, IoLogOut } from 'react-icons/io5'
+import NavbarInfo from './NavbarInfo' 
 import '../../styles/layout/Navbar.css'
 
 function Navbar() {
@@ -20,9 +21,16 @@ function Navbar() {
 
   return (
     <nav className="navbar">
+      
+      {/* LOGO */}
       <div className="navbar-logo" onClick={() => navigate('/dashboard')}>
         <h2>EduAirControl</h2>
       </div>
+
+      
+      <NavbarInfo role="admin" />
+
+      {/* MENU */}
       <div className="navbar-menu">
         {menuItems.map((item) => (
           <div
@@ -34,6 +42,7 @@ function Navbar() {
             <span>{item.label}</span>
           </div>
         ))}
+
         <div className="navbar-item logout" onClick={() => navigate('/')}>
           <IoLogOut />
           <span>{t('nav.logout')}</span>

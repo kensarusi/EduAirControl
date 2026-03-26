@@ -849,3 +849,20 @@ button {
   }
 
 }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-info {
+  display: flex;
+  gap: 15px;
+  color: #5de6c8;
+  font-size: 14px;
+  align-items: center;
+
+  position: relative;
+  right: 115px; 
+}
