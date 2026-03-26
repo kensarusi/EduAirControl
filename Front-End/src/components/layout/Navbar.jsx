@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { MdOutlineMeetingRoom } from 'react-icons/md'
 import { FaUser, FaHeart } from 'react-icons/fa'
 import { IoStatsChart, IoSettings, IoLogOut } from 'react-icons/io5'
-import '../../styles/Navbar.css'
+import '../../styles/layout/Navbar.css'
 
 function Navbar() {
   const navigate = useNavigate()
@@ -17,10 +17,6 @@ function Navbar() {
     { icon: <FaHeart />, label: t('nav.favorites'), path: '/favorites' },
     { icon: <IoSettings />, label: t('nav.settings'), path: '/settings' },
   ]
-
-  const handleLogout = () => {
-    navigate('/')
-  }
 
   return (
     <nav className="navbar">
@@ -38,7 +34,7 @@ function Navbar() {
             <span>{item.label}</span>
           </div>
         ))}
-        <div className="navbar-item logout" onClick={handleLogout}>
+        <div className="navbar-item logout" onClick={() => navigate('/')}>
           <IoLogOut />
           <span>{t('nav.logout')}</span>
         </div>

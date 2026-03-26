@@ -1,33 +1,29 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Input from '../common/Input'
-import Button from '../common/Button'
+import { useTranslation } from 'react-i18next'
+import { Input } from '../ui'
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Email enviado:', email)
     navigate('/verify-code')
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <Input
-        label="Email Address"
+        label={t('forgotPassword.emailLabel')}
         type="email"
-        placeholder="Enter your email"
+        placeholder={t('login.placeholder')}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Button
-        text="Send Recovery Code"
-        className="btn-login"
-        type="submit"
-      />
-      <p className="try-another">Try Another Way</p>
+      <button type="submit" className="btn-send-code">{t('forgotPassword.sendBtn')}</button>
+      <p className="try-another">{t('forgotPassword.tryAnother')}</p>
     </form>
   )
 }
