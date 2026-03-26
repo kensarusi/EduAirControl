@@ -11,7 +11,7 @@ function AllEnvironmentsScreen() {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  // ✅ ESTADO DE FILTROS
+  //  ESTADO DE FILTROS
   const [filters, setFilters] = useState({
     name: '',
     co2: '',
@@ -25,7 +25,7 @@ function AllEnvironmentsScreen() {
     { nameKey: 'dashboard.env3', statusKey: 'dashboard.statusWarning', co2: '1176 ppm', db: '39', temp: '22°', humidity: '49%', qualityKey: 'dashboard.qualityRegular' },
   ]
 
-  // ✅ FILTRADO
+  //  FILTRADO
   const filteredEnvironments = environments.filter(env =>
     t(env.nameKey).toLowerCase().includes(filters.name.toLowerCase()) &&
     env.co2.toLowerCase().includes(filters.co2.toLowerCase()) &&
@@ -45,17 +45,17 @@ function AllEnvironmentsScreen() {
         <BackButton onClick={() => navigate('/dashboard')} />
         <h1 className="all-env-title">{t('allEnvironments.title')}</h1>
 
-        {/* ✅ FILTROS */}
+        {/*FILTROS */}
         <EnvironmentFilters filters={filters} setFilters={setFilters} />
 
-        {/* ✅ LISTA FILTRADA */}
+        {/*LISTA FILTRADA */}
         <div className="all-env-cards">
           {filteredEnvironments.map((env) => (
             <EnvironmentSummaryCard key={env.nameKey} {...env} />
           ))}
         </div>
 
-        {/* ✅ RESUMEN */}
+        {/*RESUMEN */}
         <div className="all-env-summary">
           <div className="summary-badge normal">
             <span>{t('allEnvironments.statusNormal')}</span>
