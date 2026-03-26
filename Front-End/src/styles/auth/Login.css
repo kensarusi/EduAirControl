@@ -1,0 +1,253 @@
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0fafa;
+  font-family: Arial, sans-serif;
+}
+
+/* Tarjeta del login */
+.login-card {
+  background: white;
+  border: 2px solid #5de6c8;
+  border-radius: 15px;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+}
+
+/* Header */
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.login-header h1 {
+  color: #333;
+  font-size: 28px;
+  margin: 0;
+}
+
+.login-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #5de6c8;
+}
+
+/* Inputs */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #5de6c8;
+}
+
+/* Opciones login */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.remember-me input[type="checkbox"] {
+  accent-color: #5de6c8;
+}
+
+.forgot-password {
+  color: #5de6c8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Botones */
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  background-color: #5de6c8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-login:hover {
+  background-color: #4dd4b6;
+}
+
+/* Separador */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider span {
+  padding: 0 10px;
+  color: #999;
+}
+
+/* Sign Up */
+.btn-signup {
+  padding: 10px 30px;
+  background: transparent;
+  color: #5de6c8;
+  border: 2px solid #5de6c8;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.btn-signup:hover {
+  background-color: #5de6c8;
+  color: white;
+}
+
+/* Social */
+.social-text {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-facebook {
+  padding: 10px 20px;
+  background-color: #5de6c8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-google {
+  padding: 10px 20px;
+  background-color: #5de6c8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-facebook svg,
+.btn-google svg {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  align-self: flex-start;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.back-button:hover {
+  color: #5de6c8;
+}
+
+/* Dark Mode */
+body.dark-mode .login-container {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .login-card {
+  background-color: #16213e;
+}
+
+body.dark-mode .login-header h1 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .input-group label {
+  color: #e0e0e0;
+}
+
+body.dark-mode .input-group input {
+  background-color: #1a2a4a;
+  border-color: #2a3a5a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .input-group input::placeholder {
+  color: #666;
+}
+
+body.dark-mode .remember-me {
+  color: #aaa;
+}
+
+body.dark-mode .social-text {
+  color: #aaa;
+}
+
+body.dark-mode .divider::before,
+body.dark-mode .divider::after {
+  border-bottom-color: #2a3a5a;
+}
+
+body.dark-mode .divider span {
+  color: #666;
+}
+
+body.dark-mode .back-button {
+  color: #aaa;
+}

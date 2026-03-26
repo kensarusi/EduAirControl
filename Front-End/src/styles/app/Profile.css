@@ -1,0 +1,321 @@
+.profile-page {
+  min-height: 100vh;
+  background-color: #f0fafa;
+  width: 100%;
+}
+
+.profile-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* Header Card */
+.profile-header-card {
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.profile-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #5de6c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 45px;
+  color: white;
+}
+
+.profile-header-card h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.profile-title {
+  color: #5de6c8;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.btn-logout {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.btn-logout:hover {
+  background-color: #e84141;
+  transform: scale(1.05);
+}
+
+/* Section Cards */
+.profile-section-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+}
+
+.profile-section-card h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.section-description {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* Fields */
+.profile-field {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-field:last-child {
+  border-bottom: none;
+}
+
+.field-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #f0fafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5de6c8;
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.field-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 3px;
+}
+
+.field-value {
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.btn-update {
+  background: none;
+  border: 1px solid #5de6c8;
+  color: #5de6c8;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s;
+}
+
+.btn-update:hover {
+  background-color: #5de6c8;
+  color: white;
+}
+
+/* Toggle */
+.toggle {
+  width: 50px;
+  height: 26px;
+  background-color: #ccc;
+  border-radius: 13px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.toggle.active {
+  background-color: #5de6c8;
+}
+
+.toggle-circle {
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggle.active .toggle-circle {
+  transform: translateX(24px);
+}
+
+/* Modal */
+.profile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.profile-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 35px 30px;
+  width: 380px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-modal h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+.profile-modal-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.profile-modal-input:focus {
+  outline: none;
+  border-color: #5de6c8;
+}
+
+.profile-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-modal-cancel {
+  padding: 10px 20px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  background: transparent;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-modal-cancel:hover {
+  border-color: #999;
+  color: #333;
+}
+
+.btn-modal-save {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #5de6c8;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-modal-save:hover {
+  background: #4dd4b6;
+}
+
+/* Dark Mode */
+body.dark-mode .profile-page {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .profile-header-card,
+body.dark-mode .profile-section-card {
+  background-color: #16213e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .profile-header-card h1,
+body.dark-mode .profile-section-card h2,
+body.dark-mode .field-value {
+  color: #e0e0e0;
+}
+
+body.dark-mode .field-label,
+body.dark-mode .section-description {
+  color: #888;
+}
+
+body.dark-mode .field-icon {
+  background-color: #1a2a4a;
+}
+
+body.dark-mode .profile-field {
+  border-bottom-color: #2a2a4a;
+}
+
+body.dark-mode .profile-modal {
+  background-color: #16213e;
+}
+
+body.dark-mode .profile-modal h3 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .profile-modal-input {
+  background-color: #1a2a4a;
+  border-color: #2a3a5a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .profile-modal-input::placeholder {
+  color: #666;
+}
+
+body.dark-mode .btn-modal-cancel {
+  border-color: #2a3a5a;
+  color: #aaa;
+}
+
+body.dark-mode .btn-modal-cancel:hover {
+  border-color: #5de6c8;
+  color: #e0e0e0;
+}
