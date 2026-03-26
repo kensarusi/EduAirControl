@@ -17,8 +17,7 @@ function NavbarInfo({ role }) {
   return (
     <div className="navbar-info">
       <span>Hola {role === "admin" ? "Administrador" : "Usuario"}</span>
-      <span>{fecha}</span>
-      <span>{hora}</span>
+      <span>{dateTime}</span>
     </div>
   );
 }
