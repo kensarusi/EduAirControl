@@ -15,9 +15,11 @@ function SettingsScreen() {
   const [autoTimezone, setAutoTimezone] = useState(
     () => JSON.parse(localStorage.getItem('autoTimezone')) ?? true
   )
+
   const [settings, setSettings] = useState(
     () => JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
   )
+
   const [modalOpen, setModalOpen] = useState(false)
   const [editField, setEditField] = useState('')
   const [editValue, setEditValue] = useState('')
@@ -41,10 +43,16 @@ function SettingsScreen() {
     setSettings((prev) => ({ ...prev, [field]: newValue }))
   }
 
+  // actualizacion de idioma con i18n y guardado en localStorage
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang)
     localStorage.setItem('language', lang)
-    setSettings((prev) => ({ ...prev, language: lang === 'es' ? 'Español' : 'English' }))
+
+    let languageName = 'English'
+    if (lang === 'es') languageName = 'Español'
+    if (lang === 'fr') languageName = 'Français' // 👈 NUEVO
+
+    setSettings((prev) => ({ ...prev, language: languageName }))
     setShowLangModal(false)
   }
 
@@ -118,22 +126,34 @@ function SettingsScreen() {
         />
       )}
 
+      {/*  MODAL DE IDIOMA ACTUALIZADO */}
       {showLangModal && (
         <div className="lang-modal-overlay" onClick={() => setShowLangModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
             <h3>🌐 {t('settings.language')}</h3>
+
             <button
               className={`lang-option ${i18n.language === 'es' ? 'lang-active' : ''}`}
               onClick={() => handleChangeLanguage('es')}
             >
               🇨🇴 Español
             </button>
+
             <button
               className={`lang-option ${i18n.language === 'en' ? 'lang-active' : ''}`}
               onClick={() => handleChangeLanguage('en')}
             >
               🇺🇸 English
             </button>
+
+            
+            <button
+              className={`lang-option ${i18n.language === 'fr' ? 'lang-active' : ''}`}
+              onClick={() => handleChangeLanguage('fr')}
+            >
+              🇫🇷 Français
+            </button>
+
           </div>
         </div>
       )}

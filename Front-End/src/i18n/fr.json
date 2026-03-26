@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "environments": "Classement",
+    "profile": "Mon profil",
+    "activity": "Environnements",
+    "favorites": "Favoris",
+    "settings": "Paramètres",
+    "logout": "Se déconnecter"
+  },
+  "login": {
+    "title": "Se connecter",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "placeholder": "Valeur",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginBtn": "Se connecter",
+    "signUpBtn": "S'inscrire",
+    "orWith": "Se connecter avec"
+  },
+  "signup": {
+    "title": "S'inscrire",
+    "name": "Nom",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "agreeTerms": "J'accepte les ",
+    "termsLink": "Conditions d'utilisation et Politique de confidentialité.",
+    "signUpBtn": "S'inscrire",
+    "passwordMismatch": "Les mots de passe ne correspondent pas !",
+    "mustAgreeTerms": "Vous devez accepter les Conditions générales"
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "description": "Entrez votre adresse e-mail et nous vous enverrons un code de récupération.",
+    "emailLabel": "Adresse e-mail",
+    "sendBtn": "Envoyer le code de récupération",
+    "tryAnother": "Essayer autrement"
+  },
+  "verifyCode": {
+    "title": "Vérifier le code",
+    "description": "Entrez le code à 5 chiffres envoyé à votre e-mail.",
+    "resend": "Renvoyer le code",
+    "verifyBtn": "Vérifier le code"
+  },
+  "changePassword": {
+    "title": "Mot de passe oublié",
+    "description": "Mettez à jour votre mot de passe pour sécuriser votre compte.",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmBtn": "Confirmer le changement",
+    "mismatch": "Les mots de passe ne correspondent pas !"
+  },
+  "terms": {
+    "title": "Conditions générales",
+    "intro": "En accédant et en utilisant EduAirControl, vous acceptez de respecter les conditions suivantes :",
+    "item1": "Vous fournirez des informations précises et complètes.",
+    "item2": "Vous êtes responsable de la confidentialité de vos identifiants.",
+    "item3": "La plateforme doit être utilisée uniquement à des fins autorisées et légales.",
+    "item4": "Les données environnementales sont uniquement destinées au suivi et aux rapports.",
+    "footer1": "EduAirControl se réserve le droit de mettre à jour ces conditions à tout moment.",
+    "footer2": "En cliquant sur « Accepter », vous confirmez avoir lu et accepté ces Conditions générales.",
+    "acceptBtn": "ACCEPTER"
+  },
+  "dashboard": {
+    "clickDetails": "Cliquez pour voir les détails",
+    "idealRange": "Plage idéale",
+    "temperature": "Température",
+    "humidity": "Humidité",
+    "noise": "Niveau de bruit",
+    "airQuality": "Qualité de l'air",
+    "env1": "Environnement 290-1",
+    "env2": "Environnement 290-2",
+    "env3": "Environnement 290-3",
+    "statusWarning": "Avertissement",
+    "statusAlert": "Alerte",
+    "statusNormal": "Normal",
+    "qualityRegular": "Moyenne",
+    "qualityGood": "Bonne",
+    "qualityBad": "Mauvaise"
+  },
+  "filterBar": {
+    "all": "Tous les environnements",
+    "allSub": "Cliquez pour tout voir",
+    "normal": "État normal",
+    "warnings": "Avertissements",
+    "alerts": "Alertes"
+  },
+  "allEnvironments": {
+    "title": "Tous les environnements",
+    "ambiente": "Environnement",
+    "statusNormal": "État normal",
+    "statusWarning": "Avertissements",
+    "statusAlert": "Alertes",
+    "airQuality": "Qualité de l'air :",
+    "humidity": "Humidité",
+    "temp": "Temp",
+    "db": "dB",
+    "co2": "CO2"
+  },
+  "favorites": {
+    "title": "Favoris",
+    "description": "Notifications de vos environnements favoris",
+    "empty": "Vous n'avez pas d'environnements favoris",
+    "emptyHint": "Cliquez sur un cœur dans le dashboard pour ajouter des favoris",
+    "notif1": "⚠️ Température élevée : 26°C",
+    "notif2": "🔴 CO₂ élevé : 1200 ppm",
+    "notif3": "⚠️ Humidité basse : 28%",
+    "ago5": "Il y a 5 min",
+    "ago15": "Il y a 15 min",
+    "ago10": "Il y a 10 min"
+  },
+  "profile": {
+    "title": "Informations personnelles",
+    "description": "Ces informations seront publiques, faites attention à ce que vous partagez.",
+    "fullName": "Nom complet",
+    "email": "Adresse e-mail",
+    "titleLabel": "Poste",
+    "updateBtn": "Mettre à jour",
+    "logoutBtn": "Se déconnecter"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "appearance": "Apparence",
+    "darkMode": "Mode sombre",
+    "enabled": "Activé",
+    "disabled": "Désactivé",
+    "langAndDates": "Langues et dates",
+    "langDescription": "Choisissez la langue et le format de date pour votre compte.",
+    "language": "Langue",
+    "dateFormat": "Format de date",
+    "autoTimezone": "Fuseau horaire automatique",
+    "updateBtn": "Mettre à jour"
+  },
+  "google": {
+    "chooseAccount": "Choisissez votre compte",
+    "otherAccount": "Un autre compte"
+  },
+  "status": {
+    "normal": "Normal",
+    "warning": "Avertissement",
+    "alert": "Alerte",
+    "excellent": "Excellent",
+    "regular": "Moyen",
+    "bad": "Mauvais"
+  }
+}
