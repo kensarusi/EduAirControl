@@ -1,22 +1,8 @@
 /* Contenedor principal */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f0fafa;
-  font-family: Arial, sans-serif;
-}
+/* .login-container estilos movidos a AuthLayout */
 
 /* Tarjeta del login */
-.login-card {
-  background: white;
-  border: 2px solid #5de6c8;
-  border-radius: 15px;
-  padding: 40px;
-  width: 400px;
-  text-align: center;
-}
+/* .login-card estilos movidos a AuthLayout */
 
 /* Header */
 .login-header {
@@ -205,13 +191,9 @@
 }
 
 /* Dark Mode */
-body.dark-mode .login-container {
-  background-color: #1a1a2e;
-}
+body.dark-mode /* .login-container estilos movidos a AuthLayout */
 
-body.dark-mode .login-card {
-  background-color: #16213e;
-}
+body.dark-mode /* .login-card estilos movidos a AuthLayout */
 
 body.dark-mode .login-header h1 {
   color: #e0e0e0;

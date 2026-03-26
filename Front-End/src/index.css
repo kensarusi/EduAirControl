@@ -1,3 +1,36 @@
+/* ============================================ */
+/* AUTH LAYOUT COMPARTIDO                      */
+/* ============================================ */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0fafa;
+  font-family: Arial, sans-serif;
+}
+
+.auth-card {
+  background: white;
+  border: 2px solid #5de6c8;
+  border-radius: 15px;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+}
+
+body.dark-mode .auth-container {
+  background-color: #1a1a2e;
+}
+
+body.dark-mode .auth-card {
+  background-color: #16213e;
+  border-color: #5de6c8;
+  color: #e0e0e0;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -45,23 +78,9 @@ body.dark-mode .navbar-item.active {
 }
 
 /* --- Login, SignUp, ForgotPassword, VerifyCode, ChangePassword --- */
-body.dark-mode .login-container,
-body.dark-mode .signup-container,
-body.dark-mode .forgot-container,
-body.dark-mode .verify-container,
-body.dark-mode .change-container {
-  background-color: #1a1a2e;
-}
+/* contenedores auth → ahora cubiertos por .auth-container en AuthLayout */
 
-body.dark-mode .login-card,
-body.dark-mode .signup-card,
-body.dark-mode .forgot-card,
-body.dark-mode .verify-card,
-body.dark-mode .change-card {
-  background-color: #16213e;
-  border-color: #5de6c8;
-  color: #e0e0e0;
-}
+/* cards auth → ahora cubiertos por .auth-card en AuthLayout */
 
 body.dark-mode .login-card h1,
 body.dark-mode .signup-card h1,
