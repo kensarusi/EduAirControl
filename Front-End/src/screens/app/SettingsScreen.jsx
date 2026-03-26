@@ -50,7 +50,9 @@ function SettingsScreen() {
 
     let languageName = 'English'
     if (lang === 'es') languageName = 'Español'
-    if (lang === 'fr') languageName = 'Français' // 👈 NUEVO
+    if (lang === 'fr') languageName = 'Français' 
+    if (lang === 'pt') languageName = 'Português'
+
 
     setSettings((prev) => ({ ...prev, language: languageName }))
     setShowLangModal(false)
@@ -153,6 +155,13 @@ function SettingsScreen() {
             >
               🇫🇷 Français
             </button>
+
+             <button
+          className={`lang-option ${i18n.language === 'pt' ? 'lang-active' : ''}`}
+          onClick={() => handleChangeLanguage('pt')}
+        >
+          🇧🇷 Português
+        </button>
 
           </div>
         </div>

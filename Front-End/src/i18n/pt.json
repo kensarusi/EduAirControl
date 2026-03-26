@@ -1,0 +1,148 @@
+{
+    "nav": {
+        "environments": "Ranking",
+        "profile": "Meu perfil",
+        "activity": "Ambientes",
+        "favorites": "Favoritos",
+        "settings": "Configurações",
+        "logout": "Sair"
+        },
+    "login": {
+        "title": "Entrar",
+        "email": "E-mail",
+        "password": "Senha",
+        "placeholder": "Valor",
+        "rememberMe": "Lembrar de mim",
+        "forgotPassword": "Esqueceu sua senha?",
+        "loginBtn": "Entrar",
+        "signUpBtn": "Cadastrar-se",
+        "orWith": "Entrar com"
+    },
+    "signup": {
+        "title": "Cadastrar-se",
+        "name": "Nome",
+        "email": "E-mail",
+        "password": "Senha",
+        "confirmPassword": "Confirmar senha",
+        "agreeTerms": "Aceito os ",
+        "termsLink": "Termos de uso e Política de Privacidade.",
+        "signUpBtn": "Cadastrar-se",
+        "passwordMismatch": "As senhas não coincidem!",
+        "mustAgreeTerms": "Você deve aceitar os Termos e Condições"
+    },
+    "forgotPassword": {
+        "title": "Esqueci minha senha",
+        "description": "Digite seu e-mail e enviaremos um código de recuperação.",
+        "emailLabel": "E-mail",
+        "sendBtn": "Enviar código de recuperação",
+        "tryAnother": "Tentar de outra forma"
+    },
+    "verifyCode": {
+        "title": "Verificar código",
+        "description": "Digite o código de 5 dígitos enviado ao seu e-mail.",
+        "resend": "Reenviar código",
+        "verifyBtn": "Verificar código"
+    },
+    "changePassword": {
+        "title": "Esqueci minha senha",
+        "description": "Atualize sua senha para manter sua conta segura.",
+        "newPassword": "Nova senha",
+        "confirmPassword": "Confirmar senha",
+        "confirmBtn": "Confirmar alteração",
+        "mismatch": "As senhas não coincidem!"
+    },
+    "terms": {
+        "title": "Termos e Condições",
+        "intro": "Ao acessar e usar o EduAirControl, você concorda em cumprir os seguintes termos:",
+        "item1": "Você fornecerá informações precisas e completas.",
+        "item2": "Você é responsável por manter a confidencialidade de suas credenciais.",
+        "item3": "A plataforma deve ser usada apenas para fins autorizados e legais.",
+        "item4": "Os dados ambientais são apenas para monitoramento e relatórios.",
+        "footer1": "O EduAirControl se reserva o direito de atualizar estes termos a qualquer momento.",
+        "footer2": "Ao cliclar em \"Aceitar\", você confirma que leu e concorda com os Termos de Uso e Política de Privacidade.",
+        "acceptBtn": "ACEITAR"  
+    },
+        "dashboard": {
+        "clickDetails": "Clique para ver detalhes",
+        "idealRange": "Faixa ideal",
+        "temperature": "Temperatura",
+        "humidity": "Umidade",
+        "noise": "Nível de ruído",
+        "airQuality": "Qualidade do ar",
+        "env1": "Ambiente 290-1",
+        "env2": "Ambiente 290-2",
+        "env3": "Ambiente 290-3",
+        "statusWarning": "Aviso",
+        "statusAlert": "Alerta",
+        "statusNormal": "Normal",
+        "qualityRegular": "Regular",
+        "qualityGood": "Boa",
+        "qualityBad": "Ruim"
+    },
+    "filterBar": {
+        "all": "Todos os ambientes",
+        "allsub": "Clique para ver todos",
+        "normal": "Estado normal",
+        "warnings": "Avisos",
+        "alerts": "Alertas"
+    },
+    "allEnvironments": {
+        "title": "Todos os ambientes",
+        "Ambiente": "Ambiente",
+        "statusNormal": "Estado normal",
+        "statusWarning": "Avisos",
+        "statusAlert": "Alertas",
+        "airQuality": "Qualidade do ar:",
+        "humidity": "Umidade",
+        "temp": "Temp",
+        "db": "dB",
+        "co2": "CO2"
+    },
+    "favorites": {
+    "title": "Favoritos",
+    "description": "Notificações dos seus ambientes favoritos",
+    "empty": "Você não tem ambientes favoritos",
+    "emptyHint": "Clique em um coração no dashboard para adicionar favoritos",
+    "notif1": "⚠️ Temperatura alta: 26°C",
+    "notif2": "🔴 CO₂ alto: 1200 ppm",
+    "notif3": "⚠️ Umidade baixa: 28%",
+    "ago5": "Há 5 min",
+    "ago15": "Há 15 min",
+    "ago10": "Há 10 min"
+  },
+  "profile": {
+    "title": "Informações do perfil",
+    "description": "Essas informações serão públicas, tenha cuidado com o que compartilha.",
+    "fullName": "Nome completo",
+    "email": "E-mail",
+    "titleLabel": "Cargo",
+    "updateBtn": "Atualizar",
+    "logoutBtn": "Sair"
+  },
+  "settings": {
+    "title": "Configurações",
+    "appearance": "Aparência",
+    "darkMode": "Modo escuro",
+    "enabled": "Ativado",
+    "disabled": "Desativado",
+    "langAndDates": "Idiomas e datas",
+    "langDescription": "Escolha o idioma e o formato de data para sua conta.",
+    "language": "Idioma",
+    "dateFormat": "Formato de data",
+    "autoTimezone": "Fuso horário automático",
+    "updateBtn": "Atualizar"
+  },
+  "google": {
+    "chooseAccount": "Escolha sua conta",
+    "otherAccount": "Outra conta"
+  },
+  "status": {
+    "normal": "Normal",
+    "warning": "Aviso",
+    "alert": "Alerta",
+    "excellent": "Excelente",
+    "regular": "Regular",
+    "bad": "Ruim"
+  }
+}
+
