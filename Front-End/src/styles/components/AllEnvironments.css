@@ -30,27 +30,65 @@
   box-shadow: 0 4px 15px rgba(0, 168, 89, 0.15);
 }
 
-/* INPUTS */
-.all-env-headers input {
-  padding: 10px;
+/* FLOATING FIELD WRAPPER */
+.floating-field {
+  position: relative;
+  background: white;
   border-radius: 8px;
   border: 1px solid transparent;
-  outline: none;
-  text-align: center;
-  font-size: 14px;
-  background: white;
   transition: all 0.3s ease;
 }
 
-/* HOVER */
-.all-env-headers input:hover {
-  border: 1px solid #00A859;
+.floating-field:hover {
+  border-color: #00A859;
 }
 
-/* FOCUS (cuando escribes) */
-.all-env-headers input:focus {
-  border: 1px solid #00A859;
-  box-shadow: 0 0 8px rgba(0, 168, 89, 0.5);
+/* INPUT */
+.floating-field input {
+  width: 100%;
+  padding: 18px 10px 6px 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* LABEL por defecto: centrado como placeholder */
+.floating-field label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #999;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  transform-origin: center top;
+}
+
+/* LABEL flotando: cuando hay focus o valor */
+.floating-field input:focus ~ label,
+.floating-field.has-value label {
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 600;
+  color: #00A859;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* FOCUS del wrapper */
+.floating-field:has(input:focus) {
+  border-color: #00A859;
+  box-shadow: 0 0 8px rgba(0, 168, 89, 0.45);
   transform: scale(1.03);
 }
 
@@ -154,4 +192,159 @@
 
 .summary-badge.alert {
   background-color: #F44336;
+}
+
+
+/* Dark Mode - Floating Fields */
+body.dark-mode .floating-field {
+  background: #16213e;
+  border-color: #2a2a4a;
+}
+
+body.dark-mode .floating-field input {
+  color: #e0e0e0;
+}
+
+body.dark-mode .floating-field label {
+  color: #888;
+}
+
+body.dark-mode .floating-field input:focus ~ label,
+body.dark-mode .floating-field.has-value label {
+  color: #5de6c8;
+}
+
+body.dark-mode .floating-field:has(input:focus) {
+  border-color: #5de6c8;
+  box-shadow: 0 0 8px rgba(93, 230, 200, 0.35);
+}
+
+/* ── Suggestions Dropdown ── */
+.suggestions-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #00A859;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 168, 89, 0.18);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  z-index: 100;
+  overflow: hidden;
+  animation: dropdown-in 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.suggestion-item:hover {
+  background: rgba(0, 168, 89, 0.08);
+  color: #00A859;
+}
+
+.suggestion-icon {
+  font-size: 15px;
+}
+
+/* ── No Results Empty State ── */
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.no-results-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+  filter: grayscale(0.3);
+}
+
+.no-results-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.no-results-sub {
+  font-size: 14px;
+  color: #999;
+  margin: 0 0 24px;
+}
+
+.no-results-clear {
+  padding: 10px 24px;
+  background: #00A859;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.no-results-clear:hover {
+  background: #007a40;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 168, 89, 0.35);
+}
+
+/* Dark mode – Dropdown */
+body.dark-mode .suggestions-dropdown {
+  background: #16213e;
+  border-color: #5de6c8;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .suggestion-item {
+  color: #e0e0e0;
+}
+
+body.dark-mode .suggestion-item:hover {
+  background: rgba(93, 230, 200, 0.1);
+  color: #5de6c8;
+}
+
+/* Dark mode – Empty State */
+body.dark-mode .no-results-title {
+  color: #e0e0e0;
+}
+
+body.dark-mode .no-results-sub {
+  color: #888;
+}
+
+body.dark-mode .no-results-clear {
+  background: #5de6c8;
+  color: #0f1f3d;
+}
+
+body.dark-mode .no-results-clear:hover {
+  background: #3dcfb0;
 }
