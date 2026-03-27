@@ -8,6 +8,19 @@ import { EditModal } from '../../components/ui'
 import { useDarkMode } from '../../hooks/useDarkMode'
 import '../../styles/app/Settings.css'
 
+// Aplica tema + dark-mode al body (misma lógica que useDarkMode y main.jsx)
+function applyBodyClasses(theme, dark) {
+  const classes = [theme, dark ? 'dark-mode' : ''].filter(Boolean).join(' ')
+  document.body.className = classes
+}
+
+const THEMES = [
+  { key: '',                   dot: { light: '#5de6c8', dark: '#3ab8a0' } },
+  { key: 'theme-protanopia',   dot: { light: '#0072b2', dark: '#4aa8d8' } },
+  { key: 'theme-deuteranopia', dot: { light: '#E69F00', dark: '#c8880a' } },
+  { key: 'theme-tritanopia',   dot: { light: '#D55E00', dark: '#e8743a' } },
+]
+
 function SettingsScreen() {
   const { t, i18n } = useTranslation()
   const [darkMode, setDarkMode] = useDarkMode()
@@ -24,7 +37,7 @@ function SettingsScreen() {
   )
 
   const [theme, setTheme] = useState(
-    localStorage.getItem('theme') || ''
+    () => localStorage.getItem('theme') || ''
   )
 
   const [modalOpen, setModalOpen] = useState(false)
@@ -32,7 +45,6 @@ function SettingsScreen() {
   const [editValue, setEditValue] = useState('')
   const [showLangModal, setShowLangModal] = useState(false)
 
-  //  GUARDADOS
   useEffect(() => {
     localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone))
   }, [autoTimezone])
@@ -41,16 +53,12 @@ function SettingsScreen() {
     localStorage.setItem('settings', JSON.stringify(settings))
   }, [settings])
 
-  //  APLICAR TEMA AL CARGAR
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      document.body.className = savedTheme
-      setTheme(savedTheme)
-    }
-  }, [])
+  const changeTheme = (newTheme) => {
+    localStorage.setItem('theme', newTheme)
+    applyBodyClasses(newTheme, darkMode)
+    setTheme(newTheme)
+  }
 
-  //  EDITAR
   const handleEdit = (field, value) => {
     setEditField(field)
     setEditValue(value)
@@ -61,25 +69,20 @@ function SettingsScreen() {
     setSettings((prev) => ({ ...prev, [field]: newValue }))
   }
 
-  //  IDIOMA
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang)
     localStorage.setItem('language', lang)
 
-    let languageName = 'English'
-    if (lang === 'es') languageName = 'Español'
-    if (lang === 'fr') languageName = 'Français'
-    if (lang === 'pt') languageName = 'Português'
-
-    setSettings((prev) => ({ ...prev, language: languageName }))
+    const names = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
+    setSettings((prev) => ({ ...prev, language: names[lang] || 'English' }))
     setShowLangModal(false)
   }
 
-  //  CAMBIAR TEMA
-  const changeTheme = (newTheme) => {
-    document.body.className = newTheme
-    localStorage.setItem('theme', newTheme)
-    setTheme(newTheme)
+  const themeLabel = (key) => {
+    if (key === '')                   return t('settings.themeNormal')
+    if (key === 'theme-protanopia')   return t('settings.themeProtanopia')
+    if (key === 'theme-deuteranopia') return t('settings.themeDeuteranopia')
+    return t('settings.themeTritanopia')
   }
 
   return (
@@ -89,7 +92,7 @@ function SettingsScreen() {
       <div className="settings-content">
         <h1><IoSettings /> {t('settings.title')}</h1>
 
-        {/*  APARIENCIA */}
+        {/* APARIENCIA */}
         <div className="settings-card">
           <h2><FaPalette /> {t('settings.appearance')}</h2>
 
@@ -110,40 +113,44 @@ function SettingsScreen() {
             </div>
           </div>
 
-          {/*  TEMAS DALTONISMO */}
-          <div className="settings-field">
+          {/* TEMAS ACCESIBLES */}
+          <div className="settings-field theme-field">
             <div className="field-icon"><FaPalette /></div>
             <div className="field-info">
-              <span className="field-label">Temas accesibles</span>
-              <span className="field-value">{theme || 'Default'}</span>
+              <span className="field-label">{t('settings.accessibleThemes')}</span>
+              <span className="field-value">{themeLabel(theme)}</span>
             </div>
           </div>
 
-          <div className="theme-buttons">
-            <button onClick={() => changeTheme('')}>
-              Normal
-            </button>
-
-            <button onClick={() => changeTheme('theme-protanopia')}>
-              Protanopia
-            </button>
-
-            <button onClick={() => changeTheme('theme-deuteranopia')}>
-              Deuteranopia
-            </button>
-
-            <button onClick={() => changeTheme('theme-tritanopia')}>
-              Tritanopia
-            </button>
+          <div className="theme-picker">
+            {THEMES.map(({ key, dot }) => (
+              <button
+                key={key}
+                className={`theme-card ${theme === key ? 'theme-card--active' : ''}`}
+                onClick={() => changeTheme(key)}
+              >
+                <div className="theme-preview">
+                  <div
+                    className="preview-bar"
+                    style={{ background: darkMode ? dot.dark : dot.light }}
+                  />
+                  <div className="preview-text">
+                    <span className="preview-line" />
+                    <span className="preview-line short" />
+                  </div>
+                </div>
+                <span className="theme-label">{themeLabel(key)}</span>
+                {theme === key && <span className="theme-check">✓</span>}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/*  IDIOMA Y FECHAS */}
+        {/* IDIOMA Y FECHAS */}
         <div className="settings-card">
           <h2><FaGlobe /> {t('settings.langAndDates')}</h2>
           <p className="section-description">{t('settings.langDescription')}</p>
 
-          {/* IDIOMA */}
           <div className="settings-field">
             <div className="field-icon"><FaGlobe /></div>
             <div className="field-info">
@@ -155,7 +162,6 @@ function SettingsScreen() {
             </button>
           </div>
 
-          {/* FECHA */}
           <div className="settings-field">
             <div className="field-icon"><FaCalendar /></div>
             <div className="field-info">
@@ -170,7 +176,6 @@ function SettingsScreen() {
             </button>
           </div>
 
-          {/* ZONA HORARIA */}
           <div className="settings-field">
             <div className="field-icon"><FaClock /></div>
             <div className="field-info">
@@ -189,7 +194,6 @@ function SettingsScreen() {
         </div>
       </div>
 
-      {/* MODAL EDIT */}
       {modalOpen && (
         <EditModal
           field={editField}
@@ -199,12 +203,10 @@ function SettingsScreen() {
         />
       )}
 
-      {/*  MODAL IDIOMA */}
       {showLangModal && (
         <div className="lang-modal-overlay" onClick={() => setShowLangModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-            <h3> {t('settings.language')}</h3>
-
+            <h3>{t('settings.language')}</h3>
             <button onClick={() => handleChangeLanguage('es')}>🇨🇴 Español</button>
             <button onClick={() => handleChangeLanguage('en')}>🇺🇸 English</button>
             <button onClick={() => handleChangeLanguage('fr')}>🇫🇷 Français</button>
