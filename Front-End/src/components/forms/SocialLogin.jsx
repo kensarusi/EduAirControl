@@ -11,7 +11,7 @@ function SocialLogin() {
     <div>
       <p className="social-text">{t('login.orWith')}</p>
       <div className="social-buttons">
-        <button className="btn-facebook"><FaFacebookF /> Facebook</button>
+        <button className="btn-facebook" onClick={() => navigate('/facebook-signup')}><FaFacebookF /> Facebook</button>
         <button className="btn-google" onClick={() => navigate('/google-signup')}><FcGoogle /> Google</button>
       </div>
     </div>

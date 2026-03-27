@@ -143,5 +143,9 @@
     "excellent": "Excelente",
     "regular": "Regular",
     "bad": "Malo"
+  },
+  "facebook": {
+    "chooseAccount": "Elige tu cuenta",
+    "otherAccount": "Otra cuenta"
   }
 }
