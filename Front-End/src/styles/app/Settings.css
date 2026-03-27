@@ -126,3 +126,37 @@
   justify-content: center;
   z-index: 1000;
 }
+
+@media (max-width: 768px) {
+  .settings-content {
+    padding: 90px 15px 30px;
+  }
+
+  .settings-content h1 {
+    font-size: 22px;
+  }
+
+  /* Tema picker: 2 columnas en móvil */
+  .theme-picker {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Campos con botón: apilan verticalmente */
+  .settings-field {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .settings-field .field-info {
+    min-width: 0;
+  }
+
+  .settings-field .btn-update {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .settings-card {
+    padding: 20px 15px;
+  }
+}
