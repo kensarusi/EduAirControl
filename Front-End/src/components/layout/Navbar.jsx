@@ -28,7 +28,7 @@ function Navbar() {
       </div>
 
       
-      <NavbarInfo role="admin" />
+      <NavbarInfo role="admin" /> 
 
       {/* MENU */}
       <div className="navbar-menu">

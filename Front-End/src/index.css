@@ -885,3 +885,39 @@ button {
   position: relative;
   right: 115px; 
 }
+
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --primary: #00b894;
+}
+
+/* protanopia */
+.theme-protanopia {
+  --bg: #f5f5f5;
+  --text: #000;
+  --primary: #0072b2;
+}
+
+/* deuteranopia */
+.theme-deuteranopia {
+  --bg: #f5f5f5;
+  --text: #000;
+  --primary: #E69F00;
+}
+
+/* tritanopia */
+.theme-tritanopia {
+  --bg: #f5f5f5;
+  --text: #000;
+  --primary: #D55E00;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+button {
+  background: var(--primary);
+}

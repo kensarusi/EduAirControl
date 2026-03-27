@@ -17,7 +17,14 @@ function SettingsScreen() {
   )
 
   const [settings, setSettings] = useState(
-    () => JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
+    () => JSON.parse(localStorage.getItem('settings')) || {
+      language: 'English',
+      dateFormat: 'DD-MM-YYYY'
+    }
+  )
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem('theme') || ''
   )
 
   const [modalOpen, setModalOpen] = useState(false)
@@ -25,6 +32,7 @@ function SettingsScreen() {
   const [editValue, setEditValue] = useState('')
   const [showLangModal, setShowLangModal] = useState(false)
 
+  //  GUARDADOS
   useEffect(() => {
     localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone))
   }, [autoTimezone])
@@ -33,6 +41,16 @@ function SettingsScreen() {
     localStorage.setItem('settings', JSON.stringify(settings))
   }, [settings])
 
+  //  APLICAR TEMA AL CARGAR
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme) {
+      document.body.className = savedTheme
+      setTheme(savedTheme)
+    }
+  }, [])
+
+  //  EDITAR
   const handleEdit = (field, value) => {
     setEditField(field)
     setEditValue(value)
@@ -43,47 +61,89 @@ function SettingsScreen() {
     setSettings((prev) => ({ ...prev, [field]: newValue }))
   }
 
-  // actualizacion de idioma con i18n y guardado en localStorage
+  //  IDIOMA
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang)
     localStorage.setItem('language', lang)
 
     let languageName = 'English'
     if (lang === 'es') languageName = 'Español'
-    if (lang === 'fr') languageName = 'Français' 
+    if (lang === 'fr') languageName = 'Français'
     if (lang === 'pt') languageName = 'Português'
-
 
     setSettings((prev) => ({ ...prev, language: languageName }))
     setShowLangModal(false)
   }
 
+  //  CAMBIAR TEMA
+  const changeTheme = (newTheme) => {
+    document.body.className = newTheme
+    localStorage.setItem('theme', newTheme)
+    setTheme(newTheme)
+  }
+
   return (
     <div className={`settings-page ${darkMode ? 'dark' : ''}`}>
       <Navbar />
+
       <div className="settings-content">
         <h1><IoSettings /> {t('settings.title')}</h1>
 
-        {/* Apariencia */}
+        {/*  APARIENCIA */}
         <div className="settings-card">
           <h2><FaPalette /> {t('settings.appearance')}</h2>
+
+          {/* DARK MODE */}
           <div className="settings-field">
             <div className="field-icon"><FaMoon /></div>
             <div className="field-info">
               <span className="field-label">{t('settings.darkMode')}</span>
-              <span className="field-value">{darkMode ? t('settings.enabled') : t('settings.disabled')}</span>
+              <span className="field-value">
+                {darkMode ? t('settings.enabled') : t('settings.disabled')}
+              </span>
             </div>
-            <div className={`toggle ${darkMode ? 'active' : ''}`} onClick={() => setDarkMode(!darkMode)}>
+            <div
+              className={`toggle ${darkMode ? 'active' : ''}`}
+              onClick={() => setDarkMode(!darkMode)}
+            >
               <div className="toggle-circle" />
             </div>
           </div>
+
+          {/*  TEMAS DALTONISMO */}
+          <div className="settings-field">
+            <div className="field-icon"><FaPalette /></div>
+            <div className="field-info">
+              <span className="field-label">Temas accesibles</span>
+              <span className="field-value">{theme || 'Default'}</span>
+            </div>
+          </div>
+
+          <div className="theme-buttons">
+            <button onClick={() => changeTheme('')}>
+              Normal
+            </button>
+
+            <button onClick={() => changeTheme('theme-protanopia')}>
+              Protanopia
+            </button>
+
+            <button onClick={() => changeTheme('theme-deuteranopia')}>
+              Deuteranopia
+            </button>
+
+            <button onClick={() => changeTheme('theme-tritanopia')}>
+              Tritanopia
+            </button>
+          </div>
         </div>
 
-        {/* Idioma y fechas */}
+        {/*  IDIOMA Y FECHAS */}
         <div className="settings-card">
           <h2><FaGlobe /> {t('settings.langAndDates')}</h2>
           <p className="section-description">{t('settings.langDescription')}</p>
 
+          {/* IDIOMA */}
           <div className="settings-field">
             <div className="field-icon"><FaGlobe /></div>
             <div className="field-info">
@@ -95,30 +155,41 @@ function SettingsScreen() {
             </button>
           </div>
 
+          {/* FECHA */}
           <div className="settings-field">
             <div className="field-icon"><FaCalendar /></div>
             <div className="field-info">
               <span className="field-label">{t('settings.dateFormat')}</span>
               <span className="field-value">{settings.dateFormat}</span>
             </div>
-            <button className="btn-update" onClick={() => handleEdit('dateFormat', settings.dateFormat)}>
+            <button
+              className="btn-update"
+              onClick={() => handleEdit('dateFormat', settings.dateFormat)}
+            >
               <MdEdit /> {t('settings.updateBtn')}
             </button>
           </div>
 
+          {/* ZONA HORARIA */}
           <div className="settings-field">
             <div className="field-icon"><FaClock /></div>
             <div className="field-info">
               <span className="field-label">{t('settings.autoTimezone')}</span>
-              <span className="field-value">{autoTimezone ? t('settings.enabled') : t('settings.disabled')}</span>
+              <span className="field-value">
+                {autoTimezone ? t('settings.enabled') : t('settings.disabled')}
+              </span>
             </div>
-            <div className={`toggle ${autoTimezone ? 'active' : ''}`} onClick={() => setAutoTimezone(!autoTimezone)}>
+            <div
+              className={`toggle ${autoTimezone ? 'active' : ''}`}
+              onClick={() => setAutoTimezone(!autoTimezone)}
+            >
               <div className="toggle-circle" />
             </div>
           </div>
         </div>
       </div>
 
+      {/* MODAL EDIT */}
       {modalOpen && (
         <EditModal
           field={editField}
@@ -128,41 +199,16 @@ function SettingsScreen() {
         />
       )}
 
-      {/*  MODAL DE IDIOMA ACTUALIZADO */}
+      {/*  MODAL IDIOMA */}
       {showLangModal && (
         <div className="lang-modal-overlay" onClick={() => setShowLangModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>🌐 {t('settings.language')}</h3>
+            <h3> {t('settings.language')}</h3>
 
-            <button
-              className={`lang-option ${i18n.language === 'es' ? 'lang-active' : ''}`}
-              onClick={() => handleChangeLanguage('es')}
-            >
-              🇨🇴 Español
-            </button>
-
-            <button
-              className={`lang-option ${i18n.language === 'en' ? 'lang-active' : ''}`}
-              onClick={() => handleChangeLanguage('en')}
-            >
-              🇺🇸 English
-            </button>
-
-            
-            <button
-              className={`lang-option ${i18n.language === 'fr' ? 'lang-active' : ''}`}
-              onClick={() => handleChangeLanguage('fr')}
-            >
-              🇫🇷 Français
-            </button>
-
-             <button
-          className={`lang-option ${i18n.language === 'pt' ? 'lang-active' : ''}`}
-          onClick={() => handleChangeLanguage('pt')}
-        >
-          🇧🇷 Português
-        </button>
-
+            <button onClick={() => handleChangeLanguage('es')}>🇨🇴 Español</button>
+            <button onClick={() => handleChangeLanguage('en')}>🇺🇸 English</button>
+            <button onClick={() => handleChangeLanguage('fr')}>🇫🇷 Français</button>
+            <button onClick={() => handleChangeLanguage('pt')}>🇧🇷 Português</button>
           </div>
         </div>
       )}
