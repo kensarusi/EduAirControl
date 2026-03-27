@@ -130,7 +130,12 @@
     "language": "Langue",
     "dateFormat": "Format de date",
     "autoTimezone": "Fuseau horaire automatique",
-    "updateBtn": "Mettre à jour"
+    "updateBtn": "Mettre à jour",
+    "accessibleThemes": "Thèmes accessibles",
+    "themeNormal": "Normal",
+    "themeProtanopia": "Protanopie",
+    "themeDeuteranopia": "Deutéranopie",
+    "themeTritanopia": "Tritanopie"
   },
   "google": {
     "chooseAccount": "Choisissez votre compte",
