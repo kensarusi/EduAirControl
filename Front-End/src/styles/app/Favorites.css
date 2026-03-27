@@ -4,9 +4,10 @@
 }
 
 .favorites-content {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 100px 30px 30px;
+  padding: 100px 20px 30px;
+  width: 100%;
 }
 
 .favorites-content h1 {
@@ -250,4 +251,14 @@ body.dark-mode .fav-card-footer {
 
 body.dark-mode .fav-card-footer strong {
   color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .favorites-content {
+    padding: 90px 15px 20px;
+  }
+
+  .fav-card {
+    padding: 18px;
+  }
 }
