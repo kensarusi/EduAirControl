@@ -20,36 +20,35 @@ function Navbar() {
   ]
 
   return (
-    <nav className="navbar">
-      
-      {/* LOGO */}
+  <nav className="navbar">
+
+    {/* FILA 1: logo + info */}
+    <div className="navbar-top-row">
       <div className="navbar-logo" onClick={() => navigate('/dashboard')}>
         <h2>EduAirControl</h2>
       </div>
+      <NavbarInfo role="admin" />
+    </div>
 
-      
-      <NavbarInfo role="admin" /> 
-
-      {/* MENU */}
-      <div className="navbar-menu">
-        {menuItems.map((item) => (
-          <div
-            key={item.path}
-            className={`navbar-item ${location.pathname === item.path ? 'active' : ''}`}
-            onClick={() => navigate(item.path)}
-          >
-            {item.icon}
-            <span>{item.label}</span>
-          </div>
-        ))}
-
-        <div className="navbar-item logout" onClick={() => navigate('/')}>
-          <IoLogOut />
-          <span>{t('nav.logout')}</span>
+    {/* FILA 2: menú íconos */}
+    <div className="navbar-menu">
+      {menuItems.map((item) => (
+        <div
+          key={item.path}
+          className={`navbar-item ${location.pathname === item.path ? 'active' : ''}`}
+          onClick={() => navigate(item.path)}
+        >
+          {item.icon}
+          <span>{item.label}</span>
         </div>
+      ))}
+      <div className="navbar-item logout" onClick={() => navigate('/')}>
+        <IoLogOut />
+        <span>{t('nav.logout')}</span>
       </div>
-    </nav>
-  )
-}
+    </div>
+
+  </nav>
+)}
 
 export default Navbar

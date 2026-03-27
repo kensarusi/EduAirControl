@@ -47,3 +47,8 @@
     flex: none;
   }
 }
+
+@media (max-width: 768px) {
+  .dashboard-page    { padding-top: 120px; }
+  .all-env-container { padding-top: 120px; }
+}

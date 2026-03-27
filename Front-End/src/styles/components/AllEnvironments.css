@@ -288,6 +288,11 @@
   }
 }
 
+@media (max-width: 768px) {
+  .dashboard-page    { padding-top: 120px; }
+  .all-env-container { padding-top: 120px; }
+}
+
 /* ── Dark Mode ── */
 body.dark-mode .all-env-page       { background-color: #0f1f3d; }
 body.dark-mode .all-env-title      { color: #e0e0e0; }

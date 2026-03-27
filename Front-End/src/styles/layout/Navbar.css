@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  padding: 0 20px;
+  padding: 0 30px;
   height: 60px;
   border-bottom: 2px solid #5de6c8;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -12,7 +12,6 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  overflow: hidden; /* ← evita que el contenido desborde */
 }
 
 .navbar-logo h2 {
@@ -20,7 +19,16 @@
   margin: 0;
   font-size: 22px;
   cursor: pointer;
-  white-space: nowrap; /* ← evita que el logo se parta */
+  white-space: nowrap;
+}
+
+.navbar-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.3;
 }
 
 .navbar-menu {
@@ -29,7 +37,6 @@
   margin: 0;
   padding: 0;
   gap: 5px;
-  flex-shrink: 0; /* ← el menú no se comprime */
 }
 
 .navbar-item {
@@ -45,100 +52,68 @@
   white-space: nowrap;
 }
 
-.navbar-item:hover {
-  background-color: #e8faf5;
-  color: #5de6c8;
-}
-
-.navbar-item.active {
-  background-color: #e8faf5;
-  color: #5de6c8;
-}
-
-.navbar-icon {
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-}
-
-.navbar-label {
-  font-weight: 500;
-}
-
-.navbar-item.logout {
-  color: #ff6b6b;
-}
-
-.navbar-item.logout:hover {
-  background-color: #ffe0e0;
-  color: #ff4444;
-}
+.navbar-item:hover  { background-color: #e8faf5; color: #5de6c8; }
+.navbar-item.active { background-color: #e8faf5; color: #5de6c8; }
+.navbar-item.logout { color: #ff6b6b; }
+.navbar-item.logout:hover { background-color: #ffe0e0; color: #ff4444; }
 
 /* Dark Mode */
-body.dark-mode .navbar {
-  background-color: #16213e;
-  border-bottom-color: #5de6c8;
-}
-
-body.dark-mode .navbar-item {
-  color: #e0e0e0;
-}
-
+body.dark-mode .navbar      { background-color: #16213e; border-bottom-color: #5de6c8; }
+body.dark-mode .navbar-info { color: #aaa; }
+body.dark-mode .navbar-item { color: #e0e0e0; }
 body.dark-mode .navbar-item:hover,
-body.dark-mode .navbar-item.active {
-  background-color: #1a2a50;
-  color: #5de6c8;
-}
+body.dark-mode .navbar-item.active { background-color: #1a2a50; color: #5de6c8; }
 
-/* ── Tablet: ocultar labels ── */
+/* ── Tablet: ocultar labels de texto ── */
 @media (max-width: 1024px) {
-  .navbar-item span {
-    display: none;
-  }
-
-  .navbar-item {
-    padding: 8px 10px;
-  }
+  .navbar-item span { display: none; }
+  .navbar-item { padding: 8px 10px; }
+  .navbar-info { font-size: 12px; }
 }
 
-/* ── Medio: ocultar NavbarInfo ── */
+/* ── Móvil: dos filas limpias ── */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0 12px;
+    flex-direction: column;
+    height: auto;
+    padding: 8px 16px 0px;   /* ← sin padding-bottom, lo maneja el menu */
+    gap: 0;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .navbar-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding:  15px;      /* ← espacio debajo del logo/info */
+  }
+
+  .navbar-logo h2 { font-size: 18px; }
+
+  .navbar-info {
+    flex-direction: row;
     gap: 8px;
-  }
-
-  .navbar-logo h2 {
-    font-size: 16px;
-  }
-
-  /* Oculta el NavbarInfo (fecha/hora/saludo) para dar espacio al menú */
-  .navbar > *:nth-child(2) {
-    display: none;
-  }
-
-  .navbar-item {
-    padding: 6px 8px;
-    font-size: 18px;
-  }
-
-  .navbar-item span {
-    display: none;
-  }
-}
-
-/* ── Muy pequeño: reducir logo ── */
-@media (max-width: 480px) {
-  .navbar-logo h2 {
-    font-size: 14px;
-  }
-
-  .navbar-item {
-    padding: 5px 6px;
-    font-size: 16px;
+    font-size: 11px;
+    align-items: center;
   }
 
   .navbar-menu {
-    gap: 2px;
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid rgba(93, 230, 200, 0.2);
+    padding: 8px 0 10px;     /* ← espacio arriba Y abajo de los íconos */
+    gap: 0;
   }
+
+  .navbar-item {
+    padding: 6px 10px;       /* ← más padding para que no se vean apretados */
+    font-size: 20px;
+    flex: 1;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .navbar-item span { display: none; }
 }
