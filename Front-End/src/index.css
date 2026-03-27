@@ -198,12 +198,13 @@ input, button { max-width: 100%; }
 
 .navbar-info {
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  align-items: flex-end;    /* ← alineado a la derecha */
+  gap: 2px;
   color: var(--accent);
   font-size: 14px;
-  align-items: center;
-  position: relative;
-  right: 115px;
+  position: static;         /* ← quita el position:relative y right:115px */
+  right: unset;
 }
 
 /* ============================================ */
@@ -970,18 +971,46 @@ input, button { max-width: 100%; }
 }
 
 @media (max-width: 768px) {
-  .navbar { display: flex; flex-direction: column; align-items: flex-start; padding: 10px; }
-  .navbar-item { width: 100%; padding: 10px 0; }
+  /* Navbar — controlado por Navbar.css, no tocar aquí */
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;    /* ← era flex-start */
+    padding: 8px 16px 0;     /* ← era 10px */
+    height: auto;
+  }
 
+  .navbar-item {
+    width: auto;             /* ← era 100% */
+    padding: 6px 10px;       /* ← era 10px 0 */
+    flex: 1;
+    justify-content: center;
+  }
+
+  .navbar-top-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 4px;
+}
+
+.navbar-info {
+  align-items: flex-end;
+  font-size: 11px;
+  gap: 1px;
+}
+
+.navbar-info-greeting { font-size: 11px; }
+.navbar-info-time     { font-size: 10px; }
+
+  /* resto del bloque sin cambios */
   .dashboard-layout { grid-template-columns: 1fr; padding: 10px; }
-
   h1 { font-size: 20px; }
   h2 { font-size: 18px; }
   h3 { font-size: 16px; }
-
   .env-card, .summary-card, .filter-card { margin-bottom: 15px; }
   .toggle { transform: scale(0.9); }
-
   .profile-header-card { padding: 20px 15px; text-align: center; }
   .profile-header-card h1 { font-size: 20px; line-height: 1.3; }
   .profile-header-card button { width: 100%; margin-top: 15px; }

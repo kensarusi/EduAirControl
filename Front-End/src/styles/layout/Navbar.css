@@ -1,55 +1,79 @@
+/* ══════════════════════════════
+   DESKTOP
+══════════════════════════════ */
 .navbar {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   padding: 0 30px;
   height: 60px;
   border-bottom: 2px solid #5de6c8;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* En desktop top-row ocupa solo lo necesario */
+.navbar-top-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-logo {
+  cursor: pointer;
 }
 
 .navbar-logo h2 {
   color: #5de6c8;
   margin: 0;
   font-size: 22px;
-  cursor: pointer;
   white-space: nowrap;
 }
 
 .navbar-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.navbar-info-greeting {
   font-size: 13px;
-  color: #555;
-  line-height: 1.3;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.navbar-info-time {
+  font-size: 11px;
+  color: #888;
+  white-space: nowrap;
 }
 
 .navbar-menu {
   display: flex;
-  list-style: none;
+  align-items: center;
   margin: 0;
   padding: 0;
-  gap: 5px;
+  gap: 4px;
 }
 
 .navbar-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 15px;
+  padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s;
   font-size: 14px;
   color: #555;
   white-space: nowrap;
+  transition: all 0.2s;
 }
 
 .navbar-item:hover  { background-color: #e8faf5; color: #5de6c8; }
@@ -57,62 +81,71 @@
 .navbar-item.logout { color: #ff6b6b; }
 .navbar-item.logout:hover { background-color: #ffe0e0; color: #ff4444; }
 
-/* Dark Mode */
-body.dark-mode .navbar      { background-color: #16213e; border-bottom-color: #5de6c8; }
-body.dark-mode .navbar-info { color: #aaa; }
-body.dark-mode .navbar-item { color: #e0e0e0; }
+/* ══════════════════════════════
+   DARK MODE
+══════════════════════════════ */
+body.dark-mode .navbar               { background-color: #16213e; border-bottom-color: #5de6c8; }
+body.dark-mode .navbar-info-greeting { color: #e0e0e0; }
+body.dark-mode .navbar-info-time     { color: #888; }
+body.dark-mode .navbar-item          { color: #ccc; }
 body.dark-mode .navbar-item:hover,
-body.dark-mode .navbar-item.active { background-color: #1a2a50; color: #5de6c8; }
+body.dark-mode .navbar-item.active   { background-color: #1a2a50; color: #5de6c8; }
 
-/* ── Tablet: ocultar labels de texto ── */
+/* ══════════════════════════════
+   TABLET — ocultar labels
+══════════════════════════════ */
 @media (max-width: 1024px) {
   .navbar-item span { display: none; }
   .navbar-item { padding: 8px 10px; }
-  .navbar-info { font-size: 12px; }
+  .navbar-info-greeting { font-size: 12px; }
+  .navbar-info-time     { font-size: 10px; }
 }
 
-/* ── Móvil: dos filas limpias ── */
+/* ══════════════════════════════
+   MÓVIL — dos filas
+══════════════════════════════ */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
     height: auto;
-    padding: 8px 16px 0px;   /* ← sin padding-bottom, lo maneja el menu */
-    gap: 0;
+    padding: 8px 16px 0;
     align-items: stretch;
-    overflow: visible;
   }
 
+  /* Fila 1: logo izquierda — info derecha */
   .navbar-top-row {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding:  15px;      /* ← espacio debajo del logo/info */
+    gap: 0;
+    padding-bottom: 6px;
   }
 
-  .navbar-logo h2 { font-size: 18px; }
+  .navbar-logo h2 { font-size: 16px; }
 
   .navbar-info {
-    flex-direction: row;
-    gap: 8px;
-    font-size: 11px;
-    align-items: center;
+    align-items: flex-end;
   }
 
+  .navbar-info-greeting { font-size: 11px; }
+  .navbar-info-time     { font-size: 10px; }
+
+  /* Fila 2: íconos */
   .navbar-menu {
     width: 100%;
     justify-content: space-around;
-    border-top: 1px solid rgba(93, 230, 200, 0.2);
-    padding: 8px 0 10px;     /* ← espacio arriba Y abajo de los íconos */
+    border-top: 1px solid rgba(93, 230, 200, 0.25);
+    padding: 8px 0;
     gap: 0;
   }
 
   .navbar-item {
-    padding: 6px 10px;       /* ← más padding para que no se vean apretados */
-    font-size: 20px;
     flex: 1;
     justify-content: center;
-    border-radius: 8px;
+    font-size: 20px;
+    padding: 6px 4px;
   }
 
   .navbar-item span { display: none; }

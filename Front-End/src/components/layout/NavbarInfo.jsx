@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 function NavbarInfo({ role }) {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(new Date())
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const fecha = time.toLocaleDateString();
-  const hora = time.toLocaleTimeString();
+    const interval = setInterval(() => setTime(new Date()), 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="navbar-info">
-      <span>
+      <span className="navbar-info-greeting">
         Hola {role === "admin" ? "Administrador" : "Usuario"}
       </span>
-      <span>{fecha} {hora}</span>
+      <span className="navbar-info-time">
+        {time.toLocaleDateString()} {time.toLocaleTimeString()}
+      </span>
     </div>
-  );
+  )
 }
 
-export default NavbarInfo;
+export default NavbarInfo
