@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  padding: 0 30px;
+  padding: 0 20px;
   height: 60px;
   border-bottom: 2px solid #5de6c8;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -12,6 +12,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  overflow: hidden; /* ← evita que el contenido desborde */
 }
 
 .navbar-logo h2 {
@@ -19,6 +20,7 @@
   margin: 0;
   font-size: 22px;
   cursor: pointer;
+  white-space: nowrap; /* ← evita que el logo se parta */
 }
 
 .navbar-menu {
@@ -27,6 +29,7 @@
   margin: 0;
   padding: 0;
   gap: 5px;
+  flex-shrink: 0; /* ← el menú no se comprime */
 }
 
 .navbar-item {
@@ -39,9 +42,15 @@
   transition: all 0.3s;
   font-size: 14px;
   color: #555;
+  white-space: nowrap;
 }
 
 .navbar-item:hover {
+  background-color: #e8faf5;
+  color: #5de6c8;
+}
+
+.navbar-item.active {
   background-color: #e8faf5;
   color: #5de6c8;
 }
@@ -65,23 +74,71 @@
   color: #ff4444;
 }
 
-@media (max-width:768px){
-
-.navbar{
-  flex-direction:column;
-  align-items:center;
-  padding:10px;
+/* Dark Mode */
+body.dark-mode .navbar {
+  background-color: #16213e;
+  border-bottom-color: #5de6c8;
 }
 
-.navbar-menu{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
+body.dark-mode .navbar-item {
+  color: #e0e0e0;
 }
 
-.navbar-item span{
-  display:none;
+body.dark-mode .navbar-item:hover,
+body.dark-mode .navbar-item.active {
+  background-color: #1a2a50;
+  color: #5de6c8;
 }
 
+/* ── Tablet: ocultar labels ── */
+@media (max-width: 1024px) {
+  .navbar-item span {
+    display: none;
+  }
+
+  .navbar-item {
+    padding: 8px 10px;
+  }
+}
+
+/* ── Medio: ocultar NavbarInfo ── */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .navbar-logo h2 {
+    font-size: 16px;
+  }
+
+  /* Oculta el NavbarInfo (fecha/hora/saludo) para dar espacio al menú */
+  .navbar > *:nth-child(2) {
+    display: none;
+  }
+
+  .navbar-item {
+    padding: 6px 8px;
+    font-size: 18px;
+  }
+
+  .navbar-item span {
+    display: none;
+  }
+}
+
+/* ── Muy pequeño: reducir logo ── */
+@media (max-width: 480px) {
+  .navbar-logo h2 {
+    font-size: 14px;
+  }
+
+  .navbar-item {
+    padding: 5px 6px;
+    font-size: 16px;
+  }
+
+  .navbar-menu {
+    gap: 2px;
+  }
 }
