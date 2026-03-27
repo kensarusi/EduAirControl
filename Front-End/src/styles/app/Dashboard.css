@@ -1,8 +1,9 @@
 .dashboard-page {
-  padding: 70px 50px;
+  padding: 70px 20px;
   max-width: 1200px;
   margin: 0 auto;
-  
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .environment-cards-container {
@@ -11,4 +12,38 @@
   justify-content: center;
   gap: 25px;
   margin-top: 30px;
+}
+
+.environment-card {
+  flex: 1 1 300px;
+  max-width: 480px;        /* más ancho en desktop */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .environment-card {
+    flex: 1 1 45%;
+    max-width: 48%;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 80px 15px;
+  }
+
+  .environment-cards-container {
+    flex-direction: column;
+    align-items: stretch;  /* stretch en vez de center */
+    gap: 15px;
+  }
+
+  .environment-card {
+    width: 100%;
+    max-width: 100%;       /* ocupa todo el ancho disponible */
+    flex: none;
+  }
 }
