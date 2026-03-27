@@ -861,19 +861,16 @@ input, button { max-width: 100%; }
 /* SETTINGS                                     */
 /* ============================================ */
 
-#root {
-  display: flex;
-  flex-direction: column;
-}
+.settings-page { min-height: 100vh; background-color: var(--bg-body); }
+.settings-content h1 { color: var(--text-primary); }
 
-* {
-  max-width: 100%;
-}
-
-/* Imágenes e inputs adaptables */
-img {
-  max-width: 100%;
-  height: auto;
+.settings-card {
+  background: var(--bg-card);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: var(--shadow-card);
+  transition: background-color 0.3s;
 }
 
 .settings-card h2 { color: var(--text-primary); }
@@ -901,36 +898,45 @@ img {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* ============================================ */
-/*  NAVBAR RESPONSIVE                         */
-/* ============================================ */
-
-@media (max-width: 768px) {
-  .navbar {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-  }
-
-  .navbar-item {
-    width: 100%;
-    padding: 10px 0;
-  }
+.theme-preview {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
 }
 
-/* ============================================ */
-/*  TABLETS                                   */
-/* ============================================ */
+.preview-line { background: var(--text-primary); }
+.theme-label { color: var(--text-secondary); }
+.theme-check { color: var(--accent); }
 
-@media (max-width: 1024px) {
-  .dashboard-layout {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
+.lang-modal {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 260px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
 
-  .filter-card {
-    flex: 1 1 45%;
-  }
+.lang-modal h3 { color: var(--text-primary); text-align: center; margin-bottom: 8px; }
+
+.lang-modal button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.lang-modal button:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
 }
 
 /* ============================================ */
@@ -964,102 +970,29 @@ img {
 }
 
 @media (max-width: 768px) {
+  .navbar { display: flex; flex-direction: column; align-items: flex-start; padding: 10px; }
+  .navbar-item { width: 100%; padding: 10px 0; }
 
-  /* Card principal (perfil) */
-  .profile-header-card {
-    padding: 20px 15px;
-    text-align: center;
-  }
+  .dashboard-layout { grid-template-columns: 1fr; padding: 10px; }
 
-  .profile-header-card h1 {
-    font-size: 20px;
-    line-height: 1.3;
-  }
+  h1 { font-size: 20px; }
+  h2 { font-size: 18px; }
+  h3 { font-size: 16px; }
 
-  /* Botón cerrar sesión */
-  .profile-header-card button {
-    width: 100%;
-    margin-top: 15px;
-  }
+  .env-card, .summary-card, .filter-card { margin-bottom: 15px; }
+  .toggle { transform: scale(0.9); }
 
-  /* Sección info personal */
-  .profile-section-card {
-    padding: 15px;
-  }
-
-  /* Cada campo (nombre, correo, etc) */
-  .profile-field {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  /* Botón actualizar */
-  .btn-update {
-    width: 100%;
-    text-align: center;
-  }
-
+  .profile-header-card { padding: 20px 15px; text-align: center; }
+  .profile-header-card h1 { font-size: 20px; line-height: 1.3; }
+  .profile-header-card button { width: 100%; margin-top: 15px; }
+  .profile-section-card { padding: 15px; }
+  .profile-field { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .btn-update { width: 100%; text-align: center; }
 }
 
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.navbar-info {
-  display: flex;
-  gap: 15px;
-  color: #5de6c8;
-  font-size: 14px;
-  align-items: center;
-
-  position: relative;
-  right: 115px; 
-}
-
-:root {
-  --bg: #ffffff;
-  --text: #000000;
-  --primary: #00b894;
-}
-
-/* protanopia */
-.theme-protanopia {
-  --bg: #f5f5f5;
-  --text: #000;
-  --primary: #0072b2;
-}
-
-/* deuteranopia */
-.theme-deuteranopia {
-  --bg: #f5f5f5;
-  --text: #000;
-  --primary: #E69F00;
-}
-
-/* tritanopia */
-.theme-tritanopia {
-  --bg: #f5f5f5;
-  --text: #000;
-  --primary: #D55E00;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-}
-
-button {
-  background: var(--primary);
-}
-
-*{
-  box-sizing: border-box;
-}
-
-body{
-  overflow-x:hidden;
+@media (max-width: 480px) {
+  .dashboard-layout { padding: 8px; }
+  .env-card-title h3 { font-size: 14px; }
+  .env-metric p { font-size: 12px; }
+  .filter-card { width: 100%; }
 }
