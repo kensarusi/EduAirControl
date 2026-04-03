@@ -17,6 +17,7 @@ function Navbar() {
     { icon: <IoStatsChart />,         label: t('nav.activity'),     path: '/all-environments' },
     { icon: <FaHeart />,              label: t('nav.favorites'),    path: '/favorites' },
     { icon: <IoSettings />,           label: t('nav.settings'),     path: '/settings' },
+    { icon: <MdOutlineMeetingRoom />, label: "Gestión", path: "/management" } 
   ]
 
   const menu = (

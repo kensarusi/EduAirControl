@@ -12,6 +12,7 @@ import AllEnvironmentsScreen from './screens/app/AllEnvironmentsScreen'
 import ProfileScreen from './screens/app/ProfileScreen'
 import SettingsScreen from './screens/app/SettingsScreen'
 import FavoritesScreen from './screens/app/FavoritesScreen'
+import EnvironmentManagement from "./screens/app/EnvironmentManagement";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Route path="/profile"          element={<ProfileScreen />} />
       <Route path="/settings"         element={<SettingsScreen />} />
       <Route path="/favorites"        element={<FavoritesScreen />} />
+      <Route path="/management" element={<EnvironmentManagement />} />
     </Routes>
   )
 }
