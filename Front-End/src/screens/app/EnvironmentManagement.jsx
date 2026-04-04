@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/layout/Navbar";
 import { MdEdit, MdDelete, MdAdd, MdClose } from "react-icons/md";
 import { MdOutlineMeetingRoom } from "react-icons/md";
@@ -11,6 +12,7 @@ const INITIAL_ENVIRONMENTS = [
 ];
 
 function EnvironmentManagement() {
+  const { t } = useTranslation();
   const [environments, setEnvironments] = useState(INITIAL_ENVIRONMENTS);
   const [modal, setModal] = useState({ open: false, mode: "add", env: null });
   const [form, setForm] = useState({ name: "", capacity: "", location: "" });
@@ -55,39 +57,36 @@ function EnvironmentManagement() {
       <Navbar />
 
       <div className="mgmt-container">
-        {/* Título */}
         <div className="mgmt-title-row">
           <MdOutlineMeetingRoom className="mgmt-title-icon" />
-          <h1 className="mgmt-title">Environment Management</h1>
+          <h1 className="mgmt-title">{t('management.title')}</h1>
         </div>
 
-        {/* Botón agregar */}
         <div className="mgmt-actions-top">
           <button className="btn-add-env" onClick={openAdd}>
-            <MdAdd /> Add Environment
+            <MdAdd /> {t('management.addBtn')}
           </button>
         </div>
 
-        {/* Lista */}
         <div className="mgmt-list">
           {environments.length === 0 ? (
             <div className="mgmt-empty">
-              <p>No environments yet. Add one!</p>
+              <p>{t('management.empty')}</p>
             </div>
           ) : (
             environments.map((env) => (
               <div className="mgmt-card" key={env.id}>
                 <div className="mgmt-card-info">
                   <h3>{env.name}</h3>
-                  <p><span>Capacity:</span> {env.capacity}</p>
-                  <p><span>Location:</span> {env.location}</p>
+                  <p><span>{t('management.capacity')}:</span> {env.capacity}</p>
+                  <p><span>{t('management.location')}:</span> {env.location}</p>
                 </div>
                 <div className="mgmt-card-actions">
                   <button className="btn-edit" onClick={() => openEdit(env)}>
-                    <MdEdit /> Edit
+                    <MdEdit /> {t('management.editBtn')}
                   </button>
                   <button className="btn-delete" onClick={() => setDeleteConfirm(env.id)}>
-                    <MdDelete /> Delete
+                    <MdDelete /> {t('management.deleteBtn')}
                   </button>
                 </div>
               </div>
@@ -101,39 +100,37 @@ function EnvironmentManagement() {
         <div className="mgmt-overlay" onClick={closeModal}>
           <div className="mgmt-modal" onClick={(e) => e.stopPropagation()}>
             <div className="mgmt-modal-header">
-              <h3>{modal.mode === "add" ? "Add Environment" : "Edit Environment"}</h3>
+              <h3>{modal.mode === "add" ? t('management.addTitle') : t('management.editTitle')}</h3>
               <button className="btn-close" onClick={closeModal}><MdClose /></button>
             </div>
-
             <div className="mgmt-modal-body">
-              <label>Name *</label>
+              <label>{t('management.nameLabel')} *</label>
               <input
                 className="mgmt-input"
-                placeholder="e.g. Environment 290-4"
+                placeholder={t('management.namePlaceholder')}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
               />
-              <label>Capacity</label>
+              <label>{t('management.capacityLabel')}</label>
               <input
                 className="mgmt-input"
                 type="number"
-                placeholder="e.g. 30"
+                placeholder={t('management.capacityPlaceholder')}
                 value={form.capacity}
                 onChange={(e) => setForm({ ...form, capacity: e.target.value })}
               />
-              <label>Location</label>
+              <label>{t('management.locationLabel')}</label>
               <input
                 className="mgmt-input"
-                placeholder="e.g. Room A"
+                placeholder={t('management.locationPlaceholder')}
                 value={form.location}
                 onChange={(e) => setForm({ ...form, location: e.target.value })}
               />
             </div>
-
             <div className="mgmt-modal-footer">
-              <button className="btn-cancel" onClick={closeModal}>Cancel</button>
+              <button className="btn-cancel" onClick={closeModal}>{t('management.cancelBtn')}</button>
               <button className="btn-save" onClick={handleSave}>
-                {modal.mode === "add" ? "Add" : "Save Changes"}
+                {modal.mode === "add" ? t('management.addConfirmBtn') : t('management.saveBtn')}
               </button>
             </div>
           </div>
@@ -145,16 +142,16 @@ function EnvironmentManagement() {
         <div className="mgmt-overlay" onClick={() => setDeleteConfirm(null)}>
           <div className="mgmt-modal mgmt-modal--sm" onClick={(e) => e.stopPropagation()}>
             <div className="mgmt-modal-header">
-              <h3>Delete Environment</h3>
+              <h3>{t('management.deleteTitle')}</h3>
               <button className="btn-close" onClick={() => setDeleteConfirm(null)}><MdClose /></button>
             </div>
             <div className="mgmt-modal-body">
-              <p>Are you sure you want to delete this environment? This action cannot be undone.</p>
+              <p>{t('management.deleteMsg')}</p>
             </div>
             <div className="mgmt-modal-footer">
-              <button className="btn-cancel" onClick={() => setDeleteConfirm(null)}>Cancel</button>
+              <button className="btn-cancel" onClick={() => setDeleteConfirm(null)}>{t('management.cancelBtn')}</button>
               <button className="btn-delete-confirm" onClick={() => handleDelete(deleteConfirm)}>
-                Delete
+                {t('management.deleteBtn')}
               </button>
             </div>
           </div>

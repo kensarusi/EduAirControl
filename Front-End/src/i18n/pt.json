@@ -5,7 +5,8 @@
     "activity": "Ambientes",
     "favorites": "Favoritos",
     "settings": "Configurações",
-    "logout": "Sair"
+    "logout": "Sair",
+    "management": "Gestão"
   },
   "login": {
     "title": "Entrar",
@@ -152,5 +153,27 @@
   "facebook": {
     "chooseAccount": "Escolha sua conta",
     "otherAccount": "Outra conta"
-  }
+  },
+  "management": {
+  "title": "Gestão de Ambientes",
+  "addBtn": "Adicionar Ambiente",
+  "editBtn": "Editar",
+  "editTitle": "Editar Ambiente",
+  "addTitle": "Adicionar Ambiente",
+  "nameLabel": "Nome",
+  "capacityLabel": "Capacidade",
+  "locationLabel": "Localização",
+  "namePlaceholder": "Ex: Ambiente 290-4",
+  "capacityPlaceholder": "Ex: 30",
+  "locationPlaceholder": "Ex: Sala A",
+  "saveBtn": "Salvar alterações",
+  "addConfirmBtn": "Adicionar",
+  "cancelBtn": "Cancelar",
+  "deleteTitle": "Excluir Ambiente",
+  "deleteMsg": "Tem certeza que deseja excluir este ambiente? Esta ação não pode ser desfeita.",
+  "deleteBtn": "Excluir",
+  "empty": "Nenhum ambiente. Adicione um!",
+  "capacity": "Capacidade",
+  "location": "Localização"
+}
 }

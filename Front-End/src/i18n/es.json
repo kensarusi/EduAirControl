@@ -5,7 +5,8 @@
     "activity": "Ambientes",
     "favorites": "Favoritos",
     "settings": "Configuración",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "management": "Gestión"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -152,5 +153,27 @@
   "facebook": {
     "chooseAccount": "Elige tu cuenta",
     "otherAccount": "Otra cuenta"
-  }
+  },
+  "management": {
+  "title": "Gestión de Ambientes",
+  "addBtn": "Agregar Ambiente",
+  "editTitle": "Editar Ambiente",
+  "editBtn": "Editar",
+  "addTitle": "Agregar Ambiente",
+  "nameLabel": "Nombre",
+  "capacityLabel": "Capacidad",
+  "locationLabel": "Ubicación",
+  "namePlaceholder": "Ej: Ambiente 290-4",
+  "capacityPlaceholder": "Ej: 30",
+  "locationPlaceholder": "Ej: Sala A",
+  "saveBtn": "Guardar cambios",
+  "addConfirmBtn": "Agregar",
+  "cancelBtn": "Cancelar",
+  "deleteTitle": "Eliminar Ambiente",
+  "deleteMsg": "¿Estás seguro de que quieres eliminar este ambiente? Esta acción no se puede deshacer.",
+  "deleteBtn": "Eliminar",
+  "empty": "No hay ambientes. ¡Agrega uno!",
+  "capacity": "Capacidad",
+  "location": "Ubicación"
+}
 }

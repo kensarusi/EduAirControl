@@ -5,7 +5,8 @@
     "activity": "Environnements",
     "favorites": "Favoris",
     "settings": "Paramètres",
-    "logout": "Se déconnecter"
+    "logout": "Se déconnecter",
+    "management": "Gestion"
   },
   "login": {
     "title": "Se connecter",
@@ -152,5 +153,27 @@
   "facebook": {
     "chooseAccount": "Choisissez votre compte",
     "otherAccount": "Autre compte"
-  }
+  },
+  "management": {
+  "title": "Gestion des Environnements",
+  "addBtn": "Ajouter un environnement",
+  "editBtn": "Modifier",
+  "editTitle": "Modifier l'environnement",
+  "addTitle": "Ajouter un environnement",
+  "nameLabel": "Nom",
+  "capacityLabel": "Capacité",
+  "locationLabel": "Emplacement",
+  "namePlaceholder": "Ex : Environnement 290-4",
+  "capacityPlaceholder": "Ex : 30",
+  "locationPlaceholder": "Ex : Salle A",
+  "saveBtn": "Enregistrer les modifications",
+  "addConfirmBtn": "Ajouter",
+  "cancelBtn": "Annuler",
+  "deleteTitle": "Supprimer l'environnement",
+  "deleteMsg": "Êtes-vous sûr de vouloir supprimer cet environnement ? Cette action est irréversible.",
+  "deleteBtn": "Supprimer",
+  "empty": "Aucun environnement. Ajoutez-en un !",
+  "capacity": "Capacité",
+  "location": "Emplacement"
+}
 }
