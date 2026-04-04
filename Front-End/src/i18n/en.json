@@ -175,6 +175,9 @@
   "deleteBtn": "Delete",
   "empty": "No environments yet. Add one!",
   "capacity": "Capacity",
-  "location": "Location"
-}
+  "location": "Location",
+  "env1": "Environment 290-1",
+  "env2": "Environment 290-2",
+  "env3": "Environment 290-3"
+  }
 }
