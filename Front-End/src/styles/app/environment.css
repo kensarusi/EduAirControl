@@ -1,98 +1,318 @@
-.management-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
+.mgmt-page {
+  min-height: 100vh;
+  background-color: var(--bg-body);
 }
 
-.header {
+.mgmt-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 90px 20px 40px;
+  box-sizing: border-box;
+}
+
+/* Título */
+.mgmt-title-row {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.back {
-  cursor: pointer;
+.mgmt-title-icon {
+  font-size: 32px;
+  color: var(--accent);
 }
 
-/* BOTÓN */
-.btn-add {
-  margin: 20px 0;
-  padding: 10px 20px;
-  background-color: #5de6c8;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.mgmt-title {
+  font-size: 28px;
+  color: var(--text-primary);
+  margin: 0;
 }
 
-/* LISTA */
-.env-list {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.env-item {
+/* Botón agregar */
+.mgmt-actions-top {
   display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.btn-add-env {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-env:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Lista */
+.mgmt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mgmt-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* Card */
+.mgmt-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s;
+  box-sizing: border-box;
 }
 
-.env-item:last-child {
-  border-bottom: none;
+.mgmt-card:hover {
+  transform: translateY(-2px);
 }
 
-/* BOTONES */
-.actions {
+.mgmt-card-info h3 {
+  font-size: 17px;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.mgmt-card-info p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 2px 0;
+}
+
+.mgmt-card-info p span {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* Botones card */
+.mgmt-card-actions {
   display: flex;
   gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-edit, .btn-delete {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-edit {
-  background-color: orange;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 6px;
-  cursor: pointer;
+  background: #ffc107;
+  color: #333;
+}
+
+.btn-edit:hover {
+  background: #e6ad06;
+  transform: scale(1.05);
 }
 
 .btn-delete {
-  background-color: red;
+  background: #dc3545;
   color: white;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 6px;
-  cursor: pointer;
 }
 
-/* MODAL */
-.modal-overlay {
+.btn-delete:hover {
+  background: #c82333;
+  transform: scale(1.05);
+}
+
+/* Modal */
+.mgmt-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-
+  inset: 0;
+  background: rgba(0,0,0,0.55);
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-.modal {
-  background: white;
+  justify-content: center;
+  z-index: 1000;
   padding: 20px;
-  border-radius: 10px;
-  width: 300px;
+  box-sizing: border-box;
 }
 
-.modal input {
+.mgmt-modal {
+  background: var(--bg-card);
+  border-radius: 16px;
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  overflow: hidden;
 }
 
-.modal-actions {
+.mgmt-modal--sm {
+  max-width: 360px;
+}
+
+.mgmt-modal-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.mgmt-modal-header h3 {
+  font-size: 18px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.btn-close:hover { color: var(--text-primary); }
+
+.mgmt-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mgmt-modal-body label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+}
+
+.mgmt-modal-body p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.mgmt-input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.mgmt-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.mgmt-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--border-card);
+}
+
+.btn-cancel {
+  padding: 10px 20px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.btn-save {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-save:hover { background: var(--accent-hover); }
+
+.btn-delete-confirm {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #dc3545;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete-confirm:hover { background: #c82333; }
+
+/* Responsive móvil */
+@media (max-width: 768px) {
+  .mgmt-container {
+    padding: 90px 15px 30px;
+  }
+
+  .mgmt-title { font-size: 22px; }
+
+  .mgmt-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .mgmt-card-actions {
+    width: 100%;
+  }
+
+  .btn-edit, .btn-delete {
+    flex: 1;
+    justify-content: center;
+    padding: 10px;
+  }
 }
