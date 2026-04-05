@@ -6,7 +6,10 @@
     "favorites": "Favoris",
     "settings": "Paramètres",
     "logout": "Se déconnecter",
-    "management": "Gestion"
+    "management": "Gestion",
+    "greeting": "Bonjour",
+    "admin": "Administrateur",
+    "user": "Utilisateur"
   },
   "login": {
     "title": "Se connecter",

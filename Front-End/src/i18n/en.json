@@ -6,7 +6,10 @@
   "favorites": "Favorites",
   "settings": "Settings",
   "logout": "Log Out",
-  "management": "Management"
+  "management": "Management",
+  "greeting": "Hello",
+  "admin": "Administrator",
+  "user": "User"
 },
   "login": {
     "title": "Login",

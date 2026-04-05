@@ -6,7 +6,10 @@
     "favorites": "Favoritos",
     "settings": "Configuración",
     "logout": "Cerrar sesión",
-    "management": "Gestión"
+    "management": "Gestión",
+    "greeting": "Hola",
+    "admin": "Administrador",
+    "user": "Usuario"
   },
   "login": {
     "title": "Iniciar sesión",

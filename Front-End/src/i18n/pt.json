@@ -6,7 +6,10 @@
     "favorites": "Favoritos",
     "settings": "Configurações",
     "logout": "Sair",
-    "management": "Gestão"
+    "management": "Gestão",
+    "greeting": "Olá",
+    "admin": "Administrador",
+    "user": "Usuário"
   },
   "login": {
     "title": "Entrar",
