@@ -123,6 +123,7 @@
     height: auto;
     padding: 8px 16px 0;
     align-items: stretch;
+    padding-top: 125px;
   }
 
   .navbar-top-row {
@@ -138,7 +139,7 @@
     width: 100%;
     justify-content: space-around;
     border-top: 1px solid rgba(93, 230, 200, 0.2);
-    padding: 6px 0 8px;
+    padding: 10px 0 12px; 
     gap: 0;
   }
 
