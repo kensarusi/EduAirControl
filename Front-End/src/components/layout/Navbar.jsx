@@ -30,6 +30,7 @@ function Navbar() {
     { icon: <MdOutlineMeetingRoom />, label: t('nav.environments'), path: '/dashboard' },
     { icon: <IoStatsChart />,         label: t('nav.activity'),     path: '/all-environments' },
     { icon: <FaHeart />,              label: t('nav.favorites'),    path: '/favorites' },
+    { icon: <FaUser />,              label: t('nav.management'),        path: '/management' },
   ]
 
   const isProfileActive =
