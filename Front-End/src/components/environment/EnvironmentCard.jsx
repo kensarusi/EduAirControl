@@ -21,7 +21,7 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
     <div className="env-card">
       <div className="env-card-header">
         <div className="env-card-title">
-          <h3>{t(environment.nameKey)}</h3>
+          <h3>{environment.nameKey ? t(environment.nameKey) : environment.name}</h3>
           <p className="click-text">{t('dashboard.clickDetails')}</p>
           <span
             className="env-status"
