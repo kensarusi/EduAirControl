@@ -1,18 +1,14 @@
-import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaHeart } from 'react-icons/fa'
 import Navbar from '../../components/layout/Navbar'
+import { useEnvironments } from '../../context/EnvironmentsContext'
 import { STATUS_COLORS } from '../../constants/environments'
 import '../../styles/app/Favorites.css'
 
 function FavoritesScreen() {
   const { t } = useTranslation()
-  const [favorites, setFavorites] = useState([])
-
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('favorites')) || []
-    setFavorites(saved)
-  }, [])
+  const { environments, toggleFavorite } = useEnvironments()
+  const favorites = environments.filter((e) => e.isFavorite)
 
   return (
     <div className="favorites-page">
@@ -32,12 +28,15 @@ function FavoritesScreen() {
             <div key={fav.id} className="fav-card">
               <div className="fav-card-header">
                 <div>
-                  <h2>{t(fav.nameKey)}</h2>
+                  <h2>{fav.nameKey ? t(fav.nameKey) : fav.name}</h2>
                   <span className="fav-status" style={{ color: STATUS_COLORS[fav.statusKey] }}>
                     {t(fav.statusKey)}
                   </span>
                 </div>
-                <FaHeart style={{ color: '#ff6b6b', fontSize: 22 }} />
+                <FaHeart
+                  style={{ color: '#ff6b6b', fontSize: 22, cursor: 'pointer' }}
+                  onClick={() => toggleFavorite(fav.id, false)}
+                />
               </div>
 
               <div className="fav-card-body">
