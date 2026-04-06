@@ -989,6 +989,10 @@ input, button { max-width: 100%; }
     height: auto;
   }
 
+  .profile-dropdown-item span {
+  display: inline !important;
+}
+
   .navbar-top-row {
     display: flex;
     flex-direction: row;
