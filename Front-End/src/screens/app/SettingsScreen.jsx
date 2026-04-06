@@ -188,15 +188,15 @@ function SettingsScreen() {
           <p className="section-description">{t('settings.langDescription')}</p>
 
           <div className="settings-field">
-            <div className="field-icon"><FaGlobe /></div>
-            <div className="field-info">
-              <span className="field-label">{t('settings.language')}</span>
-              <span className="field-value">{settings.language}</span>
-            </div>
-            <button className="btn-update" onClick={() => setShowLangModal(true)}>
-              <MdEdit /> {t('settings.updateBtn')}
-            </button>
+          <div className="field-icon"><FaGlobe /></div>
+          <div className="field-info">
+            <span className="field-label">{t('settings.language')}</span>
+            <span className="field-value">{settings.language}</span>  {/* ← debe estar DENTRO de field-info */}
           </div>
+          <button className="btn-update" onClick={() => setShowLangModal(true)}>
+            <MdEdit /> {t('settings.updateBtn')}
+          </button>
+        </div>
 
           <div className="settings-field">
             <div className="field-icon"><FaCalendar /></div>

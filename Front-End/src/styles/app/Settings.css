@@ -189,3 +189,18 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.settings-field .field-info {
+  flex: 1;
+  min-width: 0;          
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-field .field-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;      
+}
