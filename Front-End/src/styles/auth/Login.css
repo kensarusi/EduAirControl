@@ -150,23 +150,16 @@
 
 .btn-facebook {
   padding: 10px 20px;
-  background-color: white;
-  color: #333;
-  border: 1.5px solid #ccc;
+  background-color: #5de6c8;
+  color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .btn-facebook:hover {
-  background-color: #1464d8;
-}
-
-.btn-facebook svg,
-.btn-google svg {
-  font-size: 18px;
-  vertical-align: middle;
-  margin-right: 6px;
+  background-color: #4dd4b6;
 }
 
 .btn-google {
