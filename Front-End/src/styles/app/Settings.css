@@ -155,3 +155,37 @@
   background: var(--bg-card, white);
   color: var(--text-primary, #333);
 }
+
+@media (max-width: 768px) {
+  .settings-content {
+    padding: 115px 15px 30px;
+  }
+
+  /* ← Esto arregla el texto partido */
+  .settings-field {
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .settings-field .field-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .settings-field .field-value {
+    white-space: nowrap;      /* ← evita que se parta */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .settings-field .btn-update {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .theme-picker {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
