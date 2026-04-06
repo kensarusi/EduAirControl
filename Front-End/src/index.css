@@ -998,13 +998,6 @@ input, button { max-width: 100%; }
     padding-bottom: 4px;
   }
 
-  .navbar-item {
-    width: auto;
-    padding: 6px 10px;
-    flex: 1;
-    justify-content: center;
-  }
-
   .navbar-info {
     position: static;
     transform: none;
@@ -1014,6 +1007,33 @@ input, button { max-width: 100%; }
 
   .navbar-info-greeting { font-size: 11px; }
   .navbar-info-time     { font-size: 10px; }
+
+  /* ── Padding top para todas las páginas ── */
+  .dashboard-page,
+  .all-env-container,
+  .favorites-content,
+  .profile-content,
+  .settings-content,
+  .mgmt-container {
+    padding-top: 115px;
+  }
+
+  .navbar-menu {
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid rgba(93, 230, 200, 0.2);
+    padding: 6px 0 8px;
+  }
+
+  .navbar-item {
+    width: auto;
+    padding: 6px 8px;
+    font-size: 18px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .navbar-item span { display: none; }  /* ← solo íconos en móvil */
 
   .dashboard-layout { grid-template-columns: 1fr; padding: 10px; }
   h1 { font-size: 20px; }
@@ -1028,6 +1048,14 @@ input, button { max-width: 100%; }
   .profile-field { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
   .btn-update { width: 100%; text-align: center; }
 }
+
+@media (max-width: 480px) {
+  .dashboard-layout { padding: 8px; }
+  .env-card-title h3 { font-size: 14px; }
+  .env-metric p { font-size: 12px; }
+  .filter-card { width: 100%; }
+}
+
 
 @media (max-width: 480px) {
   .dashboard-layout { padding: 8px; }
