@@ -13,11 +13,11 @@ function Navbar() {
 
   const menuItems = [
     { icon: <MdOutlineMeetingRoom />, label: t('nav.environments'), path: '/dashboard' },
-    { icon: <FaUser />,               label: t('nav.profile'),      path: '/profile' },
     { icon: <IoStatsChart />,         label: t('nav.activity'),     path: '/all-environments' },
     { icon: <FaHeart />,              label: t('nav.favorites'),    path: '/favorites' },
     { icon: <IoSettings />,           label: t('nav.settings'),     path: '/settings' },
-    { icon: <MdOutlineMeetingRoom />, label: t('nav.management'), path: '/management' }, 
+    { icon: <MdOutlineMeetingRoom />, label: t('nav.management'), path: '/management' },
+    { icon: <FaUser />,               label: t('nav.profile'),      path: '/profile' }, 
    ]
 
   const menu = (
