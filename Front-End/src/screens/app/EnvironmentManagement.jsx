@@ -76,12 +76,12 @@ const handleSave = () => {
                   <p><span>{t("management.capacity")}:</span> {env.capacity}</p>
                   <p><span>{t("management.location")}:</span> {env.location}</p>
                 </div>
-                <div className="mgmt-card-actions">
+               <div className="mgmt-card-actions">
                   <button className="btn-edit" onClick={() => openEdit(env)}>
                     <MdEdit /> {t("management.editBtn")}
                   </button>
                   <button className="btn-delete" onClick={() => setDeleteConfirm(env.id)}>
-                    <MdDelete /> {t("management.deleteBtn")}
+                    <MdDelete />
                   </button>
                 </div>
               </div>

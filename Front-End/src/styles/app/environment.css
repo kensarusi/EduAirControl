@@ -277,16 +277,47 @@
 
 .btn-save:hover { background: var(--accent-hover); }
 
-.btn-delete-confirm {
-  padding: 10px 22px;
+.btn-edit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
   border: none;
   border-radius: 8px;
-  background: #dc3545;
-  color: white;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  background: hsl(167, 100%, 72%);
+  color: #333;
+}
+
+.btn-edit:hover {
+  background: hsl(172, 100%, 75%);
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;              
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fdecea;      
+  color: #F44336;          
+}
+
+.btn-delete:hover {
+  background: #F44336;
+  color: white;
+  transform: scale(1.05);
 }
 
 .btn-delete-confirm:hover { background: #c82333; }
@@ -294,7 +325,7 @@
 /* Responsive móvil */
 @media (max-width: 768px) {
   .mgmt-container {
-    padding: 90px 15px 30px;
+    padding: 115px 15px 30px;
   }
 
   .mgmt-title { font-size: 22px; }
@@ -308,11 +339,18 @@
 
   .mgmt-card-actions {
     width: 100%;
+    align-items: center;
   }
 
-  .btn-edit, .btn-delete {
+  .btn-edit {
     flex: 1;
     justify-content: center;
     padding: 10px;
+  }
+
+  .btn-delete {
+    width: 40px;
+    height: 40px;
+    flex: none;
   }
 }
