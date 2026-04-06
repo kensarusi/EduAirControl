@@ -121,9 +121,8 @@
   .navbar {
     flex-direction: column;
     height: auto;
-    padding: 8px 16px 0;
+    padding: 8px 16px 0;  /* ← sin padding-top: 125px */
     align-items: stretch;
-    padding-top: 125px;
   }
 
   .navbar-top-row {
@@ -139,22 +138,21 @@
     width: 100%;
     justify-content: space-around;
     border-top: 1px solid rgba(93, 230, 200, 0.2);
-    padding: 10px 0 12px; 
+    padding: 10px 0 14px; /* ← más espacio arriba y abajo */
     gap: 0;
+    margin-top: 4px;      /* ← pequeño margen para separar de la línea */
   }
 
   .navbar-item {
     flex: 1;
     justify-content: center;
     font-size: 20px;
-    padding: 6px 4px;
+    padding: 8px 4px;     /* ← más padding vertical en cada ícono */
     width: auto;
   }
 
-  /* Oculta texto del menú principal */
   .navbar-item span { display: none; }
 
-  /* Excepción: dropdown SÍ muestra texto */
   .profile-dropdown-item span { display: inline !important; }
 
   .profile-dropdown {
