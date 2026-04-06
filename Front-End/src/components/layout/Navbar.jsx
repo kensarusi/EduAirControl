@@ -75,7 +75,7 @@ function Navbar() {
                 onClick={(e) => { e.stopPropagation(); navigate('/profile'); setDropdownOpen(false) }}
               >
                 <FaUser />
-                <span>{t('Profile')}</span>
+                <span>{t('nav.profile')}</span>
               </div>
               <div
                 className="profile-dropdown-item"
