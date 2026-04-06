@@ -1,12 +1,29 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette } from 'react-icons/fa'
+import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette, FaMapMarkerAlt } from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import Navbar from '../../components/layout/Navbar'
 import { EditModal } from '../../components/ui'
 import { useDarkMode } from '../../hooks/useDarkMode'
+import { saveDateFormat } from '../../hooks/useDateFormat'
 import '../../styles/app/Settings.css'
+
+const TIMEZONES = [
+  { value: 'America/Bogota',      label: 'Bogotá (UTC-5)' },
+  { value: 'America/Lima',        label: 'Lima (UTC-5)' },
+  { value: 'America/Mexico_City', label: 'Ciudad de México (UTC-6)' },
+  { value: 'America/New_York',    label: 'Nueva York (UTC-5/-4)' },
+  { value: 'America/Los_Angeles', label: 'Los Ángeles (UTC-8/-7)' },
+  { value: 'America/Sao_Paulo',   label: 'São Paulo (UTC-3)' },
+  { value: 'America/Santiago',    label: 'Santiago (UTC-4/-3)' },
+  { value: 'Europe/London',       label: 'Londres (UTC+0/+1)' },
+  { value: 'Europe/Madrid',       label: 'Madrid (UTC+1/+2)' },
+  { value: 'Europe/Paris',        label: 'París (UTC+1/+2)' },
+  { value: 'Asia/Tokyo',          label: 'Tokio (UTC+9)' },
+  { value: 'Asia/Dubai',          label: 'Dubái (UTC+4)' },
+  { value: 'Australia/Sydney',    label: 'Sídney (UTC+10/+11)' },
+]
 
 // Aplica tema + dark-mode al body (misma lógica que useDarkMode y main.jsx)
 function applyBodyClasses(theme, dark) {
@@ -28,6 +45,24 @@ function SettingsScreen() {
   const [autoTimezone, setAutoTimezone] = useState(
     () => JSON.parse(localStorage.getItem('autoTimezone')) ?? true
   )
+
+  const [manualTimezone, setManualTimezone] = useState(
+    () => localStorage.getItem('manualTimezone') || Intl.DateTimeFormat().resolvedOptions().timeZone
+  )
+
+  const handleTimezoneToggle = (val) => {
+    setAutoTimezone(val)
+    const tz = val
+      ? Intl.DateTimeFormat().resolvedOptions().timeZone
+      : manualTimezone
+    window.dispatchEvent(new CustomEvent('timezoneChanged', { detail: tz }))
+  }
+
+  const handleManualTimezone = (tz) => {
+    setManualTimezone(tz)
+    localStorage.setItem('manualTimezone', tz)
+    window.dispatchEvent(new CustomEvent('timezoneChanged', { detail: tz }))
+  }
 
   const [settings, setSettings] = useState(
     () => JSON.parse(localStorage.getItem('settings')) || {
@@ -67,6 +102,7 @@ function SettingsScreen() {
 
   const handleSave = (field, newValue) => {
     setSettings((prev) => ({ ...prev, [field]: newValue }))
+    if (field === 'dateFormat') saveDateFormat(newValue)
   }
 
   const handleChangeLanguage = (lang) => {
@@ -186,11 +222,29 @@ function SettingsScreen() {
             </div>
             <div
               className={`toggle ${autoTimezone ? 'active' : ''}`}
-              onClick={() => setAutoTimezone(!autoTimezone)}
+              onClick={() => handleTimezoneToggle(!autoTimezone)}
             >
               <div className="toggle-circle" />
             </div>
           </div>
+
+          {!autoTimezone && (
+            <div className="settings-field">
+              <div className="field-icon"><FaMapMarkerAlt /></div>
+              <div className="field-info">
+                <span className="field-label">{t('Selecciona la Hora de tu preferencia')}</span>
+                <select
+                  className="timezone-select"
+                  value={manualTimezone}
+                  onChange={(e) => handleManualTimezone(e.target.value)}
+                >
+                  {TIMEZONES.map(({ value, label }) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
