@@ -989,6 +989,16 @@ input, button { max-width: 100%; }
     gap: 1px;
   }
 
+  @media (max-width: 768px) {
+  .navbar-menu {
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid rgba(93, 230, 200, 0.2);
+    padding: 12px 0 14px !important;  
+    gap: 0;
+  }
+}
+
   .navbar-info-greeting { font-size: 11px; }
   .navbar-info-time     { font-size: 10px; }
 
