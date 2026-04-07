@@ -294,7 +294,7 @@
 }
 
 /* ── Dark Mode ── */
-body.dark-mode .all-env-page       { background-color: #0f1f3d; }
+body.dark-mode .all-env-page       { background-color: var(--bg-body); }
 body.dark-mode .all-env-title      { color: #e0e0e0; }
 body.dark-mode .floating-field     { background: #16213e; border-color: #2a2a4a; }
 body.dark-mode .floating-field input { color: #e0e0e0; }
