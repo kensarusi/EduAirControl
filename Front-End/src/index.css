@@ -7,10 +7,10 @@
 
 /* ── Normal (default) ── */
 :root {
-  --accent:          #5de6c8;
-  --accent-hover:    #4dd4b6;
+  --accent:          #00b894  ;
+  --accent-hover:    #00b894;
   --accent-light:    #e8faf5;
-  --accent-dark:     #3ab8a0;
+  --accent-dark:     #00b894;
 
   --bg-body:         #f0fafa;
   --bg-card:         #ffffff;
@@ -26,7 +26,7 @@
 
   --border-color:    #cccccc;
   --border-card:     #f0f0f0;
-  --border-nav:      #5de6c8;
+  --border-nav:      #00b894;
 
   --shadow-card:     0 2px 10px rgba(0,0,0,0.08);
   --shadow-nav:      0 2px 5px rgba(0,0,0,0.1);
