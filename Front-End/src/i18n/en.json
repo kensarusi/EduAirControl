@@ -193,5 +193,14 @@
   "env1": "Environment 290-1",
   "env2": "Environment 290-2",
   "env3": "Environment 290-3"
-  }
+  },
+
+  "editModal": {
+  "dateFormatTitle": "Date format",
+  "dateFormatSubtitle": "Choose how dates are displayed across the app",
+  "updateTitle": "Update",
+  "preview": "PREVIEW",
+  "cancel": "Cancel",
+  "save": "Save"
+}
 }

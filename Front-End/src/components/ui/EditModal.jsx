@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IoClose } from 'react-icons/io5'
 import '../../styles/components/EditModal.css'
 
@@ -20,8 +21,8 @@ function getTodayParts() {
 }
 
 function EditModal({ field, value, onSave, onClose }) {
+  const { t } = useTranslation()
   const isDateFormat = field === 'dateFormat'
-
   const [newValue, setNewValue] = useState(value)
   const today = getTodayParts()
 
@@ -37,12 +38,11 @@ function EditModal({ field, value, onSave, onClose }) {
           <IoClose />
         </button>
 
-        <h2>{isDateFormat ? 'Date format' : `Update ${field}`}</h2>
+        <h2>{isDateFormat ? t('editModal.dateFormatTitle') : `${t('editModal.updateTitle')} ${field}`}</h2>
 
         {isDateFormat ? (
           <>
-            <p className="modal-subtitle">Choose how dates are displayed across the app</p>
-
+            <p className="modal-subtitle">{t('editModal.dateFormatSubtitle')}</p>
             <div className="format-chips">
               {DATE_FORMATS.map(({ label, example }) => (
                 <button
@@ -55,9 +55,8 @@ function EditModal({ field, value, onSave, onClose }) {
                 </button>
               ))}
             </div>
-
             <div className="format-preview">
-              <span className="preview-label">Preview</span>
+              <span className="preview-label">{t('editModal.preview')}</span>
               <span className="preview-value">
                 {DATE_FORMATS.find(f => f.label === newValue)?.example(today) ?? newValue}
               </span>
@@ -73,8 +72,8 @@ function EditModal({ field, value, onSave, onClose }) {
         )}
 
         <div className="modal-buttons">
-          <button className="btn-cancel" onClick={onClose}>Cancel</button>
-          <button className="btn-save" onClick={handleSave}>Save</button>
+          <button className="btn-cancel" onClick={onClose}>{t('editModal.cancel')}</button>
+          <button className="btn-save" onClick={handleSave}>{t('editModal.save')}</button>
         </div>
       </div>
     </div>
