@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { WiThermometer, WiHumidity } from 'react-icons/wi'
@@ -10,6 +11,7 @@ import '../../styles/components/EnvironmentCard.css'
 function EnvironmentCard({ environment, onToggleFavorite }) {
   const [isFavorite, setIsFavorite] = useState(environment.isFavorite || false)
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const handleFavorite = (e) => {
     e.stopPropagation()
@@ -18,7 +20,7 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
   }
 
   return (
-    <div className="env-card">
+    <div className="env-card" onClick={() => navigate(`/environment/${environment.id}`)}>
       <div className="env-card-header">
         <div className="env-card-title">
           <h3>{environment.nameKey ? t(environment.nameKey) : environment.name}</h3>

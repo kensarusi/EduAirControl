@@ -158,6 +158,17 @@
     "chooseAccount": "Choose your account",
     "otherAccount": "Other account"
   },
+  "detail": {
+    "metricsTitle": "Real-time Metrics",
+    "locationTitle": "Location",
+    "capacityTitle": "Capacity",
+    "conditionsTitle": "Conditions",
+    "people": "people",
+    "addFav": "Add to favorites",
+    "removeFav": "Remove favorite",
+    "qualityDesc": "Based on CO₂, temperature, humidity and noise levels in the environment.",
+    "notFound": "Environment not found"
+  },
   "management": {
   "title": "Environment Management",
   "addBtn": "Add Environment",

@@ -157,6 +157,17 @@
     "chooseAccount": "Choisissez votre compte",
     "otherAccount": "Autre compte"
   },
+  "detail": {
+    "metricsTitle": "Métriques en temps réel",
+    "locationTitle": "Emplacement",
+    "capacityTitle": "Capacité",
+    "conditionsTitle": "Conditions",
+    "people": "personnes",
+    "addFav": "Ajouter aux favoris",
+    "removeFav": "Retirer des favoris",
+    "qualityDesc": "Basé sur les niveaux de CO₂, température, humidité et bruit de l'environnement.",
+    "notFound": "Environnement introuvable"
+  },
   "management": {
   "title": "Gestion des Environnements",
   "addBtn": "Ajouter un environnement",
