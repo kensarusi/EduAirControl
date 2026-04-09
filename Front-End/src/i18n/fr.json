@@ -192,5 +192,14 @@
   "env1": "Environnement 290-1",
   "env2": "Environnement 290-2",
   "env3": "Environnement 290-3"
-  }
+  },
+
+  "editModal": {
+  "dateFormatTitle": "Format de date",
+  "dateFormatSubtitle": "Choisissez comment les dates s'affichent dans l'app",
+  "updateTitle": "Mettre à jour",
+  "preview": "Aperçu",
+  "cancel": "Annuler",
+  "save": "Enregistrer"
+}
 }
