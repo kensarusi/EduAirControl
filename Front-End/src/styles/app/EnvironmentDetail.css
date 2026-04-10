@@ -289,3 +289,64 @@ body.dark-mode .detail-metric-footer { color: #666; }
 body.dark-mode .detail-info-card { background: #16213e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 body.dark-mode .detail-info-card h3 { color: #666; }
 body.dark-mode .detail-info-card p { color: #e0e0e0; }
+
+
+/* RATING SECTION */
+
+.detail-rating-card{
+margin-top:30px;
+padding:30px;
+border-radius:14px;
+background:#1f2a40;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.rating-question{
+margin-bottom:15px;
+font-size:16px;
+color:#dcdcdc;
+}
+
+/* STARS */
+
+.stars{
+font-size:40px;
+margin:15px 0;
+}
+
+.star{
+cursor:pointer;
+color:#555;
+transition:all 0.2s;
+margin:0 5px;
+}
+
+.star:hover{
+transform:scale(1.2);
+}
+
+.star.active{
+color:#FFD700;
+}
+
+/* SUBMIT BUTTON */
+
+.rating-submit-btn{
+margin-top:15px;
+padding:12px 28px;
+font-size:16px;
+font-weight:600;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#4CAF50,#2e7d32);
+color:white;
+cursor:pointer;
+transition:all 0.25s;
+box-shadow:0 6px 15px rgba(0,0,0,0.25);
+}
+
+.rating-submit-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}

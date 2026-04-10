@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { WiThermometer, WiHumidity } from 'react-icons/wi'
@@ -11,7 +12,7 @@ import { useEnvironments } from '../../context/EnvironmentsContext'
 import { STATUS_COLORS, QUALITY_COLORS, IDEAL_RANGES } from '../../constants/environments'
 import '../../styles/app/EnvironmentDetail.css'
 
-function MetricBar({ value, min, max, unit }) {
+function MetricBar({ value, min, max }) {
   const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
   const color = pct < 60 ? '#4CAF50' : pct < 80 ? '#FFC107' : '#F44336'
   return (
@@ -32,6 +33,8 @@ function EnvironmentDetailScreen() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { environments, toggleFavorite } = useEnvironments()
+
+  const [rating, setRating] = useState(0)
 
   const env = environments.find((e) => String(e.id) === String(id))
 
@@ -98,16 +101,18 @@ function EnvironmentDetailScreen() {
       <div className="detail-container">
         <BackButton onClick={() => navigate('/dashboard')} />
 
-        {/* Hero Header */}
+        {/* Hero */}
         <div className="detail-hero">
           <div className="detail-hero-left">
             <h1 className="detail-name">{name}</h1>
+
             <div className="detail-meta">
               {env.location && (
                 <span className="detail-meta-item">
                   <FaMapMarkerAlt /> {env.location}
                 </span>
               )}
+
               {env.capacity && (
                 <span className="detail-meta-item">
                   <FaUser /> {t('management.capacity')}: {env.capacity}
@@ -115,45 +120,63 @@ function EnvironmentDetailScreen() {
               )}
             </div>
           </div>
+
           <div className="detail-hero-right">
             <div className="detail-status-badge" style={{ borderColor: statusColor, color: statusColor }}>
               <StatusIcon statusKey={env.statusKey} />
               <span>{t(env.statusKey)}</span>
             </div>
+
             <button
               className={`detail-fav-btn ${env.isFavorite ? 'active' : ''}`}
               onClick={() => toggleFavorite(env.id, !env.isFavorite)}
             >
               {env.isFavorite ? <FaHeart /> : <FaRegHeart />}
-              <span>{env.isFavorite ? (t('detail.removeFav') || 'Quitar favorito') : (t('detail.addFav') || 'Agregar favorito')}</span>
+              <span>
+                {env.isFavorite
+                  ? (t('detail.removeFav') || 'Quitar favorito')
+                  : (t('detail.addFav') || 'Agregar favorito')}
+              </span>
             </button>
           </div>
         </div>
 
-        {/* Air Quality Banner */}
+        {/* Air Quality */}
         <div className="detail-quality-banner" style={{ borderLeftColor: qualityColor }}>
           <div>
             <p className="detail-quality-label">{t('dashboard.airQuality')}</p>
-            <p className="detail-quality-value" style={{ color: qualityColor }}>{t(env.qualityKey)}</p>
+            <p className="detail-quality-value" style={{ color: qualityColor }}>
+              {t(env.qualityKey)}
+            </p>
           </div>
+
           <div className="detail-quality-desc">
-            <p>{t('detail.qualityDesc') || 'Basado en los niveles de CO₂, temperatura, humedad y ruido del ambiente.'}</p>
+            <p>
+              {t('detail.qualityDesc') ||
+                'Basado en los niveles de CO₂, temperatura, humedad y ruido del ambiente.'}
+            </p>
           </div>
         </div>
 
-        {/* Metrics Grid */}
-        <h2 className="detail-section-title">{t('detail.metricsTitle') || 'Métricas en tiempo real'}</h2>
+        {/* Metrics */}
+        <h2 className="detail-section-title">
+          {t('detail.metricsTitle') || 'Métricas en tiempo real'}
+        </h2>
+
         <div className="detail-metrics-grid">
           {metrics.map((m) => (
             <div className="detail-metric-card" key={m.key}>
               <div className="detail-metric-header">
                 {m.icon}
+
                 <div>
                   <p className="detail-metric-label">{m.label}</p>
                   <p className="detail-metric-value">{m.value}</p>
                 </div>
               </div>
+
               <MetricBar value={m.rawValue} min={m.min} max={m.max} />
+
               <div className="detail-metric-footer">
                 <span>{t('dashboard.idealRange')}</span>
                 <span className="detail-metric-ideal">{m.ideal}</span>
@@ -162,23 +185,63 @@ function EnvironmentDetailScreen() {
           ))}
         </div>
 
-        {/* Info Cards Row */}
-        <div className="detail-info-row">
-          <div className="detail-info-card">
-            <h3>📍 {t('detail.locationTitle') || 'Ubicación'}</h3>
-            <p>{env.location || '—'}</p>
-          </div>
-          <div className="detail-info-card">
-            <h3>👥 {t('detail.capacityTitle') || 'Capacidad'}</h3>
-            <p>{env.capacity ? `${env.capacity} ${t('detail.people') || 'personas'}` : '—'}</p>
-          </div>
-          <div className="detail-info-card">
-            <h3>🌡️ {t('detail.conditionsTitle') || 'Condiciones'}</h3>
-            <p style={{ color: statusColor, fontWeight: 600 }}>{t(env.statusKey)}</p>
-          </div>
+        
+
+
+          {/* Info Cards Row */}
+<div className="detail-info-row">
+
+  <div className="detail-info-card">
+    <h3>📍 {t('detail.locationTitle') || 'Ubicación'}</h3>
+    <p>{env.location || '—'}</p>
+  </div>
+
+  <div className="detail-info-card">
+    <h3>👥 {t('detail.capacityTitle') || 'Capacidad'}</h3>
+    <p>{env.capacity ? `${env.capacity} ${t('detail.people') || 'personas'}` : '—'}</p>
+  </div>
+
+  <div className="detail-info-card">
+    <h3>🌡️ {t('detail.conditionsTitle') || 'Condiciones'}</h3>
+    <p style={{ color: statusColor, fontWeight: 600 }}>
+      {t(env.statusKey)}
+    </p>
+  </div>
+
+</div>
+<br></br>
+      {/* Classroom Rating */}
+      <h2 className="detail-section-title">Calificación del aula</h2>
+
+      <div className="detail-rating-card">
+
+        <p className="rating-question">
+          ¿Cómo percibes el confort de este ambiente?
+        </p>
+
+        <div className="stars">
+          {[1,2,3,4,5].map((star) => (
+            <span
+              key={star}
+              className={rating >= star ? "star active" : "star"}
+              onClick={() => setRating(star)}
+            >
+              ★
+            </span>
+          ))}
+        </div>
+
+        <button
+          className="rating-submit-btn"
+          onClick={() => alert(`Calificación enviada: ${rating} estrellas`)}
+        >
+          ⭐ Enviar calificación
+        </button>
+
+      </div>
         </div>
       </div>
-    </div>
+    
   )
 }
 
