@@ -74,7 +74,7 @@ function AllEnvironmentsScreen() {
           </div>
         ) : (
           <>
-           <div className="all-env-cards">
+            <div className="all-env-cards">
             {filtered.map((env) => (
               <div
                 key={env.id}
@@ -85,7 +85,6 @@ function AllEnvironmentsScreen() {
               </div>
             ))}
           </div>
-
             <div className="all-env-summary">
               <div className="summary-badge normal">
                 <span>{t('allEnvironments.statusNormal')}</span>
