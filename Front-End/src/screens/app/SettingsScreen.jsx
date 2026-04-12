@@ -66,6 +66,7 @@ function SettingsScreen() {
   const [editValue, setEditValue] = useState('')
   const [showLangModal, setShowLangModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [helpModal, setHelpModal] = useState({ open: false, type: null })
 
   useEffect(() => { localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone)) }, [autoTimezone])
   useEffect(() => { localStorage.setItem('settings', JSON.stringify(settings)) }, [settings])
@@ -257,17 +258,15 @@ function SettingsScreen() {
               <MdEdit /> {t('settings.updateBtn')}
             </button>
           </div>
-
-          {/* ELIMINAR CUENTA — solo ícono basurita */}
           <div className="settings-field">
-          <div className="field-info">
-            <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
-            <span className="field-value">{t('settings.deleteAccountSub')}</span>
+            <div className="field-info">
+              <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
+              <span className="field-value">{t('settings.deleteAccountSub')}</span>
+            </div>
+            <button className="btn-delete-icon" onClick={() => setShowDeleteModal(true)}>
+              <FaTrash />
+            </button>
           </div>
-          <button className="btn-delete-icon" onClick={() => setShowDeleteModal(true)}>
-            <FaTrash />
-          </button>
-        </div>
         </div>
 
         {/* AYUDA */}
@@ -275,13 +274,13 @@ function SettingsScreen() {
           <h2><FaQuestionCircle /> {t('settings.help')}</h2>
           <p className="section-description">{t('settings.helpDescription')}</p>
           {[
-            { label: t('settings.helpFaq'),     sub: t('settings.helpFaqSub') },
-            { label: t('settings.helpContact'),  sub: t('settings.helpContactSub') },
-            { label: t('settings.helpTerms'),    sub: t('settings.helpTermsSub') },
-            { label: t('settings.helpPrivacy'),  sub: t('settings.helpPrivacySub') },
-            { label: t('settings.helpVersion'),  sub: 'v1.0.0' },
-          ].map(({ label, sub }) => (
-            <div key={label} className="settings-field settings-field--link">
+            { type: 'faq',     label: t('settings.helpFaq'),    sub: t('settings.helpFaqSub') },
+            { type: 'contact', label: t('settings.helpContact'), sub: t('settings.helpContactSub') },
+            { type: 'terms',   label: t('settings.helpTerms'),   sub: t('settings.helpTermsSub') },
+            { type: 'privacy', label: t('settings.helpPrivacy'), sub: t('settings.helpPrivacySub') },
+            { type: 'version', label: t('settings.helpVersion'), sub: 'v1.0.0' },
+          ].map(({ type, label, sub }) => (
+            <div key={type} className="settings-field settings-field--link" onClick={() => setHelpModal({ open: true, type })}>
               <div className="field-icon"><FaQuestionCircle /></div>
               <div className="field-info">
                 <span className="field-label">{label}</span>
@@ -293,11 +292,12 @@ function SettingsScreen() {
         </div>
       </div>
 
-      {/* Modales */}
+      {/* Modal editar */}
       {modalOpen && (
         <EditModal field={editField} value={editValue} onSave={handleSave} onClose={() => setModalOpen(false)} />
       )}
 
+      {/* Modal idioma */}
       {showLangModal && (
         <div className="lang-modal-overlay" onClick={() => setShowLangModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
@@ -310,6 +310,7 @@ function SettingsScreen() {
         </div>
       )}
 
+      {/* Modal eliminar cuenta */}
       {showDeleteModal && (
         <div className="lang-modal-overlay" onClick={() => setShowDeleteModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
@@ -323,6 +324,102 @@ function SettingsScreen() {
             <button onClick={() => setShowDeleteModal(false)} style={{ background: '#dc3545', color: 'white', border: 'none' }}>
               {t('settings.deleteBtn')}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal ayuda */}
+      {helpModal.open && (
+        <div className="lang-modal-overlay" onClick={() => setHelpModal({ open: false, type: null })}>
+          <div className="help-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="help-modal-close" onClick={() => setHelpModal({ open: false, type: null })}>✕</button>
+
+            {helpModal.type === 'faq' && (
+              <>
+                <h3>❓ {t('settings.helpFaq')}</h3>
+                <div className="help-modal-body">
+                  {[
+                    { q: '¿Cómo agrego un ambiente favorito?', a: 'Presiona el ícono de corazón en cualquier tarjeta de ambiente en el Ranking.' },
+                    { q: '¿Cómo cambio el idioma?', a: 'Ve a Configuración → Idiomas y Fechas → Actualizar.' },
+                    { q: '¿Qué significan los colores de estado?', a: 'Verde = Normal, Amarillo = Advertencia, Rojo = Alerta crítica.' },
+                    { q: '¿Puedo agregar nuevos ambientes?', a: 'Sí, ve a Gestión y presiona "Agregar Ambiente".' },
+                  ].map(({ q, a }) => (
+                    <div key={q} className="faq-item">
+                      <strong>{q}</strong>
+                      <p>{a}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {helpModal.type === 'contact' && (
+              <>
+                <h3>📬 {t('settings.helpContact')}</h3>
+                <div className="help-modal-body">
+                  {[
+                    { icon: '✉️', title: 'Correo electrónico', desc: 'soporte@eduaircontrol.com' },
+                    { icon: '🕐', title: 'Horario de atención', desc: 'Lunes a Viernes, 8:00 AM – 6:00 PM (UTC-5)' },
+                    { icon: '⏱️', title: 'Tiempo de respuesta', desc: 'Respondemos en menos de 24 horas hábiles.' },
+                  ].map(({ icon, title, desc }) => (
+                    <div key={title} className="contact-item">
+                      <span className="contact-icon">{icon}</span>
+                      <div><strong>{title}</strong><p>{desc}</p></div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {helpModal.type === 'terms' && (
+              <>
+                <h3>📋 {t('settings.helpTerms')}</h3>
+                <div className="help-modal-body help-modal-scroll">
+                  <p>Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos:</p>
+                  <ul>
+                    <li>Proporcionarás información precisa y completa.</li>
+                    <li>Eres responsable de mantener la confidencialidad de tus credenciales.</li>
+                    <li>La plataforma debe usarse solo para propósitos autorizados y legales.</li>
+                    <li>Los datos ambientales son solo para monitoreo e informes.</li>
+                  </ul>
+                  <p>EduAirControl se reserva el derecho de actualizar estos términos en cualquier momento.</p>
+                </div>
+              </>
+            )}
+
+            {helpModal.type === 'privacy' && (
+              <>
+                <h3>🔒 {t('settings.helpPrivacy')}</h3>
+                <div className="help-modal-body help-modal-scroll">
+                  <p>En EduAirControl nos comprometemos a proteger tu información personal:</p>
+                  <ul>
+                    <li>No vendemos ni compartimos tus datos con terceros sin tu consentimiento.</li>
+                    <li>Tus datos se almacenan de forma segura con cifrado.</li>
+                    <li>Puedes solicitar la eliminación de tu cuenta y datos en cualquier momento.</li>
+                    <li>Solo recopilamos datos necesarios para el funcionamiento de la plataforma.</li>
+                  </ul>
+                  <p>Para más información escríbenos a soporte@eduaircontrol.com.</p>
+                </div>
+              </>
+            )}
+
+            {helpModal.type === 'version' && (
+              <>
+                <h3>📱 {t('settings.helpVersion')}</h3>
+                <div className="help-modal-body">
+                  <div className="version-info">
+                    <div className="version-badge">v1.0.0</div>
+                    <p>EduAirControl — Sistema de Monitoreo de Calidad del Aire</p>
+                    <p className="version-date">Última actualización: Abril 2026</p>
+                    <div className="version-tags">
+                      <span className="version-tag">React 18</span>
+                      <span className="version-tag">i18n</span>
+                      <span className="version-tag">Dark Mode</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
