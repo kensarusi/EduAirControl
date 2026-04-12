@@ -47,84 +47,51 @@ function SettingsScreen() {
   const [manualTimezone, setManualTimezone] = useState(
     () => localStorage.getItem('manualTimezone') || Intl.DateTimeFormat().resolvedOptions().timeZone
   )
-
-  // Recordatorios
   const [reminders, setReminders] = useState(() =>
     JSON.parse(localStorage.getItem('reminders')) || {
-      alertas: true,
-      advertencias: true,
-      resumenDiario: false,
-      sonido: true,
+      alertas: true, advertencias: true, resumenDiario: false, sonido: true,
     }
   )
-
-  // Privacidad
   const [privacy, setPrivacy] = useState(() =>
     JSON.parse(localStorage.getItem('privacy')) || {
-      perfilPublico: false,
-      compartirDatos: false,
+      perfilPublico: false, compartirDatos: false,
     }
   )
-
   const [settings, setSettings] = useState(
-    () => JSON.parse(localStorage.getItem('settings')) || {
-      language: 'English',
-      dateFormat: 'DD-MM-YYYY'
-    }
+    () => JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
   )
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || '')
   const [modalOpen, setModalOpen] = useState(false)
   const [editField, setEditField] = useState('')
   const [editValue, setEditValue] = useState('')
   const [showLangModal, setShowLangModal] = useState(false)
-  const [showHelpModal, setShowHelpModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
-  useEffect(() => {
-    localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone))
-  }, [autoTimezone])
-
-  useEffect(() => {
-    localStorage.setItem('settings', JSON.stringify(settings))
-  }, [settings])
-
-  useEffect(() => {
-    localStorage.setItem('reminders', JSON.stringify(reminders))
-  }, [reminders])
-
-  useEffect(() => {
-    localStorage.setItem('privacy', JSON.stringify(privacy))
-  }, [privacy])
+  useEffect(() => { localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone)) }, [autoTimezone])
+  useEffect(() => { localStorage.setItem('settings', JSON.stringify(settings)) }, [settings])
+  useEffect(() => { localStorage.setItem('reminders', JSON.stringify(reminders)) }, [reminders])
+  useEffect(() => { localStorage.setItem('privacy', JSON.stringify(privacy)) }, [privacy])
 
   const handleTimezoneToggle = (val) => {
     setAutoTimezone(val)
     const tz = val ? Intl.DateTimeFormat().resolvedOptions().timeZone : manualTimezone
     window.dispatchEvent(new CustomEvent('timezoneChanged', { detail: tz }))
   }
-
   const handleManualTimezone = (tz) => {
     setManualTimezone(tz)
     localStorage.setItem('manualTimezone', tz)
     window.dispatchEvent(new CustomEvent('timezoneChanged', { detail: tz }))
   }
-
   const changeTheme = (newTheme) => {
     localStorage.setItem('theme', newTheme)
     applyBodyClasses(newTheme, darkMode)
     setTheme(newTheme)
   }
-
-  const handleEdit = (field, value) => {
-    setEditField(field)
-    setEditValue(value)
-    setModalOpen(true)
-  }
-
+  const handleEdit = (field, value) => { setEditField(field); setEditValue(value); setModalOpen(true) }
   const handleSave = (field, newValue) => {
     setSettings((prev) => ({ ...prev, [field]: newValue }))
     if (field === 'dateFormat') saveDateFormat(newValue)
   }
-
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang)
     localStorage.setItem('language', lang)
@@ -132,21 +99,18 @@ function SettingsScreen() {
     setSettings((prev) => ({ ...prev, language: names[lang] || 'English' }))
     setShowLangModal(false)
   }
-
   const themeLabel = (key) => {
-    if (key === '')                   return t('settings.themeNormal')
-    if (key === 'theme-protanopia')   return t('settings.themeProtanopia')
+    if (key === '') return t('settings.themeNormal')
+    if (key === 'theme-protanopia') return t('settings.themeProtanopia')
     if (key === 'theme-deuteranopia') return t('settings.themeDeuteranopia')
     return t('settings.themeTritanopia')
   }
-
   const toggleReminder = (key) => setReminders(prev => ({ ...prev, [key]: !prev[key] }))
   const togglePrivacy  = (key) => setPrivacy(prev => ({ ...prev, [key]: !prev[key] }))
 
   return (
     <div className={`settings-page ${darkMode ? 'dark' : ''}`}>
       <Navbar />
-
       <div className="settings-content">
         <h1><IoSettings /> {t('settings.title')}</h1>
 
@@ -240,57 +204,29 @@ function SettingsScreen() {
         <div className="settings-card">
           <h2><FaBell /> {t('settings.reminders')}</h2>
           <p className="section-description">{t('settings.remindersDescription')}</p>
-
-          <div className="settings-field">
-            <div className="field-icon"><FaBell /></div>
-            <div className="field-info">
-              <span className="field-label">{t('settings.reminderAlerts')}</span>
-              <span className="field-value">{reminders.alertas ? t('settings.enabled') : t('settings.disabled')}</span>
+          {[
+            { key: 'alertas',       label: t('settings.reminderAlerts') },
+            { key: 'advertencias',  label: t('settings.reminderWarnings') },
+            { key: 'resumenDiario', label: t('settings.reminderDaily') },
+            { key: 'sonido',        label: t('settings.reminderSound') },
+          ].map(({ key, label }) => (
+            <div key={key} className="settings-field">
+              <div className="field-icon"><FaBell /></div>
+              <div className="field-info">
+                <span className="field-label">{label}</span>
+                <span className="field-value">{reminders[key] ? t('settings.enabled') : t('settings.disabled')}</span>
+              </div>
+              <div className={`toggle ${reminders[key] ? 'active' : ''}`} onClick={() => toggleReminder(key)}>
+                <div className="toggle-circle" />
+              </div>
             </div>
-            <div className={`toggle ${reminders.alertas ? 'active' : ''}`} onClick={() => toggleReminder('alertas')}>
-              <div className="toggle-circle" />
-            </div>
-          </div>
-
-          <div className="settings-field">
-            <div className="field-icon"><FaBell /></div>
-            <div className="field-info">
-              <span className="field-label">{t('settings.reminderWarnings')}</span>
-              <span className="field-value">{reminders.advertencias ? t('settings.enabled') : t('settings.disabled')}</span>
-            </div>
-            <div className={`toggle ${reminders.advertencias ? 'active' : ''}`} onClick={() => toggleReminder('advertencias')}>
-              <div className="toggle-circle" />
-            </div>
-          </div>
-
-          <div className="settings-field">
-            <div className="field-icon"><FaBell /></div>
-            <div className="field-info">
-              <span className="field-label">{t('settings.reminderDaily')}</span>
-              <span className="field-value">{reminders.resumenDiario ? t('settings.enabled') : t('settings.disabled')}</span>
-            </div>
-            <div className={`toggle ${reminders.resumenDiario ? 'active' : ''}`} onClick={() => toggleReminder('resumenDiario')}>
-              <div className="toggle-circle" />
-            </div>
-          </div>
-
-          <div className="settings-field">
-            <div className="field-icon"><FaBell /></div>
-            <div className="field-info">
-              <span className="field-label">{t('settings.reminderSound')}</span>
-              <span className="field-value">{reminders.sonido ? t('settings.enabled') : t('settings.disabled')}</span>
-            </div>
-            <div className={`toggle ${reminders.sonido ? 'active' : ''}`} onClick={() => toggleReminder('sonido')}>
-              <div className="toggle-circle" />
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* PRIVACIDAD */}
         <div className="settings-card">
           <h2><FaShieldAlt /> {t('settings.privacy')}</h2>
           <p className="section-description">{t('settings.privacyDescription')}</p>
-
           <div className="settings-field">
             <div className="field-icon"><FaEye /></div>
             <div className="field-info">
@@ -301,7 +237,6 @@ function SettingsScreen() {
               <div className="toggle-circle" />
             </div>
           </div>
-
           <div className="settings-field">
             <div className="field-icon"><FaShieldAlt /></div>
             <div className="field-info">
@@ -312,7 +247,6 @@ function SettingsScreen() {
               <div className="toggle-circle" />
             </div>
           </div>
-
           <div className="settings-field">
             <div className="field-icon"><FaLock /></div>
             <div className="field-info">
@@ -324,14 +258,17 @@ function SettingsScreen() {
             </button>
           </div>
 
+          {/* ELIMINAR CUENTA — solo ícono basurita */}
           <div className="settings-field">
-            <div className="field-icon" style={{ background: '#fdecea', color: '#dc3545' }}><FaTrash /></div>
+            <div className="field-icon" style={{ background: '#fdecea', color: '#dc3545' }}>
+              <FaLock />
+            </div>
             <div className="field-info">
               <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
               <span className="field-value">{t('settings.deleteAccountSub')}</span>
             </div>
-            <button className="btn-danger" onClick={() => setShowDeleteModal(true)}>
-              {t('settings.deleteBtn')}
+            <button className="btn-delete-icon" onClick={() => setShowDeleteModal(true)}>
+              <FaTrash />
             </button>
           </div>
         </div>
@@ -340,7 +277,6 @@ function SettingsScreen() {
         <div className="settings-card">
           <h2><FaQuestionCircle /> {t('settings.help')}</h2>
           <p className="section-description">{t('settings.helpDescription')}</p>
-
           {[
             { label: t('settings.helpFaq'),     sub: t('settings.helpFaqSub') },
             { label: t('settings.helpContact'),  sub: t('settings.helpContactSub') },
@@ -360,7 +296,7 @@ function SettingsScreen() {
         </div>
       </div>
 
-      {/* Modal idioma */}
+      {/* Modales */}
       {modalOpen && (
         <EditModal field={editField} value={editValue} onSave={handleSave} onClose={() => setModalOpen(false)} />
       )}
@@ -377,7 +313,6 @@ function SettingsScreen() {
         </div>
       )}
 
-      {/* Modal eliminar cuenta */}
       {showDeleteModal && (
         <div className="lang-modal-overlay" onClick={() => setShowDeleteModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>

@@ -204,3 +204,26 @@
   text-overflow: ellipsis;
   max-width: 100%;      
 }
+
+.btn-delete-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: #fdecea;
+  color: #dc3545;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-delete-icon:hover {
+  background: #dc3545;
+  color: white;
+  transform: scale(1.05);
+}
