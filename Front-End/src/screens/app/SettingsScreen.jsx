@@ -260,17 +260,14 @@ function SettingsScreen() {
 
           {/* ELIMINAR CUENTA — solo ícono basurita */}
           <div className="settings-field">
-            <div className="field-icon" style={{ background: '#fdecea', color: '#dc3545' }}>
-              <FaLock />
-            </div>
-            <div className="field-info">
-              <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
-              <span className="field-value">{t('settings.deleteAccountSub')}</span>
-            </div>
-            <button className="btn-delete-icon" onClick={() => setShowDeleteModal(true)}>
-              <FaTrash />
-            </button>
+          <div className="field-info">
+            <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
+            <span className="field-value">{t('settings.deleteAccountSub')}</span>
           </div>
+          <button className="btn-delete-icon" onClick={() => setShowDeleteModal(true)}>
+            <FaTrash />
+          </button>
+        </div>
         </div>
 
         {/* AYUDA */}
