@@ -142,13 +142,13 @@
     "themeTritanopia": "Tritanopia",
     "selectTimezone": "Select your timezone",
     "reminders": "Reminders",
-    "remindersDescription": "Configure which notifications you want to receive.",
+    "remindersDescription": "Set which notifications you want to receive.",
     "reminderAlerts": "Notify critical alerts",
     "reminderWarnings": "Notify warnings",
     "reminderDaily": "Daily summary",
     "reminderSound": "Notification sound",
-    "privacy": "Privacy & Security",
-    "privacyDescription": "Control who can see your information and how it's used.",
+    "privacy": "Privacy and Security",
+    "privacyDescription": "Control who can see your information and how it is used.",
     "publicProfile": "Public profile",
     "shareData": "Share usage data",
     "changePassword": "Change password",
@@ -157,7 +157,7 @@
     "deleteAccountSub": "This action is permanent and irreversible",
     "deleteAccountConfirm": "Are you sure? All your data will be permanently deleted.",
     "deleteBtn": "Delete account",
-    "help": "Help & Support",
+    "help": "Help and Support",
     "helpDescription": "Find answers and contact the support team.",
     "helpFaq": "Frequently asked questions",
     "helpFaqSub": "Answers to the most common questions",
@@ -167,7 +167,53 @@
     "helpTermsSub": "Read our terms of use",
     "helpPrivacy": "Privacy policy",
     "helpPrivacySub": "How we protect your data",
-    "helpVersion": "App version"
+    "helpVersion": "App version",
+    "passwordModal": {
+      "title": "Change password",
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Confirm password",
+      "save": "Save",
+      "cancel": "Cancel",
+      "success": "Password updated successfully",
+      "errorEmpty": "Fill in all fields",
+      "errorMatch": "Passwords do not match",
+      "errorLength": "Password must be at least 6 characters"
+    },
+    "faq": {
+      "q1": "How do I add a favorite environment?",
+      "a1": "Press the heart icon on any environment card in the ranking.",
+      "q2": "How do I change the language?",
+      "a2": "Go to Settings → Languages and Dates → Update.",
+      "q3": "What do the status colors mean?",
+      "a3": "Green = Normal, Yellow = Warning, Red = Critical alert.",
+      "q4": "Can I add new environments?",
+      "a4": "Yes, go to Management and press 'Add Environment'."
+    },
+    "contact": {
+      "emailTitle": "Email",
+      "emailDesc": "support@eduaircontrol.com",
+      "scheduleTitle": "Support hours",
+      "scheduleDesc": "Monday to Friday, 8:00 AM – 6:00 PM (UTC-5)",
+      "responseTitle": "Response time",
+      "responseDesc": "We respond within 24 business hours."
+    },
+    "terms": {
+      "intro": "By accessing and using EduAirControl, you agree to comply with the following terms:",
+      "li1": "You will provide accurate and complete information.",
+      "li2": "You are responsible for maintaining the confidentiality of your credentials.",
+      "li3": "The platform must be used only for authorized and lawful purposes.",
+      "li4": "Environmental data is for monitoring and reporting purposes only.",
+      "footer": "EduAirControl reserves the right to update these terms at any time."
+    },
+    "privacyModal": {
+      "intro": "At EduAirControl we are committed to protecting your personal information:",
+      "li1": "We do not sell or share your data with third parties without your consent.",
+      "li2": "Your data is stored securely with encryption.",
+      "li3": "You can request deletion of your account and data at any time.",
+      "li4": "We only collect data necessary for the platform to function.",
+      "footer": "For more information contact us at support@eduaircontrol.com."
+    }
   },
   "google": {
     "chooseAccount": "Choose your Account",

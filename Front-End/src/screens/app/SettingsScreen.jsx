@@ -335,12 +335,12 @@ const [passwordData, setPasswordData] = useState({
       {showPasswordModal && (
   <div className="lang-modal-overlay" onClick={() => setShowPasswordModal(false)}>
     <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-      <h3>🔐 Cambiar contraseña</h3>
+      <h3>🔐 {t('settings.passwordModal.title')}</h3>
 
       <input
         className="input-modal"
         type="password"
-        placeholder="Contraseña actual"
+        placeholder={t('settings.passwordModal.current')}
         value={passwordData.current}
         onChange={(e) => handlePasswordChange('current', e.target.value)}
       />
@@ -348,7 +348,7 @@ const [passwordData, setPasswordData] = useState({
       <input
         className="input-modal"
         type="password"
-        placeholder="Nueva contraseña"
+        placeholder={t('settings.passwordModal.new')}
         value={passwordData.new}
         onChange={(e) => handlePasswordChange('new', e.target.value)}
       />
@@ -356,18 +356,18 @@ const [passwordData, setPasswordData] = useState({
       <input
         className="input-modal"
         type="password"
-        placeholder="Confirmar contraseña"
+        placeholder={t('settings.passwordModal.confirm')}
         value={passwordData.confirm}
         onChange={(e) => handlePasswordChange('confirm', e.target.value)}
       />
 
 
       <button onClick={handleSavePassword}>
-        Guardar
+        {t('settings.passwordModal.save')}
       </button>
 
       <button onClick={() => setShowPasswordModal(false)}>
-        Cancelar
+        {t('settings.passwordModal.cancel')}
       </button>
     </div>
   </div>
@@ -420,10 +420,10 @@ const [passwordData, setPasswordData] = useState({
                 <h3>❓ {t('settings.helpFaq')}</h3>
                 <div className="help-modal-body">
                   {[
-                    { q: '¿Cómo agrego un ambiente favorito?', a: 'Presiona el ícono de corazón en cualquier tarjeta de ambiente en el Ranking.' },
-                    { q: '¿Cómo cambio el idioma?', a: 'Ve a Configuración → Idiomas y Fechas → Actualizar.' },
-                    { q: '¿Qué significan los colores de estado?', a: 'Verde = Normal, Amarillo = Advertencia, Rojo = Alerta crítica.' },
-                    { q: '¿Puedo agregar nuevos ambientes?', a: 'Sí, ve a Gestión y presiona "Agregar Ambiente".' },
+                    { q: t("settings.faq.q1"), a: t("settings.faq.a1") },
+                    { q: t("settings.faq.q2"), a: t("settings.faq.a2") },
+                    { q: t("settings.faq.q3"), a: t("settings.faq.a3") },
+                    { q: t("settings.faq.q4"), a: t("settings.faq.a4") },
                   ].map(({ q, a }) => (
                     <div key={q} className="faq-item">
                       <strong>{q}</strong>
@@ -439,9 +439,9 @@ const [passwordData, setPasswordData] = useState({
                 <h3>📬 {t('settings.helpContact')}</h3>
                 <div className="help-modal-body">
                   {[
-                    { icon: '✉️', title: 'Correo electrónico', desc: 'soporte@eduaircontrol.com' },
-                    { icon: '🕐', title: 'Horario de atención', desc: 'Lunes a Viernes, 8:00 AM – 6:00 PM (UTC-5)' },
-                    { icon: '⏱️', title: 'Tiempo de respuesta', desc: 'Respondemos en menos de 24 horas hábiles.' },
+                    { icon: '✉️', title: t('settings.contact.emailTitle'), desc: t('settings.contact.emailDesc') },
+                    { icon: '🕐', title: t('settings.contact.scheduleTitle'), desc: t('settings.contact.scheduleDesc') },
+                    { icon: '⏱️', title: t('settings.contact.responseTitle'), desc: t('settings.contact.responseDesc') },
                   ].map(({ icon, title, desc }) => (
                     <div key={title} className="contact-item">
                       <span className="contact-icon">{icon}</span>
@@ -456,14 +456,14 @@ const [passwordData, setPasswordData] = useState({
               <>
                 <h3>📋 {t('settings.helpTerms')}</h3>
                 <div className="help-modal-body help-modal-scroll">
-                  <p>Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos:</p>
+                  <p>{t("settings.terms.intro")}</p>
                   <ul>
-                    <li>Proporcionarás información precisa y completa.</li>
-                    <li>Eres responsable de mantener la confidencialidad de tus credenciales.</li>
-                    <li>La plataforma debe usarse solo para propósitos autorizados y legales.</li>
-                    <li>Los datos ambientales son solo para monitoreo e informes.</li>
+                    <li>{t("settings.terms.li1")}</li>
+                    <li>{t("settings.terms.li2")}</li>
+                    <li>{t("settings.terms.li3")}</li>
+                    <li>{t("settings.terms.li4")}</li>
                   </ul>
-                  <p>EduAirControl se reserva el derecho de actualizar estos términos en cualquier momento.</p>
+                  <p>{t("settings.terms.footer")}</p>
                 </div>
               </>
             )}
@@ -472,14 +472,14 @@ const [passwordData, setPasswordData] = useState({
               <>
                 <h3>🔒 {t('settings.helpPrivacy')}</h3>
                 <div className="help-modal-body help-modal-scroll">
-                  <p>En EduAirControl nos comprometemos a proteger tu información personal:</p>
+                  <p>{t("settings.privacyModal.intro")}</p>
                   <ul>
-                    <li>No vendemos ni compartimos tus datos con terceros sin tu consentimiento.</li>
-                    <li>Tus datos se almacenan de forma segura con cifrado.</li>
-                    <li>Puedes solicitar la eliminación de tu cuenta y datos en cualquier momento.</li>
-                    <li>Solo recopilamos datos necesarios para el funcionamiento de la plataforma.</li>
+                    <li>{t("settings.privacyModal.li1")}</li>
+                    <li>{t("settings.privacyModal.li2")}</li>
+                    <li>{t("settings.privacyModal.li3")}</li>
+                    <li>{t("settings.privacyModal.li4")}</li>
                   </ul>
-                  <p>Para más información escríbenos a soporte@eduaircontrol.com.</p>
+                  <p>{t("settings.privacyModal.footer")}</p>
                 </div>
               </>
             )}
