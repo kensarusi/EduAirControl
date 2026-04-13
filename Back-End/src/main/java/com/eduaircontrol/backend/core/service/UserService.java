@@ -1,5 +1,6 @@
 package com.eduaircontrol.backend.core.service;
 
+import com.eduaircontrol.backend.core.domain.Role;
 import com.eduaircontrol.backend.core.domain.Users;
 import com.eduaircontrol.backend.core.repository.UserRepository;
 import com.eduaircontrol.backend.security.JwtService;
@@ -21,6 +22,8 @@ public class UserService {
     
     public Users register(Users users){
         
+        //Asigna un rol por defecto
+        users.setRole(Role.USER);
         //Encriptar la contraseña
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         return userRepository.save(users);
@@ -31,6 +34,6 @@ public class UserService {
         if (!passwordEncoder.matches(password, users.getPassword())) {
             throw new RuntimeException ("Contraseña incorrecta");//Si encuentra el usuario pero la contraseña es incorrecta marca error
         }
-        return jwtService.generateToken(users.getEmail());//Devuelve un token si lo encuentra y coincide la contraseña
+        return jwtService.generateToken(users);//Devuelve un token si lo encuentra y coincide la contraseña
     }
 }

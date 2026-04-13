@@ -9,4 +9,13 @@ public class TestController{
     public String test(){
         return "Funcionaaa :D";
     }
+    @GetMapping("/user")
+    public String user() {
+        return "Solo usuarios";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "Solo admin";
+    }
 }

@@ -19,6 +19,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()// login para todos
+                .requestMatchers("/test/admin/**").hasRole("ADMIN")//Solo los administradores pueden acceder aqui
+                .requestMatchers("/test/user/**").hasAnyRole("USER","ADMIN")//Los usuarios pueden acceder aqui
                 .anyRequest().authenticated() // El resto de cosas esto lo protege
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
