@@ -9,6 +9,7 @@ import { useDarkMode } from '../../hooks/useDarkMode'
 import { saveDateFormat } from '../../hooks/useDateFormat'
 import '../../styles/app/Settings.css'
 
+
 const TIMEZONES = [
   { value: 'America/Bogota',      label: 'Bogotá (UTC-5)' },
   { value: 'America/Lima',        label: 'Lima (UTC-5)' },
@@ -67,6 +68,12 @@ function SettingsScreen() {
   const [showLangModal, setShowLangModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [helpModal, setHelpModal] = useState({ open: false, type: null })
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
+const [passwordData, setPasswordData] = useState({
+  current: '',
+  new: '',
+  confirm: ''
+})
 
   useEffect(() => { localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone)) }, [autoTimezone])
   useEffect(() => { localStorage.setItem('settings', JSON.stringify(settings)) }, [settings])
@@ -100,6 +107,39 @@ function SettingsScreen() {
     setSettings((prev) => ({ ...prev, language: names[lang] || 'English' }))
     setShowLangModal(false)
   }
+
+  const handlePasswordChange = (field, value) => {
+    setPasswordData((prev) => ({ 
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const handleSavePassword = () => {
+  if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
+    alert('Completa todos los campos')
+    return
+  }
+
+  if (passwordData.new !== passwordData.confirm) {
+    alert('Las contraseñas no coinciden')
+    return
+  }
+
+  if (passwordData.new.length < 6) {
+    alert('La contraseña debe tener al menos 6 caracteres')
+    return
+  }
+
+  // Aquí luego conectas backend
+  console.log('Cambio de contraseña:', passwordData)
+
+  alert('Contraseña actualizada correctamente 😎')
+
+  setShowPasswordModal(false)
+  setPasswordData({ current: '', new: '', confirm: '' })
+}
+
   const themeLabel = (key) => {
     if (key === '') return t('settings.themeNormal')
     if (key === 'theme-protanopia') return t('settings.themeProtanopia')
@@ -254,7 +294,7 @@ function SettingsScreen() {
               <span className="field-label">{t('settings.changePassword')}</span>
               <span className="field-value">{t('settings.changePasswordSub')}</span>
             </div>
-            <button className="btn-update" onClick={() => alert('Próximamente')}>
+            <button className="btn-update" onClick={() => setShowPasswordModal(true)}>
               <MdEdit /> {t('settings.updateBtn')}
             </button>
           </div>
@@ -291,6 +331,47 @@ function SettingsScreen() {
           ))}
         </div>
       </div>
+
+      {showPasswordModal && (
+  <div className="lang-modal-overlay" onClick={() => setShowPasswordModal(false)}>
+    <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
+      <h3>🔐 Cambiar contraseña</h3>
+
+      <input
+        className="input-modal"
+        type="password"
+        placeholder="Contraseña actual"
+        value={passwordData.current}
+        onChange={(e) => handlePasswordChange('current', e.target.value)}
+      />
+
+      <input
+        className="input-modal"
+        type="password"
+        placeholder="Nueva contraseña"
+        value={passwordData.new}
+        onChange={(e) => handlePasswordChange('new', e.target.value)}
+      />
+
+      <input
+        className="input-modal"
+        type="password"
+        placeholder="Confirmar contraseña"
+        value={passwordData.confirm}
+        onChange={(e) => handlePasswordChange('confirm', e.target.value)}
+      />
+
+
+      <button onClick={handleSavePassword}>
+        Guardar
+      </button>
+
+      <button onClick={() => setShowPasswordModal(false)}>
+        Cancelar
+      </button>
+    </div>
+  </div>
+)}
 
       {/* Modal editar */}
       {modalOpen && (
