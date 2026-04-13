@@ -18,7 +18,12 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()// login para todos
+                .requestMatchers(
+                    "/auth/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html"
+                ).permitAll()//Estos endpoints pueden ser utilizados por cualquiera
                 .requestMatchers("/test/admin/**").hasRole("ADMIN")//Solo los administradores pueden acceder aqui
                 .requestMatchers("/test/user/**").hasAnyRole("USER","ADMIN")//Los usuarios pueden acceder aqui
                 .anyRequest().authenticated() // El resto de cosas esto lo protege
