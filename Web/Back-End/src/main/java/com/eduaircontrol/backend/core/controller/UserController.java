@@ -1,6 +1,7 @@
 package com.eduaircontrol.backend.core.controller;
 
 import com.eduaircontrol.backend.core.domain.Users;
+import com.eduaircontrol.backend.core.dto.LoginRequest;
 import com.eduaircontrol.backend.core.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,5 +23,9 @@ public class UserController {
     @PostMapping("/register")
     public Users regiter(@RequestBody Users users){
         return userService.register(users);
+    }
+    @PostMapping("/login")
+    public Users login(@RequestBody LoginRequest request){
+        return userService.login(request.getEmail(), request.getPassword());
     }
 }

@@ -22,4 +22,12 @@ public class UserService {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         return userRepository.save(users);
     }
+    
+    public Users login(String email, String password){
+        Users users =  userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));//Si no encuentra el ususario por el email marca error
+        if (!passwordEncoder.matches(password, users.getPassword())) {
+            throw new RuntimeException ("Contraseña incorrecta");//Si encuentra el usuario pero la contraseña es incorrecta marca error
+        }
+        return users;//Devuelve los datos de usuario si lo encuentra y coincide la contraseña
+    }
 }
