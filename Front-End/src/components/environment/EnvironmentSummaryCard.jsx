@@ -2,14 +2,20 @@ import { useTranslation } from 'react-i18next'
 import { STATUS_COLORS, QUALITY_COLORS } from '../../constants/environments'
 import '../../styles/components/AllEnvironments.css'
 
-function EnvironmentSummaryCard({ nameKey, name, statusKey, co2, db, temp, humidity, qualityKey }) {
+function EnvironmentSummaryCard({ 
+  nameKey, name, statusKey, co2, db, temp, humidity, qualityKey, onClick 
+    }) {  
   const { t } = useTranslation()
 
   const displayName = nameKey ? t(nameKey) : name  // ← ahora name viene como prop
 
   return (
-    <div className="summary-card">
-      <div className="summary-card-header">
+      <div 
+        className="summary-card"
+        onClick={onClick}
+        style={{ cursor: "pointer" }}
+      >
+        <div className="summary-card-header">
         <h3>{displayName}</h3>
         <span style={{ color: STATUS_COLORS[statusKey] }}>{t(statusKey)}</span>
       </div>

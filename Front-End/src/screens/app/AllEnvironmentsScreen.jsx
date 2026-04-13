@@ -75,11 +75,16 @@ function AllEnvironmentsScreen() {
         ) : (
           <>
             <div className="all-env-cards">
-              {filtered.map((env) => (
-                <EnvironmentSummaryCard key={env.id} {...env} />
-              ))}
-            </div>
-
+            {filtered.map((env) => (
+              <div
+                key={env.id}
+                onClick={() => navigate(`/environment/${env.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <EnvironmentSummaryCard {...env} />
+              </div>
+            ))}
+          </div>
             <div className="all-env-summary">
               <div className="summary-badge normal">
                 <span>{t('allEnvironments.statusNormal')}</span>
