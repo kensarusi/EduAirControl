@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import AuthLayout from '../../components/layout/AuthLayout'
 import LoginForm from '../../components/forms/LoginForm'
 import SocialLogin from '../../components/forms/SocialLogin'
-import { Divider } from '../../components/ui'
+import { Divider, LanguageSelector } from '../../components/ui'
 import '../../styles/auth/Login.css'
 
 function LoginScreen() {
@@ -11,7 +10,9 @@ function LoginScreen() {
   const { t } = useTranslation()
 
   return (
-    <AuthLayout>
+    <div className="auth-container">
+      <LanguageSelector />
+      <div className="auth-card">
       <div className="login-header">
         <h1>{t('login.title')}</h1>
         <div className="login-avatar">
@@ -27,7 +28,8 @@ function LoginScreen() {
         {t('login.signUpBtn')}
       </button>
       <SocialLogin />
-    </AuthLayout>
+      </div>
+    </div>
   )
 }
 

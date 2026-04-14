@@ -58,9 +58,13 @@ function SettingsScreen() {
       perfilPublico: false, compartirDatos: false,
     }
   )
-  const [settings, setSettings] = useState(
-    () => JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
-  )
+  const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
+  const [settings, setSettings] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
+    // Sync language label with the actual i18n language (e.g. changed at login)
+    const activeLang = localStorage.getItem('language') || i18n.language || 'es'
+    return { ...saved, language: LANG_NAMES[activeLang] || saved.language }
+  })
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || '')
   const [modalOpen, setModalOpen] = useState(false)
   const [editField, setEditField] = useState('')
@@ -103,8 +107,7 @@ const [passwordData, setPasswordData] = useState({
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang)
     localStorage.setItem('language', lang)
-    const names = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
-    setSettings((prev) => ({ ...prev, language: names[lang] || 'English' }))
+    setSettings((prev) => ({ ...prev, language: LANG_NAMES[lang] || 'English' }))
     setShowLangModal(false)
   }
 

@@ -4,3 +4,5 @@ export { default as Divider } from './Divider'
 export { default as Checkbox } from './Checkbox'
 export { default as BackButton } from './BackButton'
 export { default as EditModal } from './EditModal'
+export { default as LanguageSelector } from './LanguageSelector'
+ 

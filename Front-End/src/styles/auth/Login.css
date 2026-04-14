@@ -1,6 +1,136 @@
 /* Contenedor principal */
 /* .login-container estilos movidos a AuthLayout */
 
+/* Language Selector */
+.language-selector {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+}
+
+.lang-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: #444;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.lang-trigger:hover {
+  border-color: #5de6c8;
+  color: #5de6c8;
+  box-shadow: 0 4px 12px rgba(93,230,200,0.2);
+}
+
+.lang-arrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  margin-left: 2px;
+}
+
+.lang-arrow.open {
+  transform: rotate(180deg);
+}
+
+.lang-flag {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.lang-code {
+  letter-spacing: 0.3px;
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  overflow: hidden;
+  min-width: 160px;
+  animation: fadeDown 0.15s ease;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.lang-option:hover {
+  background: #f0fdfb;
+  color: #5de6c8;
+}
+
+.lang-option.active {
+  color: #5de6c8;
+  background: #f0fdfb;
+}
+
+.lang-label {
+  flex: 1;
+}
+
+.lang-check {
+  color: #5de6c8;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* Dark mode */
+body.dark-mode .lang-trigger {
+  background: #1a2a4a;
+  border-color: #2a3a5a;
+  color: #ccc;
+}
+
+body.dark-mode .lang-trigger:hover {
+  border-color: #5de6c8;
+  color: #5de6c8;
+}
+
+body.dark-mode .lang-dropdown {
+  background: #1a2a4a;
+  border-color: #2a3a5a;
+}
+
+body.dark-mode .lang-option {
+  color: #ccc;
+}
+
+body.dark-mode .lang-option:hover,
+body.dark-mode .lang-option.active {
+  background: #1e3050;
+  color: #5de6c8;
+}
+
 /* Tarjeta del login */
 /* .login-card estilos movidos a AuthLayout */
 
