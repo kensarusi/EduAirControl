@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAuth } from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Input } from '../ui'
@@ -10,10 +11,17 @@ function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const { login } = useAuth()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate('/dashboard')
+
+    const success = login(email, password)
+    if(success){
+      navigate('/dashboard?')
+    }else{
+      alert(t('login.error'))
+    }
   }
 
   return (
