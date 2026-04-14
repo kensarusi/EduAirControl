@@ -8,10 +8,17 @@ export function useAuth() {
                 body: JSON.stringify({email, password})
             });
 
+            if(!response.ok) {
+                return false;
+            }
             const token = await response.text();
+            if (!token) {
+                return false;
+            }
             localStorage.setItem("token", token);
 
             return true;
+            
         } catch (error) {
             console.error("Login failed:", error);
             return false;

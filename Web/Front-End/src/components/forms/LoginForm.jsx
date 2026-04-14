@@ -13,14 +13,14 @@ function LoginForm() {
   const { t } = useTranslation()
   const { login } = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const success = login(email, password)
+    const success = await login(email, password)
     if(success){
-      navigate('/dashboard?')
+      navigate('/dashboard')
     }else{
-      alert(t('login.error'))
+      alert(t('Login invalido'))
     }
   }
 

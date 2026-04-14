@@ -1,14 +1,15 @@
-const API_URL = import.meta.env.VITE_API_URL;
-export async function request(endpoints, option = {}) {
+const API_URL = "http://localhost:8080";
+export async function request(endpoint, option = {}) {
     const token = localStorage.getItem("token");
 
     const headers = {
-        "content-type": "aplication/json",
+        "content-Type": "application/json",
         ...(token && {Authorization: `Bearer ${token}`}),
         ...option.headers,
     };
-    return fetch(`${API_URL}${endpoints}`,{
+    const response =  fetch(`${API_URL}${endpoint}`,{
         ...option,
         headers,
-    })
+    });
+    return response;
 }
