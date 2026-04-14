@@ -15,7 +15,7 @@
     "title": "Se connecter",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
-    "placeholder": "Valeur",
+    "placeholder": "Entrez une valeur",
     "rememberMe": "Se souvenir de moi",
     "forgotPassword": "Mot de passe oublié ?",
     "loginBtn": "Se connecter",
@@ -24,7 +24,7 @@
   },
   "signup": {
     "title": "S'inscrire",
-    "name": "Nom",
+    "name": "Nom complet",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
@@ -48,7 +48,7 @@
     "verifyBtn": "Vérifier le code"
   },
   "changePassword": {
-    "title": "Mot de passe oublié",
+    "title": "Changer le mot de passe",
     "description": "Mettez à jour votre mot de passe pour sécuriser votre compte.",
     "newPassword": "Nouveau mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
@@ -58,10 +58,10 @@
   "terms": {
     "title": "Conditions générales",
     "intro": "En accédant et en utilisant EduAirControl, vous acceptez de respecter les conditions suivantes :",
-    "item1": "Vous fournirez des informations précises et complètes.",
-    "item2": "Vous êtes responsable de la confidentialité de vos identifiants.",
-    "item3": "La plateforme doit être utilisée uniquement à des fins autorisées et légales.",
-    "item4": "Les données environnementales sont uniquement destinées au suivi et aux rapports.",
+    "li1": "Vous fournirez des informations précises et complètes.",
+    "li2": "Vous êtes responsable de la confidentialité de vos identifiants.",
+    "li3": "La plateforme doit être utilisée uniquement à des fins autorisées et légales.",
+    "li4": "Les données environnementales sont uniquement destinées au suivi et aux rapports.",
     "footer1": "EduAirControl se réserve le droit de mettre à jour ces conditions à tout moment.",
     "footer2": "En cliquant sur « Accepter », vous confirmez avoir lu et accepté ces Conditions générales.",
     "acceptBtn": "ACCEPTER"
@@ -98,9 +98,9 @@
     "statusAlert": "Alertes",
     "airQuality": "Qualité de l'air :",
     "humidity": "Humidité",
-    "temp": "Temp",
+    "temp": "Température",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO₂"
   },
   "favorites": {
     "title": "Favoris",
@@ -110,9 +110,9 @@
     "notif1": "⚠️ Température élevée : 26°C",
     "notif2": "🔴 CO₂ élevé : 1200 ppm",
     "notif3": "⚠️ Humidité basse : 28%",
-    "ago5": "Il y a 5 min",
-    "ago15": "Il y a 15 min",
-    "ago10": "Il y a 10 min"
+    "ago5": "Il y a 5 minutes",
+    "ago15": "Il y a 15 minutes",
+    "ago10": "Il y a 10 minutes"
   },
   "profile": {
     "title": "Informations personnelles",
@@ -150,11 +150,11 @@
     "privacy": "Confidentialité et sécurité",
     "privacyDescription": "Contrôlez qui peut voir vos informations et comment elles sont utilisées.",
     "publicProfile": "Profil public",
-    "shareData": "Partager les données d'utilisation",
+    "shareData": "Partager mes données d'utilisation",
     "changePassword": "Changer le mot de passe",
     "changePasswordSub": "Mettez à jour votre mot de passe d'accès",
     "deleteAccount": "Supprimer le compte",
-    "deleteAccountSub": "Cette action est permanente et irréversible",
+    "deleteAccountSub": "Cette action est définitive et irréversible",
     "deleteAccountConfirm": "Êtes-vous sûr ? Toutes vos données seront supprimées définitivement.",
     "deleteBtn": "Supprimer le compte",
     "help": "Aide et support",
@@ -162,12 +162,14 @@
     "helpFaq": "Questions fréquentes",
     "helpFaqSub": "Réponses aux questions les plus courantes",
     "helpContact": "Contacter le support",
-    "helpContactSub": "Écrivez-nous à support@eduaircontrol.com",
+    "helpContactSub": "Contactez-nous à support@eduaircontrol.com",
     "helpTerms": "Conditions d'utilisation",
     "helpTermsSub": "Lisez nos conditions d'utilisation",
     "helpPrivacy": "Politique de confidentialité",
     "helpPrivacySub": "Comment nous protégeons vos données",
     "helpVersion": "Version de l'application",
+     "versionDesc": "Système de surveillance de la qualité de l'air",
+      "versionDate": "Dernière mise à jour : Avril 2026",
     "passwordModal": {
       "title": "Changer le mot de passe",
       "current": "Mot de passe actuel",
@@ -179,6 +181,7 @@
       "errorEmpty": "Remplissez tous les champs",
       "errorMatch": "Les mots de passe ne correspondent pas",
       "errorLength": "Le mot de passe doit contenir au moins 6 caractères"
+     
     },
     "faq": {
       "q1": "Comment ajouter un environnement favori ?",

@@ -5,18 +5,35 @@ import es from './es.json'
 import fr from './fr.json'
 import pt from './pt.json'
 
-const savedLang = localStorage.getItem('language') || 'es'
 
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: en },
-    es: { translation: es },
-    fr: { translation: fr },
-    pt: { translation: pt },
-  },
-  lng: savedLang,
-  fallbackLng: 'es',
-  interpolation: { escapeValue: false },
-})
+const savedLang = localStorage.getItem('language') || "es"
+const validLangs = ['es', 'en', 'fr', 'pt']
+const lng = validLangs.includes(savedLang) ? savedLang : 'es'
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: { translation: en },
+      es: { translation: es },
+      fr: { translation: fr },
+      pt: { translation: pt },
+    },
+
+    lng,
+    fallbackLng: 'es',
+
+   
+    keySeparator: '.',      
+    nsSeparator: false,     
+
+    interpolation: {
+      escapeValue: false,
+    },
+
+    react: {
+      useSuspense: false, 
+    },
+  })
 
 export default i18n

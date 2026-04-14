@@ -58,10 +58,10 @@
   "terms": {
     "title": "Términos y Condiciones",
     "intro": "Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos:",
-    "item1": "Proporcionarás información precisa y completa.",
-    "item2": "Eres responsable de mantener la confidencialidad de tus credenciales.",
-    "item3": "La plataforma debe usarse solo para propósitos autorizados y legales.",
-    "item4": "Los datos ambientales son solo para monitoreo e informes.",
+    "li1": "Proporcionarás información precisa y completa.",
+    "li2": "Eres responsable de mantener la confidencialidad de tus credenciales.",
+    "li3": "La plataforma debe usarse solo para propósitos autorizados y legales.",
+    "li4": "Los datos ambientales son solo para monitoreo e informes.",
     "footer1": "EduAirControl se reserva el derecho de actualizar estos términos en cualquier momento.",
     "footer2": "Al hacer clic en \"Aceptar\", confirmas que has leído y aceptado estos Términos y Condiciones.",
     "acceptBtn": "ACEPTAR"
@@ -168,6 +168,8 @@
     "helpPrivacy": "Política de privacidad",
     "helpPrivacySub": "Cómo protegemos tus datos",
     "helpVersion": "Versión de la app",
+    "versionDesc": "Sistema de Monitoreo de Calidad del Aire",
+      "versionDate": "Última actualización: Abril 2026",
     "passwordModal": {
       "title": "Cambiar contraseña",
       "current": "Contraseña actual",

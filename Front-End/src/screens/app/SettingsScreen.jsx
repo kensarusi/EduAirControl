@@ -420,10 +420,10 @@ const [passwordData, setPasswordData] = useState({
                 <h3>❓ {t('settings.helpFaq')}</h3>
                 <div className="help-modal-body">
                   {[
-                    { q: t("settings.faq.q1"), a: t("settings.faq.a1") },
-                    { q: t("settings.faq.q2"), a: t("settings.faq.a2") },
-                    { q: t("settings.faq.q3"), a: t("settings.faq.a3") },
-                    { q: t("settings.faq.q4"), a: t("settings.faq.a4") },
+                    { q: t('settings.faq.q1'), a: t('settings.faq.a1') },
+                    { q: t('settings.faq.q2'), a: t('settings.faq.a2') },
+                    { q: t('settings.faq.q3'), a: t('settings.faq.a3') },
+                    { q: t('settings.faq.q4'), a: t('settings.faq.a4') },
                   ].map(({ q, a }) => (
                     <div key={q} className="faq-item">
                       <strong>{q}</strong>
@@ -439,7 +439,7 @@ const [passwordData, setPasswordData] = useState({
                 <h3>📬 {t('settings.helpContact')}</h3>
                 <div className="help-modal-body">
                   {[
-                    { icon: '✉️', title: t('settings.contact.emailTitle'), desc: t('settings.contact.emailDesc') },
+                    { icon: '✉️', title: t('settings.contact.emailTitle'), desc: 'soporte@eduaircontrol.com' },
                     { icon: '🕐', title: t('settings.contact.scheduleTitle'), desc: t('settings.contact.scheduleDesc') },
                     { icon: '⏱️', title: t('settings.contact.responseTitle'), desc: t('settings.contact.responseDesc') },
                   ].map(({ icon, title, desc }) => (
@@ -456,33 +456,33 @@ const [passwordData, setPasswordData] = useState({
               <>
                 <h3>📋 {t('settings.helpTerms')}</h3>
                 <div className="help-modal-body help-modal-scroll">
-                  <p>{t("settings.terms.intro")}</p>
+                <p>{t('settings.terms.Intro')}</p>
                   <ul>
-                    <li>{t("settings.terms.li1")}</li>
-                    <li>{t("settings.terms.li2")}</li>
-                    <li>{t("settings.terms.li3")}</li>
-                    <li>{t("settings.terms.li4")}</li>
+                   <li>{t('settings.terms.li1')}</li>
+                    <li>{t('settings.terms.li2')}</li>
+                    <li>{t('settings.terms.li3')}</li>
+                    <li>{t('settings.terms.li4')}</li>
                   </ul>
-                  <p>{t("settings.terms.footer")}</p>
+                  <p>{t('settings.terms.footer')}</p>
                 </div>
               </>
             )}
 
             {helpModal.type === 'privacy' && (
-              <>
-                <h3>🔒 {t('settings.helpPrivacy')}</h3>
-                <div className="help-modal-body help-modal-scroll">
-                  <p>{t("settings.privacyModal.intro")}</p>
-                  <ul>
-                    <li>{t("settings.privacyModal.li1")}</li>
-                    <li>{t("settings.privacyModal.li2")}</li>
-                    <li>{t("settings.privacyModal.li3")}</li>
-                    <li>{t("settings.privacyModal.li4")}</li>
-                  </ul>
-                  <p>{t("settings.privacyModal.footer")}</p>
-                </div>
-              </>
-            )}
+                  <>
+                    <h3>🔒 {t('settings.helpPrivacy')}</h3>
+                    <div className="help-modal-body help-modal-scroll">
+                      <p>{t('settings.privacyModal.intro')}</p>
+                      <ul>
+                        <li>{t('settings.privacyModal.li1')}</li>
+                        <li>{t('settings.privacyModal.li2')}</li>
+                        <li>{t('settings.privacyModal.li3')}</li>
+                        <li>{t('settings.privacyModal.li4')}</li>
+                      </ul>
+                      <p>{t('settings.privacyModal.footer')}</p>
+                    </div>
+                  </>
+                )}
 
             {helpModal.type === 'version' && (
               <>
@@ -490,8 +490,8 @@ const [passwordData, setPasswordData] = useState({
                 <div className="help-modal-body">
                   <div className="version-info">
                     <div className="version-badge">v1.0.0</div>
-                    <p>EduAirControl — Sistema de Monitoreo de Calidad del Aire</p>
-                    <p className="version-date">Última actualización: Abril 2026</p>
+                    <p>{t('settings.versionDesc')}</p>
+                    <p className="version-date">{t('settings.versionDate')}</p>
                     <div className="version-tags">
                       <span className="version-tag">React 18</span>
                       <span className="version-tag">i18n</span>
