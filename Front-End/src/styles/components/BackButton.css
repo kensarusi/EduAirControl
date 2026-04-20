@@ -1,7 +1,4 @@
 .back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
   background: none;
   border: 2px solid #5de6c8;
   border-radius: 50%;
@@ -14,6 +11,8 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  align-self: flex-start;
+  margin-bottom: 10px;
 }
 
 .back-button:hover {

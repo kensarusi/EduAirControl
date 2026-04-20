@@ -160,6 +160,7 @@ input, button { max-width: 100%; }
 }
 
 .auth-card {
+  position: relative;
   background: var(--bg-card);
   border: 2px solid var(--accent);
   border-radius: 15px;
@@ -335,20 +336,6 @@ button:active {
   background-color: var(--accent);
   color: white;
 }
-
-.back-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: var(--text-primary);
-  align-self: flex-start;
-  margin-bottom: 10px;
-  padding: 5px;
-  transition: color 0.3s;
-}
-
-.back-button:hover { color: var(--accent); }
 
 /* ============================================ */
 /* FIELDS COMPARTIDOS (profile, settings)       */
