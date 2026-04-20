@@ -28,7 +28,6 @@
     "email": "Correo electrónico",
     "password": "Contraseña",
     "confirmPassword": "Confirmar contraseña",
-    "agreeTerms": "Acepto los ",
     "termsLink": "Términos de uso y Política de privacidad.",
     "signUpBtn": "Registrarse",
     "passwordMismatch": "¡Las contraseñas no coinciden!",

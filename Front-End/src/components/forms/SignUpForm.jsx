@@ -29,7 +29,6 @@ function SignUpForm() {
 
       <div className="terms-checkbox">
         <input type="checkbox" checked={agreeTerms} onChange={(e) => setAgreeTerms(e.target.checked)} />
-        <span>{t('signup.agreeTerms')}</span>
         <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms') }} className="terms-link">
           {t('signup.termsLink')}
         </a>

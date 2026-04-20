@@ -28,7 +28,6 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Re-type password",
-    "agreeTerms": "I agree to the ",
     "termsLink": "Terms of Use and Privacy Policy.",
     "signUpBtn": "Sign Up",
     "passwordMismatch": "Passwords do not match!",
