@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { WiThermometer, WiHumidity } from 'react-icons/wi'
@@ -23,9 +23,67 @@ function MetricBar({ value, min, max }) {
 }
 
 function StatusIcon({ statusKey }) {
-  if (statusKey === 'dashboard.statusNormal')  return <IoCheckmarkCircle className="detail-status-icon normal" />
+  if (statusKey === 'dashboard.statusNormal') return <IoCheckmarkCircle className="detail-status-icon normal" />
   if (statusKey === 'dashboard.statusWarning') return <IoWarning className="detail-status-icon warning" />
   return <IoAlertCircle className="detail-status-icon alert" />
+}
+
+/* RatingCard: componente reutilizable para la calificación */
+function RatingCard({ rating, setRating, onSubmit, className = '' }) {
+  const starsRef = useRef([])
+  const handleKey = (e, value) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      setRating(value)
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const prev = Math.max(1, value - 1)
+      starsRef.current[prev - 1]?.focus()
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      const next = Math.min(5, value + 1)
+      starsRef.current[next - 1]?.focus()
+    }
+  }
+
+  return (
+    <div className={`detail-rating-card rating-card ${className}`} role="region" aria-label="Calificar aula">
+      <p className="rating-question">¿Cómo percibes el confort de este ambiente?</p>
+
+      <div
+        className="stars"
+        role="radiogroup"
+        aria-label="Estrellas de calificación"
+      >
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span
+            key={star}
+            role="radio"
+            tabIndex={0}
+            aria-checked={rating === star}
+            ref={(el) => (starsRef.current[star - 1] = el)}
+            className={rating >= star ? 'star active' : 'star'}
+            onClick={() => setRating(star)}
+            onKeyDown={(e) => handleKey(e, star)}
+            title={`${star} estrella${star > 1 ? 's' : ''}`}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+
+      <div className="rating-actions">
+        <button
+          className="rating-submit-btn"
+          onClick={() => onSubmit(rating)}
+          disabled={rating === 0}
+          aria-disabled={rating === 0}
+        >
+          ⭐ Enviar calificación
+        </button>
+      </div>
+    </div>
+  )
 }
 
 function EnvironmentDetailScreen() {
@@ -35,6 +93,7 @@ function EnvironmentDetailScreen() {
   const { environments, toggleFavorite } = useEnvironments()
 
   const [rating, setRating] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const env = environments.find((e) => String(e.id) === String(id))
 
@@ -94,6 +153,14 @@ function EnvironmentDetailScreen() {
       key: 'noise',
     },
   ]
+
+  const handleSubmitRating = (r) => {
+    // Reemplaza el alert por tu llamada a la API si lo deseas
+    alert(`Calificación enviada: ${r} estrella${r === 1 ? '' : 's'}`)
+    // ejemplo:
+    // fetch(`/api/environments/${env.id}/rating`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ rating: r }) })
+    setIsModalOpen(false)
+  }
 
   return (
     <div className="detail-page">
@@ -185,63 +252,40 @@ function EnvironmentDetailScreen() {
           ))}
         </div>
 
-        
+        {/* Info Cards Row */}
+        <div className="detail-info-row">
+          <div className="detail-info-card">
+            <h3>📍 {t('detail.locationTitle') || 'Ubicación'}</h3>
+            <p>{env.location || '—'}</p>
+          </div>
 
+          <div className="detail-info-card">
+            <h3>👥 {t('detail.capacityTitle') || 'Capacidad'}</h3>
+            <p>{env.capacity ? `${env.capacity} ${t('detail.people') || 'personas'}` : '—'}</p>
+          </div>
 
-          {/* Info Cards Row */}
-<div className="detail-info-row">
-
-  <div className="detail-info-card">
-    <h3>📍 {t('detail.locationTitle') || 'Ubicación'}</h3>
-    <p>{env.location || '—'}</p>
-  </div>
-
-  <div className="detail-info-card">
-    <h3>👥 {t('detail.capacityTitle') || 'Capacidad'}</h3>
-    <p>{env.capacity ? `${env.capacity} ${t('detail.people') || 'personas'}` : '—'}</p>
-  </div>
-
-  <div className="detail-info-card">
-    <h3>🌡️ {t('detail.conditionsTitle') || 'Condiciones'}</h3>
-    <p style={{ color: statusColor, fontWeight: 600 }}>
-      {t(env.statusKey)}
-    </p>
-  </div>
-
-</div>
-<br></br>
-      {/* Classroom Rating */}
-      <h2 className="detail-section-title">Calificación del aula</h2>
-
-      <div className="detail-rating-card">
-
-        <p className="rating-question">
-          ¿Cómo percibes el confort de este ambiente?
-        </p>
-
-        <div className="stars">
-          {[1,2,3,4,5].map((star) => (
-            <span
-              key={star}
-              className={rating >= star ? "star active" : "star"}
-              onClick={() => setRating(star)}
-            >
-              ★
-            </span>
-          ))}
+          <div className="detail-info-card">
+            <h3>🌡️ {t('detail.conditionsTitle') || 'Condiciones'}</h3>
+            <p style={{ color: statusColor, fontWeight: 600 }}>
+              {t(env.statusKey)}
+            </p>
+          </div>
         </div>
 
-        <button
-          className="rating-submit-btn"
-          onClick={() => alert(`Calificación enviada: ${rating} estrellas`)}
-        >
-          ⭐ Enviar calificación
-        </button>
+        <br />
 
-      </div>
+        {/* Classroom Rating (inline card) */}
+        <h2 className="detail-section-title">Calificación del aula</h2>
+
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <RatingCard
+            rating={rating}
+            setRating={setRating}
+            onSubmit={handleSubmitRating}
+          />
         </div>
       </div>
-    
+    </div>
   )
 }
 

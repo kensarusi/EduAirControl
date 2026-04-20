@@ -83,7 +83,7 @@ body.dark-mode {
 body.dark-mode .auth-card p,
 body.dark-mode .auth-card span,
 body.dark-mode .social-text {
-  color: #d1d5db; /* gris claro real */
+  color: #d1d5db; 
 }
 
 body.dark-mode .auth-card:hover,
