@@ -70,7 +70,6 @@ function AllEnvironmentsScreen() {
         <BackButton onClick={() => navigate('/dashboard')} />
         <h1 className="all-env-title">{t('allEnvironments.title')}</h1>
 
-        {/* Botones de estado — misma lógica que el Dashboard */}
         <div className="all-env-status-bar">
           {statusButtons.map((btn) => (
             <button
@@ -106,14 +105,21 @@ function AllEnvironmentsScreen() {
             <div className="no-results-icon">🔍</div>
             <p className="no-results-title">No se encontraron resultados</p>
             <p className="no-results-sub">Intenta con otro término de búsqueda</p>
-            <button className="no-results-clear" onClick={() => { setFilters({ name: '', co2: '', db: '', temp: '' }); setActiveStatus('') }}>
+            <button
+              className="no-results-clear"
+              onClick={() => { setFilters({ name: '', co2: '', db: '', temp: '' }); setActiveStatus('') }}
+            >
               Limpiar filtros
             </button>
           </div>
         ) : (
           <div className="all-env-cards">
             {filtered.map((env) => (
-              <EnvironmentSummaryCard key={env.id} {...env} />
+              <EnvironmentSummaryCard
+                key={env.id}
+                {...env}
+                onClick={() => navigate(`/environment/${env.id}`)}
+              />
             ))}
           </div>
         )}
