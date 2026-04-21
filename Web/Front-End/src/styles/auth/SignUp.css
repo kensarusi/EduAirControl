@@ -33,30 +33,121 @@
   justify-content: flex-start;
 }
 
-.terms-label {
+/* CONTENEDOR */
+.terms-toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.4;
+  gap: 12px;
+  cursor: pointer;
 }
 
-.terms-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--accent);
-  cursor: pointer;
+/* OCULTAR CHECKBOX REAL */
+.terms-toggle input {
+  display: none;
+}
+
+/* FONDO DEL TOGGLE */
+.toggle-slider {
+  position: relative;
+  width: 46px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 50px;
+  transition: 0.3s;
   flex-shrink: 0;
 }
 
-.terms-label span {
+/* CÍRCULO */
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+/* ESTADO ACTIVADO */
+.terms-toggle input:checked + .toggle-slider {
+  background-color: var(--accent);
+}
+
+.terms-toggle input:checked + .toggle-slider::before {
+  transform: translateX(22px);
+}
+
+/* TEXTO */
+.terms-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* LINK */
+.terms-link {
   color: var(--accent);
+  font-weight: 500;
+}
+
+.toggle-slider:active::before {
+  width: 24px;
+}
+
+/* FONDO OSCURO */
+.terms-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* CAJA */
+.terms-modal {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  padding: 25px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: fadeIn 0.2s ease;
+}
+
+/* BOTÓN */
+.terms-modal button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.terms-label span:hover {
-  color: var(--accent-hover);
+.terms-modal button:hover {
+  background: var(--accent-hover);
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.terms-content ul {
+  margin-top: 10px;
+  padding-left: 18px;
+}
+
+.terms-content li {
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 
 /* Botón Sign Up */

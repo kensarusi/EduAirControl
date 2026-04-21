@@ -33,11 +33,23 @@
     "placeholderEmail": "exemplo@e-mail.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
-    "fullTermsText": "Aceito os Termos de Uso e a Política de Privacidade",
+    "accept": "aceito",
+    "terms": "Termos de Uso e Política de Privacidade",
+    "termsTitle": "Termos e Condições",
+    "termsIntro": "Ao registrarse na plataforma, você concorda com os seguintes termos:",
+    "term1": "O uso responsável da aplicação e de suas funcionalidades.",
+    "term2": "O tratamento dos seus dados pessoais de acordo com a nossa política de privacidade.",
+    "term3": "Não utilizar a plataforma para fins não autorizados ou ilegais.",
+    "term4": "Que as informações fornecidas sejam precisas e atualizadas.",
     "signUpBtn": "Cadastrar-se",
     "passwordMismatch": "As senhas não coincidem!",
     "mustAgreeTerms": "Você deve aceitar os Termos e Condições"
   },
+
+    "common": {
+      "close": "Fechar"
+    },
+    
   "forgotPassword": {
     "title": "Esqueci minha senha",
     "description": "Digite seu e-mail e enviaremos um código de recuperação.",

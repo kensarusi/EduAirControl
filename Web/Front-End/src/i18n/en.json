@@ -33,10 +33,21 @@
     "placeholderEmail": "example@email.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
-    "fullTermsText": "I agree to the Terms of Use and Privacy Policy",
+   "accept": "I accept",
+    "terms": "Terms of Use and Privacy Policy",
+    "termsTitle": "Terms and Conditions",
+    "termsIntro": "By signing up for the platform, you agree to the following:",
+    "term1": "The responsible use of the application and its functionalities.",
+    "term2": "The processing of your personal data in accordance with our privacy policy.",
+    "term3": "Not to use the platform for unauthorized or illegal purposes.",
+    "term4": "That the information provided is accurate and up to date.",
     "signUpBtn": "Sign Up",
     "passwordMismatch": "Passwords do not match!",
     "mustAgreeTerms": "You must agree to the Terms and Conditions"
+  },
+
+   "common": {
+    "close": "Close"
   },
   
   "forgotPassword": {

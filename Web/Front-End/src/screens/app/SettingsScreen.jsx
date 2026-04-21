@@ -459,7 +459,7 @@ const [passwordData, setPasswordData] = useState({
               <>
                 <h3>📋 {t('settings.helpTerms')}</h3>
                 <div className="help-modal-body help-modal-scroll">
-                <p>{t('settings.terms.Intro')}</p>
+                  <p>{t('settings.terms.intro')}</p>
                   <ul>
                    <li>{t('settings.terms.li1')}</li>
                     <li>{t('settings.terms.li2')}</li>

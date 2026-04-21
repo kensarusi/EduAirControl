@@ -10,6 +10,7 @@ function SignUpForm() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
+  const [showTerms, setShowTerms] = useState(false)
 
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -32,6 +33,7 @@ function SignUpForm() {
   }
 
   return (
+  <>
     <form onSubmit={handleSubmit}>
       <Input
         label={t('signup.title')}
@@ -66,13 +68,27 @@ function SignUpForm() {
       />
 
       <div className="terms">
-        <label className="terms-label">
+        <label className="terms-toggle">
           <input
             type="checkbox"
             checked={acceptTerms}
             onChange={(e) => setAcceptTerms(e.target.checked)}
           />
-          <span>{t('signup.fullTermsText')}</span>
+
+          <span className="toggle-slider"></span>
+
+          <span className="terms-text">
+            {t('signup.accept')}{' '}
+            <span
+              className="terms-link"
+              onClick={(e) => {
+                e.preventDefault()   
+                setShowTerms(true)
+              }}
+            >
+              {t('signup.terms')}
+            </span>
+          </span>
         </label>
       </div>
 
@@ -80,7 +96,38 @@ function SignUpForm() {
         {t('signup.signUpBtn')}
       </button>
     </form>
-  )
+
+    {showTerms && (
+      <div
+        className="terms-modal-overlay"
+        onClick={() => setShowTerms(false)}
+      >
+        <div
+          className="terms-modal"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h2>{t('signup.termsTitle')}</h2>
+
+          <div className="terms-content">
+            <p>{t('signup.termsIntro')}</p>
+
+            <ul>
+              <li>{t('signup.term1')}</li>
+              <li>{t('signup.term2')}</li>
+              <li>{t('signup.term3')}</li>
+              <li>{t('signup.term4')}</li>
+            </ul>
+          </div>
+
+          <button onClick={() => setShowTerms(false)}>
+            {t('common.close')}
+          </button>
+        </div>
+      </div>
+    )}
+  </>
+)
+
 }
 
 export default SignUpForm

@@ -33,11 +33,22 @@
     "placeholderEmail": "exemple@mail.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
-    "fullTermsText": "J'accepte les Conditions d'utilisation et la Politique de confidentialité",
+    "accept": "J'accepte",
+    "terms": "les conditions d'utilisation et la politique de confidentialité",
+    "termsTitle": "Conditions générales",
+    "termsIntro": "En vous inscrivant à la plateforme, vous acceptez les conditions suivantes :",
+    "term1": "L'utilisation responsable de l'application et de ses fonctionnalités.",
+    "term2": "Le traitement de vos données personnelles conformément à notre politique de confidentialité.",
+    "term3": "L'interdiction d'utiliser la plateforme à des fins non autorisées ou illégales.",
+    "term4": "Le fait que les informations fournies soient exactes et à jour.",
     "signUpBtn": "S'inscrire",
     "passwordMismatch": "Les mots de passe ne correspondent pas !",
     "mustAgreeTerms": "Vous devez accepter les Conditions générales"
   },
+    "common": {
+      "close": "Fermer"
+    },
+    
   "forgotPassword": {
     "title": "Mot de passe oublié",
     "description": "Entrez votre adresse e-mail et nous vous enverrons un code de récupération.",
