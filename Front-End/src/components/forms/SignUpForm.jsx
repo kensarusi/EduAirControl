@@ -9,33 +9,71 @@ function SignUpForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [agreeTerms, setAgreeTerms] = useState(false)
+  const [acceptTerms, setAcceptTerms] = useState(false)
+
   const navigate = useNavigate()
   const { t } = useTranslation()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (password !== confirmPassword) { alert(t('signup.passwordMismatch')); return }
-    if (!agreeTerms) { alert(t('signup.mustAgreeTerms')); return }
-    navigate('/')
+    if (password !== confirmPassword) {
+      alert('Las contraseñas no coinciden')
+      return
+    }
+    alert(`Registro exitoso: ${name}, ${email}`)
+    navigate('/dashboard')
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input label={t('signup.name')} type="text" placeholder={t('login.placeholder')} value={name} onChange={(e) => setName(e.target.value)} />
-      <Input label={t('signup.email')} type="email" placeholder={t('login.placeholder')} value={email} onChange={(e) => setEmail(e.target.value)} />
-      <Input label={t('signup.password')} type="password" placeholder={t('login.placeholder')} value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Input label={t('signup.confirmPassword')} type="password" placeholder={t('login.placeholder')} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+      <Input
+  label={t('signup.title')}
+  type="text"
+  placeholder={t('signup.placeholderName')}
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>
 
-      <div className="terms-checkbox">
-        <input type="checkbox" checked={agreeTerms} onChange={(e) => setAgreeTerms(e.target.checked)} />
-        <span>{t('signup.agreeTerms')}</span>
-        <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms') }} className="terms-link">
-          {t('signup.termsLink')}
-        </a>
-      </div>
+<Input
+  label={t('signup.email')}
+  type="email"
+  placeholder={t('signup.placeholderEmail')}
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+/>
 
-      <button type="submit" className="btn-signup-submit">{t('signup.signUpBtn')}</button>
+<Input
+  label={t('signup.password')}
+  type="password"
+  placeholder={t('signup.placeholderPassword')}
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+/>
+
+<Input
+  label={t('signup.confirmPassword')}
+  type="password"
+  placeholder={t('signup.placeholderConfirm')}
+  value={confirmPassword}
+  onChange={(e) => setConfirmPassword(e.target.value)}
+/>
+
+<div className="terms">
+  <label className="terms-label">
+    <input
+      type="checkbox"
+      checked={acceptTerms}
+      onChange={(e) => setAcceptTerms(e.target.checked)}
+    />
+    {t('signup.agreeTerms')}{" "}
+    <span>{t('signup.termsLink')}</span>
+  </label>
+</div>
+
+<button type="submit" className="btn-login">
+  {t('signup.signUpBtn')}
+</button>
+
     </form>
   )
 }

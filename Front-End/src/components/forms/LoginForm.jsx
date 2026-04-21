@@ -21,14 +21,14 @@ function LoginForm() {
       <Input
         label={t('login.email')}
         type="email"
-        placeholder={t('login.placeholder')}
+        placeholder={t('login.placeholderEmail')}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input
         label={t('login.password')}
         type="password"
-        placeholder={t('login.placeholder')}
+        placeholder={t('login.placeholderPassword')}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />

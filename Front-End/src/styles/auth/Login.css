@@ -144,9 +144,22 @@ body.dark-mode .lang-option.active {
 }
 
 .login-header h1 {
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 28px;
   margin: 0;
+  font-weight: 700;
+}
+
+.login-header h1 {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(0, 184, 148, 0.3);
+}
+
+.auth-card h1,
+.auth-card h2 {
+  color: var(--accent) !important;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(0, 184, 148, 0.4);
 }
 
 .login-avatar img {
@@ -365,5 +378,5 @@ body.dark-mode .divider span {
 }
 
 body.dark-mode .back-button {
-  color: #aaa;
+  color: #000000;
 }

@@ -27,22 +27,33 @@
 }
 
 /* Checkbox términos */
-.terms-checkbox {
+.terms {
+  margin: 15px 0 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.terms-label {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  margin-bottom: 20px;
-  text-align: left;
+  color: var(--text-secondary);
 }
 
-.terms-checkbox input[type="checkbox"] {
-  accent-color: #5de6c8;
+.terms-label input[type="checkbox"] {
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
-.terms-checkbox a {
-  color: #5de6c8;
-  text-decoration: none;
+.terms-label span {
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.terms-label span:hover {
+  color: var(--accent-hover);
 }
 
 /* Botón Sign Up */
@@ -56,30 +67,4 @@
   font-size: 16px;
   cursor: pointer;
   font-weight: bold;
-}
-
-.btn-signup-submit:hover {
-  background-color: #4dd4b6;
-}
-
-.terms-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-.terms-checkbox input[type="checkbox"] {
-  accent-color: #5de6c8;
-}
-
-.terms-link {
-  color: #5de6c8;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.terms-link:hover {
-  color: #4dd4b6;
 }
