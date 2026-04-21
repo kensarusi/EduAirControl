@@ -39,17 +39,20 @@
   gap: 8px;
   font-size: 14px;
   color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 .terms-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
   accent-color: var(--accent);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .terms-label span {
   color: var(--accent);
   cursor: pointer;
-  font-weight: 500;
 }
 
 .terms-label span:hover {

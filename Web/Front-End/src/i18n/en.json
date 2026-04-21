@@ -33,8 +33,7 @@
     "placeholderEmail": "example@email.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
-    "agreeTerms": "I agree to the ",
-    "termsLink": "Terms of Use and Privacy Policy.",
+    "fullTermsText": "I agree to the Terms of Use and Privacy Policy",
     "signUpBtn": "Sign Up",
     "passwordMismatch": "Passwords do not match!",
     "mustAgreeTerms": "You must agree to the Terms and Conditions"

@@ -16,10 +16,17 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if (!acceptTerms) {
+      alert('Debes aceptar los términos')
+      return
+    }
+
     if (password !== confirmPassword) {
       alert('Las contraseñas no coinciden')
       return
     }
+
     alert(`Registro exitoso: ${name}, ${email}`)
     navigate('/dashboard')
   }
@@ -27,60 +34,51 @@ function SignUpForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Input
-  label={t('signup.title')}
-  type="text"
-  placeholder={t('signup.placeholderName')}
-  value={name}
-  onChange={(e) => setName(e.target.value)}
-/>
+        label={t('signup.title')}
+        type="text"
+        placeholder={t('signup.placeholderName')}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
 
-<Input
-  label={t('signup.email')}
-  type="email"
-  placeholder={t('signup.placeholderEmail')}
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>
+      <Input
+        label={t('signup.email')}
+        type="email"
+        placeholder={t('signup.placeholderEmail')}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-<Input
-  label={t('signup.password')}
-  type="password"
-  placeholder={t('signup.placeholderPassword')}
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-/>
+      <Input
+        label={t('signup.password')}
+        type="password"
+        placeholder={t('signup.placeholderPassword')}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
-<Input
-  label={t('signup.confirmPassword')}
-  type="password"
-  placeholder={t('signup.placeholderConfirm')}
-  value={confirmPassword}
-  onChange={(e) => setConfirmPassword(e.target.value)}
-/>
+      <Input
+        label={t('signup.confirmPassword')}
+        type="password"
+        placeholder={t('signup.placeholderConfirm')}
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
 
-<div className="terms">
-  <label className="terms-label">
-    <input
-      type="checkbox"
-      checked={acceptTerms}
-      onChange={(e) => setAcceptTerms(e.target.checked)}
-    />
-    {t('signup.agreeTerms')}{" "}
-    <span>{t('signup.termsLink')}</span>
-  </label>
-</div>
-
-<button type="submit" className="btn-login">
-  {t('signup.signUpBtn')}
-</button>
-=======
-      <div className="terms-checkbox">
-        <input type="checkbox" checked={agreeTerms} onChange={(e) => setAgreeTerms(e.target.checked)} />
-        <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms') }} className="terms-link">
-          {t('signup.termsLink')}
-        </a>
+      <div className="terms">
+        <label className="terms-label">
+          <input
+            type="checkbox"
+            checked={acceptTerms}
+            onChange={(e) => setAcceptTerms(e.target.checked)}
+          />
+          <span>{t('signup.fullTermsText')}</span>
+        </label>
       </div>
 
+      <button type="submit" className="btn-login">
+        {t('signup.signUpBtn')}
+      </button>
     </form>
   )
 }
