@@ -133,6 +133,8 @@ body {
   min-height: 100vh;
   width: 100%;
   transition: background-color 0.3s, color 0.3s;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
@@ -140,6 +142,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 img { max-width: 100%; height: auto; }
@@ -1083,6 +1086,18 @@ body.dark-mode .forgot-link {
 
 @media (max-width: 768px) {
 
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 0;
+    align-items: stretch;
+    position: -webkit-sticky;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
   .navbar-info {
     position: static;
     transform: none;
@@ -1107,7 +1122,7 @@ body.dark-mode .forgot-link {
   .profile-content,
   .settings-content,
   .mgmt-container {
-    padding-top: 115px;
+    padding-top: 130px;
   }
 
   .dashboard-layout { grid-template-columns: 1fr; padding: 10px; }

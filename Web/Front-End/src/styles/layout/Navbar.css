@@ -11,6 +11,12 @@
   top: 0; left: 0; right: 0;
   z-index: 1000;
   transition: background-color 0.3s, border-color 0.3s;
+
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .navbar-logo h2 {
