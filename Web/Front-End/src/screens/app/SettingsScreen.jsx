@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette, FaMapMarkerAlt, FaBell, FaShieldAlt, FaQuestionCircle, FaChevronRight, FaLock, FaEye, FaTrash } from 'react-icons/fa'
+import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette, FaMapMarkerAlt, FaBell, FaShieldAlt, FaQuestionCircle, FaChevronRight,FaLock, FaTrash, FaEye, FaEyeSlash} from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import Navbar from '../../components/layout/Navbar'
@@ -8,7 +8,6 @@ import { EditModal } from '../../components/ui'
 import { useDarkMode } from '../../hooks/useDarkMode'
 import { saveDateFormat } from '../../hooks/useDateFormat'
 import '../../styles/app/Settings.css'
-
 
 const TIMEZONES = [
   { value: 'America/Bogota',      label: 'Bogotá (UTC-5)' },
@@ -73,6 +72,10 @@ function SettingsScreen() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [helpModal, setHelpModal] = useState({ open: false, type: null })
   const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [showPassword, setShowPassword] = useState({
+  new: false,
+  confirm: false
+})
 const [passwordData, setPasswordData] = useState({
   current: '',
   new: '',
@@ -335,43 +338,95 @@ const [passwordData, setPasswordData] = useState({
         </div>
       </div>
 
-      {showPasswordModal && (
-  <div className="lang-modal-overlay" onClick={() => setShowPasswordModal(false)}>
-    <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-      <h3>🔐 {t('settings.passwordModal.title')}</h3>
 
-      <input
-        className="input-modal"
-        type="password"
-        placeholder={t('settings.passwordModal.current')}
-        value={passwordData.current}
-        onChange={(e) => handlePasswordChange('current', e.target.value)}
-      />
+   {showPasswordModal && (
+  <div
+    className="password-overlay"
+    onClick={() => setShowPasswordModal(false)}
+  >
+    <div
+      className="password-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
 
-      <input
-        className="input-modal"
-        type="password"
-        placeholder={t('settings.passwordModal.new')}
-        value={passwordData.new}
-        onChange={(e) => handlePasswordChange('new', e.target.value)}
-      />
+      <h3 className="password-title">
+        🔐 {t('settings.passwordModal.title')}
+      </h3>
 
-      <input
-        className="input-modal"
-        type="password"
-        placeholder={t('settings.passwordModal.confirm')}
-        value={passwordData.confirm}
-        onChange={(e) => handlePasswordChange('confirm', e.target.value)}
-      />
+      <div className="password-form">
 
+        {/* CURRENT */}
+        <input
+          type="password"
+          placeholder={t('settings.passwordModal.current')}
+          value={passwordData.current}
+          onChange={(e) =>
+            handlePasswordChange('current', e.target.value)
+          }
+        />
 
-      <button onClick={handleSavePassword}>
-        {t('settings.passwordModal.save')}
-      </button>
+        {/* NEW */}
+        <div className="input-password">
+          <input
+            type={showPassword.new ? "text" : "password"}
+            placeholder={t('settings.passwordModal.new')}
+            value={passwordData.new}
+            onChange={(e) =>
+              handlePasswordChange('new', e.target.value)
+            }
+          />
 
-      <button onClick={() => setShowPasswordModal(false)}>
-        {t('settings.passwordModal.cancel')}
-      </button>
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() =>
+              setShowPassword(prev => ({ ...prev, new: !prev.new }))
+            }
+          >
+            {showPassword.new ? <FaEye /> : <FaEyeSlash />}
+          </button>
+        </div>
+
+        {/* CONFIRM */}
+        <div className="input-password">
+          <input
+            type={showPassword.confirm ? "text" : "password"}
+            placeholder={t('settings.passwordModal.confirm')}
+            value={passwordData.confirm}
+            onChange={(e) =>
+              handlePasswordChange('confirm', e.target.value)
+            }
+          />
+
+         <button
+          type="button"
+          className="toggle-password"
+          onClick={() =>
+            setShowPassword(prev => ({ ...prev, confirm: !prev.confirm }))
+          }
+        >
+          {showPassword.confirm ? <FaEye /> : <FaEyeSlash />}
+        </button>
+        </div>
+
+      
+        <div className="password-actions">
+          <button
+            className="btn-save"
+            onClick={handleSavePassword}
+          >
+            {t('settings.passwordModal.save')}
+          </button>
+
+          <button
+            className="btn-cancel"
+            onClick={() => setShowPasswordModal(false)}
+          >
+            {t('settings.passwordModal.cancel')}
+          </button>
+        </div>
+
+      </div>
     </div>
   </div>
 )}
