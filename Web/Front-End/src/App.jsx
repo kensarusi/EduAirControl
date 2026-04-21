@@ -13,7 +13,7 @@ import ProfileScreen from './screens/app/ProfileScreen'
 import SettingsScreen from './screens/app/SettingsScreen'
 import FavoritesScreen from './screens/app/FavoritesScreen'
 import EnvironmentManagement from "./screens/app/EnvironmentManagement";
-import EnvironmentDetailScreen from './screens/app/EnvironmentDetailScreen'
+import ProtectedRoute from './components/auth/ProtectedRoute'
 
 function App() {
   return (
@@ -29,13 +29,17 @@ function App() {
       <Route path="/facebook-signup"  element={<FacebookSignUpScreen />} />
 
       {/* App */}
-      <Route path="/dashboard"        element={<DashboardScreen />} />
-      <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
-      <Route path="/profile"          element={<ProfileScreen />} />
-      <Route path="/settings"         element={<SettingsScreen />} />
-      <Route path="/favorites"        element={<FavoritesScreen />} />
-      <Route path="/management" element={<EnvironmentManagement />} />
-      <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
+      <Route element={<ProtectedRoute />}>
+
+        <Route path="/dashboard" element={<DashboardScreen />} />
+        <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/settings" element={<SettingsScreen />} />
+        <Route path="/favorites" element={<FavoritesScreen />} />
+        <Route path="/management" element={<EnvironmentManagement />} />
+        <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
+
+      </Route>
     </Routes>
   )
 }
