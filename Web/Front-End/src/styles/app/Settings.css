@@ -390,3 +390,208 @@ backdrop-filter: blur(4px);
   background: var(--bg-subtle);
   color: var(--text-primary);
 }
+
+/* título */
+.password-modal h3 {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+}
+
+/* inputs */
+.password-modal .input-modal {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+/* focus glow */
+.password-modal .input-modal:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-light);
+}
+
+/* botón guardar */
+.password-actions .btn-save {
+  flex: 1;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.password-actions .btn-save:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* botón cancelar */
+.password-actions .btn-cancel {
+  flex: 1;
+  background: var(--bg-subtle);
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔐 OVERLAY */
+.password-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+/* 🔐 MODAL */
+.password-modal {
+  width: 100%;
+  max-width: 400px;
+  background: #0f172a;
+  padding: 24px;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  animation: fadeIn 0.3s ease;
+}
+
+/* 🔐 TITULO */
+.password-modal h3 {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+}
+
+/* 🔐 FORM */
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* 🔐 INPUT NORMAL */
+.password-form input {
+  width: 100%;
+  padding: 12px 45px 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  transition: all 0.25s ease;
+}
+
+.password-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+  transform: scale(1.02);
+}
+
+/* 🔐 INPUT CON ICONO */
+.input-password {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.toggle-password:hover {
+  color: #5de6c8;
+}
+
+/* 🔥 BOTONES (YA BIEN) */
+.password-actions {
+  display: flex;
+  flex-direction: column; /* 👈 ABAJO UNO DEL OTRO */
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* BOTÓN GUARDAR */
+.password-actions .btn-save {
+  width: 100%;
+  background: linear-gradient(135deg, #5de6c8, #3ab8a0);
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.password-actions .btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* BOTÓN CANCELAR */
+.password-actions .btn-cancel {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border-card);
+  padding: 12px;
+  border-radius: 12px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* 🔐 ANIMACIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
