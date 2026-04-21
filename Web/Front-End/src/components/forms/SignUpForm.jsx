@@ -34,7 +34,6 @@ function SignUpForm() {
   onChange={(e) => setName(e.target.value)}
 />
 
-<<<<<<< HEAD:Front-End/src/components/forms/SignUpForm.jsx
 <Input
   label={t('signup.email')}
   type="email"
@@ -81,7 +80,6 @@ function SignUpForm() {
           {t('signup.termsLink')}
         </a>
       </div>
->>>>>>> d03a74225e3a3fd80eaa75f1b1b306496878036f:Web/Front-End/src/components/forms/SignUpForm.jsx
 
     </form>
   )
