@@ -9,7 +9,8 @@
         "ignore": [
           "backdrop-filter",
           "-webkit-overflow-scrolling",
-          "position: -webkit-sticky"
+          "position: -webkit-sticky",
+          "user-select"
         ]
       }
     ]
