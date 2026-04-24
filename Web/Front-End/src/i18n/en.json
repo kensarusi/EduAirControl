@@ -21,7 +21,8 @@
     "forgotPassword": "Forgot password?",
     "loginBtn": "Login",
     "signUpBtn": "Sign Up",
-    "orWith": "Sign in using your account with"
+    "orWith": "Sign in using your account with",
+    "or": "OR"
   },
   "signup": {
     "title": "Sign Up",

@@ -21,7 +21,8 @@
     "forgotPassword": "Mot de passe oublié ?",
     "loginBtn": "Se connecter",
     "signUpBtn": "S'inscrire",
-    "orWith": "Se connecter avec"
+    "orWith": "Se connecter avec",
+    "or": "OU"
   },
   "signup": {
     "title": "S'inscrire",
@@ -292,5 +293,12 @@
     "preview": "Aperçu",
     "cancel": "Annuler",
     "save": "Enregistrer"
+  },
+  "errors": {
+    "required_email": "L'e-mail est requis",
+    "invalid_email": "Adresse e-mail invalide",
+    "password_min": "Le mot de passe doit contenir au moins 6 caractères",
+    "password_match": "Les mots de passe ne correspondent pas",
+    "name_short": "Le nom est trop court"
   }
 }

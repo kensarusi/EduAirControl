@@ -21,7 +21,8 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "loginBtn": "Ingresar",
     "signUpBtn": "Registrarse",
-    "orWith": "Inicia sesión con"
+    "orWith": "Inicia sesión con",
+    "or": "O"
   },
   "signup": {
     "title": "Registrarse",

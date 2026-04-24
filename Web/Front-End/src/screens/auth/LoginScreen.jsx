@@ -23,7 +23,7 @@ function LoginScreen() {
         </div>
       </div>
       <LoginForm />
-      <Divider text="OR" />
+      <Divider text={`${t('login.or')}`} />
       <button className="btn-signup" onClick={() => navigate('/signup')}>
         {t('login.signUpBtn')}
       </button>

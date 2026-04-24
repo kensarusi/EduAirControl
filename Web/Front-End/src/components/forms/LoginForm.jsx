@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema } from '../../schemas/loginSchema'
 import { Input } from '../ui'
 import '../../styles/auth/Login.css'
+import { is } from 'zod/v4/locales'
 
 function LoginForm() {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: zodResolver(loginSchema)
   })
@@ -69,7 +70,13 @@ function LoginForm() {
         </a>
       </div>
 
-      <button type="submit" className="btn-login">{t('login.loginBtn')}</button>
+      <button 
+      type="submit" 
+      className="btn-login"
+      disabled={isSubmitting}>
+        {isSubmitting ? "..." : t('login.title')}
+      </button>
+      {isSubmitting && <p className="loading">Validando...</p>}
     </form>
   )
 }
