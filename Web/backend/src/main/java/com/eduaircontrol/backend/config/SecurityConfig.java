@@ -1,4 +1,4 @@
-package com.eduaircontrol.backend.security;
+package com.eduaircontrol.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,13 +9,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // desactiva CSRF
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() // permite todo por ahora
+                .requestMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated()
             );
-
+        
         return http.build();
     }
 }
