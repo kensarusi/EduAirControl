@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-import { zodresolver } from '@hookform/resolvers/zod'
-import { loginSchema } from '../../schemas/authSchemas'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { loginSchema } from '../../schemas/loginSchema'
 import { Input } from '../ui'
 import '../../styles/auth/Login.css'
 
@@ -26,26 +26,37 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
 
-      <Input
-        label={t('login.email')}
-        type="email"
-        placeholder={t('login.placeholderEmail')}
-        {...register('email')}
-      />
-      {errors.email && <p className="error">{errors.email.message}</p>}
-      <Input
-        label={t('login.password')}
-        type="password"
-        placeholder={t('login.placeholderPassword')}
-        {...register('password')}
-      />
-      {errors.password && <p className="error">{errors.password.message}</p>} 
+
+      <div className="input-group">
+        <Input
+          {...register("email")}
+          label={t('login.email')}
+          placeholder={t('login.placeholderEmail')}
+          className={errors.email ? "input-error shake" : ""}
+        />
+        {errors.email && (
+          <p className="error-text">
+            ⚠{t(errors.email.message)}
+          </p>)}
+      </div>
+      <div className="input-group password-group">
+        <Input
+          {...register("password")}
+          label={t('login.password')}
+          placeholder={t('login.placeholderPassword')}
+          type="password"
+          className={`${errors.password ? "input-error shake" : ""}${errors.password ? " shake" : ""}`}
+        />
+      {errors.password && 
+        <p className="error-text">
+          ⚠{t(errors.password.message)}
+        </p>} 
+      </div>
       <div className="login-options">
         <label className="remember-me">
           <input
             type="checkbox"
-            checked={rememberMe}
-            onChange={(e) => setRememberMe(e.target.checked)}
+            {...register('rememberMe')}
           />
           {t('login.rememberMe')}
         </label>
