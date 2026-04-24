@@ -1,38 +1,45 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useForm } from 'react-hook-form'
+import { zodresolver } from '@hookform/resolvers/zod'
+import { loginSchema } from '../../schemas/authSchemas'
 import { Input } from '../ui'
 import '../../styles/auth/Login.css'
 
 function LoginForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: zodResolver(loginSchema)
+  })
+
+  const onSubmit = (data) => {
+    console.log(data)
     navigate('/dashboard')
   }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+
       <Input
         label={t('login.email')}
         type="email"
         placeholder={t('login.placeholderEmail')}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        {...register('email')}
       />
+      {errors.email && <p className="error">{errors.email.message}</p>}
       <Input
         label={t('login.password')}
         type="password"
         placeholder={t('login.placeholderPassword')}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        {...register('password')}
       />
-
+      {errors.password && <p className="error">{errors.password.message}</p>} 
       <div className="login-options">
         <label className="remember-me">
           <input
