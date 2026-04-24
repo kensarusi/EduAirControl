@@ -105,7 +105,6 @@ body.dark-mode .forgot-link { color: var(--accent); font-weight: 500; }
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  max-width: 100%;
 }
 
 * {
@@ -195,6 +194,7 @@ body.dark-mode .auth-card:hover {
   box-shadow: var(--shadow-nav);
   position: fixed;
   top: 0; left: 0; right: 0;
+  width: 100%;
   z-index: 1000;
   transition: background-color 0.3s, border-color 0.3s;
 }
@@ -576,9 +576,10 @@ button:active { transform: scale(0.97); }
 
 .dashboard-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
   gap: 20px;
   padding: 20px;
+  width: 100%;
 }
 
 /* ============================================ */
@@ -616,6 +617,8 @@ button:active { transform: scale(0.97); }
 .env-card, .summary-card, .filter-card { width: 100%; }
 
 .env-card {
+  width: 100%;
+  min-height: 180px;
   background: var(--bg-card);
   border-radius: 15px;
   padding: 25px;
@@ -947,7 +950,7 @@ button:active { transform: scale(0.97); }
 /* ══════════════════════════════
    TABLET  (768px – 1024px)
 ══════════════════════════════ */
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 3000px) {
 
   /* Navbar — oculta labels, solo íconos */
   .navbar { padding: 0 20px; }
@@ -973,15 +976,17 @@ button:active { transform: scale(0.97); }
   .theme-picker { grid-template-columns: repeat(2, 1fr) !important; }
 
   /* Páginas — compensar navbar */
-  .dashboard-page,
-  .all-env-container,
-  .favorites-content,
-  .profile-content,
-  .settings-content,
-  .mgmt-container {
-    padding-top: 80px;
-  }
+.dashboard-page,
+.all-env-container,
+.favorites-content,
+.profile-content,
+.settings-content {
+  width: 100%;
+  padding: 100px 20px 30px;
+  margin: 0 auto;
 }
+}
+
 
 /* ══════════════════════════════
    MÓVIL  (< 768px)
@@ -1052,7 +1057,7 @@ button:active { transform: scale(0.97); }
   .profile-content,
   .settings-content,
   .mgmt-container {
-    padding-top: 120px;
+    padding-top: 80px;
   }
 
   /* ── Layouts ── */
@@ -1130,4 +1135,56 @@ button:active { transform: scale(0.97); }
   /* Modales */
   .modal-content { padding: 20px 15px; }
   .lang-modal { padding: 24px 16px; min-width: unset; width: 90vw; }
+}
+
+/* ============================================
+   💻 DESKTOP GRANDE (≥ 1200px)
+============================================ */
+@media (min-width: 1200px) {
+
+  /* Dashboard más amplio */
+  .dashboard-layout {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Contenedores centrados */
+  .dashboard-page,
+  .all-env-container,
+  .favorites-content,
+  .profile-content,
+  .settings-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* Navbar más espacioso */
+  .navbar {
+    padding: 0 60px;
+  }
+
+  /* Auth card más grande */
+  .auth-card {
+    width: 450px;
+  }
+
+  /* Cards más grandes */
+  .env-card,
+  .summary-card,
+  .settings-card {
+    padding: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .settings-content,
+  .favorites-content,
+  .profile-content,
+  .dashboard-page,
+  .all-env-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
