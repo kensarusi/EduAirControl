@@ -23,6 +23,7 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
+  
   .environment-card {
     flex: 1 1 45%;
     max-width: 48%;
