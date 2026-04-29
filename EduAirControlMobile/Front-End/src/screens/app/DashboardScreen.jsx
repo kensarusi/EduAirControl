@@ -1,117 +1,225 @@
 import { useState } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, SafeAreaView, StatusBar,
+  StyleSheet, SafeAreaView, StatusBar, TextInput,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { colors } from '../../styles/colors'
+import {
+  STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
+  QUALITY_LABELS, QUALITY_COLORS,
+} from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
-import { STATUS, STATUS_COLORS, STATUS_LABELS, QUALITY_LABELS } from '../../constants/environments'
-import EnvironmentCard from '../../components/EnvironmentCard'
 
-const FILTERS = [
-  { key: 'all', label: 'Todos' },
-  { key: STATUS.NORMAL, label: 'Normal' },
-  { key: STATUS.WARNING, label: 'Advertencia' },
-  { key: STATUS.ALERT, label: 'Alerta' },
-]
+function MetricChip({ icon, value, color }) {
+  return (
+    <View style={[styles.chip, { borderColor: color || colors.borderColor }]}>
+      <Text style={styles.chipIcon}>{icon}</Text>
+      <Text style={[styles.chipValue, { color: color || colors.textSecondary }]}>{value}</Text>
+    </View>
+  )
+}
+
+function EnvironmentCard({ environment, onPress, onToggleFavorite }) {
+  const statusColor = STATUS_COLORS[environment.statusKey] || colors.accent
+  const statusDim = STATUS_DIM[environment.statusKey] || colors.accentDim
+  const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
+  const qualityLabel = QUALITY_LABELS[environment.qualityKey] || environment.qualityKey
+  const qualityColor = QUALITY_COLORS[environment.qualityKey] || colors.accent
+
+  return (
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.85}>
+      {/* Header */}
+      <View style={styles.cardHeader}>
+        <View style={styles.cardTitleBlock}>
+          <Text style={styles.cardName} numberOfLines={1}>{environment.name}</Text>
+          <View style={[styles.statusBadge, { backgroundColor: statusDim, borderColor: statusColor }]}>
+            <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
+            <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          onPress={() => onToggleFavorite(environment.id, !environment.isFavorite)}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <Ionicons
+            name={environment.isFavorite ? 'heart' : 'heart-outline'}
+            size={22}
+            color={environment.isFavorite ? '#ff6b6b' : colors.textMuted}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* Location */}
+      <View style={styles.locationRow}>
+        <Ionicons name="location-outline" size={13} color={colors.textMuted} />
+        <Text style={styles.locationText}>{environment.location}</Text>
+        <Ionicons name="people-outline" size={13} color={colors.textMuted} style={{ marginLeft: 10 }} />
+        <Text style={styles.locationText}>{environment.capacity} personas</Text>
+      </View>
+
+      {/* Metrics */}
+      <View style={styles.metricsRow}>
+        <MetricChip icon="🌡️" value={`${environment.temp}°C`} color="#ff8a65" />
+        <MetricChip icon="💧" value={`${environment.humidity}%`} color="#4fc3f7" />
+        <MetricChip icon="🌫️" value={`${environment.co2}ppm`} color="#ce93d8" />
+        <MetricChip icon="🔊" value={`${environment.noise}dB`} color="#ffcc02" />
+      </View>
+
+      {/* Footer */}
+      <View style={styles.cardFooter}>
+        <Text style={styles.footerLabel}>Calidad del aire</Text>
+        <Text style={[styles.footerValue, { color: qualityColor }]}>{qualityLabel}</Text>
+      </View>
+    </TouchableOpacity>
+  )
+}
 
 export default function DashboardScreen({ navigation }) {
-  const { environments } = useEnvironments()
+  const { environments, toggleFavorite } = useEnvironments()
   const [activeFilter, setActiveFilter] = useState('all')
+  const [search, setSearch] = useState('')
 
   const counts = {
-    [STATUS.NORMAL]: environments.filter((e) => e.status === STATUS.NORMAL).length,
-    [STATUS.WARNING]: environments.filter((e) => e.status === STATUS.WARNING).length,
-    [STATUS.ALERT]: environments.filter((e) => e.status === STATUS.ALERT).length,
+    all: environments.length,
+    normal: environments.filter((e) => e.statusKey === 'normal').length,
+    warning: environments.filter((e) => e.statusKey === 'warning').length,
+    alert: environments.filter((e) => e.statusKey === 'alert').length,
   }
 
   const filtered = environments.filter((env) => {
-    if (activeFilter === 'all') return true
-    return env.status === activeFilter
+    const matchStatus = activeFilter === 'all' || env.statusKey === activeFilter
+    const matchSearch = env.name.toLowerCase().includes(search.toLowerCase()) ||
+      env.location.toLowerCase().includes(search.toLowerCase())
+    return matchStatus && matchSearch
   })
+
+  const filters = [
+    { key: 'all', label: 'Todos', count: counts.all, color: colors.accent },
+    { key: 'normal', label: 'Normal', count: counts.normal, color: '#4CAF50' },
+    { key: 'warning', label: 'Advertencia', count: counts.warning, color: '#FFC107' },
+    { key: 'alert', label: 'Alerta', count: counts.alert, color: '#F44336' },
+  ]
 
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="light-content" backgroundColor={colors.bgBody} />
 
-      {/* Header */}
-      <View style={styles.header}>
+      {/* Top Bar */}
+      <View style={styles.topBar}>
         <View>
-          <Text style={styles.greeting}>¡Bienvenido! 👋</Text>
+          <Text style={styles.greeting}>Bienvenido 👋</Text>
           <Text style={styles.subtitle}>Monitoreo de ambientes</Text>
         </View>
-        <TouchableOpacity
-          style={styles.allBtn}
-          onPress={() => navigation.navigate('AllEnvironments')}
-        >
-          <Text style={styles.allBtnText}>Ver todos</Text>
-          <Ionicons name="chevron-forward" size={14} color={colors.accent} />
-        </TouchableOpacity>
-      </View>
-
-      {/* Status summary */}
-      <View style={styles.summaryRow}>
-        <View style={[styles.summaryCard, { borderColor: STATUS_COLORS[STATUS.NORMAL] }]}>
-          <Text style={[styles.summaryCount, { color: STATUS_COLORS[STATUS.NORMAL] }]}>
-            {counts[STATUS.NORMAL]}
-          </Text>
-          <Text style={styles.summaryLabel}>Normal</Text>
-        </View>
-        <View style={[styles.summaryCard, { borderColor: STATUS_COLORS[STATUS.WARNING] }]}>
-          <Text style={[styles.summaryCount, { color: STATUS_COLORS[STATUS.WARNING] }]}>
-            {counts[STATUS.WARNING]}
-          </Text>
-          <Text style={styles.summaryLabel}>Advertencia</Text>
-        </View>
-        <View style={[styles.summaryCard, { borderColor: STATUS_COLORS[STATUS.ALERT] }]}>
-          <Text style={[styles.summaryCount, { color: STATUS_COLORS[STATUS.ALERT] }]}>
-            {counts[STATUS.ALERT]}
-          </Text>
-          <Text style={styles.summaryLabel}>Alerta</Text>
+        <View style={styles.topActions}>
+          <TouchableOpacity
+            style={styles.iconBtn}
+            onPress={() => navigation.navigate('Favorites')}
+          >
+            <Ionicons name="heart-outline" size={20} color={colors.accent} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.iconBtn}
+            onPress={() => navigation.navigate('Profile')}
+          >
+            <Ionicons name="person-circle-outline" size={22} color={colors.accent} />
+          </TouchableOpacity>
         </View>
       </View>
 
-      {/* Filter bar */}
+      {/* Search */}
+      <View style={styles.searchContainer}>
+        <Ionicons name="search-outline" size={16} color={colors.textMuted} style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Buscar ambiente..."
+          placeholderTextColor={colors.textMuted}
+          value={search}
+          onChangeText={setSearch}
+        />
+        {search.length > 0 && (
+          <TouchableOpacity onPress={() => setSearch('')}>
+            <Ionicons name="close-circle" size={16} color={colors.textMuted} />
+          </TouchableOpacity>
+        )}
+      </View>
+
+      {/* Stats Row */}
+      <View style={styles.statsRow}>
+        {[
+          { label: 'Normal', count: counts.normal, color: '#4CAF50', icon: '✅' },
+          { label: 'Advertencia', count: counts.warning, color: '#FFC107', icon: '⚠️' },
+          { label: 'Alerta', count: counts.alert, color: '#F44336', icon: '🚨' },
+        ].map((s) => (
+          <View key={s.label} style={[styles.statCard, { borderColor: s.color, backgroundColor: `${s.color}10` }]}>
+            <Text style={styles.statEmoji}>{s.icon}</Text>
+            <Text style={[styles.statCount, { color: s.color }]}>{s.count}</Text>
+            <Text style={styles.statLabel}>{s.label}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Filter Chips */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={styles.filterScroll}
-        contentContainerStyle={styles.filterContent}
+        style={styles.filtersScroll}
+        contentContainerStyle={styles.filtersContent}
       >
-        {FILTERS.map((f) => (
+        {filters.map((f) => (
           <TouchableOpacity
             key={f.key}
-            style={[styles.filterBtn, activeFilter === f.key && styles.filterBtnActive]}
+            style={[
+              styles.filterChip,
+              activeFilter === f.key && { backgroundColor: f.color, borderColor: f.color },
+            ]}
             onPress={() => setActiveFilter(f.key)}
           >
-            <Text style={[styles.filterText, activeFilter === f.key && styles.filterTextActive]}>
+            <Text
+              style={[
+                styles.filterChipText,
+                activeFilter === f.key && { color: '#fff', fontWeight: 'bold' },
+              ]}
+            >
               {f.label}
             </Text>
+            <View
+              style={[
+                styles.filterBadge,
+                activeFilter === f.key ? { backgroundColor: 'rgba(255,255,255,0.3)' } : { backgroundColor: f.color + '30' },
+              ]}
+            >
+              <Text style={[styles.filterBadgeText, { color: activeFilter === f.key ? '#fff' : f.color }]}>
+                {f.count}
+              </Text>
+            </View>
           </TouchableOpacity>
         ))}
       </ScrollView>
 
-      {/* Environment cards */}
+      {/* Cards */}
       <ScrollView
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {filtered.map((env) => (
-          <EnvironmentCard
-            key={env.id}
-            environment={env}
-            onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
-          />
-        ))}
-        {filtered.length === 0 && (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>🔍</Text>
-            <Text style={styles.emptyTitle}>Sin ambientes</Text>
-            <Text style={styles.emptyText}>No hay ambientes con este estado</Text>
+        {filtered.length === 0 ? (
+          <View style={styles.empty}>
+            <Text style={styles.emptyEmoji}>🔍</Text>
+            <Text style={styles.emptyTitle}>Sin resultados</Text>
+            <Text style={styles.emptyText}>Intenta con otro filtro o término</Text>
           </View>
+        ) : (
+          filtered.map((env) => (
+            <EnvironmentCard
+              key={env.id}
+              environment={env}
+              onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
+              onToggleFavorite={toggleFavorite}
+            />
+          ))
         )}
+        <View style={{ height: 20 }} />
       </ScrollView>
     </SafeAreaView>
   )
@@ -119,62 +227,109 @@ export default function DashboardScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bgBody },
-  header: {
+
+  topBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 12,
+    paddingTop: 12,
+    paddingBottom: 6,
   },
   greeting: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary },
   subtitle: { fontSize: 13, color: colors.textMuted, marginTop: 2 },
-  allBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-    backgroundColor: `${colors.accent}18`,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-  },
-  allBtnText: { color: colors.accent, fontSize: 13, fontWeight: '600' },
-  summaryRow: {
-    flexDirection: 'row',
-    gap: 10,
-    paddingHorizontal: 20,
-    marginBottom: 14,
-  },
-  summaryCard: {
-    flex: 1,
-    backgroundColor: colors.bgCard,
-    borderRadius: 12,
-    borderWidth: 1,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  summaryCount: { fontSize: 22, fontWeight: 'bold' },
-  summaryLabel: { fontSize: 11, color: colors.textMuted, marginTop: 2 },
-  filterScroll: { maxHeight: 44 },
-  filterContent: { paddingHorizontal: 20, gap: 8, alignItems: 'center' },
-  filterBtn: {
-    paddingHorizontal: 16,
-    paddingVertical: 7,
-    borderRadius: 20,
-    backgroundColor: colors.bgCard,
-    borderWidth: 1,
+  topActions: { flexDirection: 'row', gap: 8 },
+  iconBtn: {
+    width: 38, height: 38, borderRadius: 19,
+    backgroundColor: colors.bgCard, borderWidth: 1,
     borderColor: colors.borderColor,
+    alignItems: 'center', justifyContent: 'center',
   },
-  filterBtnActive: {
-    backgroundColor: `${colors.accent}20`,
-    borderColor: colors.accent,
+
+  searchContainer: {
+    flexDirection: 'row', alignItems: 'center',
+    backgroundColor: colors.bgCard,
+    borderRadius: 12, marginHorizontal: 20, marginVertical: 10,
+    paddingHorizontal: 14, paddingVertical: 10,
+    borderWidth: 1, borderColor: colors.borderColor,
   },
-  filterText: { color: colors.textMuted, fontSize: 13, fontWeight: '500' },
-  filterTextActive: { color: colors.accent },
-  list: { flex: 1 },
-  listContent: { padding: 20, paddingTop: 14, gap: 14 },
-  emptyState: { alignItems: 'center', paddingTop: 40 },
-  emptyIcon: { fontSize: 40, marginBottom: 12 },
+  searchIcon: { marginRight: 8 },
+  searchInput: { flex: 1, color: colors.textPrimary, fontSize: 14 },
+
+  statsRow: {
+    flexDirection: 'row', gap: 10,
+    paddingHorizontal: 20, marginBottom: 6,
+  },
+  statCard: {
+    flex: 1, borderRadius: 12, borderWidth: 1,
+    padding: 10, alignItems: 'center',
+  },
+  statEmoji: { fontSize: 16, marginBottom: 2 },
+  statCount: { fontSize: 20, fontWeight: 'bold' },
+  statLabel: { fontSize: 10, color: colors.textMuted, marginTop: 2, textAlign: 'center' },
+
+  filtersScroll: { maxHeight: 48 },
+  filtersContent: { paddingHorizontal: 20, gap: 8, alignItems: 'center' },
+  filterChip: {
+    flexDirection: 'row', alignItems: 'center', gap: 6,
+    borderRadius: 20, borderWidth: 1, borderColor: colors.borderColor,
+    paddingHorizontal: 14, paddingVertical: 7,
+    backgroundColor: colors.bgCard,
+  },
+  filterChipText: { fontSize: 13, color: colors.textSecondary },
+  filterBadge: {
+    borderRadius: 10, paddingHorizontal: 6, paddingVertical: 1, minWidth: 20, alignItems: 'center',
+  },
+  filterBadgeText: { fontSize: 11, fontWeight: 'bold' },
+
+  scroll: { flex: 1 },
+  scrollContent: { paddingHorizontal: 20, paddingTop: 12 },
+
+  card: {
+    backgroundColor: colors.bgCard,
+    borderRadius: 16, borderWidth: 1,
+    borderColor: colors.borderColor,
+    padding: 16, marginBottom: 14,
+  },
+  cardHeader: {
+    flexDirection: 'row', justifyContent: 'space-between',
+    alignItems: 'flex-start', marginBottom: 6,
+  },
+  cardTitleBlock: { flex: 1, marginRight: 10 },
+  cardName: { fontSize: 16, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 4 },
+  statusBadge: {
+    flexDirection: 'row', alignItems: 'center', gap: 5,
+    alignSelf: 'flex-start', borderRadius: 20, borderWidth: 1,
+    paddingHorizontal: 10, paddingVertical: 3,
+  },
+  statusDot: { width: 7, height: 7, borderRadius: 4 },
+  statusText: { fontSize: 11, fontWeight: '600' },
+
+  locationRow: {
+    flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12,
+  },
+  locationText: { fontSize: 12, color: colors.textMuted },
+
+  metricsRow: { flexDirection: 'row', gap: 6, marginBottom: 12, flexWrap: 'wrap' },
+  chip: {
+    flexDirection: 'row', alignItems: 'center', gap: 4,
+    borderRadius: 8, borderWidth: 1,
+    paddingHorizontal: 8, paddingVertical: 5,
+    backgroundColor: colors.bgInput,
+  },
+  chipIcon: { fontSize: 12 },
+  chipValue: { fontSize: 12, fontWeight: '600' },
+
+  cardFooter: {
+    flexDirection: 'row', justifyContent: 'space-between',
+    alignItems: 'center', borderTopWidth: 1,
+    borderTopColor: colors.borderColor, paddingTop: 10,
+  },
+  footerLabel: { fontSize: 13, color: colors.textMuted },
+  footerValue: { fontSize: 13, fontWeight: 'bold' },
+
+  empty: { alignItems: 'center', marginTop: 60 },
+  emptyEmoji: { fontSize: 48, marginBottom: 12 },
   emptyTitle: { fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
-  emptyText: { fontSize: 14, color: colors.textMuted, marginTop: 4 },
+  emptyText: { fontSize: 14, color: colors.textMuted, marginTop: 6 },
 })
