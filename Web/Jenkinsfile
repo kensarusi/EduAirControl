@@ -3,7 +3,24 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Build Backend') {
+            steps {
+                dir('backend') {
+                    sh './mvnw clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                dir('Front-End') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Docker Build') {
             steps {
                 sh 'docker compose build'
             }
@@ -18,6 +35,5 @@ pipeline {
                 sh 'docker compose up -d'
             }
         }
-
     }
 }
