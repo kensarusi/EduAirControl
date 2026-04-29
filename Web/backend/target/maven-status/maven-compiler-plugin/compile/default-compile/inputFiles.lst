@@ -1,0 +1,13 @@
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\application\controller\AuthController.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\application\controller\Test.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\application\dto\AuthResponse.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\application\dto\LoginRequest.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\application\dto\RegisterRequest.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\BackendApplication.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\config\SecurityBean.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\config\SecurityConfig.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\core\domain\Role.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\core\domain\Users.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\core\repository\UserRepository.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\core\service\UserService.java
+C:\Users\rikyf\Documents\EduAirControl\Web\backend\src\main\java\com\eduaircontrol\backend\security\JwtService.java

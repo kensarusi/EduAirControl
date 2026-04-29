@@ -21,7 +21,8 @@
     "forgotPassword": "Forgot password?",
     "loginBtn": "Login",
     "signUpBtn": "Sign Up",
-    "orWith": "Sign in using your account with"
+    "orWith": "Sign in using your account with",
+    "or": "OR"
   },
   "signup": {
     "title": "Sign Up",
@@ -293,5 +294,12 @@
     "preview": "PREVIEW",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "errors": {
+    "required_email": "Email is required",
+    "invalid_email": "Invalid email",
+    "password_min": "Password must be at least 6 characters",
+    "password_match": "Passwords do not match",
+    "name_short": "Name is too short"
   }
 }
