@@ -6,7 +6,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 dir('backend') {
-                    sh './mvnw clean package -DskipTests'
+                    sh 'docker build -t backend-app .'
                 }
             }
         }
