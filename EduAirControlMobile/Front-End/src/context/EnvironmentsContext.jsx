@@ -1,72 +1,71 @@
 import { createContext, useContext, useState } from 'react'
-import { STATUS, QUALITY } from '../constants/environments'
 
 const EnvironmentsContext = createContext()
 
 const INITIAL_ENVIRONMENTS = [
   {
     id: 1,
-    name: 'Laboratorio de Computación',
-    status: STATUS.WARNING,
-    temp: 20.4,
+    name: 'Aula 101',
+    statusKey: 'warning',
+    temp: 26.4,
     humidity: 32,
     co2: 1010,
     noise: 62,
-    quality: QUALITY.REGULAR,
+    qualityKey: 'regular',
     capacity: 30,
-    location: 'Bloque A - Piso 2',
+    location: 'Bloque A',
     isFavorite: false,
   },
   {
     id: 2,
-    name: 'Aula Magna',
-    status: STATUS.ALERT,
-    temp: 27.1,
-    humidity: 55,
-    co2: 1450,
-    noise: 78,
-    quality: QUALITY.BAD,
-    capacity: 200,
-    location: 'Bloque B - Piso 1',
-    isFavorite: false,
+    name: 'Laboratorio de Sistemas',
+    statusKey: 'alert',
+    temp: 29.1,
+    humidity: 28,
+    co2: 1350,
+    noise: 71,
+    qualityKey: 'bad',
+    capacity: 25,
+    location: 'Bloque B',
+    isFavorite: true,
   },
   {
     id: 3,
-    name: 'Sala de Profesores',
-    status: STATUS.NORMAL,
+    name: 'Sala de Conferencias',
+    statusKey: 'normal',
     temp: 22.0,
-    humidity: 48,
-    co2: 720,
-    noise: 35,
-    quality: QUALITY.GOOD,
-    capacity: 20,
-    location: 'Bloque C - Piso 3',
-    isFavorite: true,
+    humidity: 50,
+    co2: 750,
+    noise: 40,
+    qualityKey: 'good',
+    capacity: 40,
+    location: 'Bloque C',
+    isFavorite: false,
   },
   {
     id: 4,
     name: 'Biblioteca',
-    status: STATUS.NORMAL,
+    statusKey: 'normal',
     temp: 21.5,
-    humidity: 45,
-    co2: 850,
-    noise: 28,
-    quality: QUALITY.GOOD,
-    capacity: 80,
-    location: 'Bloque D - Piso 1',
+    humidity: 55,
+    co2: 680,
+    noise: 35,
+    qualityKey: 'good',
+    capacity: 60,
+    location: 'Bloque D',
     isFavorite: false,
   },
   {
     id: 5,
-    name: 'Salón 101',
-    status: STATUS.WARNING,
-    temp: 25.3,
+    name: 'Aula 205',
+    statusKey: 'warning',
+    temp: 25.8,
     humidity: 38,
-    co2: 1100,
-    noise: 55,
-    quality: QUALITY.REGULAR,
+    co2: 920,
+    noise: 58,
+    qualityKey: 'regular',
     capacity: 35,
-    location: 'Bloque A - Piso 1',
+    location: 'Bloque A',
     isFavorite: false,
   },
 ]
@@ -74,9 +73,9 @@ const INITIAL_ENVIRONMENTS = [
 export function EnvironmentsProvider({ children }) {
   const [environments, setEnvironments] = useState(INITIAL_ENVIRONMENTS)
 
-  const toggleFavorite = (id) => {
+  const toggleFavorite = (id, isFav) => {
     setEnvironments((prev) =>
-      prev.map((env) => env.id === id ? { ...env, isFavorite: !env.isFavorite } : env)
+      prev.map((env) => (env.id === id ? { ...env, isFavorite: isFav } : env))
     )
   }
 
@@ -89,19 +88,19 @@ export function EnvironmentsProvider({ children }) {
         capacity: env.capacity,
         location: env.location,
         isFavorite: false,
-        status: STATUS.NORMAL,
+        statusKey: 'normal',
         temp: 22,
         humidity: 49,
-        co2: 800,
+        co2: 700,
         noise: 39,
-        quality: QUALITY.GOOD,
+        qualityKey: 'good',
       },
     ])
   }
 
   const editEnvironment = (id, data) => {
     setEnvironments((prev) =>
-      prev.map((env) => env.id === id ? { ...env, ...data } : env)
+      prev.map((env) => (env.id === id ? { ...env, ...data } : env))
     )
   }
 

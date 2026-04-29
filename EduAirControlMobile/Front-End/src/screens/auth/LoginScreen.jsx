@@ -62,7 +62,7 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.forgotText}>¿Olvidaste?</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('Dashboard')}>
             <Text style={styles.btnLoginText}>Iniciar sesión</Text>
           </TouchableOpacity>
           <View style={styles.divider}>
@@ -72,11 +72,11 @@ export default function LoginScreen({ navigation }) {
           </View>
           <Text style={styles.socialText}>Inicia sesión con</Text>
           <View style={styles.socialRow}>
-            <TouchableOpacity style={styles.btnFacebook}>
+            <TouchableOpacity style={styles.btnFacebook} onPress={() => navigation.navigate('Dashboard')}>
               <FontAwesome name="facebook" size={18} color="white" />
               <Text style={styles.socialBtnText}>Facebook</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnGoogle}>
+            <TouchableOpacity style={styles.btnGoogle} onPress={() => navigation.navigate('Dashboard')}>
               <FontAwesome name="google" size={18} color="white" />
               <Text style={styles.socialBtnText}>Google</Text>
             </TouchableOpacity>

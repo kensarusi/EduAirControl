@@ -1,51 +1,57 @@
 import { useState } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, SafeAreaView, StatusBar, Modal,
+  StyleSheet, SafeAreaView, StatusBar,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { colors } from '../../styles/colors'
-import { useEnvironments } from '../../context/EnvironmentsContext'
 import {
-  STATUS_COLORS, STATUS_LABELS,
-  QUALITY_LABELS, IDEAL_RANGES,
+  STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
+  QUALITY_LABELS, QUALITY_COLORS,
+  IDEAL_RANGES,
 } from '../../constants/environments'
+import { useEnvironments } from '../../context/EnvironmentsContext'
 
-function MetricBar({ value, min, max }) {
+function MetricBar({ value, min, max, color }) {
   const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
-  const barColor = pct < 60 ? '#4CAF50' : pct < 80 ? '#FFC107' : '#F44336'
   return (
-    <View style={barStyles.track}>
-      <View style={[barStyles.fill, { width: `${pct}%`, backgroundColor: barColor }]} />
+    <View style={styles.barTrack}>
+      <View style={[styles.barFill, { flex: pct, backgroundColor: color }]} />
+      <View style={{ flex: 100 - pct }} />
     </View>
   )
 }
 
-const barStyles = StyleSheet.create({
-  track: {
-    height: 6,
-    backgroundColor: colors.bgInput,
-    borderRadius: 3,
-    overflow: 'hidden',
-    marginTop: 6,
-  },
-  fill: { height: '100%', borderRadius: 3 },
-})
+function MetricCard({ icon, label, value, unit, ideal, color, barValue, barMin, barMax }) {
+  return (
+    <View style={[styles.metricCard, { borderLeftColor: color, borderLeftWidth: 3 }]}>
+      <View style={styles.metricTop}>
+        <Text style={styles.metricIcon}>{icon}</Text>
+        <View style={styles.metricInfo}>
+          <Text style={styles.metricLabel}>{label}</Text>
+          <Text style={[styles.metricValue, { color }]}>
+            {value}<Text style={styles.metricUnit}>{unit}</Text>
+          </Text>
+        </View>
+      </View>
+      <MetricBar value={barValue} min={barMin} max={barMax} color={color} />
+      <Text style={styles.idealText}>Ideal: {ideal}</Text>
+    </View>
+  )
+}
 
-export default function EnvironmentDetailScreen({ navigation, route }) {
+export default function EnvironmentDetailScreen({ route, navigation }) {
   const { envId } = route.params
   const { environments, toggleFavorite } = useEnvironments()
+  const env = environments.find((e) => e.id === envId)
   const [rating, setRating] = useState(0)
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
-  const [modalVisible, setModalVisible] = useState(false)
-
-  const env = environments.find((e) => e.id === envId)
 
   if (!env) {
     return (
       <SafeAreaView style={styles.safe}>
-        <View style={styles.notFound}>
-          <Text style={styles.notFoundText}>Ambiente no encontrado</Text>
+        <View style={styles.center}>
+          <Text style={styles.notFound}>Ambiente no encontrado</Text>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={{ color: colors.accent }}>Volver</Text>
           </TouchableOpacity>
@@ -54,50 +60,21 @@ export default function EnvironmentDetailScreen({ navigation, route }) {
     )
   }
 
-  const statusColor = STATUS_COLORS[env.status]
+  const statusColor = STATUS_COLORS[env.statusKey] || colors.accent
+  const statusDim = STATUS_DIM[env.statusKey] || colors.accentDim
+  const statusLabel = STATUS_LABELS[env.statusKey] || env.statusKey
+  const qualityLabel = QUALITY_LABELS[env.qualityKey] || env.qualityKey
+  const qualityColor = QUALITY_COLORS[env.qualityKey] || colors.accent
 
-  const metrics = [
-    {
-      icon: '🌡️',
-      label: 'Temperatura',
-      value: `${env.temp}°C`,
-      ideal: IDEAL_RANGES.temperature,
-      numericValue: env.temp,
-      min: 0,
-      max: 40,
-    },
-    {
-      icon: '💧',
-      label: 'Humedad',
-      value: `${env.humidity}%`,
-      ideal: IDEAL_RANGES.humidity,
-      numericValue: env.humidity,
-      min: 0,
-      max: 100,
-    },
-    {
-      icon: '🌫️',
-      label: 'CO₂',
-      value: `${env.co2} ppm`,
-      ideal: IDEAL_RANGES.co2,
-      numericValue: env.co2,
-      min: 300,
-      max: 2000,
-    },
-    {
-      icon: '🔊',
-      label: 'Ruido',
-      value: `${env.noise} dB`,
-      ideal: IDEAL_RANGES.noise,
-      numericValue: env.noise,
-      min: 0,
-      max: 100,
-    },
-  ]
-
-  const handleRatingSubmit = () => {
-    setRatingSubmitted(true)
-    setModalVisible(false)
+  const StatusIcon = () => {
+    const icons = { normal: 'checkmark-circle', warning: 'warning', alert: 'alert-circle' }
+    return (
+      <Ionicons
+        name={icons[env.statusKey] || 'information-circle'}
+        size={20}
+        color={statusColor}
+      />
+    )
   }
 
   return (
@@ -106,11 +83,16 @@ export default function EnvironmentDetailScreen({ navigation, route }) {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+        >
           <Ionicons name="arrow-back" size={20} color={colors.accent} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle} numberOfLines={1}>Detalle del ambiente</Text>
-        <TouchableOpacity onPress={() => toggleFavorite(env.id)} style={styles.favBtn}>
+        <Text style={styles.headerTitle} numberOfLines={1}>Detalle</Text>
+        <TouchableOpacity
+          onPress={() => toggleFavorite(env.id, !env.isFavorite)}
+        >
           <Ionicons
             name={env.isFavorite ? 'heart' : 'heart-outline'}
             size={24}
@@ -119,254 +101,219 @@ export default function EnvironmentDetailScreen({ navigation, route }) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Environment info card */}
-        <View style={[styles.infoCard, { borderColor: statusColor }]}>
-          <View style={styles.infoRow}>
-            <View style={styles.infoMain}>
-              <Text style={styles.envName}>{env.name}</Text>
-              <View style={styles.locationRow}>
-                <Ionicons name="location-outline" size={13} color={colors.textMuted} />
-                <Text style={styles.locationText}>{env.location}</Text>
-              </View>
-              <View style={styles.locationRow}>
-                <Ionicons name="people-outline" size={13} color={colors.textMuted} />
-                <Text style={styles.locationText}>Capacidad: {env.capacity}</Text>
-              </View>
-            </View>
-            <View style={[styles.statusBadge, { borderColor: statusColor, backgroundColor: `${statusColor}15` }]}>
-              <Text style={[styles.statusText, { color: statusColor }]}>
-                {STATUS_LABELS[env.status]}
-              </Text>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Environment hero card */}
+        <View style={[styles.heroCard, { borderColor: statusColor }]}>
+          <View style={styles.heroTop}>
+            <Text style={styles.heroName}>{env.name}</Text>
+            <View style={[styles.statusBadge, { backgroundColor: statusDim, borderColor: statusColor }]}>
+              <StatusIcon />
+              <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
             </View>
           </View>
-          <View style={styles.qualityRow}>
-            <Text style={styles.qualityLabel}>Calidad del aire: </Text>
-            <Text style={[styles.qualityValue, { color: statusColor }]}>
-              {QUALITY_LABELS[env.quality]}
-            </Text>
+          <View style={styles.heroMeta}>
+            <View style={styles.metaItem}>
+              <Ionicons name="location-outline" size={14} color={colors.textMuted} />
+              <Text style={styles.metaText}>{env.location}</Text>
+            </View>
+            <View style={styles.metaItem}>
+              <Ionicons name="people-outline" size={14} color={colors.textMuted} />
+              <Text style={styles.metaText}>{env.capacity} personas</Text>
+            </View>
+          </View>
+          <View style={[styles.qualityRow, { backgroundColor: `${qualityColor}15`, borderColor: qualityColor }]}>
+            <Text style={styles.qualityLabel}>Calidad del aire:</Text>
+            <Text style={[styles.qualityValue, { color: qualityColor }]}>{qualityLabel}</Text>
           </View>
         </View>
 
         {/* Metrics */}
-        <Text style={styles.sectionTitle}>Métricas actuales</Text>
-        <View style={styles.metricsContainer}>
-          {metrics.map((metric) => (
-            <View key={metric.label} style={styles.metricCard}>
-              <View style={styles.metricHeader}>
-                <Text style={styles.metricIcon}>{metric.icon}</Text>
-                <Text style={styles.metricLabel}>{metric.label}</Text>
-                <Text style={styles.metricValue}>{metric.value}</Text>
-              </View>
-              <MetricBar
-                value={metric.numericValue}
-                min={metric.min}
-                max={metric.max}
-              />
-              <View style={styles.idealRow}>
-                <Text style={styles.idealLabel}>Rango ideal: </Text>
-                <Text style={styles.idealValue}>{metric.ideal}</Text>
-              </View>
-            </View>
-          ))}
-        </View>
+        <Text style={styles.sectionTitle}>Métricas en tiempo real</Text>
 
-        {/* Rating card */}
-        <Text style={styles.sectionTitle}>Calificación del ambiente</Text>
+        <MetricCard
+          icon="🌡️"
+          label="Temperatura"
+          value={env.temp}
+          unit="°C"
+          ideal={IDEAL_RANGES.temperature}
+          color="#ff8a65"
+          barValue={env.temp}
+          barMin={10}
+          barMax={40}
+        />
+        <MetricCard
+          icon="💧"
+          label="Humedad"
+          value={env.humidity}
+          unit="%"
+          ideal={IDEAL_RANGES.humidity}
+          color="#4fc3f7"
+          barValue={env.humidity}
+          barMin={0}
+          barMax={100}
+        />
+        <MetricCard
+          icon="🌫️"
+          label="CO₂"
+          value={env.co2}
+          unit=" ppm"
+          ideal={IDEAL_RANGES.co2}
+          color="#ce93d8"
+          barValue={env.co2}
+          barMin={300}
+          barMax={2000}
+        />
+        <MetricCard
+          icon="🔊"
+          label="Ruido"
+          value={env.noise}
+          unit=" dB"
+          ideal={IDEAL_RANGES.noise}
+          color="#ffcc02"
+          barValue={env.noise}
+          barMin={20}
+          barMax={100}
+        />
+
+        {/* Rating */}
+        <Text style={styles.sectionTitle}>Tu experiencia</Text>
         <View style={styles.ratingCard}>
+          <Text style={styles.ratingQuestion}>
+            ¿Cómo percibes el confort de este ambiente?
+          </Text>
           {ratingSubmitted ? (
-            <View style={styles.ratingSuccess}>
-              <Text style={styles.ratingSuccessIcon}>✅</Text>
-              <Text style={styles.ratingSuccessText}>¡Gracias por tu calificación!</Text>
-              <View style={styles.starsRow}>
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Text key={s} style={[styles.star, s <= rating && styles.starActive]}>★</Text>
-                ))}
-              </View>
+            <View style={styles.ratingThanks}>
+              <Ionicons name="checkmark-circle" size={32} color="#4CAF50" />
+              <Text style={styles.thanksText}>¡Gracias por tu calificación!</Text>
+              <TouchableOpacity onPress={() => { setRatingSubmitted(false); setRating(0) }}>
+                <Text style={{ color: colors.accent, fontSize: 13, marginTop: 6 }}>Calificar de nuevo</Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <>
-              <Text style={styles.ratingQuestion}>
-                ¿Cómo percibes el confort de este ambiente?
-              </Text>
               <View style={styles.starsRow}>
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <TouchableOpacity key={s} onPress={() => setRating(s)}>
-                    <Text style={[styles.star, s <= rating && styles.starActive]}>★</Text>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <TouchableOpacity
+                    key={star}
+                    onPress={() => setRating(star)}
+                    hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
+                  >
+                    <Text style={[styles.star, rating >= star && styles.starActive]}>★</Text>
                   </TouchableOpacity>
                 ))}
               </View>
               <TouchableOpacity
-                style={[styles.ratingBtn, rating === 0 && styles.ratingBtnDisabled]}
-                onPress={() => rating > 0 && setModalVisible(true)}
+                style={[styles.submitBtn, rating === 0 && styles.submitBtnDisabled]}
+                onPress={() => rating > 0 && setRatingSubmitted(true)}
+                disabled={rating === 0}
               >
-                <Text style={styles.ratingBtnText}>⭐ Enviar calificación</Text>
+                <Text style={styles.submitBtnText}>Enviar calificación</Text>
               </TouchableOpacity>
             </>
           )}
         </View>
-      </ScrollView>
 
-      {/* Confirm modal */}
-      <Modal transparent visible={modalVisible} animationType="fade">
-        <TouchableOpacity
-          style={styles.modalOverlay}
-          activeOpacity={1}
-          onPress={() => setModalVisible(false)}
-        >
-          <View style={styles.modal}>
-            <Text style={styles.modalTitle}>Confirmar calificación</Text>
-            <View style={styles.starsRow}>
-              {[1, 2, 3, 4, 5].map((s) => (
-                <Text key={s} style={[styles.star, s <= rating && styles.starActive]}>★</Text>
-              ))}
-            </View>
-            <Text style={styles.modalText}>
-              Estás a punto de enviar {rating} estrella{rating !== 1 ? 's' : ''} para este ambiente.
-            </Text>
-            <View style={styles.modalBtns}>
-              <TouchableOpacity
-                style={styles.modalCancelBtn}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.modalCancelText}>Cancelar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.modalConfirmBtn}
-                onPress={handleRatingSubmit}
-              >
-                <Text style={styles.modalConfirmText}>Confirmar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </Modal>
+        <View style={{ height: 30 }} />
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bgBody },
-  notFound: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12 },
-  notFoundText: { color: colors.textPrimary, fontSize: 18 },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  notFound: { color: colors.textPrimary, fontSize: 16, marginBottom: 12 },
+
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 12,
-    gap: 10,
+    flexDirection: 'row', alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20, paddingVertical: 12,
   },
   backBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    borderWidth: 1.5,
-    borderColor: colors.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 38, height: 38, borderRadius: 19,
+    borderWidth: 1, borderColor: colors.accent,
+    alignItems: 'center', justifyContent: 'center',
   },
-  headerTitle: { flex: 1, fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
-  favBtn: { padding: 4 },
-  content: { padding: 16, gap: 14, paddingBottom: 30 },
-  infoCard: {
-    backgroundColor: colors.bgCard,
-    borderRadius: 14,
-    borderWidth: 2,
-    padding: 16,
-    gap: 10,
+  headerTitle: {
+    fontSize: 18, fontWeight: 'bold',
+    color: colors.textPrimary, flex: 1,
+    textAlign: 'center', marginHorizontal: 10,
   },
-  infoRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-  infoMain: { flex: 1, gap: 4 },
-  envName: { fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
-  locationRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  locationText: { fontSize: 12, color: colors.textMuted },
+
+  scroll: { flex: 1 },
+  scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
+
+  heroCard: {
+    backgroundColor: colors.bgCard, borderRadius: 16,
+    borderWidth: 2, padding: 18, marginBottom: 20,
+  },
+  heroTop: { marginBottom: 10 },
+  heroName: {
+    fontSize: 22, fontWeight: 'bold',
+    color: colors.textPrimary, marginBottom: 8,
+  },
   statusBadge: {
-    borderWidth: 1.5,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginLeft: 10,
+    flexDirection: 'row', alignItems: 'center', gap: 6,
+    alignSelf: 'flex-start', borderRadius: 20,
+    borderWidth: 1, paddingHorizontal: 12, paddingVertical: 5,
   },
-  statusText: { fontSize: 12, fontWeight: 'bold' },
-  qualityRow: { flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: colors.borderColor, paddingTop: 10 },
-  qualityLabel: { color: colors.textMuted, fontSize: 13 },
-  qualityValue: { fontSize: 13, fontWeight: 'bold' },
-  sectionTitle: { fontSize: 15, fontWeight: 'bold', color: colors.textPrimary },
-  metricsContainer: { gap: 10 },
+  statusText: { fontSize: 13, fontWeight: '600' },
+  heroMeta: { flexDirection: 'row', gap: 16, marginBottom: 12 },
+  metaItem: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  metaText: { fontSize: 13, color: colors.textMuted },
+  qualityRow: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    borderRadius: 10, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 8,
+  },
+  qualityLabel: { fontSize: 14, color: colors.textSecondary },
+  qualityValue: { fontSize: 14, fontWeight: 'bold' },
+
+  sectionTitle: {
+    fontSize: 16, fontWeight: 'bold',
+    color: colors.textPrimary, marginBottom: 12, marginTop: 4,
+  },
+
   metricCard: {
-    backgroundColor: colors.bgCard,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.borderColor,
-    padding: 14,
-    gap: 2,
+    backgroundColor: colors.bgCard, borderRadius: 12,
+    borderWidth: 1, borderColor: colors.borderColor,
+    padding: 14, marginBottom: 10,
   },
-  metricHeader: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  metricIcon: { fontSize: 18 },
-  metricLabel: { flex: 1, fontSize: 14, color: colors.textSecondary },
-  metricValue: { fontSize: 16, fontWeight: 'bold', color: colors.textPrimary },
-  idealRow: { flexDirection: 'row', marginTop: 4 },
-  idealLabel: { fontSize: 11, color: colors.textMuted },
-  idealValue: { fontSize: 11, color: colors.accent },
+  metricTop: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 },
+  metricIcon: { fontSize: 26 },
+  metricInfo: { flex: 1 },
+  metricLabel: { fontSize: 12, color: colors.textMuted, marginBottom: 2 },
+  metricValue: { fontSize: 22, fontWeight: 'bold' },
+  metricUnit: { fontSize: 14, fontWeight: 'normal' },
+  barTrack: {
+    height: 6, backgroundColor: colors.bgInput,
+    borderRadius: 3, overflow: 'hidden', marginBottom: 6,
+    flexDirection: 'row',
+  },
+  barFill: { height: 6, borderRadius: 3 },
+  idealText: { fontSize: 11, color: colors.textMuted },
+
   ratingCard: {
-    backgroundColor: colors.bgCard,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: colors.borderColor,
-    padding: 20,
-    alignItems: 'center',
-    gap: 14,
+    backgroundColor: colors.bgCard, borderRadius: 16,
+    borderWidth: 1, borderColor: colors.borderColor,
+    padding: 20, marginBottom: 10,
   },
-  ratingQuestion: { fontSize: 14, color: colors.textSecondary, textAlign: 'center' },
-  starsRow: { flexDirection: 'row', gap: 8 },
+  ratingQuestion: {
+    fontSize: 15, color: colors.textSecondary,
+    textAlign: 'center', marginBottom: 16, lineHeight: 22,
+  },
+  starsRow: { flexDirection: 'row', justifyContent: 'center', gap: 12, marginBottom: 18 },
   star: { fontSize: 36, color: colors.borderColor },
   starActive: { color: '#FFC107' },
-  ratingBtn: {
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
+  submitBtn: {
+    backgroundColor: colors.accent, borderRadius: 10,
+    padding: 14, alignItems: 'center',
   },
-  ratingBtnDisabled: { opacity: 0.4 },
-  ratingBtnText: { color: '#0f172a', fontWeight: 'bold', fontSize: 14 },
-  ratingSuccess: { alignItems: 'center', gap: 10 },
-  ratingSuccessIcon: { fontSize: 36 },
-  ratingSuccessText: { fontSize: 14, color: colors.textSecondary },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modal: {
-    backgroundColor: colors.bgCard,
-    borderRadius: 16,
-    padding: 24,
-    width: '85%',
-    alignItems: 'center',
-    gap: 14,
-    borderWidth: 1,
-    borderColor: colors.borderColor,
-  },
-  modalTitle: { fontSize: 16, fontWeight: 'bold', color: colors.textPrimary },
-  modalText: { fontSize: 13, color: colors.textSecondary, textAlign: 'center' },
-  modalBtns: { flexDirection: 'row', gap: 12, marginTop: 4 },
-  modalCancelBtn: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: colors.borderColor,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  modalCancelText: { color: colors.textSecondary, fontWeight: '600' },
-  modalConfirmBtn: {
-    flex: 1,
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  modalConfirmText: { color: '#0f172a', fontWeight: 'bold' },
+  submitBtnDisabled: { opacity: 0.4 },
+  submitBtnText: { color: colors.bgBody, fontWeight: 'bold', fontSize: 15 },
+  ratingThanks: { alignItems: 'center', paddingVertical: 10 },
+  thanksText: { fontSize: 15, color: colors.textPrimary, marginTop: 8 },
 })
