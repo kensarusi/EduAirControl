@@ -1,0 +1,76 @@
+@startuml
+title Security Module
+skinparam linetype ortho
+top to bottom direction
+
+
+'DOMAIN
+
+class Users {
+  +id: Long
+  +email: String
+  +password: String
+  +role: Role
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+Users --> Role
+
+' REPOSITORY
+interface UsersRepository {
+  +findByEmail(email): Optional<Users>
+}
+
+UsersRepository --> Users
+
+
+' SERVICE
+
+class UserService {
+  +register(request)
+  +login(request)
+}
+
+UserService --> UsersRepository
+
+' SECURITY
+
+class JwtService {
+  +generateToken(user)
+  +extractEmail(token)
+  +extractRole(token)
+}
+
+class JwtAuthFilter {
+  +doFilterInternal()
+}
+
+JwtAuthFilter --> JwtService
+
+
+' CONTROLLER
+
+class AuthController {
+  +login()
+  +register()
+}
+
+AuthController --> UserService
+AuthController --> JwtService
+
+
+' DTOs
+
+class LoginRequest
+class RegisterRequest
+class AuthResponse
+
+AuthController --> LoginRequest
+AuthController --> RegisterRequest
+AuthController --> AuthResponse
+
+@enduml

@@ -21,7 +21,8 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "loginBtn": "Ingresar",
     "signUpBtn": "Registrarse",
-    "orWith": "Inicia sesión con"
+    "orWith": "Inicia sesión con",
+    "or": "O"
   },
   "signup": {
     "title": "Registrarse",
@@ -294,5 +295,12 @@
     "preview": "Vista previa",
     "cancel": "Cancelar",
     "save": "Guardar"
+  },
+    "errors": {
+      "required_email": "El correo es obligatorio",
+      "invalid_email": "Correo inválido",
+      "password_min": "La contraseña debe tener mínimo 6 caracteres",
+      "password_match": "Las contraseñas no coinciden",
+      "name_short": "El nombre es muy corto"
   }
-  }
+}

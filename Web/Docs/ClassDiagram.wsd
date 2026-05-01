@@ -1,0 +1,53 @@
+@startuml
+title EduAirControl - Arquitectura General Modular
+
+package "Presentation Layer" {
+  class AuthController
+  class AulaController
+}
+
+package "Application Layer" {
+  class DTOs
+}
+
+package "Core Domain" {
+  class Aula
+  class Sensor
+  class Variable
+}
+
+package "Security Module" {
+  class JwtService
+  class JwtAuthFilter
+  class Users
+}
+
+package "Infrastructure" {
+  class UsersRepository
+  class AulaRepository
+}
+
+package "Patterns" {
+  class RankingService
+  class NotificacionService
+  class CommandInvoker
+}
+
+AuthController --> DTOs
+AuthController --> JwtService
+AuthController --> Users
+
+AulaController --> Aula
+
+DTOs --> Users
+
+Users --> UsersRepository
+Aula --> AulaRepository
+
+JwtAuthFilter --> JwtService
+
+RankingService --> Aula
+NotificacionService --> Variable
+CommandInvoker --> Aula
+
+@enduml
