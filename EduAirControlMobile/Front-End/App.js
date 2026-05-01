@@ -5,11 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LoginScreen from './src/screens/auth/LoginScreen'
 import SignUpScreen from './src/screens/auth/SignUpScreen'
 
-// App screens
-import DashboardScreen from './src/screens/app/DashboardScreen'
-import EnvironmentDetailScreen from './src/screens/app/EnvironmentDetailScreen'
-import FavoritesScreen from './src/screens/app/FavoritesScreen'
-import ProfileScreen from './src/screens/app/ProfileScreen'
+// App navigator (bottom tabs + stacks)
+import AppNavigator from './src/navigation/AppNavigator'
 
 // Context
 import { EnvironmentsProvider } from './src/context/EnvironmentsContext'
@@ -28,11 +25,8 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
 
-          {/* App */}
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
-          <Stack.Screen name="Favorites" component={FavoritesScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          {/* App (bottom tabs) */}
+          <Stack.Screen name="App" component={AppNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </EnvironmentsProvider>

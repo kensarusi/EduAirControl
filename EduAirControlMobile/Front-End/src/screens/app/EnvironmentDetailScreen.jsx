@@ -95,7 +95,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
         >
           <Ionicons
             name={env.isFavorite ? 'heart' : 'heart-outline'}
-            size={24}
+            size={40}
             color={env.isFavorite ? '#ff6b6b' : colors.textMuted}
           />
         </TouchableOpacity>
@@ -180,7 +180,7 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
         />
 
         {/* Rating */}
-        <Text style={styles.sectionTitle}>Tu experiencia</Text>
+        <Text style={styles.sectionTitlexp}>Tu experiencia</Text>
         <View style={styles.ratingCard}>
           <Text style={styles.ratingQuestion}>
             ¿Cómo percibes el confort de este ambiente?
@@ -231,15 +231,19 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20, paddingVertical: 12,
+    paddingHorizontal: 20, paddingVertical: 55,
   },
+  sectionTitlexp: {
+  fontSize: 30, fontWeight: 'bold',
+  color: colors.textPrimary, marginBottom: 12, marginTop: 4,
+},
   backBtn: {
     width: 38, height: 38, borderRadius: 19,
     borderWidth: 1, borderColor: colors.accent,
     alignItems: 'center', justifyContent: 'center',
   },
   headerTitle: {
-    fontSize: 18, fontWeight: 'bold',
+    fontSize: 26, fontWeight: 'bold',
     color: colors.textPrimary, flex: 1,
     textAlign: 'center', marginHorizontal: 10,
   },
@@ -249,7 +253,7 @@ const styles = StyleSheet.create({
 
   heroCard: {
     backgroundColor: colors.bgCard, borderRadius: 16,
-    borderWidth: 2, padding: 18, marginBottom: 20,
+    borderWidth: 4, padding: 18, marginBottom: 20,
   },
   heroTop: { marginBottom: 10 },
   heroName: {
@@ -294,7 +298,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   barFill: { height: 6, borderRadius: 3 },
-  idealText: { fontSize: 11, color: colors.textMuted },
+  idealText: { fontSize: 15, color: colors.textMuted },
 
   ratingCard: {
     backgroundColor: colors.bgCard, borderRadius: 16,

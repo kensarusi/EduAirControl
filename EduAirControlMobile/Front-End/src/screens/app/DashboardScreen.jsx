@@ -94,11 +94,11 @@ export default function DashboardScreen({ navigation }) {
     return matchStatus && matchSearch
   })
 
-  const filters = [
-    { key: 'all', label: 'Todos', count: counts.all, color: colors.accent },
-    { key: 'normal', label: 'Normal', count: counts.normal, color: '#4CAF50' },
-    { key: 'warning', label: 'Advertencia', count: counts.warning, color: '#FFC107' },
-    { key: 'alert', label: 'Alerta', count: counts.alert, color: '#F44336' },
+  const statCards = [
+    { key: 'all',     label: 'Todos',       count: counts.all,     color: colors.accent, icon: '🏫' },
+    { key: 'normal',  label: 'Normal',      count: counts.normal,  color: '#4CAF50',     icon: '✅' },
+    { key: 'warning', label: 'Advertencia', count: counts.warning, color: '#FFC107',     icon: '⚠️' },
+    { key: 'alert',   label: 'Alerta',      count: counts.alert,   color: '#F44336',     icon: '🚨' },
   ]
 
   return (
@@ -108,22 +108,8 @@ export default function DashboardScreen({ navigation }) {
       {/* Top Bar */}
       <View style={styles.topBar}>
         <View>
-          <Text style={styles.greeting}>Bienvenido 👋</Text>
+          <Text style={styles.greeting}>Bienvenido Administrador</Text>
           <Text style={styles.subtitle}>Monitoreo de ambientes</Text>
-        </View>
-        <View style={styles.topActions}>
-          <TouchableOpacity
-            style={styles.iconBtn}
-            onPress={() => navigation.navigate('Favorites')}
-          >
-            <Ionicons name="heart-outline" size={20} color={colors.accent} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconBtn}
-            onPress={() => navigation.navigate('Profile')}
-          >
-            <Ionicons name="person-circle-outline" size={22} color={colors.accent} />
-          </TouchableOpacity>
         </View>
       </View>
 
@@ -144,58 +130,25 @@ export default function DashboardScreen({ navigation }) {
         )}
       </View>
 
-      {/* Stats Row */}
+      {/* Stat Cards — también son filtros */}
       <View style={styles.statsRow}>
-        {[
-          { label: 'Normal', count: counts.normal, color: '#4CAF50', icon: '✅' },
-          { label: 'Advertencia', count: counts.warning, color: '#FFC107', icon: '⚠️' },
-          { label: 'Alerta', count: counts.alert, color: '#F44336', icon: '🚨' },
-        ].map((s) => (
-          <View key={s.label} style={[styles.statCard, { borderColor: s.color, backgroundColor: `${s.color}10` }]}>
+        {statCards.map((s) => (
+          <TouchableOpacity
+            key={s.key}
+            style={[
+              styles.statCard,
+              { borderColor: s.color, backgroundColor: `${s.color}10` },
+              activeFilter === s.key && { backgroundColor: `${s.color}30`, borderWidth: 2 },
+            ]}
+            onPress={() => setActiveFilter(s.key)}
+            activeOpacity={0.75}
+          >
             <Text style={styles.statEmoji}>{s.icon}</Text>
             <Text style={[styles.statCount, { color: s.color }]}>{s.count}</Text>
             <Text style={styles.statLabel}>{s.label}</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Filter Chips */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.filtersScroll}
-        contentContainerStyle={styles.filtersContent}
-      >
-        {filters.map((f) => (
-          <TouchableOpacity
-            key={f.key}
-            style={[
-              styles.filterChip,
-              activeFilter === f.key && { backgroundColor: f.color, borderColor: f.color },
-            ]}
-            onPress={() => setActiveFilter(f.key)}
-          >
-            <Text
-              style={[
-                styles.filterChipText,
-                activeFilter === f.key && { color: '#fff', fontWeight: 'bold' },
-              ]}
-            >
-              {f.label}
-            </Text>
-            <View
-              style={[
-                styles.filterBadge,
-                activeFilter === f.key ? { backgroundColor: 'rgba(255,255,255,0.3)' } : { backgroundColor: f.color + '30' },
-              ]}
-            >
-              <Text style={[styles.filterBadgeText, { color: activeFilter === f.key ? '#fff' : f.color }]}>
-                {f.count}
-              </Text>
-            </View>
           </TouchableOpacity>
         ))}
-      </ScrollView>
+      </View>
 
       {/* Cards */}
       <ScrollView
@@ -230,21 +183,14 @@ const styles = StyleSheet.create({
 
   topBar: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 12,
+    paddingTop: 55,
     paddingBottom: 6,
   },
-  greeting: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary },
-  subtitle: { fontSize: 13, color: colors.textMuted, marginTop: 2 },
-  topActions: { flexDirection: 'row', gap: 8 },
-  iconBtn: {
-    width: 38, height: 38, borderRadius: 19,
-    backgroundColor: colors.bgCard, borderWidth: 1,
-    borderColor: colors.borderColor,
-    alignItems: 'center', justifyContent: 'center',
-  },
+  greeting: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, textAlign: 'center' },
+  subtitle: { fontSize: 13, color: colors.textMuted, marginTop: 2, textAlign: 'center' },
 
   searchContainer: {
     flexDirection: 'row', alignItems: 'center',
@@ -257,8 +203,8 @@ const styles = StyleSheet.create({
   searchInput: { flex: 1, color: colors.textPrimary, fontSize: 14 },
 
   statsRow: {
-    flexDirection: 'row', gap: 10,
-    paddingHorizontal: 20, marginBottom: 6,
+    flexDirection: 'row', gap: 8,
+    paddingHorizontal: 20, marginBottom: 12,
   },
   statCard: {
     flex: 1, borderRadius: 12, borderWidth: 1,
@@ -268,22 +214,8 @@ const styles = StyleSheet.create({
   statCount: { fontSize: 20, fontWeight: 'bold' },
   statLabel: { fontSize: 10, color: colors.textMuted, marginTop: 2, textAlign: 'center' },
 
-  filtersScroll: { maxHeight: 48 },
-  filtersContent: { paddingHorizontal: 20, gap: 8, alignItems: 'center' },
-  filterChip: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    borderRadius: 20, borderWidth: 1, borderColor: colors.borderColor,
-    paddingHorizontal: 14, paddingVertical: 7,
-    backgroundColor: colors.bgCard,
-  },
-  filterChipText: { fontSize: 13, color: colors.textSecondary },
-  filterBadge: {
-    borderRadius: 10, paddingHorizontal: 6, paddingVertical: 1, minWidth: 20, alignItems: 'center',
-  },
-  filterBadgeText: { fontSize: 11, fontWeight: 'bold' },
-
   scroll: { flex: 1 },
-  scrollContent: { paddingHorizontal: 20, paddingTop: 12 },
+  scrollContent: { paddingHorizontal: 20, paddingTop: 4 },
 
   card: {
     backgroundColor: colors.bgCard,
