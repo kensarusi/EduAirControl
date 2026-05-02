@@ -18,9 +18,9 @@ export default function ProfileScreen({ navigation }) {
   const [modal, setModal] = useState({ open: false, field: '', value: '', label: '' })
 
   const fieldConfig = {
-    fullName: { label: 'Nombre completo', icon: 'person-outline', keyboardType: 'default' },
-    email: { label: 'Correo electrónico', icon: 'mail-outline', keyboardType: 'email-address' },
-    title: { label: 'Cargo / Rol', icon: 'briefcase-outline', keyboardType: 'default' },
+    fullName: { label: 'Nombre completo',     icon: 'person-outline',   keyboardType: 'default' },
+    email:    { label: 'Correo electrónico',  icon: 'mail-outline',     keyboardType: 'email-address' },
+    title:    { label: 'Cargo / Rol',         icon: 'briefcase-outline', keyboardType: 'default' },
   }
 
   const openModal = (field) =>
@@ -53,10 +53,16 @@ export default function ProfileScreen({ navigation }) {
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="light-content" backgroundColor={colors.bgBody} />
 
-      {/* Header */}
+      {/* Header con botón de ajustes */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Mi Perfil</Text>
-        <View style={{ width: 2 }} />
+        <TouchableOpacity
+          style={styles.settingsBtn}
+          onPress={() => navigation.navigate('Settings')}
+          activeOpacity={0.7}
+        >
+          <Ionicons name="settings-outline" size={22} color={colors.accent} />
+        </TouchableOpacity>
       </View>
 
       <ScrollView
@@ -72,7 +78,7 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.profileName}>{profile.fullName}</Text>
           <Text style={styles.profileTitle}>{profile.title}</Text>
           <View style={styles.emailBadge}>
-            <Ionicons name="mail-outline" size={24} color={colors.accent} />
+            <Ionicons name="mail-outline" size={16} color={colors.accent} />
             <Text style={styles.emailText}>{profile.email}</Text>
           </View>
         </View>
@@ -100,22 +106,24 @@ export default function ProfileScreen({ navigation }) {
           ))}
         </View>
 
-        {/* Settings links */}
+        {/* Más opciones → todas navegan a Settings */}
         <Text style={styles.sectionTitle}>Más opciones</Text>
         <View style={styles.fieldsCard}>
           {[
-            { icon: 'lock-closed-outline', label: 'Cambiar contraseña', color: colors.accent },
-            { icon: 'notifications-outline', label: 'Notificaciones', color: colors.accent },
-            { icon: 'help-circle-outline', label: 'Ayuda y soporte', color: colors.accent },
-            { icon: 'shield-checkmark-outline', label: 'Privacidad', color: colors.accent },
+            { icon: 'lock-closed-outline',      label: 'Cambiar contraseña' },
+            { icon: 'notifications-outline',    label: 'Notificaciones' },
+            { icon: 'help-circle-outline',      label: 'Ayuda y soporte' },
+            { icon: 'shield-checkmark-outline', label: 'Privacidad' },
           ].map((item, index, arr) => (
             <TouchableOpacity
               key={item.label}
               style={[styles.fieldRow, index < arr.length - 1 && styles.fieldRowBorder]}
+              onPress={() => navigation.navigate('Settings')}
+              activeOpacity={0.7}
             >
               <View style={styles.fieldLeft}>
                 <View style={styles.fieldIconWrap}>
-                  <Ionicons name={item.icon} size={16} color={item.color} />
+                  <Ionicons name={item.icon} size={16} color={colors.accent} />
                 </View>
                 <Text style={styles.optionLabel}>{item.label}</Text>
               </View>
@@ -169,17 +177,32 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bgBody },
 
   header: {
-    flexDirection: 'column', alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20, paddingVertical: 55,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 55,
+    paddingBottom: 16,
   },
-
-  headerTitle: { marginBottom: -20,  fontSize: 24, fontWeight: 'bold', color: colors.textPrimary },
+  headerTitle: { fontSize: 24, fontWeight: 'bold', color: colors.textPrimary },
+  settingsBtn: {
+    position: 'absolute',
+    right: 20,
+    top: 55,
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: colors.bgCard,
+    borderWidth: 1,
+    borderColor: colors.borderColor,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   scroll: { flex: 1 },
   scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
 
-  avatarSection: { alignItems: 'center', paddingVertical: 1 },
+  avatarSection: { alignItems: 'center', paddingVertical: 10 },
   avatar: {
     width: 90, height: 90, borderRadius: 45,
     backgroundColor: colors.accentDim,
@@ -187,20 +210,20 @@ const styles = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center',
     marginBottom: 14,
   },
-  avatarText: { fontSize: 32, fontWeight: 'bold', color: colors.accent },
-  profileName: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 17 },
-  profileTitle: { fontSize: 20, fontWeight: 'bold', color: colors.textMuted, marginBottom: 16 },
+  avatarText:    { fontSize: 32, fontWeight: 'bold', color: colors.accent },
+  profileName:   { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 6 },
+  profileTitle:  { fontSize: 14, color: colors.textMuted, marginBottom: 14 },
   emailBadge: {
-    flexDirection: 'row', alignItems: 'center', gap: 16,
+    flexDirection: 'row', alignItems: 'center', gap: 8,
     backgroundColor: colors.bgCard, borderRadius: 22, borderWidth: 1,
-    borderColor: colors.borderColor, paddingHorizontal: 14, paddingVertical: 6,
+    borderColor: colors.borderColor, paddingHorizontal: 14, paddingVertical: 8,
   },
-  emailText: { fontSize: 15, color: colors.textSecondary, marginBottom: 1, marginRight: -25 },
+  emailText: { fontSize: 14, color: colors.textSecondary },
 
   sectionTitle: {
     fontSize: 13, fontWeight: '700', color: colors.textMuted,
     textTransform: 'uppercase', letterSpacing: 1,
-    marginBottom: 10, marginTop: 20,
+    marginBottom: 10, marginTop: 22,
   },
 
   fieldsCard: {
@@ -213,14 +236,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16, paddingVertical: 14,
   },
   fieldRowBorder: { borderBottomWidth: 1, borderBottomColor: colors.borderColor },
-  fieldLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  fieldLeft:    { flexDirection: 'row', alignItems: 'center', gap: 12 },
   fieldIconWrap: {
     width: 34, height: 34, borderRadius: 10,
     backgroundColor: colors.accentDim,
     alignItems: 'center', justifyContent: 'center',
   },
-  fieldLabel: { fontSize: 11, color: colors.textMuted, marginBottom: 2 },
-  fieldValue: { fontSize: 14, color: colors.textPrimary, fontWeight: '500' },
+  fieldLabel:  { fontSize: 11, color: colors.textMuted, marginBottom: 2 },
+  fieldValue:  { fontSize: 14, color: colors.textPrimary, fontWeight: '500' },
   optionLabel: { fontSize: 15, color: colors.textPrimary },
 
   logoutBtn: {
@@ -232,7 +255,6 @@ const styles = StyleSheet.create({
   },
   logoutText: { color: colors.error, fontSize: 15, fontWeight: 'bold' },
 
-  // Modal
   modalOverlay: {
     flex: 1, backgroundColor: 'rgba(0,0,0,0.7)',
     justifyContent: 'flex-end',
@@ -242,23 +264,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24, padding: 24,
     borderTopWidth: 2, borderColor: colors.accent,
   },
-  modalTitle: {
-    fontSize: 16, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 16,
-  },
+  modalTitle: { fontSize: 16, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 16 },
   modalInput: {
     backgroundColor: colors.bgInput, borderRadius: 10,
     borderWidth: 1, borderColor: colors.borderColor,
     padding: 14, color: colors.textPrimary, fontSize: 15, marginBottom: 20,
   },
-  modalActions: { flexDirection: 'row', gap: 12 },
+  modalActions:     { flexDirection: 'row', gap: 12 },
   modalCancel: {
     flex: 1, borderRadius: 10, borderWidth: 1,
     borderColor: colors.borderColor, padding: 14, alignItems: 'center',
   },
-  modalCancelText: { color: colors.textSecondary, fontWeight: '600' },
-  modalSave: {
-    flex: 1, borderRadius: 10, backgroundColor: colors.accent,
-    padding: 14, alignItems: 'center',
-  },
-  modalSaveText: { color: colors.bgBody, fontWeight: 'bold' },
+  modalCancelText:  { color: colors.textSecondary, fontWeight: '600' },
+  modalSave:        { flex: 1, borderRadius: 10, backgroundColor: colors.accent, padding: 14, alignItems: 'center' },
+  modalSaveText:    { color: colors.bgBody, fontWeight: 'bold' },
 })

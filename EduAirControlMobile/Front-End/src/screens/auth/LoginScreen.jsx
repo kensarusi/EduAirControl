@@ -3,7 +3,7 @@ import {
   View, Text, TextInput, TouchableOpacity,
   StyleSheet, ScrollView, KeyboardAvoidingView, Platform
 } from 'react-native'
-import { Ionicons, FontAwesome } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { colors } from '../../styles/colors'
 
 export default function LoginScreen({ navigation }) {
@@ -14,19 +14,19 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: colors.bgBody }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scroll}>
-        <View style={styles.card}>
+        <View style={[styles.card, { backgroundColor: colors.bgCard, borderColor: colors.accent }]}>
           <View style={styles.header}>
-            <Text style={styles.title}>Iniciar sesión</Text>
+            <Text style={[styles.title, { color: colors.textPrimary }]}>Iniciar sesión</Text>
             <Ionicons name="person-circle-outline" size={50} color={colors.accent} />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Correo electrónico</Text>
+            <Text style={[styles.label, { color: colors.textSecondary }]}>Correo electrónico</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, { backgroundColor: colors.bgInput, borderColor: colors.borderColor, color: colors.textPrimary }]}
               placeholder="correo@ejemplo.com"
               placeholderTextColor={colors.textMuted}
               value={email}
@@ -36,10 +36,10 @@ export default function LoginScreen({ navigation }) {
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Contraseña</Text>
+            <Text style={[styles.label, { color: colors.textSecondary }]}>Contraseña</Text>
             <View style={styles.passwordRow}>
               <TextInput
-                style={[styles.input, { flex: 1 }]}
+                style={[styles.input, { flex: 1, backgroundColor: colors.bgInput, borderColor: colors.borderColor, color: colors.textPrimary }]}
                 placeholder="••••••••"
                 placeholderTextColor={colors.textMuted}
                 value={password}
@@ -51,41 +51,48 @@ export default function LoginScreen({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.row}>
-            <TouchableOpacity style={styles.checkRow} onPress={() => setRememberMe(!rememberMe)}>
-              <View style={[styles.checkbox, rememberMe && styles.checkboxActive]}>
-                {rememberMe && <Ionicons name="checkmark" size={12} color="white" />}
-              </View>
-              <Text style={styles.rememberText}>Recuérdame</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.forgotText}>¿Olvidaste?</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('App')}>
-            <Text style={styles.btnLoginText}>Iniciar sesión</Text>
+
+          <TouchableOpacity style={styles.rememberRow} onPress={() => setRememberMe(!rememberMe)}>
+            <View style={[styles.checkbox, rememberMe && { backgroundColor: colors.accent, borderColor: colors.accent }]}>
+              {rememberMe && <Ionicons name="checkmark" size={14} color="#fff" />}
+            </View>
+            <Text style={[styles.rememberText, { color: colors.textSecondary }]}>Recordarme</Text>
           </TouchableOpacity>
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OR</Text>
-            <View style={styles.dividerLine} />
+
+          <TouchableOpacity style={[styles.forgotBtn, { borderBottomColor: colors.borderColor }]}>
+            <Text style={{ color: colors.accent }}>¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.loginBtn, { backgroundColor: colors.accent }]}
+            onPress={() => navigation.navigate('App')}
+          >
+            <Text style={[styles.loginBtnText, { color: colors.bgBody }]}>Iniciar sesión</Text>
+          </TouchableOpacity>
+
+          <View style={styles.dividerRow}>
+            <View style={[styles.line, { backgroundColor: colors.borderColor }]} />
+            <Text style={[styles.dividerText, { color: colors.textMuted }]}>o continúa con</Text>
+            <View style={[styles.line, { backgroundColor: colors.borderColor }]} />
           </View>
-          <Text style={styles.socialText}>Inicia sesión con</Text>
+
           <View style={styles.socialRow}>
-            <TouchableOpacity style={styles.btnFacebook} onPress={() => navigation.navigate('App')}>
-              <FontAwesome name="facebook" size={18} color="white" />
-              <Text style={styles.socialBtnText}>Facebook</Text>
+            <TouchableOpacity style={[styles.socialBtn, { backgroundColor: colors.bgInput, borderColor: colors.borderColor }]}>
+              <Ionicons name="logo-google" size={20} color="#DB4437" />
+              <Text style={[styles.socialBtnText, { color: colors.textPrimary }]}>Google</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnGoogle} onPress={() => navigation.navigate('App')}>
-              <FontAwesome name="google" size={18} color="white" />
-              <Text style={styles.socialBtnText}>Google</Text>
+            <TouchableOpacity style={[styles.socialBtn, { backgroundColor: colors.bgInput, borderColor: colors.borderColor }]}>
+              <Ionicons name="logo-facebook" size={20} color="#1877F2" />
+              <Text style={[styles.socialBtnText, { color: colors.textPrimary }]}>Facebook</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={styles.signupText}>
-              ¿No tienes cuenta? <Text style={styles.signupLink}>Regístrate</Text>
-            </Text>
-          </TouchableOpacity>
+
+          <View style={styles.signupRow}>
+            <Text style={[styles.signupText, { color: colors.textSecondary }]}>¿No tienes cuenta? </Text>
+            <TouchableOpacity>
+              <Text style={{ color: colors.accent, fontWeight: '600' }}>Regístrate</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -93,32 +100,63 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.bgBody },
+  container: { flex: 1 },
   scroll: { flexGrow: 1, justifyContent: 'center', padding: 20 },
-  card: { backgroundColor: colors.bgCard, borderRadius: 15, padding: 30, borderWidth: 2, borderColor: colors.accent },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 25 },
-  title: { fontSize: 26, fontWeight: 'bold', color: colors.textPrimary },
-  inputGroup: { marginBottom: 18 },
-  label: { color: colors.textPrimary, fontWeight: 'bold', marginBottom: 6, fontSize: 14 },
-  input: { backgroundColor: colors.bgInput, borderWidth: 1, borderColor: colors.borderColor, borderRadius: 8, padding: 12, color: colors.textPrimary, fontSize: 14 },
+
+  card: {
+    borderRadius: 20,
+    padding: 24,
+    borderWidth: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  header: { alignItems: 'center', marginBottom: 24, gap: 12 },
+  title: { fontSize: 26, fontWeight: 'bold' },
+
+  inputGroup: { marginBottom: 16 },
+  label: { fontSize: 13, fontWeight: '600', marginBottom: 6 },
+  input: {
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    fontSize: 15,
+  },
   passwordRow: { flexDirection: 'row', alignItems: 'center' },
-  eyeBtn: { position: 'absolute', right: 12, top: 12 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  checkRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  checkbox: { width: 18, height: 18, borderRadius: 4, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
-  checkboxActive: { backgroundColor: colors.accent },
-  rememberText: { color: colors.textPrimary, fontSize: 13 },
-  forgotText: { color: colors.accent, fontSize: 13 },
-  btnLogin: { backgroundColor: colors.accent, borderRadius: 8, padding: 14, alignItems: 'center', marginBottom: 20 },
-  btnLoginText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
-  divider: { flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: colors.borderColor },
-  dividerText: { color: colors.textMuted, paddingHorizontal: 10 },
-  socialText: { color: colors.textSecondary, textAlign: 'center', marginBottom: 10 },
-  socialRow: { flexDirection: 'row', justifyContent: 'center', gap: 12, marginBottom: 20 },
-  btnFacebook: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.facebook, borderRadius: 8, padding: 10, paddingHorizontal: 20 },
-  btnGoogle: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.accent, borderRadius: 8, padding: 10, paddingHorizontal: 20 },
-  socialBtnText: { color: 'white', fontWeight: 'bold' },
-  signupText: { color: colors.textSecondary, textAlign: 'center', fontSize: 14 },
-  signupLink: { color: colors.accent, fontWeight: 'bold' },
+  eyeBtn: { position: 'absolute', right: 12, padding: 4 },
+
+  rememberRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 },
+  checkbox: {
+    width: 20, height: 20, borderRadius: 4,
+    borderWidth: 2, borderColor: '#cccccc',
+    alignItems: 'center', justifyContent: 'center',
+  },
+  rememberText: { fontSize: 13 },
+
+  forgotBtn: { alignSelf: 'flex-end', marginBottom: 20, borderBottomWidth: 1 },
+  
+  loginBtn: {
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  loginBtnText: { fontSize: 16, fontWeight: 'bold' },
+
+  dividerRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 16 },
+  line: { flex: 1, height: 1 },
+  dividerText: { fontSize: 12 },
+
+  socialRow: { flexDirection: 'row', gap: 12, marginBottom: 20 },
+  socialBtn: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    gap: 8, borderRadius: 10, borderWidth: 1, paddingVertical: 12,
+  },
+  socialBtnText: { fontSize: 14, fontWeight: '600' },
+
+  signupRow: { flexDirection: 'row', justifyContent: 'center', gap: 4 },
+  signupText: { fontSize: 14 },
 })

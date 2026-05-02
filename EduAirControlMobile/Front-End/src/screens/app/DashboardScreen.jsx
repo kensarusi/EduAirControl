@@ -4,7 +4,7 @@ import {
   StyleSheet, SafeAreaView, StatusBar, TextInput,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { colors } from '../../styles/colors'
+import colors from '../../styles/colors'
 import {
   STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
   QUALITY_LABELS, QUALITY_COLORS,

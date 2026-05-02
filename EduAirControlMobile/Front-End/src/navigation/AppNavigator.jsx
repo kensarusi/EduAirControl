@@ -7,8 +7,8 @@ import DashboardScreen from '../screens/app/DashboardScreen'
 import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
 import FavoritesScreen from '../screens/app/FavoritesScreen'
 import ProfileScreen from '../screens/app/ProfileScreen'
-import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
 import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
+import SettingsScreen from '../screens/app/SettingsScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -17,7 +17,6 @@ function DashboardStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DashboardHome" component={DashboardScreen} />
-      <Stack.Screen name="AllEnvironments" component={AllEnvironmentsScreen} />
       <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
     </Stack.Navigator>
   )
@@ -36,6 +35,16 @@ function ManagementStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ManagementHome" component={EnvironmentManagementScreen} />
+    </Stack.Navigator>
+  )
+}
+
+// Profile ahora tiene su propio stack para poder navegar a Settings
+function ProfileStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ProfileHome" component={ProfileScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   )
 }
@@ -88,7 +97,7 @@ export default function AppNavigator() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{ tabBarLabel: 'Perfil' }}
       />
     </Tab.Navigator>
