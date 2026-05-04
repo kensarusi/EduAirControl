@@ -2,38 +2,40 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Build Backend') {
+        stage('Checkout') {
             steps {
-                dir('backend') {
-                    sh './mvnw clean package -DskipTests'
-                }
+                checkout scm
             }
         }
 
-        stage('Build Frontend') {
+        stage('Build & Test') {
             steps {
-                dir('Front-End') {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
+                // Si usas Maven
+                sh './mvnw clean install'
+                // O si usas Gradle
+                // sh './gradlew build'
             }
         }
 
-        stage('Docker Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker compose build'
+                sh 'docker build -t springboot-app .'
             }
         }
 
-        stage('Deploy') {
-            when {
-                branch 'main'
-            }
+        stage('Run Container') {
             steps {
-                sh 'docker compose down || true'
-                sh 'docker compose up -d'
+                sh 'docker run -d -p 8080:8080 --name springboot-app springboot-app'
             }
+        }
+    }
+
+    post {
+        success {
+            echo " Pipeline exitoso: Spring Boot app desplegada en Docker."
+        }
+        failure {
+            echo " Pipeline falló. Revisa los logs."
         }
     }
 }
