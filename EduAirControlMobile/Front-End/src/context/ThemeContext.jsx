@@ -1,15 +1,40 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
+import { darkColors, lightColors } from '../styles/colors'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ThemeContext = createContext()
 
 export function ThemeProvider({ children }) {
-  // true = oscuro (por defecto), false = claro
-  const [isDark, setIsDark] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
-  const toggleTheme = () => setIsDark((prev) => !prev)
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const saved = await AsyncStorage.getItem('darkMode')
+        if (saved !== null) setDarkMode(JSON.parse(saved))
+      } catch (e) {
+        console.warn('Error loading darkMode:', e)
+      } finally {
+        setLoaded(true)
+      }
+    }
+    load()
+  }, [])
+
+  const toggleDarkMode = async (value) => {
+    setDarkMode(value)
+    try {
+      await AsyncStorage.setItem('darkMode', JSON.stringify(value))
+    } catch (e) {
+      console.warn('Error saving darkMode:', e)
+    }
+  }
+
+  const currentColors = darkMode ? darkColors : lightColors
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode, currentColors, loaded }}>
       {children}
     </ThemeContext.Provider>
   )

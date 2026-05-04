@@ -1,616 +1,761 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, SafeAreaView, StatusBar, Switch,
-  Modal, TextInput, Alert,
+  StyleSheet, SafeAreaView, TextInput, Modal, Alert,
+  StatusBar,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useTheme } from '../../context/ThemeContext'
-import { darkColors, lightColors } from '../../styles/colors'
-
-// ─── Datos ────────────────────────────────────────────────────────────────────
-const LANGUAGES = [
-  { code: 'es', label: '🇨🇴  Español' },
-  { code: 'en', label: '🇺🇸  English' },
-  { code: 'fr', label: '🇫🇷  Français' },
-  { code: 'pt', label: '🇧🇷  Português' },
-]
-
-const DATE_FORMATS = ['DD-MM-YYYY', 'MM-DD-YYYY', 'YYYY-MM-DD']
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TIMEZONES = [
   { value: 'America/Bogota',      label: 'Bogotá (UTC-5)' },
   { value: 'America/Lima',        label: 'Lima (UTC-5)' },
   { value: 'America/Mexico_City', label: 'Ciudad de México (UTC-6)' },
   { value: 'America/New_York',    label: 'Nueva York (UTC-5/-4)' },
+  { value: 'America/Los_Angeles', label: 'Los Ángeles (UTC-8/-7)' },
   { value: 'America/Sao_Paulo',   label: 'São Paulo (UTC-3)' },
   { value: 'America/Santiago',    label: 'Santiago (UTC-4/-3)' },
   { value: 'Europe/London',       label: 'Londres (UTC+0/+1)' },
   { value: 'Europe/Madrid',       label: 'Madrid (UTC+1/+2)' },
+  { value: 'Europe/Paris',        label: 'París (UTC+1/+2)' },
   { value: 'Asia/Tokyo',          label: 'Tokio (UTC+9)' },
+  { value: 'Asia/Dubai',          label: 'Dubái (UTC+4)' },
+  { value: 'Australia/Sydney',    label: 'Sídney (UTC+10/+11)' },
 ]
 
-// ─── Subcomponentes ───────────────────────────────────────────────────────────
-function SectionHeader({ icon, title, c }) {
-  return (
-    <View style={[styles.sectionHeader, { borderBottomColor: c.borderColor }]}>
-      <Ionicons name={icon} size={18} color={c.accent} />
-      <Text style={[styles.sectionTitle, { color: c.textPrimary }]}>{title}</Text>
-    </View>
-  )
-}
+const THEMES = [
+  { key: '',                   label: 'Normal' },
+  { key: 'theme-protanopia',   label: 'Protanopía' },
+  { key: 'theme-deuteranopia', label: 'Deuteranopía' },
+  { key: 'theme-tritanopia',   label: 'Tritanopía' },
+]
 
-function SettingRow({ icon, label, sub, right, c, onPress, chevron = false }) {
-  return (
-    <TouchableOpacity
-      style={[styles.row, { borderBottomColor: c.borderColorLight }]}
-      onPress={onPress}
-      activeOpacity={onPress ? 0.6 : 1}
-      disabled={!onPress}
-    >
-      {icon && (
-        <View style={[styles.rowIcon, { backgroundColor: c.bgInput }]}>
-          <Ionicons name={icon} size={16} color={c.accent} />
-        </View>
-      )}
-      <View style={styles.rowInfo}>
-        <Text style={[styles.rowLabel, { color: c.textPrimary }]}>{label}</Text>
-        {sub ? <Text style={[styles.rowSub, { color: c.textMuted }]}>{sub}</Text> : null}
-      </View>
-      {right}
-      {chevron && <Ionicons name="chevron-forward" size={16} color={c.textMuted} style={{ marginLeft: 6 }} />}
-    </TouchableOpacity>
-  )
-}
+export default function SettingsScreen({ navigation, route }) {
+  const { darkMode, toggleDarkMode, currentColors, loaded } = useTheme()
 
-function Card({ children, c }) {
-  return (
-    <View style={[styles.card, { backgroundColor: c.bgCard, borderColor: c.borderColor }]}>
-      {children}
-    </View>
-  )
-}
-
-// ─── Pantalla principal ───────────────────────────────────────────────────────
-export default function SettingsScreen() {
-  const { isDark, toggleTheme } = useTheme()
-  const c = isDark ? darkColors : lightColors
-
-  const [language, setLanguage]       = useState('es')
-  const [dateFormat, setDateFormat]   = useState('DD-MM-YYYY')
-  const [timezone, setTimezone]       = useState('America/Bogota')
-  const [autoTZ, setAutoTZ]           = useState(true)
-  const [reminders, setReminders]     = useState({
+  const [autoTimezone, setAutoTimezone] = useState(true)
+  const [manualTimezone, setManualTimezone] = useState('America/Bogota')
+  const [reminders, setReminders] = useState({
     alertas: true, advertencias: true, resumenDiario: false, sonido: true,
   })
-  const [privacy, setPrivacy]         = useState({
+  const [privacy, setPrivacy] = useState({
     perfilPublico: false, compartirDatos: false,
   })
+  const [settings, setSettings] = useState({ language: 'Español', dateFormat: 'DD-MM-YYYY' })
+  const [theme, setTheme] = useState('')
+  const [showLangModal, setShowLangModal] = useState(false)
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [showHelpModal, setShowHelpModal] = useState({ open: false, type: null })
+  const [passwordData, setPasswordData] = useState({ current: '', new: '', confirm: '' })
+  const [showPassword, setShowPassword] = useState({ new: false, confirm: false })
 
-  // Modales
-  const [langModal, setLangModal]         = useState(false)
-  const [dateModal, setDateModal]         = useState(false)
-  const [tzModal, setTzModal]             = useState(false)
-  const [passModal, setPassModal]         = useState(false)
-  const [deleteModal, setDeleteModal]     = useState(false)
-  const [helpModal, setHelpModal]         = useState(null) // 'faq'|'contact'|'terms'|'privacy'|'version'
+  // Cargar configuración guardada
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const savedAuto = await AsyncStorage.getItem('autoTimezone')
+        if (savedAuto !== null) setAutoTimezone(JSON.parse(savedAuto))
 
-  const [passData, setPassData]           = useState({ current: '', new: '', confirm: '' })
-  const [showPass, setShowPass]           = useState({ current: false, new: false, confirm: false })
+        const savedManual = await AsyncStorage.getItem('manualTimezone')
+        if (savedManual !== null) setManualTimezone(savedManual)
 
-  const langLabel = LANGUAGES.find((l) => l.code === language)?.label ?? 'Español'
+        const savedReminders = await AsyncStorage.getItem('reminders')
+        if (savedReminders !== null) setReminders(JSON.parse(savedReminders))
 
-  const toggleReminder = (key) => setReminders((p) => ({ ...p, [key]: !p[key] }))
-  const togglePrivacy  = (key) => setPrivacy((p) => ({ ...p, [key]: !p[key] }))
+        const savedPrivacy = await AsyncStorage.getItem('privacy')
+        if (savedPrivacy !== null) setPrivacy(JSON.parse(savedPrivacy))
+
+        const savedSettings = await AsyncStorage.getItem('settings')
+        if (savedSettings !== null) {
+          const parsed = JSON.parse(savedSettings)
+          const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
+          setSettings({
+            language: LANG_NAMES[parsed.language] || 'Español',
+            dateFormat: parsed.dateFormat || 'DD-MM-YYYY',
+          })
+        }
+
+        const savedTheme = await AsyncStorage.getItem('theme')
+        if (savedTheme !== null) setTheme(savedTheme)
+      } catch (e) {
+        console.warn('Error cargando settings:', e)
+      }
+    }
+    load()
+  }, [])
+
+  // Abrir modal contraseña desde Profile
+  useEffect(() => {
+    if (route?.params?.openPasswordModal) {
+      setShowPasswordModal(true)
+    }
+  }, [route?.params?.openPasswordModal])
+
+  const toggleReminder = async (key) => {
+    const next = { ...reminders, [key]: !reminders[key] }
+    setReminders(next)
+    await AsyncStorage.setItem('reminders', JSON.stringify(next))
+  }
+
+  const togglePrivacy = async (key) => {
+    const next = { ...privacy, [key]: !privacy[key] }
+    setPrivacy(next)
+    await AsyncStorage.setItem('privacy', JSON.stringify(next))
+  }
+
+  const handleDarkModeToggle = (value) => toggleDarkMode(value)
+
+  const handleAutoTimezoneToggle = async (value) => {
+    setAutoTimezone(value)
+    await AsyncStorage.setItem('autoTimezone', JSON.stringify(value))
+  }
+
+  const handleManualTimezoneChange = async (value) => {
+    setManualTimezone(value)
+    await AsyncStorage.setItem('manualTimezone', value)
+  }
+
+  const handleThemeChange = async (newTheme) => {
+    setTheme(newTheme)
+    await AsyncStorage.setItem('theme', newTheme)
+  }
+
+  const handleChangeLanguage = async (langCode) => {
+    const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
+    const newSettings = { ...settings, language: LANG_NAMES[langCode] || 'English' }
+    setSettings(newSettings)
+    await AsyncStorage.setItem('settings', JSON.stringify({ ...newSettings, language: langCode }))
+    setShowLangModal(false)
+  }
+
+  const handleDateFormatChange = async (newFormat) => {
+    const newSettings = { ...settings, dateFormat: newFormat }
+    setSettings(newSettings)
+    await AsyncStorage.setItem('settings', JSON.stringify({ ...newSettings, dateFormat: newFormat }))
+  }
 
   const handleSavePassword = () => {
-    if (!passData.current || !passData.new || !passData.confirm) {
-      Alert.alert('Error', 'Completa todos los campos')
+    if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
+      Alert.alert('Campos requeridos', 'Completa todos los campos.')
       return
     }
-    if (passData.new !== passData.confirm) {
-      Alert.alert('Error', 'Las contraseñas no coinciden')
+    if (passwordData.new !== passwordData.confirm) {
+      Alert.alert('Error', 'Las contraseñas no coinciden.')
       return
     }
-    if (passData.new.length < 6) {
-      Alert.alert('Error', 'Mínimo 6 caracteres')
+    if (passwordData.new.length < 6) {
+      Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres.')
       return
     }
-    Alert.alert('Listo', 'Contraseña actualizada ✅')
-    setPassModal(false)
-    setPassData({ current: '', new: '', confirm: '' })
+    Alert.alert('Éxito', 'Contraseña actualizada correctamente 😎')
+    setShowPasswordModal(false)
+    setPasswordData({ current: '', new: '', confirm: '' })
   }
 
-  const handleDeleteAccount = () => {
-    Alert.alert(
-      '⚠️ Eliminar cuenta',
-      'Esta acción no se puede deshacer. ¿Estás seguro?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Eliminar', style: 'destructive', onPress: () => Alert.alert('Cuenta eliminada') },
-      ]
+  const themeLabel = (key) => {
+    if (key === '') return 'Normal'
+    if (key === 'theme-protanopia') return 'Protanopía'
+    if (key === 'theme-deuteranopia') return 'Deuteranopía'
+    return 'Tritanopía'
+  }
+
+  const renderHelpContent = (tc) => {
+    switch (showHelpModal.type) {
+      case 'faq':
+        return (
+          <>
+            <View style={styles.helpSectionTitle}>
+              <Text style={[styles.helpIcon, { color: tc.accent }]}>❓</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Preguntas frecuentes</Text>
+            </View>
+            <View style={styles.helpItem}>
+              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>¿Cómo agregar un ambiente?</Text>
+              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>Ve a Gestión → Agregar ambiente</Text>
+            </View>
+            <View style={styles.helpItem}>
+              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>¿Cómo cambiar el tema?</Text>
+              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>En Configuración → Apariencia</Text>
+            </View>
+            <View style={styles.helpItem}>
+              <Text style={[styles.helpQuestion, { color: tc.textPrimary }]}>¿Olvidé mi contraseña?</Text>
+              <Text style={[styles.helpAnswer, { color: tc.textSecondary }]}>Usa la opción "Olvidé mi contraseña" en login</Text>
+            </View>
+          </>
+        )
+      case 'contact':
+        return (
+          <>
+            <View style={styles.helpSectionTitle}>
+              <Text style={[styles.helpIcon, { color: tc.accent }]}>📬</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Contacto</Text>
+            </View>
+            <View style={styles.helpItem}>
+              <Text style={[styles.helpIconSmall, { color: tc.textMuted }]}>✉️</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.helpLabel, { color: tc.textPrimary }]}>Correo</Text>
+                <Text style={[styles.helpValue, { color: tc.textSecondary }]}>soporte@eduaircontrol.com</Text>
+              </View>
+            </View>
+            <View style={styles.helpItem}>
+              <Text style={[styles.helpIconSmall, { color: tc.textMuted }]}>🕐</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.helpLabel, { color: tc.textPrimary }]}>Horario</Text>
+                <Text style={[styles.helpValue, { color: tc.textSecondary }]}>L-V 8am-6pm</Text>
+              </View>
+            </View>
+          </>
+        )
+      case 'terms':
+        return (
+          <>
+            <View style={styles.helpSectionTitle}>
+              <Text style={[styles.helpIcon, { color: tc.accent }]}>📋</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Términos y condiciones</Text>
+            </View>
+            <Text style={[styles.helpText, { color: tc.textSecondary }]}>Al usar EduAirControl, aceptas nuestros términos de servicio.</Text>
+            <View style={styles.helpList}>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Uso responsable de la plataforma</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Protección de datos personales</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Propiedad intelectual</Text>
+            </View>
+          </>
+        )
+      case 'privacy':
+        return (
+          <>
+            <View style={styles.helpSectionTitle}>
+              <Text style={[styles.helpIcon, { color: tc.accent }]}>🔒</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Política de privacidad</Text>
+            </View>
+            <Text style={[styles.helpText, { color: tc.textSecondary }]}>Tu privacidad es importante para nosotros.</Text>
+            <View style={styles.helpList}>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• No compartimos datos con terceros</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Datos encriptados</Text>
+              <Text style={[styles.helpListItem, { color: tc.textSecondary }]}>• Derechos del usuario</Text>
+            </View>
+          </>
+        )
+      case 'version':
+        return (
+          <>
+            <View style={styles.helpSectionTitle}>
+              <Text style={[styles.helpIcon, { color: tc.accent }]}>📱</Text>
+              <Text style={[styles.helpTitle, { color: tc.textPrimary }]}>Versión</Text>
+            </View>
+            <View style={[styles.versionBadgeBase, { backgroundColor: `${tc.accent}20`, borderColor: tc.accent }]}>
+              <Text style={[styles.versionNumber, { color: tc.accent }]}>v1.0.0</Text>
+            </View>
+            <Text style={[styles.helpText, { color: tc.textSecondary }]}>EduAirControl Mobile App</Text>
+            <Text style={[styles.versionDate, { color: tc.textMuted }]}>Mayo 2026</Text>
+          </>
+        )
+      default:
+        null
+    }
+  }
+
+  if (!loaded) {
+    return (
+      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+        </View>
+      </SafeAreaView>
     )
-    setDeleteModal(false)
   }
 
-  // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: c.bgBody }]}>
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={c.bgBody} />
+    <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+      <StatusBar
+        barStyle={darkMode ? "light-content" : "dark-content"}
+        backgroundColor={currentColors.bgBody}
+      />
 
       {/* Header */}
-      <View style={[styles.header, { borderBottomColor: c.borderColor }]}>
-        <Ionicons name="settings-outline" size={22} color={c.accent} />
-        <Text style={[styles.headerTitle, { color: c.textPrimary }]}>Configuraciones</Text>
+      <View style={styles.header}>
+        <Ionicons name="settings-outline" size={30} color={currentColors.accent} />
+        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Configuración</Text>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Apariencia */}
+        <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <View style={styles.cardHeader}>
+            <Ionicons name="palette-outline" size={18} color={currentColors.accent} />
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Apariencia</Text>
+          </View>
+          <TouchableOpacity style={styles.row} onPress={() => handleDarkModeToggle(!darkMode)}>
+            <View style={styles.rowLeft}>
+              <Ionicons name={darkMode ? 'moon' : 'moon-outline'} size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Modo oscuro</Text>
+            </View>
+            <View style={[
+              styles.toggle,
+              { backgroundColor: darkMode ? currentColors.accent : currentColors.borderColor }
+            ]}>
+              <View style={[styles.toggleCircle, darkMode && { transform: [{ translateX: 20 }] }]} />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.row}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="color-palette-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Tema accesible</Text>
+            </View>
+            <Text style={[styles.rowValue, { color: currentColors.textMuted }]}>{themeLabel(theme)}</Text>
+          </View>
+          <View style={styles.themePicker}>
+            {THEMES.map(({ key, label }) => (
+              <TouchableOpacity
+                key={key}
+                style={[
+                  styles.themeChip,
+                  {
+                    backgroundColor: currentColors.bgBody,
+                    borderColor: theme === key ? currentColors.accent : currentColors.borderColor,
+                  },
+                  theme === key && { backgroundColor: currentColors.accentDim }
+                ]}
+                onPress={() => handleThemeChange(key)}
+              >
+                <Text style={[
+                  styles.themeChipLabel,
+                  { color: theme === key ? currentColors.accent : currentColors.textSecondary }
+                ]}>{label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
 
-        {/* ── APARIENCIA ── */}
-        <Card c={c}>
-          <SectionHeader icon="color-palette-outline" title="Apariencia" c={c} />
-
-          <SettingRow
-            icon="moon-outline"
-            label="Modo oscuro"
-            sub={isDark ? 'Activado' : 'Desactivado'}
-            c={c}
-            right={
-              <Switch
-                value={isDark}
-                onValueChange={toggleTheme}
-                trackColor={{ false: c.borderColor, true: c.accentDim }}
-                thumbColor={isDark ? c.accent : c.textMuted}
-              />
-            }
-          />
-        </Card>
-
-        {/* ── IDIOMA Y FECHAS ── */}
-        <Card c={c}>
-          <SectionHeader icon="globe-outline" title="Idioma y fechas" c={c} />
-          <Text style={[styles.sectionDesc, { color: c.textMuted }]}>
-            Personaliza el idioma, formato de fecha y zona horaria.
-          </Text>
-
-          <SettingRow
-            icon="language-outline"
-            label="Idioma"
-            sub={langLabel}
-            c={c}
-            onPress={() => setLangModal(true)}
-            chevron
-          />
-          <SettingRow
-            icon="calendar-outline"
-            label="Formato de fecha"
-            sub={dateFormat}
-            c={c}
-            onPress={() => setDateModal(true)}
-            chevron
-          />
-          <SettingRow
-            icon="time-outline"
-            label="Zona horaria automática"
-            sub={autoTZ ? 'Activado' : 'Manual'}
-            c={c}
-            right={
-              <Switch
-                value={autoTZ}
-                onValueChange={setAutoTZ}
-                trackColor={{ false: c.borderColor, true: c.accentDim }}
-                thumbColor={autoTZ ? c.accent : c.textMuted}
-              />
-            }
-          />
-          {!autoTZ && (
-            <SettingRow
-              icon="location-outline"
-              label="Zona horaria"
-              sub={timezone}
-              c={c}
-              onPress={() => setTzModal(true)}
-              chevron
-            />
+        {/* Idioma y fechas */}
+        <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <View style={styles.cardHeader}>
+            <Ionicons name="globe-outline" size={18} color={currentColors.accent} />
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Idioma y fechas</Text>
+          </View>
+          <TouchableOpacity style={styles.row} onPress={() => setShowLangModal(true)}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="language-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Idioma</Text>
+            </View>
+            <Text style={[styles.rowValue, { color: currentColors.textMuted }]}>{settings.language}</Text>
+            <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />
+          </TouchableOpacity>
+          <View style={styles.row}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="calendar-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Formato de fecha</Text>
+            </View>
+            <Text style={[styles.rowValue, { color: currentColors.textMuted }]}>{settings.dateFormat}</Text>
+          </View>
+          <TouchableOpacity style={styles.row} onPress={() => handleAutoTimezoneToggle(!autoTimezone)}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="time-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Zona horaria automática</Text>
+            </View>
+            <View style={[
+              styles.toggle,
+              { backgroundColor: autoTimezone ? `${currentColors.accent}80` : currentColors.borderColor }
+            ]}>
+              <View style={[styles.toggleCircle, autoTimezone && { transform: [{ translateX: 20 }] }]} />
+            </View>
+          </TouchableOpacity>
+          {!autoTimezone && (
+            <View style={styles.timezoneRow}>
+              <Ionicons name="location-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.timezoneLabel, { color: currentColors.textSecondary }]}>Zona horaria:</Text>
+              {TIMEZONES.map(({ value, label }) => (
+                <TouchableOpacity
+                  key={value}
+                  style={[
+                    styles.timezoneChip,
+                    {
+                      backgroundColor: currentColors.bgBody,
+                      borderColor: manualTimezone === value ? currentColors.accent : currentColors.borderColor,
+                    },
+                    manualTimezone === value && { backgroundColor: `${currentColors.accent}20` }
+                  ]}
+                  onPress={() => handleManualTimezoneChange(value)}
+                >
+                  <Text style={[
+                    styles.timezoneChipLabel,
+                    { color: manualTimezone === value ? currentColors.accent : currentColors.textSecondary }
+                  ]}>{label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           )}
-        </Card>
+        </View>
 
-        {/* ── NOTIFICACIONES ── */}
-        <Card c={c}>
-          <SectionHeader icon="notifications-outline" title="Notificaciones" c={c} />
-          <Text style={[styles.sectionDesc, { color: c.textMuted }]}>
-            Controla qué alertas quieres recibir.
-          </Text>
-
+        {/* Recordatorios */}
+        <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <View style={styles.cardHeader}>
+            <Ionicons name="notifications-outline" size={18} color={currentColors.accent} />
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Recordatorios</Text>
+          </View>
           {[
-            { key: 'alertas',       label: 'Alertas críticas',  icon: 'alert-circle-outline' },
-            { key: 'advertencias',  label: 'Advertencias',      icon: 'warning-outline' },
-            { key: 'resumenDiario', label: 'Resumen diario',    icon: 'bar-chart-outline' },
-            { key: 'sonido',        label: 'Sonido',            icon: 'volume-high-outline' },
-          ].map(({ key, label, icon }) => (
-            <SettingRow
-              key={key}
-              icon={icon}
-              label={label}
-              sub={reminders[key] ? 'Activado' : 'Desactivado'}
-              c={c}
-              right={
-                <Switch
-                  value={reminders[key]}
-                  onValueChange={() => toggleReminder(key)}
-                  trackColor={{ false: c.borderColor, true: c.accentDim }}
-                  thumbColor={reminders[key] ? c.accent : c.textMuted}
-                />
-              }
-            />
+            { key: 'alertas', label: 'Alertas críticas' },
+            { key: 'advertencias', label: 'Advertencias' },
+            { key: 'resumenDiario', label: 'Resumen diario' },
+            { key: 'sonido', label: 'Sonido' },
+          ].map(({ key, label }) => (
+            <TouchableOpacity key={key} style={styles.row} onPress={() => toggleReminder(key)}>
+              <View style={styles.rowLeft}>
+                <Ionicons name="notifications-outline" size={16} color={currentColors.textMuted} />
+                <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{label}</Text>
+              </View>
+              <View style={[
+                styles.toggle,
+                { backgroundColor: reminders[key] ? `${currentColors.accent}80` : currentColors.borderColor }
+              ]}>
+                <View style={[styles.toggleCircle, reminders[key] && { transform: [{ translateX: 20 }] }]} />
+              </View>
+            </TouchableOpacity>
           ))}
-        </Card>
+        </View>
 
-        {/* ── PRIVACIDAD ── */}
-        <Card c={c}>
-          <SectionHeader icon="shield-checkmark-outline" title="Privacidad y seguridad" c={c} />
-          <Text style={[styles.sectionDesc, { color: c.textMuted }]}>
-            Gestiona tus datos y acceso a la cuenta.
-          </Text>
+        {/* Privacidad */}
+        <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <View style={styles.cardHeader}>
+            <Ionicons name="shield-checkmark-outline" size={18} color={currentColors.accent} />
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Privacidad</Text>
+          </View>
+          <TouchableOpacity style={styles.row} onPress={() => togglePrivacy('perfilPublico')}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="eye-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Perfil público</Text>
+            </View>
+            <View style={[
+              styles.toggle,
+              { backgroundColor: privacy.perfilPublico ? `${currentColors.accent}80` : currentColors.borderColor }
+            ]}>
+              <View style={[styles.toggleCircle, privacy.perfilPublico && { transform: [{ translateX: 20 }] }]} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.row} onPress={() => togglePrivacy('compartirDatos')}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="share-social-outline" size={16} color={currentColors.textMuted} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Compartir datos</Text>
+            </View>
+            <View style={[
+              styles.toggle,
+              { backgroundColor: privacy.compartirDatos ? `${currentColors.accent}80` : currentColors.borderColor }
+            ]}>
+              <View style={[styles.toggleCircle, privacy.compartirDatos && { transform: [{ translateX: 20 }] }]} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.row} onPress={() => setShowPasswordModal(true)}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="lock-closed-outline" size={16} color={currentColors.accent} />
+              <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Cambiar contraseña</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.row} onPress={() => setShowDeleteModal(true)}>
+            <View style={[styles.rowLeft, { flex: 1 }]}>
+              <Ionicons name="trash-outline" size={16} color={currentColors.error} />
+              <Text style={[styles.rowLabel, { color: currentColors.error }]}>Eliminar cuenta</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
 
-          <SettingRow
-            icon="eye-outline"
-            label="Perfil público"
-            sub={privacy.perfilPublico ? 'Visible para otros' : 'Solo tú'}
-            c={c}
-            right={
-              <Switch
-                value={privacy.perfilPublico}
-                onValueChange={() => togglePrivacy('perfilPublico')}
-                trackColor={{ false: c.borderColor, true: c.accentDim }}
-                thumbColor={privacy.perfilPublico ? c.accent : c.textMuted}
-              />
-            }
-          />
-          <SettingRow
-            icon="analytics-outline"
-            label="Compartir datos de uso"
-            sub={privacy.compartirDatos ? 'Activado' : 'Desactivado'}
-            c={c}
-            right={
-              <Switch
-                value={privacy.compartirDatos}
-                onValueChange={() => togglePrivacy('compartirDatos')}
-                trackColor={{ false: c.borderColor, true: c.accentDim }}
-                thumbColor={privacy.compartirDatos ? c.accent : c.textMuted}
-              />
-            }
-          />
-          <SettingRow
-            icon="lock-closed-outline"
-            label="Cambiar contraseña"
-            sub="Actualiza tu contraseña"
-            c={c}
-            onPress={() => setPassModal(true)}
-            chevron
-          />
-          <SettingRow
-            icon="trash-outline"
-            label="Eliminar cuenta"
-            sub="Esta acción es permanente"
-            c={c}
-            onPress={() => setDeleteModal(true)}
-            right={<Ionicons name="chevron-forward" size={16} color={c.error} />}
-          />
-        </Card>
-
-        {/* ── AYUDA ── */}
-        <Card c={c}>
-          <SectionHeader icon="help-circle-outline" title="Ayuda y soporte" c={c} />
-
+        {/* Ayuda */}
+        <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <View style={styles.cardHeader}>
+            <Ionicons name="help-circle-outline" size={18} color={currentColors.accent} />
+            <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Ayuda</Text>
+          </View>
           {[
-            { key: 'faq',     icon: 'chatbubble-ellipses-outline', label: 'Preguntas frecuentes', sub: 'Respuestas rápidas' },
-            { key: 'contact', icon: 'mail-outline',                 label: 'Contacto',             sub: 'soporte@eduaircontrol.com' },
-            { key: 'terms',   icon: 'document-text-outline',        label: 'Términos de servicio', sub: 'Ver condiciones' },
-            { key: 'privacy', icon: 'lock-open-outline',            label: 'Política de privacidad', sub: 'Cómo usamos tus datos' },
-            { key: 'version', icon: 'information-circle-outline',   label: 'Versión de la app',    sub: 'v1.0.0' },
-          ].map(({ key, icon, label, sub }) => (
-            <SettingRow
-              key={key}
-              icon={icon}
-              label={label}
-              sub={sub}
-              c={c}
-              onPress={() => setHelpModal(key)}
-              chevron
-            />
+            { type: 'faq',     icon: 'help-circle-outline',     label: 'Preguntas frecuentes' },
+            { type: 'contact', icon: 'mail-outline',            label: 'Contacto' },
+            { type: 'terms',   icon: 'document-text-outline',   label: 'Términos y condiciones' },
+            { type: 'privacy', icon: 'lock-closed-outline',     label: 'Política de privacidad' },
+            { type: 'version', icon: 'information-circle-outline', label: 'Versión' },
+          ].map(({ type, icon, label }) => (
+            <TouchableOpacity key={type} style={styles.row} onPress={() => setShowHelpModal({ open: true, type })}>
+              <View style={styles.rowLeft}>
+                <Ionicons name={icon} size={16} color={currentColors.textMuted} />
+                <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>{label}</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />
+            </TouchableOpacity>
           ))}
-        </Card>
+        </View>
 
-        <View style={{ height: 32 }} />
+        <View style={{ height: 30 }} />
       </ScrollView>
 
-      {/* ── MODAL IDIOMA ── */}
-      <Modal visible={langModal} transparent animationType="slide" onRequestClose={() => setLangModal(false)}>
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setLangModal(false)}>
-          <View style={[styles.sheet, { backgroundColor: c.bgCard }]}>
-            <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>Idioma</Text>
-            {LANGUAGES.map((l) => (
-              <TouchableOpacity
-                key={l.code}
-                style={[styles.sheetOption, language === l.code && { backgroundColor: c.accentDim }]}
-                onPress={() => { setLanguage(l.code); setLangModal(false) }}
-              >
-                <Text style={[styles.sheetOptionText, { color: language === l.code ? c.accent : c.textPrimary }]}>
-                  {l.label}
-                </Text>
-                {language === l.code && <Ionicons name="checkmark" size={18} color={c.accent} />}
+      {/* Modal contraseña */}
+      <Modal visible={showPasswordModal} transparent animationType="slide" onRequestClose={() => setShowPasswordModal(false)}>
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
+            <View style={styles.modalHeader}>
+              <Ionicons name="lock-closed-outline" size={22} color={currentColors.accent} />
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Cambiar contraseña</Text>
+              <TouchableOpacity onPress={() => setShowPasswordModal(false)}>
+                <Ionicons name="close" size={22} color={currentColors.textMuted} />
               </TouchableOpacity>
-            ))}
-          </View>
-        </TouchableOpacity>
-      </Modal>
-
-      {/* ── MODAL FORMATO DE FECHA ── */}
-      <Modal visible={dateModal} transparent animationType="slide" onRequestClose={() => setDateModal(false)}>
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setDateModal(false)}>
-          <View style={[styles.sheet, { backgroundColor: c.bgCard }]}>
-            <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>Formato de fecha</Text>
-            {DATE_FORMATS.map((fmt) => (
-              <TouchableOpacity
-                key={fmt}
-                style={[styles.sheetOption, dateFormat === fmt && { backgroundColor: c.accentDim }]}
-                onPress={() => { setDateFormat(fmt); setDateModal(false) }}
-              >
-                <Text style={[styles.sheetOptionText, { color: dateFormat === fmt ? c.accent : c.textPrimary }]}>
-                  {fmt}
-                </Text>
-                {dateFormat === fmt && <Ionicons name="checkmark" size={18} color={c.accent} />}
+            </View>
+            <TextInput
+              style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+              placeholder="Contraseña actual"
+              placeholderTextColor={currentColors.textMuted}
+              value={passwordData.current}
+              onChangeText={(v) => setPasswordData(p => ({ ...p, current: v }))}
+              secureTextEntry
+            />
+            <View style={styles.inputRow}>
+              <TextInput
+                style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+                placeholder="Nueva contraseña"
+                placeholderTextColor={currentColors.textMuted}
+                value={passwordData.new}
+                onChangeText={(v) => setPasswordData(p => ({ ...p, new: v }))}
+                secureTextEntry={!showPassword.new}
+              />
+              <TouchableOpacity onPress={() => setShowPassword(p => ({ ...p, new: !p.new }))}>
+                <Ionicons name={showPassword.new ? 'eye-outline' : 'eye-off-outline'} size={20} color={currentColors.textMuted} />
               </TouchableOpacity>
-            ))}
-          </View>
-        </TouchableOpacity>
-      </Modal>
-
-      {/* ── MODAL ZONA HORARIA ── */}
-      <Modal visible={tzModal} transparent animationType="slide" onRequestClose={() => setTzModal(false)}>
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setTzModal(false)}>
-          <ScrollView style={[styles.sheet, { backgroundColor: c.bgCard, maxHeight: '70%' }]}>
-            <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>Zona horaria</Text>
-            {TIMEZONES.map((tz) => (
-              <TouchableOpacity
-                key={tz.value}
-                style={[styles.sheetOption, timezone === tz.value && { backgroundColor: c.accentDim }]}
-                onPress={() => { setTimezone(tz.value); setTzModal(false) }}
-              >
-                <Text style={[styles.sheetOptionText, { color: timezone === tz.value ? c.accent : c.textPrimary }]}>
-                  {tz.label}
-                </Text>
-                {timezone === tz.value && <Ionicons name="checkmark" size={18} color={c.accent} />}
+            </View>
+            <View style={styles.inputRow}>
+              <TextInput
+                style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+                placeholder="Confirmar contraseña"
+                placeholderTextColor={currentColors.textMuted}
+                value={passwordData.confirm}
+                onChangeText={(v) => setPasswordData(p => ({ ...p, confirm: v }))}
+                secureTextEntry={!showPassword.confirm}
+              />
+              <TouchableOpacity onPress={() => setShowPassword(p => ({ ...p, confirm: !p.confirm }))}>
+                <Ionicons name={showPassword.confirm ? 'eye-outline' : 'eye-off-outline'} size={20} color={currentColors.textMuted} />
               </TouchableOpacity>
-            ))}
-            <View style={{ height: 20 }} />
-          </ScrollView>
-        </TouchableOpacity>
-      </Modal>
-
-      {/* ── MODAL CONTRASEÑA ── */}
-      <Modal visible={passModal} transparent animationType="fade" onRequestClose={() => setPassModal(false)}>
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setPassModal(false)}>
-          <View style={[styles.dialog, { backgroundColor: c.bgCard }]} onStartShouldSetResponder={() => true}>
-            <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>🔐 Cambiar contraseña</Text>
-
-            {[
-              { field: 'current', placeholder: 'Contraseña actual' },
-              { field: 'new',     placeholder: 'Nueva contraseña' },
-              { field: 'confirm', placeholder: 'Confirmar nueva contraseña' },
-            ].map(({ field, placeholder }) => (
-              <View key={field} style={[styles.passRow, { backgroundColor: c.bgInput, borderColor: c.borderColor }]}>
-                <TextInput
-                  style={[styles.passInput, { color: c.textPrimary }]}
-                  placeholder={placeholder}
-                  placeholderTextColor={c.textMuted}
-                  secureTextEntry={!showPass[field]}
-                  value={passData[field]}
-                  onChangeText={(v) => setPassData((p) => ({ ...p, [field]: v }))}
-                />
-                <TouchableOpacity onPress={() => setShowPass((p) => ({ ...p, [field]: !p[field] }))}>
-                  <Ionicons name={showPass[field] ? 'eye-off-outline' : 'eye-outline'} size={18} color={c.textMuted} />
-                </TouchableOpacity>
-              </View>
-            ))}
-
-            <View style={styles.dialogActions}>
-              <TouchableOpacity
-                style={[styles.dialogBtn, { backgroundColor: c.bgInput, borderColor: c.borderColor }]}
-                onPress={() => setPassModal(false)}
-              >
-                <Text style={{ color: c.textSecondary, fontWeight: '600' }}>Cancelar</Text>
+            </View>
+            <View style={styles.modalActions}>
+              <TouchableOpacity style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]} onPress={() => setShowPasswordModal(false)}>
+                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>Cancelar</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.dialogBtn, { backgroundColor: c.accent }]}
-                onPress={handleSavePassword}
-              >
-                <Text style={{ color: c.bgBody, fontWeight: '700' }}>Guardar</Text>
+              <TouchableOpacity style={[styles.saveBtn, { backgroundColor: currentColors.accent }]} onPress={handleSavePassword}>
+                <Text style={[styles.saveBtnText, { color: currentColors.bgBody }]}>Guardar</Text>
               </TouchableOpacity>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
+      </Modal>
+      {/* Modal eliminar cuenta */}
+      <Modal visible={showDeleteModal} transparent animationType="slide" onRequestClose={() => setShowDeleteModal(false)}>
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalCard, { maxWidth: 320, backgroundColor: currentColors.bgCard }]}>
+            <View style={styles.modalHeader}>
+              <Ionicons name="warning-outline" size={22} color={currentColors.error} />
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Eliminar cuenta</Text>
+              <TouchableOpacity onPress={() => setShowDeleteModal(false)}>
+                <Ionicons name="close" size={22} color={currentColors.textMuted} />
+              </TouchableOpacity>
+            </View>
+            <Text style={[styles.modalText, { color: currentColors.textSecondary }]}>¿Estás seguro de eliminar tu cuenta? Esta acción no se puede deshacer.</Text>
+            <View style={styles.modalActions}>
+              <TouchableOpacity style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]} onPress={() => setShowDeleteModal(false)}>
+                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.deleteBtn, { backgroundColor: currentColors.error }]} onPress={() => setShowDeleteModal(false)}>
+                <Text style={styles.deleteBtnText}>Eliminar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </Modal>
 
-      {/* ── MODAL AYUDA ── */}
-      <Modal visible={!!helpModal} transparent animationType="slide" onRequestClose={() => setHelpModal(null)}>
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setHelpModal(null)}>
-          <View style={[styles.sheet, { backgroundColor: c.bgCard }]} onStartShouldSetResponder={() => true}>
-            <TouchableOpacity style={styles.closeBtn} onPress={() => setHelpModal(null)}>
-              <Ionicons name="close" size={22} color={c.textMuted} />
-            </TouchableOpacity>
-
-            {helpModal === 'faq' && (
-              <>
-                <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>❓ Preguntas frecuentes</Text>
-                {[
-                  { q: '¿Cómo monitoreo un ambiente?', a: 'Ve al Dashboard y selecciona el ambiente que deseas revisar.' },
-                  { q: '¿Puedo marcar favoritos?', a: 'Sí, toca el ícono de corazón en cualquier tarjeta de ambiente.' },
-                  { q: '¿Qué significa "Alerta"?', a: 'Indica que uno o más sensores superaron el umbral crítico.' },
-                  { q: '¿Cómo cambio el idioma?', a: 'En Configuraciones > Idioma y fechas > Idioma.' },
-                ].map(({ q, a }) => (
-                  <View key={q} style={[styles.faqItem, { borderBottomColor: c.borderColorLight }]}>
-                    <Text style={[styles.faqQ, { color: c.textPrimary }]}>{q}</Text>
-                    <Text style={[styles.faqA, { color: c.textMuted }]}>{a}</Text>
-                  </View>
-                ))}
-              </>
-            )}
-
-            {helpModal === 'contact' && (
-              <>
-                <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>📬 Contacto</Text>
-                {[
-                  { icon: '✉️', title: 'Correo', desc: 'soporte@eduaircontrol.com' },
-                  { icon: '🕐', title: 'Horario', desc: 'Lunes a viernes, 8am – 6pm' },
-                  { icon: '⏱️', title: 'Tiempo de respuesta', desc: 'Menos de 24 horas hábiles' },
-                ].map(({ icon, title, desc }) => (
-                  <View key={title} style={styles.contactItem}>
-                    <Text style={styles.contactIcon}>{icon}</Text>
-                    <View>
-                      <Text style={[styles.faqQ, { color: c.textPrimary }]}>{title}</Text>
-                      <Text style={[styles.faqA, { color: c.textMuted }]}>{desc}</Text>
-                    </View>
-                  </View>
-                ))}
-              </>
-            )}
-
-            {helpModal === 'terms' && (
-              <>
-                <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>📋 Términos de servicio</Text>
-                <Text style={[styles.helpBody, { color: c.textSecondary }]}>
-                  Al usar EduAirControl aceptas los siguientes términos:
-                </Text>
-                {[
-                  'El uso de la plataforma es exclusivo para instituciones educativas.',
-                  'Los datos de monitoreo son propiedad de la institución.',
-                  'Está prohibido compartir credenciales de acceso.',
-                  'EduAirControl no se hace responsable de decisiones tomadas con base en los datos.',
-                ].map((t, i) => (
-                  <Text key={i} style={[styles.helpBullet, { color: c.textMuted }]}>• {t}</Text>
-                ))}
-              </>
-            )}
-
-            {helpModal === 'privacy' && (
-              <>
-                <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>🔒 Política de privacidad</Text>
-                <Text style={[styles.helpBody, { color: c.textSecondary }]}>
-                  Tu privacidad es nuestra prioridad:
-                </Text>
-                {[
-                  'No vendemos tus datos a terceros.',
-                  'Los datos de sensores se almacenan cifrados.',
-                  'Puedes solicitar la eliminación de tus datos en cualquier momento.',
-                  'Solo accedemos a tu ubicación si tú lo autorizas.',
-                ].map((t, i) => (
-                  <Text key={i} style={[styles.helpBullet, { color: c.textMuted }]}>• {t}</Text>
-                ))}
-              </>
-            )}
-
-            {helpModal === 'version' && (
-              <>
-                <Text style={[styles.sheetTitle, { color: c.textPrimary }]}>📱 Versión de la app</Text>
-                <View style={styles.versionBadge}>
-                  <Text style={[styles.versionText, { color: c.accent }]}>v1.0.0</Text>
-                </View>
-                <Text style={[styles.helpBody, { color: c.textSecondary, textAlign: 'center' }]}>
-                  EduAirControl — Monitoreo de ambientes educativos
-                </Text>
-                <Text style={[styles.faqA, { color: c.textMuted, textAlign: 'center' }]}>
-                  Última actualización: Mayo 2026
-                </Text>
-              </>
-            )}
-
-            <View style={{ height: 20 }} />
+      {/* Modal idioma */}
+      <Modal visible={showLangModal} transparent animationType="slide" onRequestClose={() => setShowLangModal(false)}>
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalCard, { maxWidth: 280, backgroundColor: currentColors.bgCard }]}>
+            <View style={styles.modalHeader}>
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Idioma</Text>
+              <TouchableOpacity onPress={() => setShowLangModal(false)}>
+                <Ionicons name="close" size={22} color={currentColors.textMuted} />
+              </TouchableOpacity>
+            </View>
+            {[
+              { code: 'es', name: 'Español' },
+              { code: 'en', name: 'English' },
+              { code: 'fr', name: 'Français' },
+              { code: 'pt', name: 'Português' },
+            ].map((lang) => (
+              <TouchableOpacity
+                key={lang.code}
+                style={[styles.langOption, { borderBottomColor: currentColors.borderColor }]}
+                onPress={() => handleChangeLanguage(lang.code)}
+              >
+                <Text style={[styles.langOptionText, { color: currentColors.accent }]}>{lang.name}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
-        </TouchableOpacity>
+        </View>
+      </Modal>
+
+      {/* Modal ayuda */}
+      <Modal visible={showHelpModal.open} transparent animationType="slide" onRequestClose={() => setShowHelpModal({ open: false, type: null })}>
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalCard, { maxWidth: 360, maxHeight: '80%', backgroundColor: currentColors.bgCard }]}>
+            <View style={styles.modalHeader}>
+              <Ionicons name="help-circle-outline" size={22} color={currentColors.accent} />
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Ayuda</Text>
+              <TouchableOpacity onPress={() => setShowHelpModal({ open: false, type: null })}>
+                <Ionicons name="close" size={22} color={currentColors.textMuted} />
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.helpScroll} contentContainerStyle={{ padding: 16 }}>
+              {renderHelpContent(currentColors)}
+            </ScrollView>
+          </View>
+        </View>
       </Modal>
     </SafeAreaView>
   )
 }
 
-// ─── Estilos ──────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  safe:   { flex: 1 },
-  scroll: { padding: 16 },
+  safe: { flex: 1, backgroundColor: '#f0fafa' },
 
   header: {
     flexDirection: 'row', alignItems: 'center', gap: 10,
-    paddingHorizontal: 20, paddingTop: 55, paddingBottom: 14,
-    borderBottomWidth: 1,
+    paddingHorizontal: 20, paddingTop: 55, paddingBottom: 20,
   },
-  headerTitle: { fontSize: 20, fontWeight: 'bold' },
+  headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#0f172a' },
+
+  scroll: { flex: 1 },
+  scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
 
   card: {
-    borderRadius: 16, borderWidth: 1,
-    marginBottom: 16, overflow: 'hidden',
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    marginBottom: 16,
+    overflow: 'hidden',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
-
-  sectionHeader: {
+  cardHeader: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
-    padding: 16, borderBottomWidth: 1,
+    marginBottom: 12,
   },
-  sectionTitle: { fontSize: 15, fontWeight: '700' },
-  sectionDesc:  { fontSize: 12, paddingHorizontal: 16, paddingTop: 10, paddingBottom: 4 },
+  cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#0f172a' },
 
   row: {
-    flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 16, paddingVertical: 14,
-    borderBottomWidth: 1, gap: 12,
+    flexDirection: 'row', alignItems: 'center', paddingVertical: 12,
   },
-  rowIcon:  { width: 32, height: 32, borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
-  rowInfo:  { flex: 1 },
-  rowLabel: { fontSize: 14, fontWeight: '600' },
-  rowSub:   { fontSize: 12, marginTop: 2 },
+  rowLeft: { flexDirection: 'row', alignItems: 'center', gap: 10, flex: 1, marginRight: 8 },
+  rowLabel: { fontSize: 14, color: '#0f172a', flexShrink: 1, flex: 1 },
+  rowValue: { fontSize: 13, color: '#999999', flexShrink: 0, maxWidth: 110, textAlign: 'right' },
 
-  // Modales
-  overlay: {
-    flex: 1, backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'flex-end',
+  toggle: {
+    width: 46, height: 26, borderRadius: 13,
+    backgroundColor: '#cccccc',
+    padding: 3, justifyContent: 'center', alignItems: 'flex-start',
   },
-  sheet: {
-    borderTopLeftRadius: 24, borderTopRightRadius: 24,
-    paddingTop: 8, paddingHorizontal: 20,
-  },
-  sheetTitle: { fontSize: 17, fontWeight: '700', textAlign: 'center', paddingVertical: 16 },
-  sheetOption: {
-    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-    paddingVertical: 14, paddingHorizontal: 12, borderRadius: 10, marginBottom: 4,
-  },
-  sheetOptionText: { fontSize: 15 },
+  toggleCircle: { width: 20, height: 20, borderRadius: 10, backgroundColor: 'white' },
 
-  dialog: {
-    margin: 24, borderRadius: 20,
-    padding: 20, gap: 12,
+  themePicker: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
+  themeChip: {
+    paddingHorizontal: 12, paddingVertical: 6,
+    borderRadius: 20, borderWidth: 1, borderColor: '#cccccc',
+    backgroundColor: '#f0fafa',
   },
-  passRow: {
-    flexDirection: 'row', alignItems: 'center',
-    borderRadius: 10, borderWidth: 1,
-    paddingHorizontal: 14, paddingVertical: 4,
+  themeChipActive: { borderColor: '#00b894', backgroundColor: 'rgba(0,184,148,0.2)' },
+  themeChipLabel: { fontSize: 12, color: '#666666' },
+  themeChipLabelActive: { color: '#00b894', fontWeight: '600' },
+
+  timezoneRow: { marginTop: 8, gap: 8 },
+  timezoneLabel: { fontSize: 13, color: '#666666', marginBottom: 4 },
+  timezoneChip: {
+    paddingHorizontal: 10, paddingVertical: 5,
+    borderRadius: 12, borderWidth: 1, borderColor: '#cccccc',
+    backgroundColor: '#f0fafa', marginRight: 6, marginBottom: 6,
   },
-  passInput: { flex: 1, fontSize: 14, paddingVertical: 10 },
-  dialogActions: { flexDirection: 'row', gap: 10, marginTop: 4 },
-  dialogBtn: {
-    flex: 1, paddingVertical: 12, borderRadius: 10,
-    alignItems: 'center', borderWidth: 1,
+  timezoneChipActive: { borderColor: '#00b894', backgroundColor: 'rgba(0,184,148,0.2)' },
+  timezoneChipLabel: { fontSize: 11, color: '#666666' },
+  timezoneChipLabelActive: { color: '#00b894', fontWeight: '600' },
+
+  modalOverlay: {
+    flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end',
+  },
+  modalCard: {
+    backgroundColor: '#ffffff', borderTopLeftRadius: 24, borderTopRightRadius: 24,
+    padding: 24, maxHeight: '85%',
+  },
+  modalHeader: {
+    flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 20,
+  },
+  modalTitle: { flex: 1, fontSize: 17, fontWeight: 'bold', color: '#0f172a' },
+
+  input: {
+    backgroundColor: '#ffffff', borderRadius: 10, borderWidth: 1,
+    borderColor: '#cccccc', paddingHorizontal: 14, paddingVertical: 11,
+    color: '#0f172a', fontSize: 15, marginBottom: 12,
+  },
+  inputRow: {
+    flexDirection: 'row', alignItems: 'center', gap: 8,
+    backgroundColor: '#ffffff', borderRadius: 10, borderWidth: 1,
+    borderColor: '#cccccc', paddingHorizontal: 14, paddingVertical: 10,
+    marginBottom: 12,
   },
 
-  closeBtn: { alignSelf: 'flex-end', padding: 4, marginTop: 8 },
+  modalActions: { flexDirection: 'row', gap: 12, marginTop: 8 },
+  cancelBtn: {
+    flex: 1, borderRadius: 12, borderWidth: 1, borderColor: '#cccccc',
+    paddingVertical: 13, alignItems: 'center',
+  },
+  cancelBtnText: { color: '#666666', fontWeight: '600', fontSize: 15 },
+  saveBtn: {
+    flex: 1, borderRadius: 12, backgroundColor: '#00b894',
+    paddingVertical: 13, alignItems: 'center',
+  },
+  saveBtnText: { color: '#f0fafa', fontWeight: 'bold', fontSize: 15 },
+  deleteBtn: {
+    flex: 1, borderRadius: 12, backgroundColor: '#ef4444',
+    paddingVertical: 13, alignItems: 'center',
+  },
+  deleteBtnText: { color: 'white', fontWeight: 'bold', fontSize: 15 },
 
-  faqItem:    { paddingVertical: 12, borderBottomWidth: 1 },
-  faqQ:       { fontSize: 14, fontWeight: '600', marginBottom: 4 },
-  faqA:       { fontSize: 13 },
-  contactItem:{ flexDirection: 'row', gap: 14, alignItems: 'flex-start', paddingVertical: 12 },
-  contactIcon:{ fontSize: 24 },
+  langOption: {
+    paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#cccccc',
+  },
+  langOptionText: { fontSize: 15, color: '#00b894', textAlign: 'center' },
 
-  helpBody:   { fontSize: 13, marginBottom: 8, marginTop: 4 },
-  helpBullet: { fontSize: 13, marginBottom: 6, lineHeight: 20 },
+  helpScroll: { maxHeight: 400 },
+  modalText: { fontSize: 15, textAlign: 'center', marginBottom: 20 },
 
-  versionBadge: { alignSelf: 'center', marginVertical: 16 },
-  versionText:  { fontSize: 32, fontWeight: 'bold' },
+  // Help content styles
+  helpSectionTitle: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 },
+  helpIcon: { fontSize: 20 },
+  helpTitle: { fontSize: 17, fontWeight: 'bold' },
+  helpItem: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 16 },
+  helpIconSmall: { fontSize: 16, marginTop: 2 },
+  helpLabel: { fontSize: 13, fontWeight: '600', marginBottom: 2 },
+  helpValue: { fontSize: 13 },
+  helpQuestion: { fontSize: 14, fontWeight: '600', marginBottom: 4 },
+  helpAnswer: { fontSize: 13 },
+  helpText: { fontSize: 14, marginBottom: 12, lineHeight: 20 },
+  helpList: { gap: 6 },
+  helpListItem: { fontSize: 13, lineHeight: 20 },
+
+  // Version
+  versionBadgeBase: {
+    alignSelf: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginBottom: 12,
+    borderWidth: 1,
+  },
+  versionNumber: { fontSize: 14, fontWeight: 'bold' },
+  versionDate: { fontSize: 12, textAlign: 'center', marginTop: 4 },
 })

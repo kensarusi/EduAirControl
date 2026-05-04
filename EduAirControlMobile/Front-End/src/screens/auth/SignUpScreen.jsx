@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import {
   View, Text, TextInput, TouchableOpacity,
-  StyleSheet, ScrollView, KeyboardAvoidingView, Platform
+  StyleSheet, ScrollView, KeyboardAvoidingView, Platform, StatusBar,
 } from 'react-native'
-import { Ionicons, FontAwesome } from '@expo/vector-icons'
-import { colors } from '../../styles/colors'
+import { Ionicons } from '@expo/vector-icons'
+import { useTheme } from '../../context/ThemeContext'
 
 export default function SignUpScreen({ navigation }) {
+  const { currentColors, darkMode } = useTheme()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,69 +18,119 @@ export default function SignUpScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: currentColors.bgBody }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} backgroundColor={currentColors.bgBody} />
       <ScrollView contentContainerStyle={styles.scroll}>
-        <View style={styles.card}>
+        <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.accent }]}>
           <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={20} color={colors.accent} />
+            <Ionicons name="arrow-back" size={20} color={currentColors.accent} />
           </TouchableOpacity>
           <View style={styles.header}>
-            <Text style={styles.title}>Registrarse</Text>
-            <Ionicons name="person-circle-outline" size={50} color={colors.accent} />
+            <Text style={[styles.title, { color: currentColors.textPrimary }]}>Registrarse</Text>
+            <Ionicons name="person-circle-outline" size={50} color={currentColors.accent} />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Nombre</Text>
-            <TextInput style={styles.input} placeholder="Tu nombre" placeholderTextColor={colors.textMuted} value={name} onChangeText={setName} />
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Nombre</Text>
+            <TextInput
+              style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+              placeholder="Tu nombre"
+              placeholderTextColor={currentColors.textMuted}
+              value={name}
+              onChangeText={setName}
+            />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Correo electrónico</Text>
-            <TextInput style={styles.input} placeholder="correo@ejemplo.com" placeholderTextColor={colors.textMuted} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Correo electrónico</Text>
+            <TextInput
+              style={[styles.input, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+              placeholder="correo@ejemplo.com"
+              placeholderTextColor={currentColors.textMuted}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Contraseña</Text>
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Contraseña</Text>
             <View style={styles.passwordRow}>
-              <TextInput style={[styles.input, { flex: 1 }]} placeholder="••••••••" placeholderTextColor={colors.textMuted} value={password} onChangeText={setPassword} secureTextEntry={!showPassword} />
+              <TextInput
+                style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+                placeholder="••••••••"
+                placeholderTextColor={currentColors.textMuted}
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+              />
               <TouchableOpacity style={styles.eyeBtn} onPress={() => setShowPassword(!showPassword)}>
-                <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={20} color={colors.textMuted} />
+                <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={20} color={currentColors.textMuted} />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Confirmar contraseña</Text>
+            <Text style={[styles.label, { color: currentColors.textSecondary }]}>Confirmar contraseña</Text>
             <View style={styles.passwordRow}>
-              <TextInput style={[styles.input, { flex: 1 }]} placeholder="••••••••" placeholderTextColor={colors.textMuted} value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry={!showConfirm} />
+              <TextInput
+                style={[styles.input, { flex: 1, backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+                placeholder="••••••••"
+                placeholderTextColor={currentColors.textMuted}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry={!showConfirm}
+              />
               <TouchableOpacity style={styles.eyeBtn} onPress={() => setShowConfirm(!showConfirm)}>
-                <Ionicons name={showConfirm ? 'eye-off' : 'eye'} size={20} color={colors.textMuted} />
+                <Ionicons name={showConfirm ? 'eye-off' : 'eye'} size={20} color={currentColors.textMuted} />
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity style={styles.termsRow} onPress={() => setAcceptTerms(!acceptTerms)}>
-            <View style={[styles.checkbox, acceptTerms && styles.checkboxActive]}>
-              {acceptTerms && <Ionicons name="checkmark" size={12} color="white" />}
-            </View>
-            <Text style={styles.termsText}>
-              Acepto los <Text style={styles.termsLink}>Términos de uso y Política de privacidad</Text>
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.btnRegister, !acceptTerms && styles.btnDisabled]} onPress={() => acceptTerms && navigation.navigate('Dashboard')}>
-            <Text style={styles.btnRegisterText}>Registrarse</Text>
-          </TouchableOpacity>
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OR</Text>
-            <View style={styles.dividerLine} />
-          </View>
-          <Text style={styles.socialText}>Inicia sesión con</Text>
-          <View style={styles.socialRow}>
-            <TouchableOpacity style={styles.btnFacebook}>
-              <FontAwesome name="facebook" size={18} color="white" />
-              <Text style={styles.socialBtnText}>Facebook</Text>
+
+          <View style={styles.termsRow}>
+            <TouchableOpacity onPress={() => setAcceptTerms(!acceptTerms)}>
+              <View style={[styles.checkbox, { borderColor: currentColors.borderColor, backgroundColor: acceptTerms ? currentColors.accent : 'transparent' }]}>
+                {acceptTerms && <Ionicons name="checkmark" size={12} color="#fff" />}
+              </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnGoogle}>
-              <FontAwesome name="google" size={18} color="white" />
-              <Text style={styles.socialBtnText}>Google</Text>
+            <Text style={[styles.termsText, { color: currentColors.textSecondary }]}>
+              Acepto los{' '}
+              <Text
+                style={[styles.termsLink, { color: currentColors.accent }]}
+                onPress={() => navigation.navigate('Terms')}
+              >
+                Términos de uso y Política de privacidad
+              </Text>
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={[styles.btnRegister, { backgroundColor: acceptTerms ? currentColors.accent : currentColors.borderColor }]}
+            onPress={() => acceptTerms && navigation.navigate('App')}
+          >
+            <Text style={[styles.btnRegisterText, { color: currentColors.bgBody }]}>Registrarse</Text>
+          </TouchableOpacity>
+
+          <View style={styles.divider}>
+            <View style={[styles.dividerLine, { backgroundColor: currentColors.borderColor }]} />
+            <Text style={[styles.dividerText, { color: currentColors.textMuted }]}>o continúa con</Text>
+            <View style={[styles.dividerLine, { backgroundColor: currentColors.borderColor }]} />
+          </View>
+
+          <View style={styles.socialRow}>
+            <TouchableOpacity style={[styles.socialBtn, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
+              <Ionicons name="logo-google" size={20} color="#DB4437" />
+              <Text style={[styles.socialBtnText, { color: currentColors.textPrimary }]}>Google</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.socialBtn, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
+              <Ionicons name="logo-facebook" size={20} color="#1877F2" />
+              <Text style={[styles.socialBtnText, { color: currentColors.textPrimary }]}>Facebook</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.loginRow}>
+            <Text style={[styles.loginText, { color: currentColors.textSecondary }]}>¿Ya tienes cuenta? </Text>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Text style={{ color: currentColors.accent, fontWeight: '600' }}>Iniciar sesión</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -89,31 +140,42 @@ export default function SignUpScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.bgBody },
+  container: { flex: 1 },
   scroll: { flexGrow: 1, justifyContent: 'center', padding: 20 },
-  card: { backgroundColor: colors.bgCard, borderRadius: 15, padding: 30, borderWidth: 2, borderColor: colors.accent },
-  backBtn: { width: 40, height: 40, borderRadius: 20, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center', marginBottom: 15 },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 25 },
-  title: { fontSize: 26, fontWeight: 'bold', color: colors.textPrimary },
-  inputGroup: { marginBottom: 18 },
-  label: { color: colors.textPrimary, fontWeight: 'bold', marginBottom: 6, fontSize: 14 },
-  input: { backgroundColor: colors.bgInput, borderWidth: 1, borderColor: colors.borderColor, borderRadius: 8, padding: 12, color: colors.textPrimary, fontSize: 14 },
+  card: {
+    borderRadius: 20, padding: 24, borderWidth: 2,
+    shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1, shadowRadius: 12, elevation: 5,
+  },
+  backBtn: { alignSelf: 'flex-start', marginBottom: 10, padding: 4 },
+  header: { alignItems: 'center', marginBottom: 24, gap: 12 },
+  title: { fontSize: 26, fontWeight: 'bold' },
+  inputGroup: { marginBottom: 16 },
+  label: { fontSize: 13, fontWeight: '600', marginBottom: 6 },
+  input: {
+    borderRadius: 10, borderWidth: 1,
+    paddingHorizontal: 14, paddingVertical: 12, fontSize: 15,
+  },
   passwordRow: { flexDirection: 'row', alignItems: 'center' },
-  eyeBtn: { position: 'absolute', right: 12, top: 12 },
+  eyeBtn: { position: 'absolute', right: 12, padding: 4 },
   termsRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 20 },
-  checkbox: { width: 18, height: 18, borderRadius: 4, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  checkboxActive: { backgroundColor: colors.accent },
-  termsText: { color: colors.textSecondary, fontSize: 13, flex: 1 },
-  termsLink: { color: colors.accent, textDecorationLine: 'underline' },
-  btnRegister: { backgroundColor: colors.accent, borderRadius: 8, padding: 14, alignItems: 'center', marginBottom: 20 },
-  btnDisabled: { opacity: 0.5 },
-  btnRegisterText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
-  divider: { flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: colors.borderColor },
-  dividerText: { color: colors.textMuted, paddingHorizontal: 10 },
-  socialText: { color: colors.textSecondary, textAlign: 'center', marginBottom: 10 },
-  socialRow: { flexDirection: 'row', justifyContent: 'center', gap: 12 },
-  btnFacebook: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.facebook, borderRadius: 8, padding: 10, paddingHorizontal: 20 },
-  btnGoogle: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.accent, borderRadius: 8, padding: 10, paddingHorizontal: 20 },
-  socialBtnText: { color: 'white', fontWeight: 'bold' },
+  checkbox: {
+    width: 20, height: 20, borderRadius: 4, borderWidth: 2,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  termsText: { fontSize: 13, flex: 1 },
+  termsLink: { fontWeight: '600' },
+  btnRegister: { borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginBottom: 20 },
+  btnRegisterText: { fontSize: 16, fontWeight: 'bold' },
+  divider: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 16 },
+  dividerLine: { flex: 1, height: 1 },
+  dividerText: { fontSize: 12 },
+  socialRow: { flexDirection: 'row', gap: 12, marginBottom: 20 },
+  socialBtn: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    gap: 8, borderRadius: 10, borderWidth: 1, paddingVertical: 12,
+  },
+  socialBtnText: { fontSize: 14, fontWeight: '600' },
+  loginRow: { flexDirection: 'row', justifyContent: 'center', gap: 4 },
+  loginText: { fontSize: 14 },
 })
