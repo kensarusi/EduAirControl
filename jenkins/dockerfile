@@ -7,5 +7,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     usermod -aG docker jenkins
-
+    
+    
 USER jenkins
