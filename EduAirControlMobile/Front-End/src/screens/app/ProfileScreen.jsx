@@ -55,11 +55,8 @@ export default function ProfileScreen({ navigation }) {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={20} color={colors.accent} />
-        </TouchableOpacity>
         <Text style={styles.headerTitle}>Mi Perfil</Text>
-        <View style={{ width: 38 }} />
+        <View style={{ width: 2 }} />
       </View>
 
       <ScrollView
@@ -75,7 +72,7 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.profileName}>{profile.fullName}</Text>
           <Text style={styles.profileTitle}>{profile.title}</Text>
           <View style={styles.emailBadge}>
-            <Ionicons name="mail-outline" size={12} color={colors.accent} />
+            <Ionicons name="mail-outline" size={24} color={colors.accent} />
             <Text style={styles.emailText}>{profile.email}</Text>
           </View>
         </View>
@@ -172,21 +169,17 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bgBody },
 
   header: {
-    flexDirection: 'row', alignItems: 'center',
+    flexDirection: 'column', alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20, paddingVertical: 12,
+    paddingHorizontal: 20, paddingVertical: 55,
   },
-  backBtn: {
-    width: 38, height: 38, borderRadius: 19,
-    borderWidth: 1, borderColor: colors.accent,
-    alignItems: 'center', justifyContent: 'center',
-  },
-  headerTitle: { fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
+
+  headerTitle: { marginBottom: -20,  fontSize: 24, fontWeight: 'bold', color: colors.textPrimary },
 
   scroll: { flex: 1 },
   scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
 
-  avatarSection: { alignItems: 'center', paddingVertical: 24 },
+  avatarSection: { alignItems: 'center', paddingVertical: 1 },
   avatar: {
     width: 90, height: 90, borderRadius: 45,
     backgroundColor: colors.accentDim,
@@ -195,14 +188,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   avatarText: { fontSize: 32, fontWeight: 'bold', color: colors.accent },
-  profileName: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 4 },
-  profileTitle: { fontSize: 14, color: colors.textMuted, marginBottom: 10 },
+  profileName: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 17 },
+  profileTitle: { fontSize: 20, fontWeight: 'bold', color: colors.textMuted, marginBottom: 16 },
   emailBadge: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    backgroundColor: colors.bgCard, borderRadius: 20, borderWidth: 1,
+    flexDirection: 'row', alignItems: 'center', gap: 16,
+    backgroundColor: colors.bgCard, borderRadius: 22, borderWidth: 1,
     borderColor: colors.borderColor, paddingHorizontal: 14, paddingVertical: 6,
   },
-  emailText: { fontSize: 13, color: colors.textSecondary },
+  emailText: { fontSize: 15, color: colors.textSecondary, marginBottom: 1, marginRight: -25 },
 
   sectionTitle: {
     fontSize: 13, fontWeight: '700', color: colors.textMuted,

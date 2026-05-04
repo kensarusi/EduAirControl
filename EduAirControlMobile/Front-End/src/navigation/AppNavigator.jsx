@@ -8,6 +8,7 @@ import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
 import FavoritesScreen from '../screens/app/FavoritesScreen'
 import ProfileScreen from '../screens/app/ProfileScreen'
 import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
+import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -31,6 +32,14 @@ function FavoritesStack() {
   )
 }
 
+function ManagementStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ManagementHome" component={EnvironmentManagementScreen} />
+    </Stack.Navigator>
+  )
+}
+
 export default function AppNavigator() {
   return (
     <Tab.Navigator
@@ -40,7 +49,7 @@ export default function AppNavigator() {
           backgroundColor: colors.bgCard,
           borderTopColor: colors.borderColor,
           borderTopWidth: 1,
-          height: 65,
+          height: 90,
           paddingBottom: 10,
           paddingTop: 6,
         },
@@ -53,6 +62,8 @@ export default function AppNavigator() {
             iconName = focused ? 'grid' : 'grid-outline'
           } else if (route.name === 'Favorites') {
             iconName = focused ? 'heart' : 'heart-outline'
+          } else if (route.name === 'Management') {
+            iconName = focused ? 'settings' : 'settings-outline'
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline'
           }
@@ -69,6 +80,11 @@ export default function AppNavigator() {
         name="Favorites"
         component={FavoritesStack}
         options={{ tabBarLabel: 'Favoritos' }}
+      />
+      <Tab.Screen
+        name="Management"
+        component={ManagementStack}
+        options={{ tabBarLabel: 'Gestión' }}
       />
       <Tab.Screen
         name="Profile"

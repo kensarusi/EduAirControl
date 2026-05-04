@@ -20,17 +20,11 @@ export default function FavoritesScreen({ navigation }) {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={20} color={colors.accent} />
-        </TouchableOpacity>
         <View style={styles.headerTitle}>
-          <Ionicons name="heart" size={18} color="#ff6b6b" />
+          <Ionicons name="heart" size={35} color="#ff6b6b" />
           <Text style={styles.headerText}>Favoritos</Text>
         </View>
-        <View style={{ width: 38 }} />
+        <View style={{ width: 20 }} />
       </View>
 
       <ScrollView
@@ -86,7 +80,7 @@ export default function FavoritesScreen({ navigation }) {
                     onPress={() => toggleFavorite(fav.id, false)}
                     hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                   >
-                    <Ionicons name="heart" size={24} color="#ff6b6b" />
+                    <Ionicons name="heart" size={30} color="#ff6b6b" />
                   </TouchableOpacity>
                 </View>
 
@@ -133,17 +127,13 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bgBody },
 
   header: {
-    flexDirection: 'row', alignItems: 'center',
+    flexDirection: 'column', alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20, paddingVertical: 12,
+    paddingHorizontal: 20, paddingVertical: 55, marginBottom: -30,
   },
-  backBtn: {
-    width: 38, height: 38, borderRadius: 19,
-    borderWidth: 1, borderColor: colors.accent,
-    alignItems: 'center', justifyContent: 'center',
-  },
-  headerTitle: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  headerText: { fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
+
+  headerTitle: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  headerText: { fontSize: 24, fontWeight: 'bold', color: colors.textPrimary },
 
   scroll: { flex: 1 },
   scrollContent: { paddingHorizontal: 20, paddingBottom: 20 },
@@ -161,10 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 14, color: colors.textMuted,
     textAlign: 'center', lineHeight: 22, marginBottom: 28,
   },
-  goBackBtn: {
-    backgroundColor: colors.accent, borderRadius: 10,
-    paddingVertical: 12, paddingHorizontal: 30,
-  },
+  
   goBackText: { color: colors.bgBody, fontWeight: 'bold', fontSize: 15 },
 
   favCard: {

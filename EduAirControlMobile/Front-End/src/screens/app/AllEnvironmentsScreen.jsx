@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { colors } from '../../styles/colors'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 import { STATUS, STATUS_COLORS, STATUS_LABELS } from '../../constants/environments'
-import EnvironmentCard from '../../components/EnvironmentCard'
+import EnvironmentCard from '../../components/environment/EnvironmentCard'
 
 export default function AllEnvironmentsScreen({ navigation }) {
   const { environments } = useEnvironments()
@@ -15,15 +15,15 @@ export default function AllEnvironmentsScreen({ navigation }) {
   const [activeStatus, setActiveStatus] = useState('')
 
   const counts = {
-    [STATUS.NORMAL]: environments.filter((e) => e.status === STATUS.NORMAL).length,
-    [STATUS.WARNING]: environments.filter((e) => e.status === STATUS.WARNING).length,
-    [STATUS.ALERT]: environments.filter((e) => e.status === STATUS.ALERT).length,
+    [STATUS.NORMAL]: environments.filter((e) => e.statusKey === STATUS.NORMAL).length,
+    [STATUS.WARNING]: environments.filter((e) => e.statusKey === STATUS.WARNING).length,
+    [STATUS.ALERT]: environments.filter((e) => e.statusKey === STATUS.ALERT).length,
   }
 
   const filtered = environments.filter((env) => {
     const matchSearch = env.name.toLowerCase().includes(search.toLowerCase()) ||
       env.location.toLowerCase().includes(search.toLowerCase())
-    const matchStatus = !activeStatus || env.status === activeStatus
+    const matchStatus = !activeStatus || env.statusKey === activeStatus
     return matchSearch && matchStatus
   })
 
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: { flex: 1, fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
+  title: { flex: 1, fontSize: 1, fontWeight: 'bold', color: colors.textPrimary },
   count: { fontSize: 12, color: colors.textMuted },
   searchContainer: {
     flexDirection: 'row',
