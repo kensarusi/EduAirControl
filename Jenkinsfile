@@ -3,32 +3,17 @@ pipeline {
 
     stages {
 
-        stage('Build Backend') {
+        stage('Build Images') {
             steps {
-                dir('backend') {
-                    sh 'docker build -t backend-app .'
+                dir('Web'){
+                    sh 'docker compose build'
                 }
-            }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                dir('Front-End') {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker compose build'
             }
         }
 
         stage('Deploy') {
             when {
-                branch 'main'
+                branch 'develop'
             }
             steps {
                 sh 'docker compose down || true'
