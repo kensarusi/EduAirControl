@@ -14,8 +14,7 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('Web/Front-End') {
-                    sh 'npm install'
-                    sh 'npm run build'
+                    sh 'docker build -t frontend-app .'
                 }
             }
         }
