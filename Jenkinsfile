@@ -3,25 +3,11 @@ pipeline {
 
     stages {
 
-        stage('Build Backend') {
+        stage('Build Images') {
             steps {
-                dir('Web/backend') {
-                    sh 'docker build -t backend-app .'
+                dir('Web'){
+                    sh 'docker compose build'
                 }
-            }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                dir('Web/Front-End') {
-                    sh 'docker build -t frontend-app .'
-                }
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker compose build'
             }
         }
 
