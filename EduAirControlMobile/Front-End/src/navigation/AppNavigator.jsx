@@ -1,14 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
-import { colors } from '../styles/colors'
+import { useTheme } from '../context/ThemeContext'
 
 import DashboardScreen from '../screens/app/DashboardScreen'
 import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
 import FavoritesScreen from '../screens/app/FavoritesScreen'
 import ProfileScreen from '../screens/app/ProfileScreen'
-import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
 import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
+import SettingsScreen from '../screens/app/SettingsScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -17,7 +17,6 @@ function DashboardStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DashboardHome" component={DashboardScreen} />
-      <Stack.Screen name="AllEnvironments" component={AllEnvironmentsScreen} />
       <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
     </Stack.Navigator>
   )
@@ -40,21 +39,32 @@ function ManagementStack() {
   )
 }
 
+function ProfileStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ProfileHome" component={ProfileScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Navigator>
+  )
+}
+
 export default function AppNavigator() {
+  const { currentColors } = useTheme()
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.bgCard,
-          borderTopColor: colors.borderColor,
+          backgroundColor: currentColors.bgCard,
+          borderTopColor: currentColors.borderColor,
           borderTopWidth: 1,
           height: 90,
           paddingBottom: 10,
           paddingTop: 6,
         },
-        tabBarActiveTintColor: colors.accent,
-        tabBarInactiveTintColor: colors.textMuted,
+        tabBarActiveTintColor: currentColors.accent,
+        tabBarInactiveTintColor: currentColors.textMuted,
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName
@@ -64,6 +74,8 @@ export default function AppNavigator() {
             iconName = focused ? 'heart' : 'heart-outline'
           } else if (route.name === 'Management') {
             iconName = focused ? 'settings' : 'settings-outline'
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'options' : 'options-outline'
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline'
           }
@@ -87,8 +99,13 @@ export default function AppNavigator() {
         options={{ tabBarLabel: 'Gestión' }}
       />
       <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ tabBarLabel: 'Config.' }}
+      />
+      <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{ tabBarLabel: 'Perfil' }}
       />
     </Tab.Navigator>

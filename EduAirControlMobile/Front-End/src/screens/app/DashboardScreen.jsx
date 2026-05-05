@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
   StyleSheet, SafeAreaView, StatusBar, TextInput,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { colors } from '../../styles/colors'
+import { useTheme } from '../../context/ThemeContext'
 import {
   STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
   QUALITY_LABELS, QUALITY_COLORS,
@@ -13,26 +13,25 @@ import { useEnvironments } from '../../context/EnvironmentsContext'
 
 function MetricChip({ icon, value, color }) {
   return (
-    <View style={[styles.chip, { borderColor: color || colors.borderColor }]}>
+    <View style={[styles.chip, { borderColor: color || '#cccccc' }]}>
       <Text style={styles.chipIcon}>{icon}</Text>
-      <Text style={[styles.chipValue, { color: color || colors.textSecondary }]}>{value}</Text>
+      <Text style={[styles.chipValue, { color: color || '#666666' }]}>{value}</Text>
     </View>
   )
 }
 
-function EnvironmentCard({ environment, onPress, onToggleFavorite }) {
-  const statusColor = STATUS_COLORS[environment.statusKey] || colors.accent
-  const statusDim = STATUS_DIM[environment.statusKey] || colors.accentDim
+function EnvironmentCard({ environment, onPress, onToggleFavorite, currentColors }) {
+  const statusColor = STATUS_COLORS[environment.statusKey] || '#00b894'
+  const statusDim = STATUS_DIM[environment.statusKey] || 'rgba(0,184,148,0.1)'
   const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
   const qualityLabel = QUALITY_LABELS[environment.qualityKey] || environment.qualityKey
-  const qualityColor = QUALITY_COLORS[environment.qualityKey] || colors.accent
+  const qualityColor = QUALITY_COLORS[environment.qualityKey] || '#00b894'
 
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.85}>
-      {/* Header */}
+    <TouchableOpacity style={[styles.card, { backgroundColor: currentColors.bgCard }]} onPress={onPress} activeOpacity={0.85}>
       <View style={styles.cardHeader}>
         <View style={styles.cardTitleBlock}>
-          <Text style={styles.cardName} numberOfLines={1}>{environment.name}</Text>
+          <Text style={[styles.cardName, { color: currentColors.textPrimary }]} numberOfLines={1}>{environment.name}</Text>
           <View style={[styles.statusBadge, { backgroundColor: statusDim, borderColor: statusColor }]}>
             <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
             <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
@@ -45,112 +44,78 @@ function EnvironmentCard({ environment, onPress, onToggleFavorite }) {
           <Ionicons
             name={environment.isFavorite ? 'heart' : 'heart-outline'}
             size={22}
-            color={environment.isFavorite ? '#ff6b6b' : colors.textMuted}
+            color={environment.isFavorite ? '#ff6b6b' : currentColors.textMuted}
           />
         </TouchableOpacity>
       </View>
 
-      {/* Location */}
       <View style={styles.locationRow}>
-        <Ionicons name="location-outline" size={13} color={colors.textMuted} />
-        <Text style={styles.locationText}>{environment.location}</Text>
-        <Ionicons name="people-outline" size={13} color={colors.textMuted} style={{ marginLeft: 10 }} />
-        <Text style={styles.locationText}>{environment.capacity} personas</Text>
+        <Ionicons name="location-outline" size={13} color={currentColors.textMuted} />
+        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.location}</Text>
+        <Ionicons name="people-outline" size={13} color={currentColors.textMuted} style={{ marginLeft: 10 }} />
+        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.capacity} personas</Text>
       </View>
 
-      {/* Metrics */}
       <View style={styles.metricsRow}>
-        <MetricChip icon="🌡️" value={`${environment.temp}°C`} color="#ff8a65" />
-        <MetricChip icon="💧" value={`${environment.humidity}%`} color="#4fc3f7" />
-        <MetricChip icon="🌫️" value={`${environment.co2}ppm`} color="#ce93d8" />
-        <MetricChip icon="🔊" value={`${environment.noise}dB`} color="#ffcc02" />
+        <MetricChip icon="💨" value={environment.airQuality || '--'} color={qualityColor} />
+        <MetricChip icon="🌡️" value={environment.temperature !== undefined ? `${environment.temperature}°C` : '--'} color="#00b894" />
+        <MetricChip icon="💧" value={environment.humidity !== undefined ? `${environment.humidity}%` : '--'} color="#00b894" />
       </View>
 
-      {/* Footer */}
-      <View style={styles.cardFooter}>
-        <Text style={styles.footerLabel}>Calidad del aire</Text>
-        <Text style={[styles.footerValue, { color: qualityColor }]}>{qualityLabel}</Text>
+      <View style={[styles.qualityRow, { borderTopColor: currentColors.borderColor }]}>
+        <Text style={[styles.qualityLabel, { color: currentColors.textSecondary }]}>Calidad del aire</Text>
+        <Text style={[styles.qualityValue, { color: qualityColor }]}>{qualityLabel}</Text>
       </View>
     </TouchableOpacity>
   )
 }
 
 export default function DashboardScreen({ navigation }) {
-  const { environments, toggleFavorite } = useEnvironments()
-  const [activeFilter, setActiveFilter] = useState('all')
+  const { darkMode, currentColors, loaded } = useTheme()
   const [search, setSearch] = useState('')
 
-  const counts = {
-    all: environments.length,
-    normal: environments.filter((e) => e.statusKey === 'normal').length,
-    warning: environments.filter((e) => e.statusKey === 'warning').length,
-    alert: environments.filter((e) => e.statusKey === 'alert').length,
+  const { environments, toggleFavorite } = useEnvironments()
+
+  const filtered = environments.filter(env =>
+    env.name.toLowerCase().includes(search.toLowerCase()) ||
+    env.location.toLowerCase().includes(search.toLowerCase())
+  )
+
+  if (!loaded) {
+    return (
+      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+        </View>
+      </SafeAreaView>
+    )
   }
 
-  const filtered = environments.filter((env) => {
-    const matchStatus = activeFilter === 'all' || env.statusKey === activeFilter
-    const matchSearch = env.name.toLowerCase().includes(search.toLowerCase()) ||
-      env.location.toLowerCase().includes(search.toLowerCase())
-    return matchStatus && matchSearch
-  })
-
-  const statCards = [
-    { key: 'all',     label: 'Todos',       count: counts.all,     color: colors.accent, icon: '🏫' },
-    { key: 'normal',  label: 'Normal',      count: counts.normal,  color: '#4CAF50',     icon: '✅' },
-    { key: 'warning', label: 'Advertencia', count: counts.warning, color: '#FFC107',     icon: '⚠️' },
-    { key: 'alert',   label: 'Alerta',      count: counts.alert,   color: '#F44336',     icon: '🚨' },
-  ]
-
   return (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bgBody} />
+    <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+      <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} backgroundColor={currentColors.bgBody} />
 
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <View>
-          <Text style={styles.greeting}>Bienvenido Administrador</Text>
-          <Text style={styles.subtitle}>Monitoreo de ambientes</Text>
+      {/* Header */}
+      <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
+        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Dashboard</Text>
+        <View style={[styles.searchBar, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
+          <Ionicons name="search-outline" size={16} color={currentColors.textMuted} />
+          <TextInput
+            style={[styles.searchInput, { color: currentColors.textPrimary }]}
+            placeholder="Buscar ambiente..."
+            placeholderTextColor={currentColors.textMuted}
+            value={search}
+            onChangeText={setSearch}
+          />
+          {search.length > 0 && (
+            <TouchableOpacity onPress={() => setSearch('')}>
+              <Ionicons name="close-circle" size={16} color={currentColors.textMuted} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
-      {/* Search */}
-      <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={16} color={colors.textMuted} style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Buscar ambiente..."
-          placeholderTextColor={colors.textMuted}
-          value={search}
-          onChangeText={setSearch}
-        />
-        {search.length > 0 && (
-          <TouchableOpacity onPress={() => setSearch('')}>
-            <Ionicons name="close-circle" size={16} color={colors.textMuted} />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      {/* Stat Cards — también son filtros */}
-      <View style={styles.statsRow}>
-        {statCards.map((s) => (
-          <TouchableOpacity
-            key={s.key}
-            style={[
-              styles.statCard,
-              { borderColor: s.color, backgroundColor: `${s.color}10` },
-              activeFilter === s.key && { backgroundColor: `${s.color}30`, borderWidth: 2 },
-            ]}
-            onPress={() => setActiveFilter(s.key)}
-            activeOpacity={0.75}
-          >
-            <Text style={styles.statEmoji}>{s.icon}</Text>
-            <Text style={[styles.statCount, { color: s.color }]}>{s.count}</Text>
-            <Text style={styles.statLabel}>{s.label}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Cards */}
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
@@ -158,9 +123,11 @@ export default function DashboardScreen({ navigation }) {
       >
         {filtered.length === 0 ? (
           <View style={styles.empty}>
-            <Text style={styles.emptyEmoji}>🔍</Text>
-            <Text style={styles.emptyTitle}>Sin resultados</Text>
-            <Text style={styles.emptyText}>Intenta con otro filtro o término</Text>
+            <Ionicons name="cube-outline" size={52} color={currentColors.borderColor} />
+            <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>Sin ambientes</Text>
+            <Text style={[styles.emptyText, { color: currentColors.textMuted }]}>
+              {search ? 'No hay resultados para tu búsqueda' : 'No hay ambientes registrados'}
+            </Text>
           </View>
         ) : (
           filtered.map((env) => (
@@ -169,6 +136,7 @@ export default function DashboardScreen({ navigation }) {
               environment={env}
               onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
               onToggleFavorite={toggleFavorite}
+              currentColors={currentColors}
             />
           ))
         )}
@@ -179,89 +147,110 @@ export default function DashboardScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.bgBody },
+  safe: { flex: 1, backgroundColor: '#f0fafa' },
 
-  topBar: {
+  header: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 55,
-    paddingBottom: 6,
+    paddingBottom: 20,
+    gap: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#00b894',
   },
-  greeting: { fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, textAlign: 'center' },
-  subtitle: { fontSize: 13, color: colors.textMuted, marginTop: 2, textAlign: 'center' },
+  headerTitle: { fontSize: 24, fontWeight: 'bold' },
 
-  searchContainer: {
-    flexDirection: 'row', alignItems: 'center',
-    backgroundColor: colors.bgCard,
-    borderRadius: 12, marginHorizontal: 20, marginVertical: 10,
-    paddingHorizontal: 14, paddingVertical: 10,
-    borderWidth: 1, borderColor: colors.borderColor,
+  searchBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
-  searchIcon: { marginRight: 8 },
-  searchInput: { flex: 1, color: colors.textPrimary, fontSize: 14 },
-
-  statsRow: {
-    flexDirection: 'row', gap: 8,
-    paddingHorizontal: 20, marginBottom: 12,
-  },
-  statCard: {
-    flex: 1, borderRadius: 12, borderWidth: 1,
-    padding: 10, alignItems: 'center',
-  },
-  statEmoji: { fontSize: 16, marginBottom: 2 },
-  statCount: { fontSize: 20, fontWeight: 'bold' },
-  statLabel: { fontSize: 10, color: colors.textMuted, marginTop: 2, textAlign: 'center' },
+  searchInput: { flex: 1, fontSize: 14 },
 
   scroll: { flex: 1 },
-  scrollContent: { paddingHorizontal: 20, paddingTop: 4 },
+  scrollContent: { padding: 20, paddingTop: 10 },
 
   card: {
-    backgroundColor: colors.bgCard,
-    borderRadius: 16, borderWidth: 1,
-    borderColor: colors.borderColor,
-    padding: 16, marginBottom: 14,
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    elevation: 3,
   },
   cardHeader: {
-    flexDirection: 'row', justifyContent: 'space-between',
-    alignItems: 'flex-start', marginBottom: 6,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 12,
   },
-  cardTitleBlock: { flex: 1, marginRight: 10 },
-  cardName: { fontSize: 16, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 4 },
+  cardTitleBlock: { flex: 1 },
+  cardName: { fontSize: 16, fontWeight: 'bold', marginBottom: 4 },
   statusBadge: {
-    flexDirection: 'row', alignItems: 'center', gap: 5,
-    alignSelf: 'flex-start', borderRadius: 20, borderWidth: 1,
-    paddingHorizontal: 10, paddingVertical: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    borderWidth: 1,
   },
-  statusDot: { width: 7, height: 7, borderRadius: 4 },
+  statusDot: { width: 6, height: 6, borderRadius: 3 },
   statusText: { fontSize: 11, fontWeight: '600' },
 
   locationRow: {
-    flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    gap: 4,
   },
-  locationText: { fontSize: 12, color: colors.textMuted },
+  locationText: { fontSize: 12, color: '#999999' },
 
-  metricsRow: { flexDirection: 'row', gap: 6, marginBottom: 12, flexWrap: 'wrap' },
+  metricsRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 10,
+  },
   chip: {
-    flexDirection: 'row', alignItems: 'center', gap: 4,
-    borderRadius: 8, borderWidth: 1,
-    paddingHorizontal: 8, paddingVertical: 5,
-    backgroundColor: colors.bgInput,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
   },
   chipIcon: { fontSize: 12 },
   chipValue: { fontSize: 12, fontWeight: '600' },
 
-  cardFooter: {
-    flexDirection: 'row', justifyContent: 'space-between',
-    alignItems: 'center', borderTopWidth: 1,
-    borderTopColor: colors.borderColor, paddingTop: 10,
+  qualityRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
   },
-  footerLabel: { fontSize: 13, color: colors.textMuted },
-  footerValue: { fontSize: 13, fontWeight: 'bold' },
+  qualityLabel: { fontSize: 12, color: '#666666', flex: 1 },
+  qualityValue: { fontSize: 13, fontWeight: '600', flexShrink: 0 },
 
-  empty: { alignItems: 'center', marginTop: 60 },
-  emptyEmoji: { fontSize: 48, marginBottom: 12 },
-  emptyTitle: { fontSize: 18, fontWeight: 'bold', color: colors.textPrimary },
-  emptyText: { fontSize: 14, color: colors.textMuted, marginTop: 6 },
+  empty: {
+    alignItems: 'center',
+    paddingTop: 60,
+    gap: 10,
+  },
+  emptyTitle: { fontSize: 17, fontWeight: 'bold', color: '#0f172a' },
+  emptyText: { fontSize: 13, color: '#999999', textAlign: 'center' },
 })
