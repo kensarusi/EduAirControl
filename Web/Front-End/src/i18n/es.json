@@ -46,11 +46,9 @@
     "passwordMismatch": "¡Las contraseñas no coinciden!",
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones"
   },
-
-   "common": {
+  "common": {
     "close": "Cerrar"
   },
-  
   "forgotPassword": {
     "title": "Olvidé mi contraseña",
     "description": "Ingresa tu correo electrónico y te enviaremos un código de recuperación.",
@@ -72,7 +70,6 @@
     "confirmBtn": "Confirmar cambio",
     "mismatch": "¡Las contraseñas no coinciden!"
   },
-
   "terms": {
     "title": "Términos y Condiciones",
     "intro": "Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos:",
@@ -84,7 +81,6 @@
     "footer2": "Al hacer clic en \"Aceptar\", confirmas que has leído y aceptado estos Términos y Condiciones.",
     "acceptBtn": "ACEPTAR"
   },
-
   "dashboard": {
     "clickDetails": "Click Para Ver Detalles",
     "idealRange": "Rango ideal",
@@ -168,14 +164,18 @@
     "reminderSound": "Sonido de notificaciones",
     "privacy": "Privacidad y Seguridad",
     "privacyDescription": "Controla quién puede ver tu información y cómo se usa.",
-    "publicProfile": "Perfil público",
-    "shareData": "Compartir datos de uso",
+    "privacyInfoLabel": "Visibilidad de datos",
+    "privacyInfo": "Tus datos solo son visibles para los administradores de tu institución.",
     "changePassword": "Cambiar contraseña",
     "changePasswordSub": "Actualiza tu contraseña de acceso",
+    "viewPrivacyPolicy": "Ver política de privacidad",
+    "viewPrivacyPolicySub": "Cómo protegemos tu información",
     "deleteAccount": "Eliminar cuenta",
     "deleteAccountSub": "Esta acción es permanente e irreversible",
     "deleteAccountConfirm": "¿Estás seguro? Todos tus datos serán eliminados permanentemente.",
+    "deleteAccountDetail": "Se eliminarán tu perfil, ambientes favoritos e historial de actividad.",
     "deleteBtn": "Eliminar cuenta",
+    "deleteRequestSent": "Solicitud enviada. Nos pondremos en contacto contigo.",
     "help": "Ayuda y Soporte",
     "helpDescription": "Encuentra respuestas y contacta al equipo de soporte.",
     "helpFaq": "Preguntas frecuentes",
@@ -188,7 +188,7 @@
     "helpPrivacySub": "Cómo protegemos tus datos",
     "helpVersion": "Versión de la app",
     "versionDesc": "Sistema de Monitoreo de Calidad del Aire",
-      "versionDate": "Última actualización: Abril 2026",
+    "versionDate": "Última actualización: Abril 2026",
     "passwordModal": {
       "title": "Cambiar contraseña",
       "current": "Contraseña actual",
@@ -296,11 +296,11 @@
     "cancel": "Cancelar",
     "save": "Guardar"
   },
-    "errors": {
-      "required_email": "El correo es obligatorio",
-      "invalid_email": "Correo inválido",
-      "password_min": "La contraseña debe tener mínimo 6 caracteres",
-      "password_match": "Las contraseñas no coinciden",
-      "name_short": "El nombre es muy corto"
+  "errors": {
+    "required_email": "El correo es obligatorio",
+    "invalid_email": "Correo inválido",
+    "password_min": "La contraseña debe tener mínimo 6 caracteres",
+    "password_match": "Las contraseñas no coinciden",
+    "name_short": "El nombre es muy corto"
   }
 }

@@ -30,11 +30,11 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Re-type password",
-     "placeholderName": "Your name",
+    "placeholderName": "Your name",
     "placeholderEmail": "example@email.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
-   "accept": "I accept",
+    "accept": "I accept",
     "terms": "Terms of Use and Privacy Policy",
     "termsTitle": "Terms and Conditions",
     "termsIntro": "By signing up for the platform, you agree to the following:",
@@ -46,11 +46,9 @@
     "passwordMismatch": "Passwords do not match!",
     "mustAgreeTerms": "You must agree to the Terms and Conditions"
   },
-
-   "common": {
+  "common": {
     "close": "Close"
   },
-  
   "forgotPassword": {
     "title": "Forgot Password",
     "description": "Enter your email address and we'll send you a recovery code.",
@@ -166,14 +164,18 @@
     "reminderSound": "Notification sound",
     "privacy": "Privacy and Security",
     "privacyDescription": "Control who can see your information and how it is used.",
-    "publicProfile": "Public profile",
-    "shareData": "Share usage data",
+    "privacyInfoLabel": "Data visibility",
+    "privacyInfo": "Your data is only visible to your institution's administrators.",
     "changePassword": "Change password",
     "changePasswordSub": "Update your access password",
+    "viewPrivacyPolicy": "View privacy policy",
+    "viewPrivacyPolicySub": "How we protect your information",
     "deleteAccount": "Delete account",
     "deleteAccountSub": "This action is permanent and irreversible",
     "deleteAccountConfirm": "Are you sure? All your data will be permanently deleted.",
+    "deleteAccountDetail": "Your profile, favorite environments, and activity history will be deleted.",
     "deleteBtn": "Delete account",
+    "deleteRequestSent": "Request sent. We will contact you shortly.",
     "help": "Help and Support",
     "helpDescription": "Find answers and contact the support team.",
     "helpFaq": "Frequently asked questions",
@@ -186,7 +188,7 @@
     "helpPrivacySub": "How we protect your data",
     "helpVersion": "App version",
     "versionDesc": "Air Quality Monitoring system",
-      "versionDate": "last update: april 2026",
+    "versionDate": "last update: april 2026",
     "passwordModal": {
       "title": "Change password",
       "current": "Current password",
@@ -198,7 +200,6 @@
       "errorEmpty": "Fill in all fields",
       "errorMatch": "Passwords do not match",
       "errorLength": "Password must be at least 6 characters"
-      
     },
     "faq": {
       "q1": "How do I add a favorite environment?",

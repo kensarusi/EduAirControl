@@ -46,11 +46,9 @@
     "passwordMismatch": "As senhas não coincidem!",
     "mustAgreeTerms": "Você deve aceitar os Termos e Condições"
   },
-
-    "common": {
-      "close": "Fechar"
-    },
-    
+  "common": {
+    "close": "Fechar"
+  },
   "forgotPassword": {
     "title": "Esqueci minha senha",
     "description": "Digite seu e-mail e enviaremos um código de recuperação.",
@@ -166,14 +164,18 @@
     "reminderSound": "Som de notificações",
     "privacy": "Privacidade e Segurança",
     "privacyDescription": "Controle quem pode ver suas informações e como elas são usadas.",
-    "publicProfile": "Perfil público",
-    "shareData": "Compartilhar dados de uso",
+    "privacyInfoLabel": "Visibilidade dos dados",
+    "privacyInfo": "Seus dados são visíveis apenas para os administradores da sua instituição.",
     "changePassword": "Alterar senha",
     "changePasswordSub": "Atualize sua senha de acesso",
+    "viewPrivacyPolicy": "Ver política de privacidade",
+    "viewPrivacyPolicySub": "Como protegemos suas informações",
     "deleteAccount": "Excluir conta",
     "deleteAccountSub": "Esta ação é permanente e irreversível",
     "deleteAccountConfirm": "Tem certeza? Todos os seus dados serão excluídos permanentemente.",
+    "deleteAccountDetail": "Seu perfil, ambientes favoritos e histórico de atividade serão excluídos.",
     "deleteBtn": "Excluir conta",
+    "deleteRequestSent": "Solicitação enviada. Entraremos em contato em breve.",
     "help": "Ajuda e Suporte",
     "helpDescription": "Encontre respostas e entre em contato com o suporte.",
     "helpFaq": "Perguntas frequentes",
@@ -185,8 +187,8 @@
     "helpPrivacy": "Política de privacidade",
     "helpPrivacySub": "Como protegemos seus dados",
     "helpVersion": "Versão do app",
-     "versionDesc": "Sistema de Monitoramento da Qualidade do Ar", 
-      "versionDate": "Última atualização: Abril 2026",
+    "versionDesc": "Sistema de Monitoramento da Qualidade do Ar",
+    "versionDate": "Última atualização: Abril 2026",
     "passwordModal": {
       "title": "Alterar senha",
       "current": "Senha atual",
@@ -198,7 +200,6 @@
       "errorEmpty": "Preencha todos os campos",
       "errorMatch": "As senhas não coincidem",
       "errorLength": "A senha deve ter pelo menos 6 caracteres"
-     
     },
     "faq": {
       "q1": "Como adiciono um ambiente favorito?",

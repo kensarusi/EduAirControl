@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette, FaMapMarkerAlt, FaBell, FaShieldAlt, FaQuestionCircle, FaChevronRight,FaLock, FaTrash, FaEye, FaEyeSlash} from 'react-icons/fa'
+import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette, FaMapMarkerAlt, FaBell, FaShieldAlt, FaQuestionCircle, FaChevronRight, FaLock, FaTrash, FaEye, FaEyeSlash, FaInfoCircle } from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import Navbar from '../../components/layout/Navbar'
@@ -52,15 +52,9 @@ function SettingsScreen() {
       alertas: true, advertencias: true, resumenDiario: false, sonido: true,
     }
   )
-  const [privacy, setPrivacy] = useState(() =>
-    JSON.parse(localStorage.getItem('privacy')) || {
-      perfilPublico: false, compartirDatos: false,
-    }
-  )
   const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
   const [settings, setSettings] = useState(() => {
     const saved = JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
-    // Sync language label with the actual i18n language (e.g. changed at login)
     const activeLang = localStorage.getItem('language') || i18n.language || 'es'
     return { ...saved, language: LANG_NAMES[activeLang] || saved.language }
   })
@@ -72,20 +66,15 @@ function SettingsScreen() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [helpModal, setHelpModal] = useState({ open: false, type: null })
   const [showPasswordModal, setShowPasswordModal] = useState(false)
-  const [showPassword, setShowPassword] = useState({
-  new: false,
-  confirm: false
-})
-const [passwordData, setPasswordData] = useState({
-  current: '',
-  new: '',
-  confirm: ''
-})
+  const [showPassword, setShowPassword] = useState({ new: false, confirm: false })
+  const [passwordData, setPasswordData] = useState({ current: '', new: '', confirm: '' })
+  const [passwordError, setPasswordError] = useState('')
+  const [passwordSuccess, setPasswordSuccess] = useState(false)
+  const [deleteStep, setDeleteStep] = useState('confirm')
 
   useEffect(() => { localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone)) }, [autoTimezone])
   useEffect(() => { localStorage.setItem('settings', JSON.stringify(settings)) }, [settings])
   useEffect(() => { localStorage.setItem('reminders', JSON.stringify(reminders)) }, [reminders])
-  useEffect(() => { localStorage.setItem('privacy', JSON.stringify(privacy)) }, [privacy])
 
   const handleTimezoneToggle = (val) => {
     setAutoTimezone(val)
@@ -115,36 +104,51 @@ const [passwordData, setPasswordData] = useState({
   }
 
   const handlePasswordChange = (field, value) => {
-    setPasswordData((prev) => ({ 
-      ...prev,
-      [field]: value
-    }))
+    setPasswordError('')
+    setPasswordData((prev) => ({ ...prev, [field]: value }))
   }
 
   const handleSavePassword = () => {
-  if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
-    alert('Completa todos los campos')
-    return
+    if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
+      setPasswordError(t('settings.passwordModal.errorEmpty'))
+      return
+    }
+    if (passwordData.new !== passwordData.confirm) {
+      setPasswordError(t('settings.passwordModal.errorMatch'))
+      return
+    }
+    if (passwordData.new.length < 6) {
+      setPasswordError(t('settings.passwordModal.errorLength'))
+      return
+    }
+    // Aquí luego conectas backend
+    console.log('Cambio de contraseña:', passwordData)
+    setPasswordError('')
+    setPasswordSuccess(true)
+    setTimeout(() => {
+      setShowPasswordModal(false)
+      setPasswordSuccess(false)
+      setPasswordData({ current: '', new: '', confirm: '' })
+    }, 1800)
   }
 
-  if (passwordData.new !== passwordData.confirm) {
-    alert('Las contraseñas no coinciden')
-    return
+  const handleClosePasswordModal = () => {
+    setShowPasswordModal(false)
+    setPasswordError('')
+    setPasswordSuccess(false)
+    setPasswordData({ current: '', new: '', confirm: '' })
   }
 
-  if (passwordData.new.length < 6) {
-    alert('La contraseña debe tener al menos 6 caracteres')
-    return
+  const handleOpenDeleteModal = () => {
+    setDeleteStep('confirm')
+    setShowDeleteModal(true)
   }
 
-  // Aquí luego conectas backend
-  console.log('Cambio de contraseña:', passwordData)
-
-  alert('Contraseña actualizada correctamente 😎')
-
-  setShowPasswordModal(false)
-  setPasswordData({ current: '', new: '', confirm: '' })
-}
+  const handleDeleteRequest = () => {
+    // Aquí luego conectas backend / envías email
+    console.log('Solicitud de eliminación de cuenta')
+    setDeleteStep('sent')
+  }
 
   const themeLabel = (key) => {
     if (key === '') return t('settings.themeNormal')
@@ -153,7 +157,6 @@ const [passwordData, setPasswordData] = useState({
     return t('settings.themeTritanopia')
   }
   const toggleReminder = (key) => setReminders(prev => ({ ...prev, [key]: !prev[key] }))
-  const togglePrivacy  = (key) => setPrivacy(prev => ({ ...prev, [key]: !prev[key] }))
 
   return (
     <div className={`settings-page ${darkMode ? 'dark' : ''}`}>
@@ -274,26 +277,15 @@ const [passwordData, setPasswordData] = useState({
         <div className="settings-card">
           <h2><FaShieldAlt /> {t('settings.privacy')}</h2>
           <p className="section-description">{t('settings.privacyDescription')}</p>
-          <div className="settings-field">
-            <div className="field-icon"><FaEye /></div>
+
+          <div className="settings-field privacy-info-field">
+            <div className="field-icon"><FaInfoCircle /></div>
             <div className="field-info">
-              <span className="field-label">{t('settings.publicProfile')}</span>
-              <span className="field-value">{privacy.perfilPublico ? t('settings.enabled') : t('settings.disabled')}</span>
-            </div>
-            <div className={`toggle ${privacy.perfilPublico ? 'active' : ''}`} onClick={() => togglePrivacy('perfilPublico')}>
-              <div className="toggle-circle" />
+              <span className="field-label">{t('settings.privacyInfoLabel')}</span>
+              <span className="field-value">{t('settings.privacyInfo')}</span>
             </div>
           </div>
-          <div className="settings-field">
-            <div className="field-icon"><FaShieldAlt /></div>
-            <div className="field-info">
-              <span className="field-label">{t('settings.shareData')}</span>
-              <span className="field-value">{privacy.compartirDatos ? t('settings.enabled') : t('settings.disabled')}</span>
-            </div>
-            <div className={`toggle ${privacy.compartirDatos ? 'active' : ''}`} onClick={() => togglePrivacy('compartirDatos')}>
-              <div className="toggle-circle" />
-            </div>
-          </div>
+
           <div className="settings-field">
             <div className="field-icon"><FaLock /></div>
             <div className="field-info">
@@ -304,12 +296,22 @@ const [passwordData, setPasswordData] = useState({
               <MdEdit /> {t('settings.updateBtn')}
             </button>
           </div>
+
+          <div className="settings-field settings-field--link" onClick={() => setHelpModal({ open: true, type: 'privacy' })}>
+            <div className="field-icon"><FaShieldAlt /></div>
+            <div className="field-info">
+              <span className="field-label">{t('settings.viewPrivacyPolicy')}</span>
+              <span className="field-value">{t('settings.viewPrivacyPolicySub')}</span>
+            </div>
+            <FaChevronRight className="settings-chevron" />
+          </div>
+
           <div className="settings-field">
             <div className="field-info">
               <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
               <span className="field-value">{t('settings.deleteAccountSub')}</span>
             </div>
-            <button className="btn-delete-icon" onClick={() => setShowDeleteModal(true)}>
+            <button className="btn-delete-icon" onClick={handleOpenDeleteModal}>
               <FaTrash />
             </button>
           </div>
@@ -338,98 +340,64 @@ const [passwordData, setPasswordData] = useState({
         </div>
       </div>
 
-
-   {showPasswordModal && (
-  <div
-    className="password-overlay"
-    onClick={() => setShowPasswordModal(false)}
-  >
-    <div
-      className="password-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-
-      <h3 className="password-title">
-        🔐 {t('settings.passwordModal.title')}
-      </h3>
-
-      <div className="password-form">
-
-        {/* CURRENT */}
-        <input
-          type="password"
-          placeholder={t('settings.passwordModal.current')}
-          value={passwordData.current}
-          onChange={(e) =>
-            handlePasswordChange('current', e.target.value)
-          }
-        />
-
-        {/* NEW */}
-        <div className="input-password">
-          <input
-            type={showPassword.new ? "text" : "password"}
-            placeholder={t('settings.passwordModal.new')}
-            value={passwordData.new}
-            onChange={(e) =>
-              handlePasswordChange('new', e.target.value)
-            }
-          />
-
-          <button
-            type="button"
-            className="toggle-password"
-            onClick={() =>
-              setShowPassword(prev => ({ ...prev, new: !prev.new }))
-            }
-          >
-            {showPassword.new ? <FaEye /> : <FaEyeSlash />}
-          </button>
+      {/* ── MODAL CAMBIAR CONTRASEÑA ── */}
+      {showPasswordModal && (
+        <div className="password-overlay" onClick={handleClosePasswordModal}>
+          <div className="password-modal" onClick={(e) => e.stopPropagation()}>
+            <h3 className="password-title">
+              🔐 {t('settings.passwordModal.title')}
+            </h3>
+            {passwordSuccess ? (
+              <div className="password-success">
+                <span className="password-success-icon">✓</span>
+                <p>{t('settings.passwordModal.success')}</p>
+              </div>
+            ) : (
+              <div className="password-form">
+                <input
+                  type="password"
+                  placeholder={t('settings.passwordModal.current')}
+                  value={passwordData.current}
+                  onChange={(e) => handlePasswordChange('current', e.target.value)}
+                />
+                <div className="input-password">
+                  <input
+                    type={showPassword.new ? 'text' : 'password'}
+                    placeholder={t('settings.passwordModal.new')}
+                    value={passwordData.new}
+                    onChange={(e) => handlePasswordChange('new', e.target.value)}
+                  />
+                  <button type="button" className="toggle-password" onClick={() => setShowPassword(prev => ({ ...prev, new: !prev.new }))}>
+                    {showPassword.new ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
+                <div className="input-password">
+                  <input
+                    type={showPassword.confirm ? 'text' : 'password'}
+                    placeholder={t('settings.passwordModal.confirm')}
+                    value={passwordData.confirm}
+                    onChange={(e) => handlePasswordChange('confirm', e.target.value)}
+                  />
+                  <button type="button" className="toggle-password" onClick={() => setShowPassword(prev => ({ ...prev, confirm: !prev.confirm }))}>
+                    {showPassword.confirm ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
+                {passwordError && (
+                  <p className="password-error">{passwordError}</p>
+                )}
+                <div className="password-actions">
+                  <button className="btn-save" onClick={handleSavePassword}>
+                    {t('settings.passwordModal.save')}
+                  </button>
+                  <button className="btn-cancel" onClick={handleClosePasswordModal}>
+                    {t('settings.passwordModal.cancel')}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* CONFIRM */}
-        <div className="input-password">
-          <input
-            type={showPassword.confirm ? "text" : "password"}
-            placeholder={t('settings.passwordModal.confirm')}
-            value={passwordData.confirm}
-            onChange={(e) =>
-              handlePasswordChange('confirm', e.target.value)
-            }
-          />
-
-         <button
-          type="button"
-          className="toggle-password"
-          onClick={() =>
-            setShowPassword(prev => ({ ...prev, confirm: !prev.confirm }))
-          }
-        >
-          {showPassword.confirm ? <FaEye /> : <FaEyeSlash />}
-        </button>
-        </div>
-
-      
-        <div className="password-actions">
-          <button
-            className="btn-save"
-            onClick={handleSavePassword}
-          >
-            {t('settings.passwordModal.save')}
-          </button>
-
-          <button
-            className="btn-cancel"
-            onClick={() => setShowPasswordModal(false)}
-          >
-            {t('settings.passwordModal.cancel')}
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-)}
+      )}
 
       {/* Modal editar */}
       {modalOpen && (
@@ -449,20 +417,34 @@ const [passwordData, setPasswordData] = useState({
         </div>
       )}
 
-      {/* Modal eliminar cuenta */}
+      {/* ── MODAL ELIMINAR CUENTA ── */}
       {showDeleteModal && (
         <div className="lang-modal-overlay" onClick={() => setShowDeleteModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
-            <h3 style={{ color: '#dc3545' }}>⚠️ {t('settings.deleteAccount')}</h3>
-            <p style={{ fontSize: 14, color: 'var(--text-secondary)', textAlign: 'center', margin: '0 0 8px' }}>
-              {t('settings.deleteAccountConfirm')}
-            </p>
-            <button onClick={() => setShowDeleteModal(false)} style={{ background: 'var(--bg-subtle)' }}>
-              {t('editModal.cancel')}
-            </button>
-            <button onClick={() => setShowDeleteModal(false)} style={{ background: '#dc3545', color: 'white', border: 'none' }}>
-              {t('settings.deleteBtn')}
-            </button>
+            {deleteStep === 'confirm' ? (
+              <>
+                <h3 style={{ color: '#dc3545' }}>⚠️ {t('settings.deleteAccount')}</h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', textAlign: 'center', margin: '0 0 4px' }}>
+                  {t('settings.deleteAccountConfirm')}
+                </p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', margin: '0 0 12px' }}>
+                  {t('settings.deleteAccountDetail')}
+                </p>
+                <button onClick={() => setShowDeleteModal(false)} style={{ background: 'var(--bg-subtle)' }}>
+                  {t('editModal.cancel')}
+                </button>
+                <button onClick={handleDeleteRequest} style={{ background: '#dc3545', color: 'white', border: 'none' }}>
+                  {t('settings.deleteBtn')}
+                </button>
+              </>
+            ) : (
+              <>
+                <h3 style={{ color: 'var(--accent)' }}>✉️ {t('settings.deleteRequestSent')}</h3>
+                <button onClick={() => setShowDeleteModal(false)} style={{ background: 'var(--bg-subtle)', marginTop: 8 }}>
+                  {t('editModal.cancel')}
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -516,7 +498,7 @@ const [passwordData, setPasswordData] = useState({
                 <div className="help-modal-body help-modal-scroll">
                   <p>{t('settings.terms.intro')}</p>
                   <ul>
-                   <li>{t('settings.terms.li1')}</li>
+                    <li>{t('settings.terms.li1')}</li>
                     <li>{t('settings.terms.li2')}</li>
                     <li>{t('settings.terms.li3')}</li>
                     <li>{t('settings.terms.li4')}</li>
@@ -527,20 +509,20 @@ const [passwordData, setPasswordData] = useState({
             )}
 
             {helpModal.type === 'privacy' && (
-                  <>
-                    <h3>🔒 {t('settings.helpPrivacy')}</h3>
-                    <div className="help-modal-body help-modal-scroll">
-                      <p>{t('settings.privacyModal.intro')}</p>
-                      <ul>
-                        <li>{t('settings.privacyModal.li1')}</li>
-                        <li>{t('settings.privacyModal.li2')}</li>
-                        <li>{t('settings.privacyModal.li3')}</li>
-                        <li>{t('settings.privacyModal.li4')}</li>
-                      </ul>
-                      <p>{t('settings.privacyModal.footer')}</p>
-                    </div>
-                  </>
-                )}
+              <>
+                <h3>🔒 {t('settings.helpPrivacy')}</h3>
+                <div className="help-modal-body help-modal-scroll">
+                  <p>{t('settings.privacyModal.intro')}</p>
+                  <ul>
+                    <li>{t('settings.privacyModal.li1')}</li>
+                    <li>{t('settings.privacyModal.li2')}</li>
+                    <li>{t('settings.privacyModal.li3')}</li>
+                    <li>{t('settings.privacyModal.li4')}</li>
+                  </ul>
+                  <p>{t('settings.privacyModal.footer')}</p>
+                </div>
+              </>
+            )}
 
             {helpModal.type === 'version' && (
               <>
