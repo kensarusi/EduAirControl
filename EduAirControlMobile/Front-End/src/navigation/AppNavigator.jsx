@@ -99,11 +99,6 @@ export default function AppNavigator() {
         options={{ tabBarLabel: 'Gestión' }}
       />
       <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ tabBarLabel: 'Config.' }}
-      />
-      <Tab.Screen
         name="Profile"
         component={ProfileStack}
         options={{ tabBarLabel: 'Perfil' }}
