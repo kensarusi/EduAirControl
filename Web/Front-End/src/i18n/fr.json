@@ -30,7 +30,7 @@
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
-      "placeholderName": "Ton nom",
+    "placeholderName": "Ton nom",
     "placeholderEmail": "exemple@mail.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
@@ -46,10 +46,9 @@
     "passwordMismatch": "Les mots de passe ne correspondent pas !",
     "mustAgreeTerms": "Vous devez accepter les Conditions générales"
   },
-    "common": {
-      "close": "Fermer"
-    },
-    
+  "common": {
+    "close": "Fermer"
+  },
   "forgotPassword": {
     "title": "Mot de passe oublié",
     "description": "Entrez votre adresse e-mail et nous vous enverrons un code de récupération.",
@@ -165,14 +164,18 @@
     "reminderSound": "Son des notifications",
     "privacy": "Confidentialité et sécurité",
     "privacyDescription": "Contrôlez qui peut voir vos informations et comment elles sont utilisées.",
-    "publicProfile": "Profil public",
-    "shareData": "Partager mes données d'utilisation",
+    "privacyInfoLabel": "Visibilité des données",
+    "privacyInfo": "Vos données ne sont visibles que par les administrateurs de votre institution.",
     "changePassword": "Changer le mot de passe",
     "changePasswordSub": "Mettez à jour votre mot de passe d'accès",
+    "viewPrivacyPolicy": "Voir la politique de confidentialité",
+    "viewPrivacyPolicySub": "Comment nous protégeons vos informations",
     "deleteAccount": "Supprimer le compte",
     "deleteAccountSub": "Cette action est définitive et irréversible",
     "deleteAccountConfirm": "Êtes-vous sûr ? Toutes vos données seront supprimées définitivement.",
+    "deleteAccountDetail": "Votre profil, vos environnements favoris et votre historique seront supprimés.",
     "deleteBtn": "Supprimer le compte",
+    "deleteRequestSent": "Demande envoyée. Nous vous contacterons bientôt.",
     "help": "Aide et support",
     "helpDescription": "Trouvez des réponses et contactez l'équipe de support.",
     "helpFaq": "Questions fréquentes",
@@ -184,8 +187,8 @@
     "helpPrivacy": "Politique de confidentialité",
     "helpPrivacySub": "Comment nous protégeons vos données",
     "helpVersion": "Version de l'application",
-     "versionDesc": "Système de surveillance de la qualité de l'air",
-      "versionDate": "Dernière mise à jour : Avril 2026",
+    "versionDesc": "Système de surveillance de la qualité de l'air",
+    "versionDate": "Dernière mise à jour : Avril 2026",
     "passwordModal": {
       "title": "Changer le mot de passe",
       "current": "Mot de passe actuel",
@@ -197,7 +200,6 @@
       "errorEmpty": "Remplissez tous les champs",
       "errorMatch": "Les mots de passe ne correspondent pas",
       "errorLength": "Le mot de passe doit contenir au moins 6 caractères"
-     
     },
     "faq": {
       "q1": "Comment ajouter un environnement favori ?",
