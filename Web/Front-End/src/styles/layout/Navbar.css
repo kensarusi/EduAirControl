@@ -168,3 +168,19 @@
     min-width: 180px;
   }
 }
+
+.notification-bell {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-bell::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+}

@@ -90,9 +90,9 @@
     "humidity": "Humidity",
     "noise": "Noise Level",
     "airQuality": "Air Quality",
-    "env1": "Environment 290-1",
-    "env2": "Environment 290-2",
-    "env3": "Environment 290-3",
+    "env1": "Environment 209-1",
+    "env2": "Environment 209-2",
+    "env3": "Environment 209-3",
     "statusWarning": "Warning",
     "statusAlert": "Alert",
     "statusNormal": "Normal",
@@ -301,5 +301,22 @@
     "password_min": "Password must be at least 6 characters",
     "password_match": "Passwords do not match",
     "name_short": "Name is too short"
-  }
+  },
+
+     "notifications": {
+  "title": "Notifications",
+  "empty": "No notifications",
+
+  "co2High": "High CO₂",
+  "co2Message": "Environment {{name}} has {{value}} ppm CO₂",
+
+  "tempHigh": "High temperature",
+  "tempMessage": "Environment {{name}} is at {{value}}°C",
+
+  "warning": "Warning",
+  "warningMessage": "Environment {{name}} has irregular conditions",
+
+  "dailySummary": "Daily summary",
+  "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings"
+}
 }
