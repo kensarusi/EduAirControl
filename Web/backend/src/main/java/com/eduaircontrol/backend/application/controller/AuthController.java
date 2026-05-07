@@ -20,22 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final UserService userService;
-    private final JwtService jwtService;
     
     //Registro
     @PostMapping("/register")
     public AuthResponse register(@Valid @RequestBody RegisterRequest request){
-        Users user = userService.register(request);
-        String token = jwtService.generateToken(user);
-        
-        return new AuthResponse(token);
+        return userService.register(request);
     }
     
     @PostMapping("/login")
     public AuthResponse login(@Valid @RequestBody LoginRequest request){
-        
-        String token = userService.login(request);
-        
-        return new AuthResponse(token);
+        return userService.login(request);
     }
 }

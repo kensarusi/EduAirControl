@@ -1,5 +1,6 @@
 package com.eduaircontrol.backend.core.service;
 
+import com.eduaircontrol.backend.application.dto.AuthResponse;
 import com.eduaircontrol.backend.application.dto.LoginRequest;
 import com.eduaircontrol.backend.application.dto.RegisterRequest;
 import com.eduaircontrol.backend.core.domain.Role;
@@ -19,27 +20,29 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     
-    public Users register(RegisterRequest request){
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("El correo ya esta registrado");
-        }
-        Users user = Users.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
-                .build();
-        return userRepository.save(user);
+    public AuthResponse register(RegisterRequest request){
+        Users user = new Users();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.USER);
+        
+        userRepository.save(user);
+        
+        String token = jwtService.generateToken(user);
+        return new AuthResponse(token);
     }
-    public String login(LoginRequest request){
+    public AuthResponse login(LoginRequest request){
         Users user = userRepository.findByEmail(request.getEmail())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Contraseña incorrecta");
+        throw new RuntimeException("Contraseña incorrecta");
     }
 
-    return jwtService.generateToken(user);
+    String token = jwtService.generateToken(user);
+    
+    return new AuthResponse(token);
 }
 }
 
