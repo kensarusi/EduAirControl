@@ -1,0 +1,100 @@
+/* ================================
+   🌿 AUTH CONTAINER
+================================ */
+
+.auth-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    linear-gradient(rgba(4, 12, 24, 0.55),
+    rgba(4, 12, 24, 0.65)),
+    url('/src/assets/fondo.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================================
+   🌿 GLASS CARD
+================================ */
+
+.auth-card {
+  width: 100%;
+  max-width: 470px;
+
+  overflow: hidden;
+
+  padding: 40px 35px;
+
+  border-radius: 28px;
+
+  background: rgba(10, 18, 35, 0.55);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.35),
+    inset 0 1px 1px rgba(255,255,255,0.08);
+
+  position: relative;
+}
+
+/* ================================
+   🌿 EFECTO BRILLO
+================================ */
+
+.auth-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -60%;
+
+  width: 200%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.06),
+    transparent
+  );
+
+  transform: rotate(8deg);
+
+  pointer-events: none;
+}
+
+/* ================================
+   🌿 RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+
+  .auth-card {
+    padding: 30px 22px;
+    border-radius: 24px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .auth-card {
+    padding: 25px 18px;
+  }
+
+}

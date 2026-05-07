@@ -7,6 +7,21 @@
   padding: 100px 30px 30px;
 }
 
+.settings-page {
+  min-height: 100vh;
+
+  background:
+    linear-gradient(rgba(3, 10, 25, 0.75),
+    rgba(3, 10, 25, 0.75)),
+    url('/src/assets/fondo.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+
 .settings-content h1 {
   font-size: 28px;
   margin-bottom: 25px;

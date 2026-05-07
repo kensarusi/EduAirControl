@@ -1,3 +1,5 @@
+import '../../styles/auth/AuthLayout.css'
+
 function AuthLayout({ children }) {
   return (
     <div className="auth-container">

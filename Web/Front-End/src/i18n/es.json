@@ -24,9 +24,10 @@
     "orWith": "Inicia sesión con",
     "or": "O"
   },
+
   "signup": {
-    "title": "Registrarse",
-    "name": "Nombre",
+    "title": "Crear cuenta",
+    "Name": "Nombre completo",
     "email": "Correo electrónico",
     "password": "Contraseña",
     "confirmPassword": "Confirmar contraseña",
