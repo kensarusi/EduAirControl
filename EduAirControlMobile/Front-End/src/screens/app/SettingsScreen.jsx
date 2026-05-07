@@ -13,7 +13,7 @@ const TIMEZONES = [
   { value: 'America/Bogota',      label: 'Bogotá (UTC-5)' },
   { value: 'America/Lima',        label: 'Lima (UTC-5)' },
   { value: 'America/Mexico_City', label: 'Ciudad de México (UTC-6)' },
-  { value: 'America/New_York',    label: 'Nueva York (UTC-5/-4)' },
+  { value: 'America/New_York',    label: 'Nueva York (UTC-5/-4)' }, 
   { value: 'America/Los_Angeles', label: 'Los Ángeles (UTC-8/-7)' },
   { value: 'America/Sao_Paulo',   label: 'São Paulo (UTC-3)' },
   { value: 'America/Santiago',    label: 'Santiago (UTC-4/-3)' },
@@ -492,10 +492,10 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={{ height: 30 }} />
       </ScrollView>
 
-      {/* Modal contraseña */}
-      <Modal visible={showPasswordModal} transparent animationType="slide" onRequestClose={() => setShowPasswordModal(false)}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
+       {/* Modal contraseña */}
+       <Modal visible={showPasswordModal} transparent animationType="slide" onRequestClose={() => setShowPasswordModal(false)}>
+         <View style={styles.modalOverlay}>
+           <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="lock-closed-outline" size={22} color={currentColors.accent} />
               <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Cambiar contraseña</Text>
@@ -548,10 +548,10 @@ export default function SettingsScreen({ navigation, route }) {
           </View>
         </View>
       </Modal>
-      {/* Modal eliminar cuenta */}
-      <Modal visible={showDeleteModal} transparent animationType="slide" onRequestClose={() => setShowDeleteModal(false)}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalCard, { maxWidth: 320, backgroundColor: currentColors.bgCard }]}>
+       {/* Modal eliminar cuenta */}
+       <Modal visible={showDeleteModal} transparent animationType="slide" onRequestClose={() => setShowDeleteModal(false)}>
+         <View style={styles.modalOverlay}>
+           <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="warning-outline" size={22} color={currentColors.error} />
               <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Eliminar cuenta</Text>
@@ -572,10 +572,10 @@ export default function SettingsScreen({ navigation, route }) {
         </View>
       </Modal>
 
-      {/* Modal idioma */}
-      <Modal visible={showLangModal} transparent animationType="slide" onRequestClose={() => setShowLangModal(false)}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalCard, { maxWidth: 280, backgroundColor: currentColors.bgCard }]}>
+       {/* Modal idioma */}
+       <Modal visible={showLangModal} transparent animationType="slide" onRequestClose={() => setShowLangModal(false)}>
+         <View style={styles.modalOverlay}>
+           <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Idioma</Text>
               <TouchableOpacity onPress={() => setShowLangModal(false)}>
@@ -600,10 +600,10 @@ export default function SettingsScreen({ navigation, route }) {
         </View>
       </Modal>
 
-      {/* Modal ayuda */}
-      <Modal visible={showHelpModal.open} transparent animationType="slide" onRequestClose={() => setShowHelpModal({ open: false, type: null })}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalCard, { maxWidth: 360, maxHeight: '80%', backgroundColor: currentColors.bgCard }]}>
+       {/* Modal ayuda */}
+       <Modal visible={showHelpModal.open} transparent animationType="slide" onRequestClose={() => setShowHelpModal({ open: false, type: null })}>
+         <View style={styles.modalOverlay}>
+           <View style={[styles.modalCard, { maxHeight: '80%', backgroundColor: currentColors.bgCard }]}>
             <View style={styles.modalHeader}>
               <Ionicons name="help-circle-outline" size={22} color={currentColors.accent} />
               <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Ayuda</Text>
@@ -685,10 +685,12 @@ const styles = StyleSheet.create({
   timezoneChipLabelActive: { color: '#00b894', fontWeight: '600' },
 
   modalOverlay: {
-    flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end',
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'flex-end',
   },
   modalCard: {
-    backgroundColor: '#ffffff', borderTopLeftRadius: 24, borderTopRightRadius: 24,
+    backgroundColor: '#ffffff', borderTopLeftRadius: 24, borderTopRightRadius: 24 ,
     padding: 24, maxHeight: '85%',
   },
   modalHeader: {
