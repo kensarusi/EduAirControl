@@ -64,9 +64,9 @@ function AllEnvironmentsScreen() {
   }
 
   return (
-    <div className="all-env-page">
+    <div className="app-background">
       <Navbar />
-      <div className="all-env-container">
+      <div className="all-env-page">
         <BackButton onClick={() => navigate('/dashboard')} />
         <h1 className="all-env-title">{t('allEnvironments.title')}</h1>
 
