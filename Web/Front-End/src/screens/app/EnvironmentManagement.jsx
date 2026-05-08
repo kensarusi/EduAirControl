@@ -51,9 +51,9 @@ const handleSave = () => {
   }
 
   return (
-    <div className="app-background">
+    <div className="mgmt-page">
       <Navbar />
-      <div className="mgmt-page">
+      <div className="mgmt-container">
         <div className="mgmt-title-row">
           <MdOutlineMeetingRoom className="mgmt-title-icon" />
           <h1 className="mgmt-title">{t("management.title")}</h1>

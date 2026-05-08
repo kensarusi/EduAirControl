@@ -45,9 +45,9 @@ function ProfileScreen() {
   }
 
   return (
-    <div className="app-background">
+    <div className="profile-page">
       <Navbar />
-      <div className="profile-page">
+      <div className="profile-content">
 
         <div className="profile-header-card">
           <div className="profile-avatar-large"><FaUser /></div>

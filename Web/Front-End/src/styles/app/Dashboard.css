@@ -1,9 +1,15 @@
 .dashboard-page {
-  padding: 70px 20px;
+  padding: 90px 20px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  background-color:transparent;
+}
+
+.dashboard-page {
+  position: relative;
+  z-index: 2;
 }
 
 .environment-cards-container {

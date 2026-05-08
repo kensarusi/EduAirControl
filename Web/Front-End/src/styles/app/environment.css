@@ -1,6 +1,6 @@
 .mgmt-page {
   min-height: 100vh;
-  background-color: var(--bg-body);
+  background-color:transparent;
 }
 
 .mgmt-container {
