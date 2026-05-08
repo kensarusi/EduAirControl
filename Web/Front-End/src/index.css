@@ -26,6 +26,19 @@
 
   --shadow-card:     0 2px 10px rgba(0,0,0,0.08);
   --shadow-nav:      0 2px 5px rgba(0,0,0,0.1);
+
+  /* ── Glass cards (modo claro) ── */
+  --lb-glass-bg:           rgba(255, 255, 255, 0.75);
+  --lb-glass-bg-hover:     rgba(255, 255, 255, 0.92);
+  --lb-glass-border:       rgba(0, 184, 148, 0.20);
+  --lb-glass-border-hover: rgba(0, 184, 148, 0.50);
+  --lb-glass-blur:         blur(14px);
+  --lb-glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.12);
+  --lb-text-primary:       #0f172a;
+  --lb-text-muted:         #64748b;
+  --lb-text-pill:          #334155;
+  --lb-surface:            rgba(0, 184, 148, 0.08);
+  --lb-track-bg:           rgba(0, 0, 0, 0.06);
 }
 
 /* ── Protanopia ── */
@@ -35,6 +48,9 @@ body.theme-protanopia {
   --accent-light:    #e6f2fa;
   --accent-dark:     #4aa8d8;
   --border-nav:      #0072b2;
+  --lb-glass-border:       rgba(0, 114, 178, 0.22);
+  --lb-glass-border-hover: rgba(0, 114, 178, 0.50);
+  --lb-surface:            rgba(0, 114, 178, 0.08);
 }
 
 /* ── Deuteranopia ── */
@@ -44,6 +60,9 @@ body.theme-deuteranopia {
   --accent-light:    #fdf3dc;
   --accent-dark:     #c8880a;
   --border-nav:      #E69F00;
+  --lb-glass-border:       rgba(230, 159, 0, 0.22);
+  --lb-glass-border-hover: rgba(230, 159, 0, 0.50);
+  --lb-surface:            rgba(230, 159, 0, 0.08);
 }
 
 /* ── Tritanopia ── */
@@ -53,6 +72,9 @@ body.theme-tritanopia {
   --accent-light:    #fce8dc;
   --accent-dark:     #e8743a;
   --border-nav:      #D55E00;
+  --lb-glass-border:       rgba(213, 94, 0, 0.22);
+  --lb-glass-border-hover: rgba(213, 94, 0, 0.50);
+  --lb-surface:            rgba(213, 94, 0, 0.08);
 }
 
 /* ── Dark Mode ── */
@@ -74,6 +96,18 @@ body.dark-mode {
 
   --shadow-card:     0 4px 20px rgba(0,0,0,0.6);
   --shadow-nav:      0 2px 10px rgba(0,0,0,0.6);
+
+  /* ── Glass cards (modo oscuro) ── */
+  --lb-glass-bg:           rgba(10, 20, 45, 0.78);
+  --lb-glass-bg-hover:     rgba(10, 20, 45, 0.95);
+  --lb-glass-border:       rgba(0, 184, 148, 0.15);
+  --lb-glass-border-hover: rgba(0, 184, 148, 0.40);
+  --lb-glass-shadow:       0 10px 40px rgba(0, 0, 0, 0.50);
+  --lb-text-primary:       #e2e8f0;
+  --lb-text-muted:         #94a3b8;
+  --lb-text-pill:          #cbd5e1;
+  --lb-surface:            rgba(0, 184, 148, 0.07);
+  --lb-track-bg:           rgba(255, 255, 255, 0.07);
 }
 
 body.dark-mode .auth-card p,

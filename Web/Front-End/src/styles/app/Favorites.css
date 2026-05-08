@@ -1,6 +1,6 @@
 .favorites-page {
   min-height: 100vh;
-  background-color: #f0fafa;
+  background-color: transparent;
 }
 
 .favorites-content {
@@ -12,26 +12,37 @@
 
 .favorites-content h1 {
   font-size: 28px;
-  color: #333;
+  color: var(--lb-text-primary);
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 5px;
+  background: var(--lb-glass-bg);
+  backdrop-filter: var(--lb-glass-blur);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 16px;
+  padding: 16px 24px;
+  box-shadow: var(--lb-glass-shadow);
 }
 
 .favorites-subtitle {
-  color: #999;
+  color: var(--lb-text-muted);
   font-size: 14px;
   margin-bottom: 30px;
 }
 
 /* Tarjeta de ambiente favorito */
 .fav-card {
-  background: white;
+  background: var(--lb-glass-bg);
+  backdrop-filter: var(--lb-glass-blur);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  box-shadow: var(--lb-glass-shadow);
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .fav-card-header {
@@ -39,13 +50,13 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--lb-glass-border);
   margin-bottom: 15px;
 }
 
 .fav-card-header h2 {
   font-size: 20px;
-  color: #333;
+  color: var(--lb-text-primary);
   margin: 0;
 }
 
@@ -196,7 +207,7 @@ body.dark-mode .favorites-empty p {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--lb-glass-border);
 }
 
 .fav-metric:last-child {
@@ -205,13 +216,13 @@ body.dark-mode .favorites-empty p {
 
 .fav-metric-label {
   font-size: 14px;
-  color: #666;
+  color: var(--lb-text-muted);
 }
 
 .fav-metric-value {
   font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: var(--lb-text-primary);
 }
 
 .fav-card-footer {
@@ -219,18 +230,18 @@ body.dark-mode .favorites-empty p {
   justify-content: space-between;
   align-items: center;
   padding-top: 15px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--lb-glass-border);
   margin-top: 5px;
 }
 
 .fav-card-footer span {
-  color: #999;
+  color: var(--lb-text-muted);
   font-size: 14px;
 }
 
 .fav-card-footer strong {
   font-size: 14px;
-  color: #333;
+  color: var(--lb-text-primary);
 }
 
 body.dark-mode .fav-metric {

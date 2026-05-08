@@ -430,15 +430,105 @@ function DashboardScreen() {
   return (
     <div>
       <Navbar />
-      <div className="dashboard-page">
+      <div className="lb-page">
+
+        {/* Header */}
+        <div className="lb-header">
+          <div className="lb-header-icon"><FaTrophy /></div>
+          <h1 className="lb-title">Ranking de Ambientes</h1>
+          <p className="lb-subtitle">
+            Puntaje calculado por temperatura, humedad, CO₂ y ruido · Toca un ambiente para ver detalles
+          </p>
         </div>
-        <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} counts={counts} />
-        <div className="environment-cards-container">
-          {filtered.map((env) => (
-            <EnvironmentCard key={env.id} environment={env} onToggleFavorite={toggleFavorite} />
+
+        {/* Global health */}
+        <GlobalHealthCard environments={environments} />
+
+        {/* Stats overview */}
+        <StatsBar environments={environments} />
+
+        {/* Top 1 vs average */}
+        {ranked.length > 1 && (
+          <TopVsAvgCard
+            topEnv={ranked[0].env}
+            environments={environments}
+            onClick={handleClick}
+          />
+        )}
+
+        {/* Alerts panel */}
+        <AlertsPanel environments={environments} onClick={handleClick} />
+
+        {/* Filters */}
+        <div className="lb-filters">
+          {FILTERS.map(f => (
+            <button
+              key={f.key}
+              className={`lb-filter-btn ${filter === f.key ? 'lb-filter-btn--active' : ''}`}
+              onClick={() => setFilter(f.key)}
+            >
+              {f.label}
+            </button>
           ))}
         </div>
+
+        {/* Empty state */}
+        {filtered.length === 0 && (
+          <div className="lb-empty">
+            <span>🏜️</span>
+            <p>No hay ambientes con este estado</p>
+          </div>
+        )}
+
+        {/* Podium */}
+        {top3.length > 0 && (
+          <div className="lb-podium">
+            {PODIUM_ORDER.map(rank => {
+              const item = top3[rank - 1]
+              return item ? (
+                <PodiumCard
+                  key={rank}
+                  env={item.env}
+                  rank={rank}
+                  score={item.score}
+                  onClick={handleClick}
+                  onToggleFav={toggleFavorite}
+                />
+              ) : null
+            })}
+          </div>
+        )}
+
+        {/* Remaining list */}
+        {rest.length > 0 && (
+          <div className="lb-list">
+            <p className="lb-list-title">Posiciones {top3.length + 1} – {filtered.length}</p>
+            {rest.map(({ env, score }, idx) => (
+              <RankRow
+                key={env.id}
+                env={env}
+                rank={top3.length + idx + 1}
+                score={score}
+                onClick={handleClick}
+                onToggleFav={toggleFavorite}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Legend */}
+        <div className="lb-legend">
+          <p className="lb-legend-title">💡 Cómo se calcula el puntaje</p>
+          <div className="lb-legend-items">
+            <span><WiThermometer /> Temp ideal: 18–24 °C</span>
+            <span><WiHumidity />    Humedad ideal: 40–60 %</span>
+            <span><MdCo2 />         CO₂ ideal: &lt; 1000 ppm</span>
+            <span><HiSpeakerWave /> Ruido ideal: &lt; 50 dB</span>
+          </div>
+        </div>
+
       </div>
+    </div>
   )
 }
 

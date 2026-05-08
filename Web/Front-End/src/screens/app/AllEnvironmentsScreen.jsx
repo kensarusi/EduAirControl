@@ -18,7 +18,7 @@ function AllEnvironmentsScreen() {
   const { t } = useTranslation()
   const { environments } = useEnvironments()
 
-  const [filters, setFilters] = useState({ name: '', co2: '', db: '', temp: '' })
+  const [filters, setFilters] = useState({ name: '', co2: null, db: null, temp: null, noise: null })
   const [activeStatus, setActiveStatus] = useState('')
 
   const mapped = environments.map((env) => ({
@@ -35,18 +35,27 @@ function AllEnvironmentsScreen() {
 
   const suggestions = mapped.map((env) => env.nameKey ? t(env.nameKey) : env.name)
 
+  const inRange = (valueStr, range) => {
+    if (!range) return true
+    const num = parseFloat(valueStr)
+    if (isNaN(num)) return true
+    if (range.min !== null && num < range.min) return false
+    if (range.max !== null && num > range.max) return false
+    return true
+  }
+
   const filtered = mapped.filter((env) => {
     const envName = env.nameKey ? t(env.nameKey) : env.name
-    const matchesText =
-      envName.toLowerCase().includes(filters.name.toLowerCase()) &&
-      env.co2.toLowerCase().includes(filters.co2.toLowerCase()) &&
-      env.db.toLowerCase().includes(filters.db.toLowerCase()) &&
-      env.temp.toLowerCase().includes(filters.temp.toLowerCase())
+    const matchesName   = envName.toLowerCase().includes(filters.name.toLowerCase())
+    const matchesCo2    = inRange(env.co2,   filters.co2)
+    const matchesDb     = inRange(env.db,    filters.db)
+    const matchesTemp   = inRange(env.temp,  filters.temp)
+    const matchesNoise  = inRange(env.db, filters.noise)
     const matchesStatus = !activeStatus || env.statusKey === activeStatus
-    return matchesText && matchesStatus
+    return matchesName && matchesCo2 && matchesDb && matchesTemp && matchesNoise && matchesStatus
   })
 
-  const hasActiveFilter = filters.name || filters.co2 || filters.db || filters.temp
+  const hasActiveFilter = filters.name || filters.co2 || filters.db || filters.temp || filters.noise
   const isEmpty = filtered.length === 0
 
   const normalCount  = mapped.filter((e) => e.statusKey === STATUS_NORMAL).length
@@ -107,7 +116,7 @@ function AllEnvironmentsScreen() {
             <p className="no-results-sub">Intenta con otro término de búsqueda</p>
             <button
               className="no-results-clear"
-              onClick={() => { setFilters({ name: '', co2: '', db: '', temp: '' }); setActiveStatus('') }}
+              onClick={() => { setFilters({ name: '', co2: null, db: null, temp: null, noise: null }); setActiveStatus('') }}
             >
               Limpiar filtros
             </button>
