@@ -38,7 +38,7 @@ export default function VerifyCodeScreen({ navigation }) {
         </View>
         <TouchableOpacity
           style={[styles.submitBtn, { backgroundColor: currentColors.accent }]}
-          onPress={() => navigation.navigate('App')}
+          onPress={() => navigation.navigate('ChangePassword')}   // ← igual que web: va a change-password
         >
           <Text style={[styles.submitBtnText, { color: currentColors.bgBody }]}>Verificar</Text>
         </TouchableOpacity>
@@ -53,23 +53,23 @@ export default function VerifyCodeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, justifyContent: 'center', padding: 20 },
+  container:  { flexGrow: 1, justifyContent: 'center', padding: 20 },
   card: {
     borderRadius: 20, padding: 24, borderWidth: 2,
     shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1, shadowRadius: 12, elevation: 5,
   },
-  backBtn: { alignSelf: 'flex-start', marginBottom: 10, padding: 4 },
-  header: { alignItems: 'center', marginBottom: 20, gap: 12 },
-  title: { fontSize: 24, fontWeight: 'bold' },
+  backBtn:     { alignSelf: 'flex-start', marginBottom: 10, padding: 4 },
+  header:      { alignItems: 'center', marginBottom: 20, gap: 12 },
+  title:       { fontSize: 24, fontWeight: 'bold' },
   description: { fontSize: 14, textAlign: 'center', marginBottom: 20, lineHeight: 20 },
-  inputGroup: { marginBottom: 16 },
-  label: { fontSize: 13, fontWeight: '600', marginBottom: 6 },
+  inputGroup:  { marginBottom: 16 },
+  label:       { fontSize: 13, fontWeight: '600', marginBottom: 6 },
   codeInput: {
     borderRadius: 10, borderWidth: 1,
     paddingHorizontal: 14, paddingVertical: 12,
     fontSize: 24, letterSpacing: 8, textAlign: 'center',
   },
-  submitBtn: { borderRadius: 12, paddingVertical: 14, alignItems: 'center' },
+  submitBtn:     { borderRadius: 12, paddingVertical: 14, alignItems: 'center' },
   submitBtnText: { fontSize: 16, fontWeight: 'bold' },
 })

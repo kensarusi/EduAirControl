@@ -2,28 +2,48 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--bg-nav, white);
+
   padding: 0 30px;
-  height: 60px;
-  border-bottom: 2px solid var(--border-nav, #5de6c8);
-  box-shadow: var(--shadow-nav, 0 2px 5px rgba(0,0,0,0.1));
+  height: 70px;
+
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+
   z-index: 1000;
-  transition: background-color 0.3s, border-color 0.3s;
+
+  /* 🌌 EFECTO GLASS */
+  background: rgba(5, 10, 22, 0.72);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(93, 230, 200, 0.18);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.28);
+
+  transition: all 0.3s ease;
 
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
+
   will-change: transform;
+
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 .navbar-logo h2 {
-  color: var(--accent, #5de6c8);
+  color: #5de6c8;
   margin: 0;
-  font-size: 22px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   cursor: pointer;
+  text-shadow:
+    0 0 10px rgba(93, 230, 200, 0.35);
 }
 
 .navbar-menu {
@@ -38,19 +58,27 @@
 .navbar-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 15px;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   font-size: 14px;
-  color: var(--text-nav, #555);
+  color: #d6e2ff;
+  background: transparent;
 }
 
 .navbar-item:hover,
 .navbar-item.active {
-  background-color: var(--accent-light, #e8faf5);
-  color: var(--accent, #5de6c8);
+
+  background: rgba(93, 230, 200, 0.12);
+
+  color: #5de6c8;
+
+  box-shadow:
+    0 0 12px rgba(93, 230, 200, 0.15);
+
+  transform: translateY(-1px);
 }
 
 .navbar-icon {

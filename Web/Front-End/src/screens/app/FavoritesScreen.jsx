@@ -11,9 +11,9 @@ function FavoritesScreen() {
   const favorites = environments.filter((e) => e.isFavorite)
 
   return (
-    <div className="favorites-page">
+    <div className="app-background">
       <Navbar />
-      <div className="favorites-content">
+      <div className="dashboard-page">
         <h1><FaHeart style={{ color: '#ff6b6b' }} /> {t('favorites.title')}</h1>
         <p className="favorites-subtitle">{t('favorites.description')}</p>
 

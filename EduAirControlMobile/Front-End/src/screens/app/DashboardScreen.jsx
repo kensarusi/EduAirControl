@@ -1,92 +1,338 @@
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, SafeAreaView, StatusBar, TextInput,
+  StyleSheet, SafeAreaView, StatusBar,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
-import {
-  STATUS_COLORS, STATUS_DIM, STATUS_LABELS,
-  QUALITY_LABELS, QUALITY_COLORS,
-} from '../../constants/environments'
+import { STATUS_COLORS, STATUS_DIM, STATUS_LABELS, QUALITY_LABELS, QUALITY_COLORS } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 
-function MetricChip({ icon, value, color }) {
+// ── Score formula (igual que web) ─────────────────────────────
+function calcScore(env) {
+  const t = env.temp ?? env.temperature ?? 22
+  const tempScore     = Math.max(0, 100 - Math.abs(t - 21) * 8)
+  const humidityScore = Math.max(0, 100 - Math.abs(env.humidity - 50) * 3)
+  const co2Score      = Math.max(0, 100 - Math.max(0, env.co2 - 600) * 0.08)
+  const noiseScore    = Math.max(0, 100 - Math.max(0, env.noise - 30) * 2)
+  return Math.round((tempScore + humidityScore + co2Score + noiseScore) / 4)
+}
+
+// ── Score Ring ─────────────────────────────────────────────────
+function ScoreRing({ score, size = 52, currentColors }) {
+  const color = score >= 75 ? '#4CAF50' : score >= 50 ? '#FFC107' : '#F44336'
   return (
-    <View style={[styles.chip, { borderColor: color || '#cccccc' }]}>
-      <Text style={styles.chipIcon}>{icon}</Text>
-      <Text style={[styles.chipValue, { color: color || '#666666' }]}>{value}</Text>
+    <View style={[srStyles.ring, { width: size, height: size, borderRadius: size / 2, borderColor: color }]}>
+      <Text style={[srStyles.num, { color, fontSize: size * 0.27 }]}>{score}</Text>
     </View>
   )
 }
+const srStyles = StyleSheet.create({
+  ring: { borderWidth: 3, alignItems: 'center', justifyContent: 'center' },
+  num:  { fontWeight: 'bold' },
+})
 
-function EnvironmentCard({ environment, onPress, onToggleFavorite, currentColors }) {
-  const statusColor = STATUS_COLORS[environment.statusKey] || '#00b894'
-  const statusDim = STATUS_DIM[environment.statusKey] || 'rgba(0,184,148,0.1)'
-  const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
-  const qualityLabel = QUALITY_LABELS[environment.qualityKey] || environment.qualityKey
-  const qualityColor = QUALITY_COLORS[environment.qualityKey] || '#00b894'
+// ── Status Icon ────────────────────────────────────────────────
+function StatusIcon({ statusKey, size = 18 }) {
+  const map = {
+    'dashboard.statusNormal':  { name: 'checkmark-circle', color: '#4CAF50' },
+    'dashboard.statusWarning': { name: 'warning',           color: '#FFC107' },
+    'dashboard.statusAlert':   { name: 'alert-circle',      color: '#F44336' },
+    normal:  { name: 'checkmark-circle', color: '#4CAF50' },
+    warning: { name: 'warning',          color: '#FFC107' },
+    alert:   { name: 'alert-circle',     color: '#F44336' },
+  }
+  const icon = map[statusKey] || map['normal']
+  return <Ionicons name={icon.name} size={size} color={icon.color} />
+}
+
+// ── Helpers ────────────────────────────────────────────────────
+const isNormal  = (e) => e.statusKey === 'dashboard.statusNormal'  || e.statusKey === 'normal'
+const isWarning = (e) => e.statusKey === 'dashboard.statusWarning' || e.statusKey === 'warning'
+const isAlert   = (e) => e.statusKey === 'dashboard.statusAlert'   || e.statusKey === 'alert'
+
+// ── Global Health Card ─────────────────────────────────────────
+function GlobalHealthCard({ environments, currentColors }) {
+  const total   = environments.length
+  if (!total) return null
+  const normal  = environments.filter(isNormal).length
+  const warning = environments.filter(isWarning).length
+  const alert   = environments.filter(isAlert).length
+  const pct     = Math.round((normal / total) * 100)
+  const color   = pct >= 70 ? '#4CAF50' : pct >= 40 ? '#FFC107' : '#F44336'
+  const emoji   = pct >= 70 ? '🟢' : pct >= 40 ? '🟡' : '🔴'
+  const label   = pct >= 70 ? 'Estado general bueno' : pct >= 40 ? 'Atención recomendada' : 'Intervención necesaria'
 
   return (
-    <TouchableOpacity style={[styles.card, { backgroundColor: currentColors.bgCard }]} onPress={onPress} activeOpacity={0.85}>
-      <View style={styles.cardHeader}>
-        <View style={styles.cardTitleBlock}>
-          <Text style={[styles.cardName, { color: currentColors.textPrimary }]} numberOfLines={1}>{environment.name}</Text>
-          <View style={[styles.statusBadge, { backgroundColor: statusDim, borderColor: statusColor }]}>
-            <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
-            <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
-          </View>
+    <View style={[hcStyles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+      <View style={hcStyles.row}>
+        <Text style={{ fontSize: 22 }}>{emoji}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={[hcStyles.label, { color: currentColors.textPrimary }]}>{label}</Text>
+          <Text style={[hcStyles.sub,   { color: currentColors.textMuted }]}>{total} ambientes monitoreados</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => onToggleFavorite(environment.id, !environment.isFavorite)}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-        >
-          <Ionicons
-            name={environment.isFavorite ? 'heart' : 'heart-outline'}
-            size={22}
-            color={environment.isFavorite ? '#ff6b6b' : currentColors.textMuted}
-          />
-        </TouchableOpacity>
+        <Text style={[hcStyles.pct, { color }]}>{pct}%</Text>
       </View>
-
-      <View style={styles.locationRow}>
-        <Ionicons name="location-outline" size={13} color={currentColors.textMuted} />
-        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.location}</Text>
-        <Ionicons name="people-outline" size={13} color={currentColors.textMuted} style={{ marginLeft: 10 }} />
-        <Text style={[styles.locationText, { color: currentColors.textMuted }]}>{environment.capacity} personas</Text>
+      <View style={hcStyles.track}>
+        {normal  > 0 && <View style={[hcStyles.seg, { flex: normal,  backgroundColor: '#4CAF50' }]} />}
+        {warning > 0 && <View style={[hcStyles.seg, { flex: warning, backgroundColor: '#FFC107' }]} />}
+        {alert   > 0 && <View style={[hcStyles.seg, { flex: alert,   backgroundColor: '#F44336' }]} />}
       </View>
-
-      <View style={styles.metricsRow}>
-        <MetricChip icon="💨" value={environment.airQuality || '--'} color={qualityColor} />
-        <MetricChip icon="🌡️" value={environment.temperature !== undefined ? `${environment.temperature}°C` : '--'} color="#00b894" />
-        <MetricChip icon="💧" value={environment.humidity !== undefined ? `${environment.humidity}%` : '--'} color="#00b894" />
+      <View style={hcStyles.legend}>
+        {[['#4CAF50', `${normal} Normal`], ['#FFC107', `${warning} Advertencia`], ['#F44336', `${alert} Alerta`]].map(([c, l]) => (
+          <View key={l} style={hcStyles.legendItem}>
+            <View style={[hcStyles.dot, { backgroundColor: c }]} />
+            <Text style={[hcStyles.legendTxt, { color: currentColors.textMuted }]}>{l}</Text>
+          </View>
+        ))}
       </View>
+    </View>
+  )
+}
+const hcStyles = StyleSheet.create({
+  card:       { borderRadius: 14, padding: 16, marginBottom: 12, borderWidth: 1 },
+  row:        { flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 10 },
+  label:      { fontSize: 14, fontWeight: '700' },
+  sub:        { fontSize: 12, marginTop: 2 },
+  pct:        { fontSize: 20, fontWeight: 'bold' },
+  track:      { flexDirection: 'row', height: 8, borderRadius: 4, overflow: 'hidden', marginBottom: 10, backgroundColor: '#f0f0f0' },
+  seg:        { height: '100%' },
+  legend:     { flexDirection: 'row', gap: 14, flexWrap: 'wrap' },
+  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  dot:        { width: 8, height: 8, borderRadius: 4 },
+  legendTxt:  { fontSize: 12 },
+})
 
-      <View style={[styles.qualityRow, { borderTopColor: currentColors.borderColor }]}>
-        <Text style={[styles.qualityLabel, { color: currentColors.textSecondary }]}>Calidad del aire</Text>
-        <Text style={[styles.qualityValue, { color: qualityColor }]}>{qualityLabel}</Text>
+// ── Stats Bar ──────────────────────────────────────────────────
+function StatsBar({ environments, currentColors }) {
+  const counts = [
+    { n: environments.filter(isNormal).length,  color: '#4CAF50', icon: 'checkmark-circle', label: 'Normal' },
+    { n: environments.filter(isWarning).length, color: '#FFC107', icon: 'warning',           label: 'Advertencia' },
+    { n: environments.filter(isAlert).length,   color: '#F44336', icon: 'alert-circle',      label: 'Alerta' },
+    { n: environments.length,                   color: currentColors.accent, icon: 'trophy', label: 'Total' },
+  ]
+  return (
+    <View style={[sbStyles.bar, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+      {counts.map((s, i) => (
+        <View key={i} style={[sbStyles.stat, i < counts.length - 1 && { borderRightWidth: 1, borderRightColor: currentColors.borderColor }]}>
+          <Ionicons name={s.icon} size={18} color={s.color} />
+          <Text style={[sbStyles.count, { color: s.color }]}>{s.n}</Text>
+          <Text style={[sbStyles.label, { color: currentColors.textMuted }]}>{s.label}</Text>
+        </View>
+      ))}
+    </View>
+  )
+}
+const sbStyles = StyleSheet.create({
+  bar:   { flexDirection: 'row', borderRadius: 14, borderWidth: 1, marginBottom: 12, overflow: 'hidden' },
+  stat:  { flex: 1, alignItems: 'center', paddingVertical: 12, gap: 3 },
+  count: { fontSize: 18, fontWeight: 'bold' },
+  label: { fontSize: 10, fontWeight: '600' },
+})
+
+// ── Alerts Panel ───────────────────────────────────────────────
+function AlertsPanel({ environments, onPress, currentColors }) {
+  const problematic = environments.filter((e) => isAlert(e) || isWarning(e))
+
+  if (!problematic.length) {
+    return (
+      <View style={[apStyles.empty, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+        <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
+        <Text style={[apStyles.emptyTxt, { color: currentColors.textMuted }]}>Sin alertas activas — todos los ambientes están bien</Text>
+      </View>
+    )
+  }
+
+  return (
+    <View style={[apStyles.panel, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+      <View style={apStyles.titleRow}>
+        <Ionicons name="notifications" size={16} color={currentColors.accent} />
+        <Text style={[apStyles.title, { color: currentColors.textPrimary }]}>Alertas activas</Text>
+        <View style={[apStyles.badge, { backgroundColor: currentColors.accent }]}>
+          <Text style={apStyles.badgeTxt}>{problematic.length}</Text>
+        </View>
+      </View>
+      {problematic.map((env) => {
+        const alert  = isAlert(env)
+        const color  = alert ? '#F44336' : '#FFC107'
+        const t      = env.temp ?? env.temperature ?? 0
+        const issues = []
+        if (t < 18 || t > 24)                       issues.push(`Temp ${t}°C`)
+        if (env.humidity < 40 || env.humidity > 60) issues.push(`Hum ${env.humidity}%`)
+        if (env.co2 > 1000)                         issues.push(`CO₂ ${env.co2}ppm`)
+        if (env.noise > 50)                         issues.push(`Ruido ${env.noise}dB`)
+        return (
+          <TouchableOpacity
+            key={env.id}
+            style={[apStyles.item, { borderLeftColor: color, backgroundColor: `${color}15` }]}
+            onPress={() => onPress(env.id)}
+          >
+            <Ionicons name={alert ? 'alert-circle' : 'warning'} size={18} color={color} />
+            <View style={{ flex: 1 }}>
+              <Text style={[apStyles.itemName, { color: currentColors.textPrimary }]}>{env.name}</Text>
+              {issues.length > 0 && <Text style={[apStyles.itemIssues, { color }]}>{issues.join(' · ')}</Text>}
+            </View>
+            <Ionicons name="chevron-forward" size={14} color={currentColors.textMuted} />
+          </TouchableOpacity>
+        )
+      })}
+    </View>
+  )
+}
+const apStyles = StyleSheet.create({
+  empty:     { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 14, borderRadius: 14, borderWidth: 1, marginBottom: 12 },
+  emptyTxt:  { fontSize: 13, flex: 1 },
+  panel:     { borderRadius: 14, borderWidth: 1, marginBottom: 12, padding: 12 },
+  titleRow:  { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
+  title:     { fontSize: 14, fontWeight: '700', flex: 1 },
+  badge:     { borderRadius: 10, paddingHorizontal: 7, paddingVertical: 2 },
+  badgeTxt:  { color: '#fff', fontSize: 11, fontWeight: 'bold' },
+  item:      { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 10, borderRadius: 10, borderLeftWidth: 3, marginBottom: 6 },
+  itemName:  { fontSize: 13, fontWeight: '600' },
+  itemIssues:{ fontSize: 11, marginTop: 2 },
+})
+
+// ── Podium Card (rank 1–3) ─────────────────────────────────────
+const MEDAL = { 1: '#FFD700', 2: '#C0C0C0', 3: '#CD7F32' }
+
+function PodiumCard({ env, rank, score, onPress, onToggleFav, currentColors }) {
+  return (
+    <TouchableOpacity
+      style={[
+        pdStyles.card,
+        rank === 1 ? pdStyles.rank1 : pdStyles.rank23,
+        { backgroundColor: currentColors.bgCard, borderColor: MEDAL[rank] },
+      ]}
+      onPress={() => onPress(env.id)}
+      activeOpacity={0.85}
+    >
+      {rank === 1 && <Text style={pdStyles.crown}>👑</Text>}
+      <View style={[pdStyles.bubble, { borderColor: MEDAL[rank], backgroundColor: `${MEDAL[rank]}20` }]}>
+        <StatusIcon statusKey={env.statusKey} size={rank === 1 ? 24 : 20} />
+      </View>
+      <Text style={[pdStyles.name, { color: currentColors.textPrimary, fontSize: rank === 1 ? 13 : 11 }]} numberOfLines={2}>{env.name}</Text>
+      {env.location ? (
+        <View style={pdStyles.locRow}>
+          <Ionicons name="location-outline" size={10} color={currentColors.textMuted} />
+          <Text style={[pdStyles.loc, { color: currentColors.textMuted }]} numberOfLines={1}>{env.location}</Text>
+        </View>
+      ) : null}
+      <ScoreRing score={score} size={rank === 1 ? 52 : 44} currentColors={currentColors} />
+      <TouchableOpacity onPress={() => onToggleFav(env.id, !env.isFavorite)} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
+        <Ionicons name={env.isFavorite ? 'heart' : 'heart-outline'} size={15} color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted} />
+      </TouchableOpacity>
+      <View style={[pdStyles.stand, { backgroundColor: MEDAL[rank] }]}>
+        <Text style={pdStyles.standN}>{rank}</Text>
       </View>
     </TouchableOpacity>
   )
 }
+const pdStyles = StyleSheet.create({
+  card: {
+    alignItems: 'center', borderRadius: 14, borderWidth: 2,
+    padding: 10, paddingBottom: 0, gap: 5,
+    shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 6, elevation: 4,
+  },
+  rank1:  { width: 120, marginTop: 0, zIndex: 2 },
+  rank23: { width: 105, marginTop: 20 },
+  crown:  { fontSize: 18, position: 'absolute', top: -15 },
+  bubble: { width: 42, height: 42, borderRadius: 21, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
+  name:   { textAlign: 'center', fontWeight: '700', lineHeight: 16 },
+  locRow: { flexDirection: 'row', alignItems: 'center', gap: 3 },
+  loc:    { fontSize: 10 },
+  stand:  { width: '100%', alignItems: 'center', paddingVertical: 6, borderBottomLeftRadius: 12, borderBottomRightRadius: 12 },
+  standN: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+})
 
+// ── Rank Row (rank 4+) ─────────────────────────────────────────
+function RankRow({ env, rank, score, onPress, onToggleFav, currentColors }) {
+  const t      = env.temp ?? env.temperature ?? 0
+  const pills  = [
+    { label: `${t}°C`,          warn: t < 18 || t > 24 },
+    { label: `${env.humidity}%`, warn: env.humidity < 40 || env.humidity > 60 },
+    { label: `${env.co2}ppm`,    warn: env.co2 > 1000 },
+    { label: `${env.noise}dB`,   warn: env.noise > 50 },
+  ]
+  const warn = pills.filter((p) => p.warn)
+  const visible = warn.length ? warn.slice(0, 2) : pills.slice(0, 2)
+
+  return (
+    <TouchableOpacity
+      style={[rrStyles.row, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}
+      onPress={() => onPress(env.id)}
+      activeOpacity={0.85}
+    >
+      <Text style={[rrStyles.rank, { color: currentColors.textMuted }]}>#{rank}</Text>
+      <StatusIcon statusKey={env.statusKey} size={18} />
+      <View style={{ flex: 1 }}>
+        <Text style={[rrStyles.name, { color: currentColors.textPrimary }]} numberOfLines={1}>{env.name}</Text>
+        {env.location ? <Text style={[rrStyles.loc, { color: currentColors.textMuted }]}>{env.location}</Text> : null}
+      </View>
+      <View style={rrStyles.pills}>
+        {visible.map((p, i) => (
+          <View key={i} style={[rrStyles.pill, { backgroundColor: p.warn ? '#FFC10720' : currentColors.bgCard, borderColor: p.warn ? '#FFC107' : currentColors.borderColor }]}>
+            <Text style={[rrStyles.pillTxt, { color: p.warn ? '#FFC107' : currentColors.textMuted }]}>{p.label}</Text>
+          </View>
+        ))}
+      </View>
+      <ScoreRing score={score} size={42} currentColors={currentColors} />
+      <TouchableOpacity onPress={() => onToggleFav(env.id, !env.isFavorite)} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }} style={{ marginLeft: 6 }}>
+        <Ionicons name={env.isFavorite ? 'heart' : 'heart-outline'} size={16} color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted} />
+      </TouchableOpacity>
+    </TouchableOpacity>
+  )
+}
+const rrStyles = StyleSheet.create({
+  row:     { flexDirection: 'row', alignItems: 'center', gap: 8, padding: 12, borderRadius: 12, borderWidth: 1, marginBottom: 8 },
+  rank:    { fontSize: 13, fontWeight: '700', width: 28 },
+  name:    { fontSize: 14, fontWeight: '600' },
+  loc:     { fontSize: 11, marginTop: 1 },
+  pills:   { flexDirection: 'row', gap: 4 },
+  pill:    { borderWidth: 1, borderRadius: 8, paddingHorizontal: 6, paddingVertical: 3 },
+  pillTxt: { fontSize: 10, fontWeight: '600' },
+})
+
+// ── Filter Bar ─────────────────────────────────────────────────
+const FILTERS = [
+  { key: 'all',     label: 'Todos' },
+  { key: 'normal',  label: '✅ Normal' },
+  { key: 'warning', label: '⚠️ Advertencia' },
+  { key: 'alert',   label: '🔴 Alerta' },
+]
+
+// ── Main ───────────────────────────────────────────────────────
 export default function DashboardScreen({ navigation }) {
   const { darkMode, currentColors, loaded } = useTheme()
-  const [search, setSearch] = useState('')
-
   const { environments, toggleFavorite } = useEnvironments()
+  const [filter, setFilter] = useState('all')
 
-  const filtered = environments.filter(env =>
-    env.name.toLowerCase().includes(search.toLowerCase()) ||
-    env.location.toLowerCase().includes(search.toLowerCase())
+  const ranked = useMemo(() =>
+    environments
+      .map((env) => ({ env, score: calcScore(env) }))
+      .sort((a, b) => b.score - a.score),
+    [environments]
   )
+
+  const filtered = useMemo(() => {
+    if (filter === 'all') return ranked
+    return ranked.filter(({ env }) =>
+      filter === 'normal'  ? isNormal(env)  :
+      filter === 'warning' ? isWarning(env) :
+      isAlert(env)
+    )
+  }, [ranked, filter])
+
+  const top3 = filtered.slice(0, 3)
+  const rest = filtered.slice(3)
+  const PODIUM_ORDER = [2, 1, 3]
+
+  const handlePress = (id) => navigation.navigate('EnvironmentDetail', { envId: id })
 
   if (!loaded) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
-        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+      <SafeAreaView style={[styles.safe, { backgroundColor: '#f0fafa' }]}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: '#999' }}>Cargando...</Text>
         </View>
       </SafeAreaView>
     )
@@ -94,163 +340,125 @@ export default function DashboardScreen({ navigation }) {
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
-      <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} backgroundColor={currentColors.bgBody} />
+      <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} backgroundColor={currentColors.bgBody} />
 
       {/* Header */}
       <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
-        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Dashboard</Text>
-        <View style={[styles.searchBar, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor }]}>
-          <Ionicons name="search-outline" size={16} color={currentColors.textMuted} />
-          <TextInput
-            style={[styles.searchInput, { color: currentColors.textPrimary }]}
-            placeholder="Buscar ambiente..."
-            placeholderTextColor={currentColors.textMuted}
-            value={search}
-            onChangeText={setSearch}
-          />
-          {search.length > 0 && (
-            <TouchableOpacity onPress={() => setSearch('')}>
-              <Ionicons name="close-circle" size={16} color={currentColors.textMuted} />
-            </TouchableOpacity>
-          )}
+        <Ionicons name="trophy" size={24} color="#FFD700" />
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Ranking de Ambientes</Text>
+          <Text style={[styles.headerSub,   { color: currentColors.textMuted }]}>Toca un ambiente para ver detalles</Text>
         </View>
       </View>
 
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        {filtered.length === 0 ? (
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+
+        {/* Global Health */}
+        <GlobalHealthCard environments={environments} currentColors={currentColors} />
+
+        {/* Stats */}
+        <StatsBar environments={environments} currentColors={currentColors} />
+
+        {/* Alerts */}
+        <AlertsPanel environments={environments} onPress={handlePress} currentColors={currentColors} />
+
+        {/* Filters */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll} contentContainerStyle={styles.filterRow}>
+          {FILTERS.map((f) => (
+            <TouchableOpacity
+              key={f.key}
+              style={[styles.filterBtn, filter === f.key && { backgroundColor: currentColors.accent }]}
+              onPress={() => setFilter(f.key)}
+            >
+              <Text style={[styles.filterTxt, { color: filter === f.key ? currentColors.bgBody : currentColors.textSecondary }]}>{f.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {/* Empty */}
+        {filtered.length === 0 && (
           <View style={styles.empty}>
-            <Ionicons name="cube-outline" size={52} color={currentColors.borderColor} />
-            <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>Sin ambientes</Text>
-            <Text style={[styles.emptyText, { color: currentColors.textMuted }]}>
-              {search ? 'No hay resultados para tu búsqueda' : 'No hay ambientes registrados'}
-            </Text>
+            <Text style={{ fontSize: 36 }}>🏜️</Text>
+            <Text style={[styles.emptyTxt, { color: currentColors.textMuted }]}>No hay ambientes con este estado</Text>
           </View>
-        ) : (
-          filtered.map((env) => (
-            <EnvironmentCard
-              key={env.id}
-              environment={env}
-              onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
-              onToggleFavorite={toggleFavorite}
-              currentColors={currentColors}
-            />
-          ))
         )}
-        <View style={{ height: 20 }} />
+
+        {/* Podium */}
+        {top3.length > 0 && (
+          <View style={styles.podium}>
+            {PODIUM_ORDER.map((rank) => {
+              const item = top3[rank - 1]
+              return item ? (
+                <PodiumCard
+                  key={rank}
+                  env={item.env}
+                  rank={rank}
+                  score={item.score}
+                  onPress={handlePress}
+                  onToggleFav={toggleFavorite}
+                  currentColors={currentColors}
+                />
+              ) : <View key={rank} style={{ width: 105 }} />
+            })}
+          </View>
+        )}
+
+        {/* Rest of list */}
+        {rest.length > 0 && (
+          <View style={styles.listSection}>
+            <Text style={[styles.listTitle, { color: currentColors.textMuted }]}>
+              Posiciones {top3.length + 1} – {filtered.length}
+            </Text>
+            {rest.map(({ env, score }, idx) => (
+              <RankRow
+                key={env.id}
+                env={env}
+                rank={top3.length + idx + 1}
+                score={score}
+                onPress={handlePress}
+                onToggleFav={toggleFavorite}
+                currentColors={currentColors}
+              />
+            ))}
+          </View>
+        )}
+
+        {/* Legend */}
+        <View style={[styles.legend, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <Text style={[styles.legendTitle, { color: currentColors.textPrimary }]}>💡 Cómo se calcula el puntaje</Text>
+          {[
+            '🌡️ Temp ideal: 18–24°C',
+            '💧 Humedad ideal: 40–60%',
+            '💨 CO₂ ideal: < 1000 ppm',
+            '🔊 Ruido ideal: < 50 dB',
+          ].map((l) => (
+            <Text key={l} style={[styles.legendItem, { color: currentColors.textSecondary }]}>{l}</Text>
+          ))}
+        </View>
+
+        <View style={{ height: 30 }} />
       </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#f0fafa' },
-
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 55,
-    paddingBottom: 20,
-    gap: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: '#00b894',
-  },
-  headerTitle: { fontSize: 24, fontWeight: 'bold' },
-
-  searchBar: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    backgroundColor: '#ffffff',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-  },
-  searchInput: { flex: 1, fontSize: 14 },
-
-  scroll: { flex: 1 },
-  scrollContent: { padding: 20, paddingTop: 10 },
-
-  card: {
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-    elevation: 3,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 12,
-  },
-  cardTitleBlock: { flex: 1 },
-  cardName: { fontSize: 16, fontWeight: 'bold', marginBottom: 4 },
-  statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  statusDot: { width: 6, height: 6, borderRadius: 3 },
-  statusText: { fontSize: 11, fontWeight: '600' },
-
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-    gap: 4,
-  },
-  locationText: { fontSize: 12, color: '#999999' },
-
-  metricsRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 10,
-  },
-  chip: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 4,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  chipIcon: { fontSize: 12 },
-  chipValue: { fontSize: 12, fontWeight: '600' },
-
-  qualityRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
-  },
-  qualityLabel: { fontSize: 12, color: '#666666', flex: 1 },
-  qualityValue: { fontSize: 13, fontWeight: '600', flexShrink: 0 },
-
-  empty: {
-    alignItems: 'center',
-    paddingTop: 60,
-    gap: 10,
-  },
-  emptyTitle: { fontSize: 17, fontWeight: 'bold', color: '#0f172a' },
-  emptyText: { fontSize: 13, color: '#999999', textAlign: 'center' },
+  safe:         { flex: 1 },
+  header:       { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 20, paddingTop: 55, paddingBottom: 16, borderBottomWidth: 1 },
+  headerTitle:  { fontSize: 18, fontWeight: 'bold' },
+  headerSub:    { fontSize: 12, marginTop: 1 },
+  scroll:       { flex: 1 },
+  scrollContent:{ padding: 16 },
+  filterScroll: { marginBottom: 12 },
+  filterRow:    { flexDirection: 'row', gap: 8, paddingRight: 8 },
+  filterBtn:    { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, backgroundColor: '#f0f0f0' },
+  filterTxt:    { fontSize: 13, fontWeight: '600' },
+  empty:        { alignItems: 'center', paddingVertical: 40, gap: 8 },
+  emptyTxt:     { fontSize: 14 },
+  podium:       { flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', gap: 10, marginBottom: 24, paddingTop: 20 },
+  listSection:  { marginTop: 4 },
+  listTitle:    { fontSize: 13, fontWeight: '600', marginBottom: 10 },
+  legend:       { borderRadius: 14, borderWidth: 1, padding: 14, gap: 6 },
+  legendTitle:  { fontSize: 13, fontWeight: '700', marginBottom: 4 },
+  legendItem:   { fontSize: 12 },
 })

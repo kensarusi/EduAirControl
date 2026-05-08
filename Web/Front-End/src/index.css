@@ -1082,3 +1082,79 @@ button:active { transform: scale(0.97); }
     width: 450px;
   }
 }
+
+/* =========================================
+    FONDO GENERAL APP
+========================================= */
+
+.app-background {
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      rgba(4, 10, 24, 0.88),
+      rgba(4, 10, 24, 0.90)
+    ),
+    url('/src/assets/dashboard-bg.png');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  position: relative;
+}
+
+/* =========================================
+   EFECTO GLASS
+========================================= */
+
+.env-card,
+.summary-card,
+.settings-card,
+.mgmt-card,
+.profile-section-card,
+.filter-card {
+  background: rgba(12, 20, 38, 0.72) !important;
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(93, 230, 200, 0.12);
+
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* =========================================
+    CONTENIDO SOBRE EL FONDO
+========================================= */
+
+.dashboard-page,
+.settings-content,
+.favorites-content,
+.profile-content,
+.all-env-container,
+.mgmt-container {
+  position: relative;
+  z-index: 2;
+}
+
+.env-card:hover,
+.summary-card:hover,
+.settings-card:hover,
+.mgmt-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(93, 230, 200, 0.35);
+
+  transition: 0.3s ease;
+}
+
+.env-card h1,
+.env-card h2,
+.env-card h3,
+.summary-card h1,
+.summary-card h2,
+.summary-card h3 {
+  color: #ffffff;
+}
