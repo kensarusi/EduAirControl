@@ -26,10 +26,9 @@ function DashboardScreen() {
   }
 
   return (
-      <div className="app-background">
+    <div>
       <Navbar />
       <div className="dashboard-page">
-        </div>
         <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} counts={counts} />
         <div className="environment-cards-container">
           {filtered.map((env) => (
@@ -37,6 +36,7 @@ function DashboardScreen() {
           ))}
         </div>
       </div>
+    </div>
   )
 }
 

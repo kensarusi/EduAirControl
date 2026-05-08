@@ -264,12 +264,12 @@
 
 /* Dark Mode */
 body.dark-mode .profile-page {
-  background-color: #1a1a2e;
+  background-color: transparent;
 }
 
 body.dark-mode .profile-header-card,
 body.dark-mode .profile-section-card {
-  background-color: #16213e;
+  background-color: transparent;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
