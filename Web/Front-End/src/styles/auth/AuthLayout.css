@@ -24,30 +24,22 @@
 }
 
 /* ================================
-   🌿 GLASS CARD
+   GLASS CARD
 ================================ */
 
 .auth-card {
   width: 100%;
   max-width: 470px;
-
   overflow: hidden;
-
   padding: 40px 35px;
-
   border-radius: 28px;
-
   background: rgba(10, 18, 35, 0.55);
-
-  backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
+  backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,0.12);
-
   box-shadow:
     0 8px 32px rgba(0,0,0,0.35),
     inset 0 1px 1px rgba(255,255,255,0.08);
-
   position: relative;
 }
 

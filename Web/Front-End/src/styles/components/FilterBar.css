@@ -1,32 +1,53 @@
+/* ============================================================
+   FILTER BAR — EduAirControl
+   Botones de filtro rapido. Glass, hover premium, responsive.
+   ============================================================ */
+
 .filter-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-  margin-bottom: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .filter-btn {
   display: flex;
   justify-content: space-between;
-  align-items: center;          /* ← centra verticalmente ícono y texto */
-  padding: 15px 18px;
-  border-radius: 12px;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 16px;
   width: 100%;
-  border: 1.5px solid #e0e0e0; /* ← faltaba border base */
-  background: white;            /* ← faltaba bg base */
+  border: 1px solid var(--lb-glass-border);
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
+  box-shadow: var(--lb-glass-shadow);
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-sizing: border-box;       /* ← evita desbordamiento */
-  min-height: 80px;             /* ← altura mínima consistente */
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-sizing: border-box;
+  min-height: 76px;
 }
 
 .filter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  border-color: var(--lb-glass-border-hover);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+body.dark-mode .filter-btn:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.40);
 }
 
 .filter-btn.active {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--lb-glass-border-hover);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .filter-btn.active {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
 .filter-info {
@@ -37,60 +58,38 @@
 }
 
 .filter-label {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .filter-sublabel {
   font-size: 11px;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .filter-count {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
 }
 
 .filter-icon {
-  font-size: 28px;
-  display: flex;              /* ← ícono bien alineado */
+  font-size: 26px;
+  display: flex;
   align-items: center;
-  flex-shrink: 0;             /* ← no se comprime */
-}
-
-/* Dark Mode */
-body.dark-mode .filter-btn {
-  background: #16213e;
-  border-color: #2a2a4a;
-}
-
-body.dark-mode .filter-label {
-  color: #e0e0e0;
-}
-
-body.dark-mode .filter-sublabel {
-  color: #888;
-}
-
-body.dark-mode .filter-btn.active {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .filter-bar {
-    grid-template-columns: repeat(2, 1fr); /* ← 2 columnas en tablet */
-  }
+  .filter-bar { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Móvil */
+/* Mobile */
 @media (max-width: 768px) {
-  .filter-bar {
-    grid-template-columns: 1fr;
-  }
-
-  .filter-btn {
-    min-height: 70px;
-  }
+  .filter-bar { grid-template-columns: 1fr; gap: 10px; }
+  .filter-btn { min-height: 68px; padding: 14px 16px; }
 }
