@@ -783,77 +783,11 @@ body.dark-mode .lb-row           { border-color: var(--border-card); }
 
 /* ============================================================
    GLASSMORPHISM — Variables por tema
-   El fondo con imagen es siempre global, las cards se adaptan
-   al tema activo mediante variables CSS.
+   NOTA: Las variables --lb-glass-* estan definidas en index.css
+   como tokens globales. Este bloque se mantiene solo como
+   referencia de compatibilidad con versiones anteriores.
+   Los valores reales los controla index.css.
 ============================================================ */
-
-/* ── Variables base — MODO CLARO ───────────────────────────── */
-:root {
-  --lb-glass-bg:           rgba(255, 255, 255, 0.75);
-  --lb-glass-bg-hover:     rgba(255, 255, 255, 0.92);
-  --lb-glass-border:       rgba(0, 184, 148, 0.20);
-  --lb-glass-border-hover: rgba(0, 184, 148, 0.50);
-  --lb-glass-blur:         blur(14px);
-  --lb-glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.12);
-  --lb-text-primary:       #0f172a;
-  --lb-text-muted:         #64748b;
-  --lb-text-pill:          #334155;
-  --lb-surface:            rgba(0, 184, 148, 0.08);
-  --lb-track-bg:           rgba(0, 0, 0, 0.06);
-}
-
-/* ── Protanopia modo claro ─────────────────────────────────── */
-body.theme-protanopia {
-  --lb-glass-border:       rgba(0, 114, 178, 0.22);
-  --lb-glass-border-hover: rgba(0, 114, 178, 0.50);
-  --lb-surface:            rgba(0, 114, 178, 0.08);
-}
-
-/* ── Deuteranopia modo claro ───────────────────────────────── */
-body.theme-deuteranopia {
-  --lb-glass-border:       rgba(230, 159, 0, 0.22);
-  --lb-glass-border-hover: rgba(230, 159, 0, 0.50);
-  --lb-surface:            rgba(230, 159, 0, 0.08);
-}
-
-/* ── Tritanopia modo claro ─────────────────────────────────── */
-body.theme-tritanopia {
-  --lb-glass-border:       rgba(213, 94, 0, 0.22);
-  --lb-glass-border-hover: rgba(213, 94, 0, 0.50);
-  --lb-surface:            rgba(213, 94, 0, 0.08);
-}
-
-/* ── MODO OSCURO — fondo oscuro semitransparente ───────────── */
-body.dark-mode {
-  --lb-glass-bg:           rgba(10, 20, 45, 0.78);
-  --lb-glass-bg-hover:     rgba(10, 20, 45, 0.95);
-  --lb-glass-border:       rgba(0, 184, 148, 0.15);
-  --lb-glass-border-hover: rgba(0, 184, 148, 0.40);
-  --lb-glass-shadow:       0 10px 40px rgba(0, 0, 0, 0.50);
-  --lb-text-primary:       #e2e8f0;
-  --lb-text-muted:         #94a3b8;
-  --lb-text-pill:          #cbd5e1;
-  --lb-surface:            rgba(0, 184, 148, 0.07);
-  --lb-track-bg:           rgba(255, 255, 255, 0.07);
-}
-
-body.dark-mode.theme-protanopia {
-  --lb-glass-border:       rgba(0, 114, 178, 0.18);
-  --lb-glass-border-hover: rgba(0, 114, 178, 0.45);
-  --lb-surface:            rgba(0, 114, 178, 0.08);
-}
-
-body.dark-mode.theme-deuteranopia {
-  --lb-glass-border:       rgba(230, 159, 0, 0.18);
-  --lb-glass-border-hover: rgba(230, 159, 0, 0.45);
-  --lb-surface:            rgba(230, 159, 0, 0.08);
-}
-
-body.dark-mode.theme-tritanopia {
-  --lb-glass-border:       rgba(213, 94, 0, 0.18);
-  --lb-glass-border-hover: rgba(213, 94, 0, 0.45);
-  --lb-surface:            rgba(213, 94, 0, 0.08);
-}
 
 /* ── Aplicación ────────────────────────────────────────────── */
 
@@ -866,11 +800,11 @@ body.dark-mode.theme-tritanopia {
 .lb-stat,
 .lb-row,
 .lb-podium {
-  background:            var(--lb-glass-bg) !important;
-  backdrop-filter:       var(--lb-glass-blur) !important;
+  background:              var(--lb-glass-bg) !important;
   -webkit-backdrop-filter: var(--lb-glass-blur) !important;
-  border:                1px solid var(--lb-glass-border) !important;
-  box-shadow:            var(--lb-glass-shadow) !important;
+  backdrop-filter:         var(--lb-glass-blur) !important;
+  border:                  1px solid var(--lb-glass-border) !important;
+  box-shadow:              var(--lb-glass-shadow) !important;
 }
 
 /* Hover en rows */
@@ -883,8 +817,8 @@ body.dark-mode.theme-tritanopia {
 /* Filter buttons */
 .lb-filter-btn {
   background:              var(--lb-glass-bg) !important;
-  backdrop-filter:         var(--lb-glass-blur) !important;
   -webkit-backdrop-filter: var(--lb-glass-blur) !important;
+  backdrop-filter:         var(--lb-glass-blur) !important;
   border-color:            var(--lb-glass-border) !important;
   color:                   var(--lb-text-pill) !important;
 }

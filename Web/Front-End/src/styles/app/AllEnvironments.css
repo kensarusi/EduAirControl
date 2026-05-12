@@ -130,8 +130,6 @@ body {
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  position: relative;
-  z-index: 100;
 }
 
 /* Floating Field - Light Mode (default) */
@@ -320,6 +318,10 @@ body.dark-mode .suggestion-icon {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    GRID & CARDS
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.filters-section {
+  margin-bottom: 20px;
+}
+
 .all-env-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -466,4 +468,5 @@ body.dark-mode .suggestion-icon {
     padding: 14px 12px 5px;
   }
 }
+
 

@@ -27,87 +27,113 @@
   --shadow-card:     0 2px 10px rgba(0,0,0,0.08);
   --shadow-nav:      0 2px 5px rgba(0,0,0,0.1);
 
-  /* ── Glass cards (modo claro) ── */
-  --lb-glass-bg:           rgba(255, 255, 255, 0.75);
-  --lb-glass-bg-hover:     rgba(255, 255, 255, 0.92);
-  --lb-glass-border:       rgba(0, 184, 148, 0.20);
-  --lb-glass-border-hover: rgba(0, 184, 148, 0.50);
-  --lb-glass-blur:         blur(14px);
-  --lb-glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.12);
+  /* ── Glass / superficie — MODO CLARO ── */
+  /* Tokens unificados usados por design-system.css y todos los módulos */
+  --lb-glass-bg:           rgba(255, 255, 255, 0.78);
+  --lb-glass-bg-hover:     rgba(255, 255, 255, 0.94);
+  --lb-glass-border:       rgba(0, 184, 148, 0.22);
+  --lb-glass-border-hover: rgba(0, 184, 148, 0.52);
+  --lb-glass-blur:         blur(16px);
+  --lb-glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
   --lb-text-primary:       #0f172a;
   --lb-text-muted:         #64748b;
   --lb-text-pill:          #334155;
   --lb-surface:            rgba(0, 184, 148, 0.08);
   --lb-track-bg:           rgba(0, 0, 0, 0.06);
+
+  /* ── Sombras semánticas ── */
+  --shadow-sm:    0 2px 8px rgba(0, 0, 0, 0.07);
+  --shadow-md:    0 6px 20px rgba(0, 0, 0, 0.10);
+  --shadow-lg:    0 12px 40px rgba(0, 0, 0, 0.14);
+  --shadow-xl:    0 20px 60px rgba(0, 0, 0, 0.18);
+
+  /* ── Radios de borde ── */
+  --radius-sm:    10px;
+  --radius-md:    16px;
+  --radius-lg:    20px;
+  --radius-xl:    28px;
+  --radius-full:  999px;
+
+  /* ── Espaciado base ── */
+  --space-xs:  6px;
+  --space-sm:  12px;
+  --space-md:  20px;
+  --space-lg:  32px;
+  --space-xl:  48px;
 }
 
 /* ── Protanopia ── */
 body.theme-protanopia {
-  --accent:          #0072b2;
-  --accent-hover:    #005a8e;
-  --accent-light:    #e6f2fa;
-  --accent-dark:     #4aa8d8;
-  --border-nav:      #0072b2;
+  --accent:                #0072b2;
+  --accent-hover:          #005a8e;
+  --accent-light:          #e6f2fa;
+  --accent-dark:           #4aa8d8;
+  --border-nav:            #0072b2;
   --lb-glass-border:       rgba(0, 114, 178, 0.22);
-  --lb-glass-border-hover: rgba(0, 114, 178, 0.50);
+  --lb-glass-border-hover: rgba(0, 114, 178, 0.52);
   --lb-surface:            rgba(0, 114, 178, 0.08);
 }
 
 /* ── Deuteranopia ── */
 body.theme-deuteranopia {
-  --accent:          #E69F00;
-  --accent-hover:    #c8880a;
-  --accent-light:    #fdf3dc;
-  --accent-dark:     #c8880a;
-  --border-nav:      #E69F00;
+  --accent:                #E69F00;
+  --accent-hover:          #c8880a;
+  --accent-light:          #fdf3dc;
+  --accent-dark:           #c8880a;
+  --border-nav:            #E69F00;
   --lb-glass-border:       rgba(230, 159, 0, 0.22);
-  --lb-glass-border-hover: rgba(230, 159, 0, 0.50);
+  --lb-glass-border-hover: rgba(230, 159, 0, 0.52);
   --lb-surface:            rgba(230, 159, 0, 0.08);
 }
 
 /* ── Tritanopia ── */
 body.theme-tritanopia {
-  --accent:          #D55E00;
-  --accent-hover:    #b34e00;
-  --accent-light:    #fce8dc;
-  --accent-dark:     #e8743a;
-  --border-nav:      #D55E00;
+  --accent:                #D55E00;
+  --accent-hover:          #b34e00;
+  --accent-light:          #fce8dc;
+  --accent-dark:           #e8743a;
+  --border-nav:            #D55E00;
   --lb-glass-border:       rgba(213, 94, 0, 0.22);
-  --lb-glass-border-hover: rgba(213, 94, 0, 0.50);
+  --lb-glass-border-hover: rgba(213, 94, 0, 0.52);
   --lb-surface:            rgba(213, 94, 0, 0.08);
 }
 
 /* ── Dark Mode ── */
 body.dark-mode {
-  --bg-body:         #0f172a;
-  --bg-card:         #111827;
-  --bg-input:        #1f2937;
-  --bg-field-icon:   #1f2937;
-  --bg-subtle:       #1e293b;
-  --bg-nav:          #020617;
+  --bg-body:         #0a0f1e;
+  --bg-card:         #0f1829;
+  --bg-input:        #1a2540;
+  --bg-field-icon:   #1a2540;
+  --bg-subtle:       #162035;
+  --bg-nav:          #060c1a;
 
-  --text-primary:    #f9fafb;
-  --text-secondary:  #d1d5db;
-  --text-muted:      #9ca3af;
-  --text-nav:        #e5e7eb;
+  --text-primary:    #f1f5f9;
+  --text-secondary:  #cbd5e1;
+  --text-muted:      #94a3b8;
+  --text-nav:        #e2e8f0;
 
-  --border-color:    #374151;
-  --border-card:     #1f2937;
+  --border-color:    #2d3f5c;
+  --border-card:     #1e2d45;
 
-  --shadow-card:     0 4px 20px rgba(0,0,0,0.6);
-  --shadow-nav:      0 2px 10px rgba(0,0,0,0.6);
+  --shadow-card:     0 4px 20px rgba(0, 0, 0, 0.55);
+  --shadow-nav:      0 4px 16px rgba(0, 0, 0, 0.55);
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md:       0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg:       0 12px 40px rgba(0, 0, 0, 0.55);
+  --shadow-xl:       0 20px 60px rgba(0, 0, 0, 0.65);
 
-  /* ── Glass cards (modo oscuro) ── */
-  --lb-glass-bg:           rgba(10, 20, 45, 0.78);
-  --lb-glass-bg-hover:     rgba(10, 20, 45, 0.95);
-  --lb-glass-border:       rgba(0, 184, 148, 0.15);
-  --lb-glass-border-hover: rgba(0, 184, 148, 0.40);
-  --lb-glass-shadow:       0 10px 40px rgba(0, 0, 0, 0.50);
+  /* ── Glass / superficie — MODO OSCURO ── */
+  --lb-glass-bg:           rgba(8, 16, 38, 0.82);
+  --lb-glass-bg-hover:     rgba(8, 16, 38, 0.96);
+  --lb-glass-border:       rgba(0, 184, 148, 0.16);
+  --lb-glass-border-hover: rgba(0, 184, 148, 0.42);
+  --lb-glass-blur:         blur(18px);
+  --lb-glass-shadow:       0 10px 40px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(0, 0, 0, 0.30);
   --lb-text-primary:       #e2e8f0;
   --lb-text-muted:         #94a3b8;
   --lb-text-pill:          #cbd5e1;
   --lb-surface:            rgba(0, 184, 148, 0.07);
-  --lb-track-bg:           rgba(255, 255, 255, 0.07);
+  --lb-track-bg:           rgba(255, 255, 255, 0.06);
 }
 
 body.dark-mode .auth-card p,
@@ -155,12 +181,16 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 
-  background:
+  /* Fondo base oscuro con imagen ambiental */
+  background-color: #060d1f;
+  background-image:
     linear-gradient(
-      rgba(4, 10, 25, 0.72),
-      rgba(4, 10, 25, 0.82)
+      160deg,
+      rgba(4, 10, 25, 0.88) 0%,
+      rgba(4, 10, 25, 0.78) 50%,
+      rgba(4, 10, 25, 0.88) 100%
     ),
     url('/Web/Front-End/src/assets/dashboard-bg.png');
 
@@ -170,31 +200,80 @@ body {
   background-attachment: fixed;
 
   color: white;
-
   position: relative;
 }
 
-/* EFECTOS PREMIUM */
+/* Modo claro: fondo suave con imagen más tenue */
+body:not(.dark-mode) {
+  background-color: #e8f4f0;
+  background-image:
+    linear-gradient(
+      160deg,
+      rgba(232, 244, 240, 0.92) 0%,
+      rgba(220, 240, 235, 0.88) 50%,
+      rgba(232, 244, 240, 0.92) 100%
+    ),
+    url('/Web/Front-End/src/assets/dashboard-bg.png');
+  color: var(--text-primary);
+}
+
+/* Efecto ambiental de profundidad */
 body::before {
   content: '';
-
   position: fixed;
   inset: 0;
-
   background:
     radial-gradient(
-      circle at top left,
-      rgba(0,255,180,0.08),
-      transparent 35%
+      ellipse at 10% 15%,
+      rgba(0, 184, 148, 0.07) 0%,
+      transparent 45%
     ),
     radial-gradient(
-      circle at bottom right,
-      rgba(0,150,255,0.08),
-      transparent 35%
+      ellipse at 90% 85%,
+      rgba(0, 120, 255, 0.06) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(0, 0, 0, 0.02) 0%,
+      transparent 70%
     );
-
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+}
+
+/* En modo claro el efecto es más suave */
+body:not(.dark-mode)::before {
+  background:
+    radial-gradient(
+      ellipse at 10% 15%,
+      rgba(0, 184, 148, 0.05) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      rgba(0, 120, 255, 0.04) 0%,
+      transparent 45%
+    );
+}
+
+/* Temas accesibles — ajuste del efecto ambiental */
+body.theme-protanopia::before {
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(0, 114, 178, 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 85%, rgba(0, 80, 160, 0.05) 0%, transparent 45%);
+}
+
+body.theme-deuteranopia::before {
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(230, 159, 0, 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 85%, rgba(180, 100, 0, 0.05) 0%, transparent 45%);
+}
+
+body.theme-tritanopia::before {
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(213, 94, 0, 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 85%, rgba(160, 60, 0, 0.05) 0%, transparent 45%);
 }
 
 #root {
@@ -203,6 +282,8 @@ body::before {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 img { max-width: 100%; height: auto; }
@@ -735,7 +816,7 @@ button:active { transform: scale(0.97); }
 /* ALL ENVIRONMENTS                             */
 /* ============================================ */
 
-.all-env-page { min-height: 100vh; background-color: var(--bg-body); }
+.all-env-page { min-height: 100vh; background-color: transparent; }
 .all-env-title { text-align: center; font-size: 28px; color: var(--text-primary); margin-bottom: 20px; }
 
 .summary-card {
@@ -866,17 +947,25 @@ button:active { transform: scale(0.97); }
 /* FAVORITES                                    */
 /* ============================================ */
 
-.favorites-page { min-height: 100vh; background-color: var(--bg-body); }
+.favorites-page { min-height: 100vh; background-color: transparent; }
 .favorites-content h1 { color: var(--text-primary); }
 .favorites-subtitle { color: var(--text-muted); }
 
 .fav-card {
-  background: var(--bg-card);
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-card);
-  transition: background-color 0.3s;
+  background:              var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter:         var(--lb-glass-blur);
+  border:                  1px solid var(--lb-glass-border);
+  border-radius:           18px;
+  padding:                 25px;
+  margin-bottom:           20px;
+  box-shadow:              var(--lb-glass-shadow);
+  transition:              border-color 0.25s ease, transform 0.25s ease;
+}
+
+.fav-card:hover {
+  border-color: var(--lb-glass-border-hover);
+  transform:    translateY(-3px);
 }
 
 .fav-card-header { border-bottom: 1px solid var(--border-card); }
@@ -906,13 +995,16 @@ button:active { transform: scale(0.97); }
 /* PROFILE                                      */
 /* ============================================ */
 
-.profile-page { min-height: 100vh; background-color: var(--bg-body); width: 100%; }
+.profile-page { min-height: 100vh; background-color: transparent; width: 100%; }
 
 .profile-header-card,
 .profile-section-card {
-  background: var(--bg-card);
-  box-shadow: var(--shadow-card);
-  transition: background-color 0.3s;
+  background:              var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter:         var(--lb-glass-blur);
+  border:                  1px solid var(--lb-glass-border);
+  box-shadow:              var(--lb-glass-shadow);
+  transition:              border-color 0.25s ease;
 }
 
 .profile-header-card h1,
@@ -933,16 +1025,23 @@ button:active { transform: scale(0.97); }
 /* SETTINGS                                     */
 /* ============================================ */
 
-.settings-page { min-height: 100vh; background-color: var(--bg-body); }
+.settings-page { min-height: 100vh; background-color: transparent; }
 .settings-content h1 { color: var(--text-primary); }
 
 .settings-card {
-  background: var(--bg-card);
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: var(--shadow-card);
-  transition: background-color 0.3s;
+  background:              var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter:         var(--lb-glass-blur);
+  border:                  1px solid var(--lb-glass-border);
+  border-radius:           20px;
+  padding:                 25px;
+  margin-bottom:           24px;
+  box-shadow:              var(--lb-glass-shadow);
+  transition:              border-color 0.25s ease;
+}
+
+.settings-card:hover {
+  border-color: var(--lb-glass-border-hover);
 }
 
 .settings-card h2 { color: var(--text-primary); }
@@ -1151,18 +1250,6 @@ button:active { transform: scale(0.97); }
   }
 }
 
-body {
-  background-image: url('../src/assets/dashboard-bg.png');
-
-  background-size: cover;
-
-  background-position: center;
-
-  background-repeat: no-repeat;
-
-  background-attachment: fixed;
-
-  min-height: 100vh;
-
-  position: relative;
-}
+/* ── Bloque duplicado eliminado ──
+   El fondo global ya está definido en el selector body
+   principal más arriba. Este bloque causaba conflicto. */

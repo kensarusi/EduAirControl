@@ -1,8 +1,11 @@
-.dashboard-layout {
+/* DashboardLayout — wrapper del layout principal de la app.
+   El fondo viene del body global en index.css. */
+
+.dashboard-layout-wrapper {
   min-height: 100vh;
-  background-color: #f0fafa;
+  /* Sin background propio — hereda del body */
 }
 
 .dashboard-content {
-  padding: 30px 30px 30px 30px;
+  padding: 30px;
 }
