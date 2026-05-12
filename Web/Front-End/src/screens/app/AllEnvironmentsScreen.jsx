@@ -1,133 +1,127 @@
-import { useState } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { IoTrendingUp, IoTrendingDown } from 'react-icons/io5'
+import { IoTrendingUp, IoTrendingDown, IoOptionsOutline } from 'react-icons/io5'
 import { TiWarning } from 'react-icons/ti'
-import Navbar from '../../components/layout/Navbar'
-import { BackButton } from '../../components/ui'
-import { EnvironmentSummaryCard, EnvironmentFilters } from '../../components/environment'
-import { useEnvironments } from '../../context/EnvironmentsContext'
-import '../../styles/components/AllEnvironments.css'
+import { HiOutlineViewGrid } from 'react-icons/hi'
 
-const STATUS_NORMAL  = 'dashboard.statusNormal'
+import Navbar from '../../components/layout/Navbar'
+import EnvironmentSummaryCard from '../../components/environment/EnvironmentSummaryCard'
+import EnvironmentFilters from '../../components/environment/EnvironmentFilters'
+import { useEnvironments } from '../../context/EnvironmentsContext'
+import '../../styles/app/AllEnvironments.css'
+
+const STATUS_NORMAL = 'dashboard.statusNormal'
 const STATUS_WARNING = 'dashboard.statusWarning'
-const STATUS_ALERT   = 'dashboard.statusAlert'
+const STATUS_ALERT = 'dashboard.statusAlert'
 
 function AllEnvironmentsScreen() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { environments } = useEnvironments()
-
-  const [filters, setFilters] = useState({ name: '', co2: null, db: null, temp: null, noise: null })
+  const [filters, setFilters] = useState({ name: '', co2: null, noise: null, temp: null })
   const [activeStatus, setActiveStatus] = useState('')
+  const [showFilters, setShowFilters] = useState(false)
 
-  const mapped = environments.map((env) => ({
-    id: env.id,
-    nameKey: env.nameKey,
-    name: env.name,
-    statusKey: env.statusKey,
-    co2: env.co2 ? `${env.co2} ppm` : '0 ppm',
-    db: env.noise ? `${env.noise}` : '0',
-    temp: env.temp ? `${env.temp}°` : '0°',
-    humidity: env.humidity ? `${env.humidity}%` : '0%',
-    qualityKey: env.qualityKey,
-  }))
+  const filtered = useMemo(() => {
+    return environments.filter((env) => {
+      if (activeStatus && env.statusKey !== activeStatus) return false
+      const envName = env.nameKey ? t(env.nameKey) : (env.name || '')
+      if (filters.name && !envName.toLowerCase().includes(filters.name.toLowerCase())) return false
+      if (filters.co2) {
+        if (filters.co2.min !== null && env.co2 < filters.co2.min) return false
+        if (filters.co2.max !== null && env.co2 > filters.co2.max) return false
+      }
+      if (filters.noise) {
+        if (filters.noise.min !== null && env.noise < filters.noise.min) return false
+        if (filters.noise.max !== null && env.noise > filters.noise.max) return false
+      }
+      if (filters.temp) {
+        if (filters.temp.min !== null && env.temp < filters.temp.min) return false
+        if (filters.temp.max !== null && env.temp > filters.temp.max) return false
+      }
+      return true
+    })
+  }, [environments, filters, activeStatus, t])
 
-  const suggestions = mapped.map((env) => env.nameKey ? t(env.nameKey) : env.name)
-
-  const inRange = (valueStr, range) => {
-    if (!range) return true
-    const num = parseFloat(valueStr)
-    if (isNaN(num)) return true
-    if (range.min !== null && num < range.min) return false
-    if (range.max !== null && num > range.max) return false
-    return true
+  const counts = {
+    normal: environments.filter(e => e.statusKey === STATUS_NORMAL).length,
+    warning: environments.filter(e => e.statusKey === STATUS_WARNING).length,
+    alert: environments.filter(e => e.statusKey === STATUS_ALERT).length,
   }
-
-  const filtered = mapped.filter((env) => {
-    const envName = env.nameKey ? t(env.nameKey) : env.name
-    const matchesName   = envName.toLowerCase().includes(filters.name.toLowerCase())
-    const matchesCo2    = inRange(env.co2,   filters.co2)
-    const matchesDb     = inRange(env.db,    filters.db)
-    const matchesTemp   = inRange(env.temp,  filters.temp)
-    const matchesNoise  = inRange(env.db, filters.noise)
-    const matchesStatus = !activeStatus || env.statusKey === activeStatus
-    return matchesName && matchesCo2 && matchesDb && matchesTemp && matchesNoise && matchesStatus
-  })
-
-  const hasActiveFilter = filters.name || filters.co2 || filters.db || filters.temp || filters.noise
-  const isEmpty = filtered.length === 0
-
-  const normalCount  = mapped.filter((e) => e.statusKey === STATUS_NORMAL).length
-  const warningCount = mapped.filter((e) => e.statusKey === STATUS_WARNING).length
-  const alertCount   = mapped.filter((e) => e.statusKey === STATUS_ALERT).length
 
   const statusButtons = [
-    { key: STATUS_NORMAL,  label: t('allEnvironments.statusNormal'),  count: normalCount,  color: '#4CAF50', icon: <IoTrendingUp /> },
-    { key: STATUS_WARNING, label: t('allEnvironments.statusWarning'), count: warningCount, color: '#FFC107', icon: <TiWarning /> },
-    { key: STATUS_ALERT,   label: t('allEnvironments.statusAlert'),   count: alertCount,   color: '#F44336', icon: <IoTrendingDown /> },
+    { key: STATUS_NORMAL, label: 'Normal', count: counts.normal, color: '#238636', icon: <IoTrendingUp /> },
+    { key: STATUS_WARNING, label: 'Advertencias', count: counts.warning, color: '#d29922', icon: <TiWarning /> },
+    { key: STATUS_ALERT, label: 'Alerta', count: counts.alert, color: '#da3633', icon: <IoTrendingDown /> },
   ]
 
-  const handleStatusClick = (key) => {
-    setActiveStatus((prev) => prev === key ? '' : key)
-  }
-
   return (
-    <div className="all-env-page">
+    <div className='all-env-page'>
       <Navbar />
-      <div className="all-env-container">
-        <BackButton onClick={() => navigate('/dashboard')} />
-        <h1 className="all-env-title">{t('allEnvironments.title')}</h1>
+      <div className='all-env-container'>
+        <div className='all-env-header'>
+          <div className='all-env-header-top'>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <HiOutlineViewGrid size={28} color="#3fb950" />
+              <h1>Todos los ambientes</h1>
+            </div>
+            <div className='top-status-row'>
+              {statusButtons.map((btn) => (
+                <div key={btn.key} className='top-status-badge'
+                  style={{ borderColor: btn.color, color: btn.color, cursor: 'pointer', opacity: activeStatus === btn.key ? 1 : 0.7 }}
+                  onClick={() => setActiveStatus(activeStatus === btn.key ? '' : btn.key)}>
+                  {btn.icon} <span>{btn.count} {btn.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className="all-env-status-bar">
-          {statusButtons.map((btn) => (
-            <button
-              key={btn.key}
-              className={`all-env-status-btn ${activeStatus === btn.key ? 'active' : ''}`}
-              onClick={() => handleStatusClick(btn.key)}
-              style={{
-                borderColor: activeStatus === btn.key ? btn.color : undefined,
-                backgroundColor: activeStatus === btn.key ? `${btn.color}15` : undefined,
-              }}
-            >
-              <div className="all-env-status-info">
-                <span className="all-env-status-label">{btn.label}</span>
-                <span className="all-env-status-count" style={{ color: btn.color }}>
-                  {btn.count}
-                </span>
-              </div>
-              <div className="all-env-status-icon" style={{ color: btn.color }}>
-                {btn.icon}
-              </div>
-            </button>
-          ))}
-        </div>
-
-        <EnvironmentFilters
-          filters={filters}
-          setFilters={setFilters}
-          suggestions={suggestions}
-        />
-
-        {isEmpty && (hasActiveFilter || activeStatus) ? (
-          <div className="no-results">
-            <div className="no-results-icon">🔍</div>
-            <p className="no-results-title">No se encontraron resultados</p>
-            <p className="no-results-sub">Intenta con otro término de búsqueda</p>
-            <button
-              className="no-results-clear"
-              onClick={() => { setFilters({ name: '', co2: null, db: null, temp: null, noise: null }); setActiveStatus('') }}
-            >
-              Limpiar filtros
+          <div className='all-env-header-bottom'>
+            <div className='status-chips'>
+              <button className={!activeStatus ? 'active' : ''} onClick={() => setActiveStatus('')}>Todos</button>
+              <button className={activeStatus === STATUS_NORMAL ? 'active' : ''} onClick={() => setActiveStatus(STATUS_NORMAL)}>Normal</button>
+              <button className={activeStatus === STATUS_WARNING ? 'active' : ''} onClick={() => setActiveStatus(STATUS_WARNING)}>Advertencia</button>
+              <button className={activeStatus === STATUS_ALERT ? 'active' : ''} onClick={() => setActiveStatus(STATUS_ALERT)}>Alerta</button>
+            </div>
+            <button className='filter-btn' onClick={() => setShowFilters(!showFilters)}
+              style={{ fontWeight: showFilters ? '600' : '500', color: showFilters ? '#3fb950' : '#8b949e' }}>
+              <IoOptionsOutline /> {showFilters ? 'Ocultar filtros' : 'Filtros'}
             </button>
           </div>
+        </div>
+
+        {showFilters && (
+          <div className='filters-section'>
+            <EnvironmentFilters
+              filters={filters}
+              setFilters={setFilters}
+              suggestions={environments.map(env => {
+                if (env.name) return env.name
+                if (env.nameKey) return t(env.nameKey)
+                return ''
+              }).filter(Boolean)}
+            />
+          </div>
+        )}
+
+        {filtered.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#8b949e', fontSize: '16px' }}>
+            <p>No se encontraron ambientes con los filtros seleccionados</p>
+          </div>
         ) : (
-          <div className="all-env-cards">
+          <div className='all-env-cards'>
             {filtered.map((env) => (
               <EnvironmentSummaryCard
                 key={env.id}
-                {...env}
-                onClick={() => navigate(`/environment/${env.id}`)}
+                nameKey={env.nameKey}
+                name={env.name}
+                statusKey={env.statusKey}
+                co2={env.co2 || 0}
+                db={env.noise || 0}
+                temp={env.temp || 0}
+                humidity={env.humidity || 0}
+                onClick={() => navigate('/environment/' + env.id)}
               />
             ))}
           </div>

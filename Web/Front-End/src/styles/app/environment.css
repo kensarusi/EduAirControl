@@ -1,27 +1,39 @@
 .mgmt-page {
   min-height: 100vh;
-  background-color:transparent;
+  background-color: transparent;
 }
 
 .mgmt-container {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 90px 20px 40px;
+  padding: 90px 32px 40px;
   box-sizing: border-box;
 }
 
-/* Título */
-.mgmt-title-row {
+/* ─── HEADER CARD: título + botón agregar ─────────────── */
+.mgmt-header-card {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 18px 24px;
   margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+}
+
+.mgmt-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .mgmt-title-icon {
   font-size: 32px;
   color: var(--accent);
+  flex-shrink: 0;
 }
 
 .mgmt-title {
@@ -30,39 +42,23 @@
   margin: 0;
 }
 
-/* Botón agregar */
-.mgmt-actions-top {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+/* ─── LAYOUT PRINCIPAL ────────────────────────────────── */
+.mgmt-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  transition: grid-template-columns 0.3s ease;
 }
 
-.btn-add-env {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
+.mgmt-layout--open {
+  grid-template-columns: 1fr 280px;
 }
 
-.btn-add-env:hover {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Lista */
-.mgmt-list {
+/* ─── PANEL LISTA ─────────────────────────────────────── */
+.mgmt-list-panel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .mgmt-empty {
@@ -72,86 +68,247 @@
   font-size: 16px;
 }
 
-/* Card */
+/* ─── CARD ────────────────────────────────────────────── */
 .mgmt-card {
   background: var(--bg-card);
-  border-radius: 14px;
-  padding: 20px 24px;
+  border-radius: 12px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: var(--shadow-card);
-  transition: transform 0.2s;
+  border: 1.5px solid transparent;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
+  cursor: default;
 }
 
 .mgmt-card:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.mgmt-card--active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb, 0, 200, 150), 0.12);
 }
 
 .mgmt-card-info h3 {
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 6px;
+  margin: 0 0 3px;
 }
 
 .mgmt-card-info p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin: 2px 0;
-}
-
-.mgmt-card-info p span {
+  font-size: 13px;
   color: var(--text-muted);
-  font-size: 12px;
-  margin-right: 4px;
+  margin: 0;
 }
 
-/* Botones card */
-.mgmt-card-actions {
+/* Lado derecho de la card: dot + botones */
+.mgmt-card-indicator {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 16px;
   flex-shrink: 0;
 }
 
-.btn-edit, .btn-delete {
+.mgmt-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.35;
+  flex-shrink: 0;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.mgmt-status-dot--active {
+  background: var(--accent);
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(var(--accent-rgb, 0, 200, 150), 0.5);
+}
+
+.mgmt-card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* ─── BOTONES CARD ────────────────────────────────────── */
+.btn-edit,
+.btn-delete {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 14px;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: none;
+  border-radius: 7px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.btn-edit {
+  background: var(--accent);
+  color: #111;
+}
+
+.btn-edit:hover {
+  filter: brightness(1.15);
+  transform: scale(1.08);
+}
+
+.btn-delete {
+  background: #e53935;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c62828;
+  transform: scale(1.08);
+}
+
+/* ─── BOTÓN AGREGAR (dentro del header card) ──────────── */
+.btn-add-env {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+
+.btn-add-env:hover {
+  background: rgba(var(--accent-rgb, 0, 200, 150), 0.1);
+  transform: translateY(-1px);
+}
+
+/* ─── DRAWER LATERAL ──────────────────────────────────── */
+.mgmt-drawer {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  position: sticky;
+  top: 100px;
+  overflow: hidden;
+  animation: drawerIn 0.25s ease;
+}
+
+@keyframes drawerIn {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mgmt-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.mgmt-drawer-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.mgmt-drawer-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mgmt-drawer-body label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+
+.mgmt-drawer-body label:first-child {
+  margin-top: 0;
+}
+
+.mgmt-drawer-footer {
+  padding: 12px 20px 18px;
+}
+
+.btn-save--full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── INPUT ───────────────────────────────────────────── */
+.mgmt-input {
+  width: 100%;
+  padding: 10px 13px;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-color);
   border-radius: 8px;
-  font-size: 13px;
+  color: var(--text-primary);
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.mgmt-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ─── BOTÓN GUARDAR ───────────────────────────────────── */
+.btn-save {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 9px;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.btn-edit {
-  background: #ffc107;
-  color: #333;
+.btn-save:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
-.btn-edit:hover {
-  background: #e6ad06;
-  transform: scale(1.05);
-}
-
-.btn-delete {
-  background: #dc3545;
-  color: white;
-}
-
-.btn-delete:hover {
-  background: #c82333;
-  transform: scale(1.05);
-}
-
-/* Modal */
+/* ─── MODAL CONFIRMAR ELIMINAR ────────────────────────── */
 .mgmt-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +322,7 @@
   border-radius: 16px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
@@ -187,19 +344,6 @@
   margin: 0;
 }
 
-.btn-close {
-  background: none;
-  border: none;
-  font-size: 22px;
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s;
-}
-
-.btn-close:hover { color: var(--text-primary); }
-
 .mgmt-modal-body {
   padding: 20px 24px;
   display: flex;
@@ -220,23 +364,6 @@
   font-size: 14px;
   color: var(--text-secondary);
   margin: 0;
-}
-
-.mgmt-input {
-  width: 100%;
-  padding: 11px 14px;
-  background: var(--bg-input);
-  border: 1.5px solid var(--border-color);
-  border-radius: 8px;
-  color: var(--text-primary);
-  font-size: 14px;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-}
-
-.mgmt-input:focus {
-  outline: none;
-  border-color: var(--accent);
 }
 
 .mgmt-modal-footer {
@@ -263,66 +390,23 @@
   color: var(--text-primary);
 }
 
-.btn-save {
-  padding: 10px 22px;
+/* ─── BOTÓN CLOSE ─────────────────────────────────────── */
+.btn-close {
+  background: none;
   border: none;
-  border-radius: 8px;
-  background: var(--accent);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 22px;
+  color: var(--text-muted);
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-save:hover { background: var(--accent-hover); }
-
-.btn-edit {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: hsl(167, 100%, 72%);
-  color: #333;
+  transition: color 0.2s;
 }
 
-.btn-edit:hover {
-  background: hsl(172, 100%, 75%);
-  transform: scale(1.05);
+.btn-close:hover {
+  color: var(--text-primary);
 }
 
-.btn-delete {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;              
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: #fdecea;      
-  color: #F44336;          
-}
-
-.btn-delete:hover {
-  background: #F44336;
-  color: white;
-  transform: scale(1.05);
-}
-
-.btn-delete-confirm:hover { background: #c82333; }
-
-/* Modal eliminar mejorado */
+/* ─── MODAL ELIMINAR ──────────────────────────────────── */
 .mgmt-modal--sm .mgmt-modal-header {
   background: #dc3545;
   border-radius: 16px 16px 0 0;
@@ -339,7 +423,7 @@
 }
 
 .mgmt-modal--sm .btn-close:hover {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .mgmt-modal--sm .mgmt-modal-body {
@@ -383,35 +467,46 @@
   box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
 }
 
-/* Responsive móvil */
+/* ─── RESPONSIVE ──────────────────────────────────────── */
 @media (max-width: 768px) {
   .mgmt-container {
     padding: 115px 15px 30px;
   }
 
-  .mgmt-title { font-size: 22px; }
+  .mgmt-title {
+    font-size: 20px;
+  }
+
+  .mgmt-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+  }
+
+  .btn-add-env {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* En móvil el drawer va abajo de la lista */
+  .mgmt-layout--open {
+    grid-template-columns: 1fr;
+  }
+
+  .mgmt-drawer {
+    position: static;
+  }
 
   .mgmt-card {
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
+    gap: 12px;
     padding: 16px;
   }
 
-  .mgmt-card-actions {
+  .mgmt-card-indicator {
     width: 100%;
-    align-items: center;
-  }
-
-  .btn-edit {
-    flex: 1;
-    justify-content: center;
-    padding: 10px;
-  }
-
-  .btn-delete {
-    width: 40px;
-    height: 40px;
-    flex: none;
+    justify-content: flex-end;
   }
 }
