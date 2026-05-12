@@ -254,7 +254,23 @@ body {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   DARK MODE OVERRIDES (GitHub Dark Dimmed palette)
+   MODO CLARO — OVERRIDES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+body:not(.dark-mode) .all-env-page{background-color:transparent}
+body:not(.dark-mode) .all-env-header{background:#f0fafa;border-color:#e0e0e0}
+body:not(.dark-mode) .all-env-header-top h1{color:#0f172a}
+body:not(.dark-mode) .top-status-badge{background:rgba(0,0,0,.04);border-color:#ddd;color:#333}
+body:not(.dark-mode) .status-chips button{background:#f0fafa;color:#333;border-color:#ddd}
+body:not(.dark-mode) .status-chips button.active{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+body:not(.dark-mode) .filter-btn{color:#555}
+body:not(.dark-mode) .summary-card{background:#fff;border-color:#e5e7eb}
+body:not(.dark-mode) .summary-card:hover{border-color:#ccc}
+body:not(.dark-mode) .summary-item{background-color:#f5f5f5}
+body:not(.dark-mode) .summary-label{color:#666}
+body:not(.dark-mode) .summary-value{color:#0f172a}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    DARK MODE OVERRIDES (GitHub Dark Dimmed palette)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 body.dark-mode .all-env-headers {
   background: rgba(22, 27, 34, 0.95);
