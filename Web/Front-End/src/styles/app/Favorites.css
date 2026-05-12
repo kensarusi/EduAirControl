@@ -310,6 +310,170 @@ body.dark-mode .favorites-empty {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   MODAL CONFIRMATION
+   ══════════════════════════════════════════════════════════════ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 420px;
+  width: 90%;
+  overflow: hidden;
+  animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+}
+
+body.dark-mode .modal-content {
+  background: #16213e;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ── Modal Header ── */
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+body.dark-mode .modal-header {
+  border-bottom-color: #2a2a4a;
+}
+
+.modal-header-warning {
+  background: rgba(255, 107, 107, 0.08);
+}
+
+body.dark-mode .modal-header-warning {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ── Modal Body ── */
+.modal-body {
+  padding: 24px;
+}
+
+.modal-body p {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.modal-body strong {
+  font-weight: 700;
+  color: #ff6b6b;
+}
+
+body.dark-mode .modal-body p {
+  color: #e0e0e0;
+}
+
+/* ── Modal Footer ── */
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+  justify-content: flex-end;
+}
+
+body.dark-mode .modal-footer {
+  border-top-color: #2a2a4a;
+}
+
+/* ── Modal Buttons ── */
+.modal-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.modal-btn-cancel {
+  background: var(--bg-body, #f5f5f5);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color, #e0e0e0);
+}
+
+body.dark-mode .modal-btn-cancel {
+  background: #1a2a50;
+  border-color: #2a2a4a;
+}
+
+.modal-btn-cancel:hover {
+  background: var(--bg-body);
+  border-color: var(--accent);
+}
+
+.modal-btn-confirm {
+  background: var(--accent);
+  color: white;
+  border: none;
+}
+
+.modal-btn-confirm:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-btn-danger {
+  background: #ff6b6b;
+}
+
+.modal-btn-danger:hover {
+  background: #ff5252;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+/* ══════════════════════════════════════════════════════════════
    RESPONSIVE DESIGN
    ══════════════════════════════════════════════════════════════ */
 
@@ -419,6 +583,10 @@ body.dark-mode .favorites-empty {
   .fav-quality-value {
     font-size: 14px;
   }
+
+  .modal-content {
+    max-width: 90%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -503,6 +671,27 @@ body.dark-mode .favorites-empty {
   .favorites-empty p {
     font-size: 13px;
   }
+
+  .modal-content {
+    max-width: 95%;
+  }
+
+  .modal-header {
+    padding: 20px;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-footer {
+    padding: 16px 20px;
+    flex-direction: column-reverse;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -547,4 +736,4 @@ body.dark-mode .favorites-empty h2 {
 
 body.dark-mode .favorites-empty p {
   color: #888;
-} 
+}
