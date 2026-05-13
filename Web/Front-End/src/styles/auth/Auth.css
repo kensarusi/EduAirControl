@@ -1,6 +1,6 @@
 /* Fondo y card */
 .auth-container {
-  background: url('/src/assets/fondo.jpg') no-repeat center center fixed;
+  background: url('/src/assets/fondo-login.png') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;
