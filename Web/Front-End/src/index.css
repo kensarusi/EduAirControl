@@ -1253,3 +1253,50 @@ button:active { transform: scale(0.97); }
 /* ── Bloque duplicado eliminado ──
    El fondo global ya está definido en el selector body
    principal más arriba. Este bloque causaba conflicto. */
+
+   /* ============================================================
+   FONDO MAESTRO — EduAirControl (Eco-Futuristic Vision)
+   ============================================================ */
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  /* Enlace directo a tu imagen personalizada */
+  background-image: 
+    linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.85)), 
+    url('../src/assets/bg.png' );
+  
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  transition: all 0.5s ease;
+}
+
+/* Ajuste para Modo Claro */
+body:not(.dark-mode) {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7)), 
+    url('../src/assets/bg.png' );
+}
+
+/* Aseguramos que todas las páginas sean transparentes para ver el fondo */
+.favorites-page, 
+.profile-page-final, 
+.all-environments-page, 
+.dashboard-content,
+.profile-container-final,
+.favorites-content {
+  background: transparent !important;
+}
+
+/* Efecto de profundidad opcional */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(3px); 
+  pointer-events: none;
+  z-index: -1;
+}
