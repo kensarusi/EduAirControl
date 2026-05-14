@@ -319,5 +319,76 @@
 
   "dailySummary": "Daily summary",
   "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings"
-}
+},
+
+  "leaderboard": {
+    "title": "Environment Ranking",
+    "subtitle": "Score calculated by temperature, humidity, CO₂ and noise · Tap an environment to view details",
+
+    "filters": {
+      "all": "All",
+      "normal": "✅ Normal",
+      "warning": "⚠️ Warning",
+      "alert": "🔴 Alerts"
+    },
+
+    "stats": {
+      "total": "Total"
+    },
+
+    "health": {
+      "good": "Overall good condition",
+      "attention": "Attention recommended",
+      "critical": "Intervention required",
+      "monitored": "{{count}} monitored environments",
+      "normal": "Normal",
+      "warning": "Warning",
+      "alert": "Alert"
+    },
+
+    "topVsAverage": {
+      "title": "vs. overall average",
+      "average": "Average"
+    },
+
+    "metrics": {
+      "temperature": "Temperature",
+      "humidity": "Humidity",
+      "co2": "CO₂",
+      "noise": "Noise"
+    },
+
+    "alerts": {
+      "title": "Active alerts",
+      "empty": "No active alerts — all environments are fine",
+      "temp": "Temp",
+      "humidity": "Humidity",
+      "noise": "Noise"
+    },
+
+    "ranking": {
+      "positions": "Positions {{start}} – {{end}}",
+      "empty": "No environments with this status",
+      "days": "{{count}} days"
+    },
+
+    "favorites": {
+      "add": "Add favorite",
+      "remove": "Remove favorite"
+    },
+
+    "legend": {
+      "title": "💡 How the score is calculated",
+      "temp": "Ideal temp: 18–24 °C",
+      "humidity": "Ideal humidity: 40–60 %",
+      "co2": "Ideal CO₂: < 1000 ppm",
+      "noise": "Ideal noise: < 50 dB"
+    },
+    
+  "locations": {
+    "roomA": "Room A",
+    "roomB": "Room B",
+    "roomC": "Room C"
+    }
+  }
 }

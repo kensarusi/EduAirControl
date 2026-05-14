@@ -319,5 +319,77 @@
       
       "dailySummary": "Resumo diário",
       "summaryMessage": "{{alerts}} ambientes em alerta e {{warnings}} com avisos hoje"
+    },
+
+  "leaderboard": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Pontuação calculada por temperatura, umidade, CO₂ e ruído · Toque em um ambiente para ver detalhes",
+
+    "filters": {
+      "all": "Todos",
+      "normal": "✅ Normal",
+      "warning": "⚠️ Aviso",
+      "alert": "🔴 Alertas"
+    },
+
+    "stats": {
+      "total": "Total"
+    },
+
+    "health": {
+      "good": "Estado geral bom",
+      "attention": "Atenção recomendada",
+      "critical": "Intervenção necessária",
+      "monitored": "{{count}} ambientes monitorados",
+      "normal": "Normal",
+      "warning": "Aviso",
+      "alert": "Alerta"
+    },
+
+    "topVsAverage": {
+      "title": "vs. média geral",
+      "average": "Média"
+    },
+
+    "metrics": {
+      "temperature": "Temperatura",
+      "humidity": "Umidade",
+      "co2": "CO₂",
+      "noise": "Ruído"
+    },
+
+    "alerts": {
+      "title": "Alertas ativos",
+      "empty": "Sem alertas ativos — todos os ambientes estão bem",
+      "temp": "Temp",
+      "humidity": "Umidade",
+      "noise": "Ruído"
+    },
+
+    "ranking": {
+      "positions": "Posições {{start}} – {{end}}",
+      "empty": "Não há ambientes com este status",
+      "days": "{{count}} dias"
+    },
+
+    "favorites": {
+      "add": "Adicionar favorito",
+      "remove": "Remover favorito"
+    },
+
+    "legend": {
+      "title": "💡 Como a pontuação é calculada",
+      "temp": "Temp ideal: 18–24 °C",
+      "humidity": "Umidade ideal: 40–60 %",
+      "co2": "CO₂ ideal: < 1000 ppm",
+      "noise": "Ruído ideal: < 50 dB"
+    },
+    
+  "locations": {
+    "roomA": "Sala A",
+    "roomB": "Sala B",
+    "roomC": "Sala C"
     }
+  }
 }
+

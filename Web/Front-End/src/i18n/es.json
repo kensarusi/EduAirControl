@@ -321,6 +321,38 @@
 
     "dailySummary": "Resumen diario",
     "summaryMessage": "Hoy {{alerts}} ambientes en alerta y {{warnings}} con advertencias"
+  },
+
+  "leaderboard": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Puntaje calculado por temperatura, humedad, CO₂ y ruido · Toca un ambiente para ver detalles",
+    "days": "días",
+    "removeFavorite": "Quitar favorito",
+    "addFavorite": "Agregar favorito",
+    "total": "Total",
+    "empty": "No hay ambientes con este estado",
+    "positions": "Posiciones",
+    "scoreCalculation": "Cómo se calcula el puntaje",
+    "tempIdeal": "Temp ideal: 18–24 °C",
+    "humidityIdeal": "Humedad ideal: 40–60 %",
+    "co2Ideal": "CO₂ ideal: < 1000 ppm",
+    "noiseIdeal": "Ruido ideal: < 50 dB", 
+
+    "filters": {
+      "all": "Todos",
+      "normal": "✅ Normales",
+      "warning": "⚠️ Advertencia",
+      "alert": "🔴 Alertas"
+    }
+  },
+
+  "locations": {
+    "roomA": "Sala A",
+    "roomB": "Sala B",
+    "roomC": "Sala C"
   }
 }
+
+
+
  

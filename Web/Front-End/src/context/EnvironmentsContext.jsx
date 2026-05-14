@@ -3,9 +3,45 @@ import { createContext, useContext, useState } from 'react'
 const EnvironmentsContext = createContext()
 
 const INITIAL_ENVIRONMENTS = [
-  { id: 1, nameKey: 'management.env1', statusKey: 'dashboard.statusWarning', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', capacity: 30, location: 'Room A', isFavorite: false },
-  { id: 2, nameKey: 'management.env2', statusKey: 'dashboard.statusAlert',   temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', capacity: 25, location: 'Room B', isFavorite: false },
-  { id: 3, nameKey: 'management.env3', statusKey: 'dashboard.statusWarning', temp: 20.4, humidity: 32, co2: 1010, noise: 62, qualityKey: 'dashboard.qualityRegular', capacity: 20, location: 'Room C', isFavorite: false },
+  {
+    id: 1,
+    nameKey: 'management.env1',
+    locationKey: 'locations.roomA',
+    statusKey: 'dashboard.statusWarning',
+    temp: 20.4,
+    humidity: 32,
+    co2: 1010,
+    noise: 62,
+    qualityKey: 'dashboard.qualityRegular',
+    capacity: 30,
+    isFavorite: false
+  },
+  {
+    id: 2,
+    nameKey: 'management.env2',
+    locationKey: 'locations.roomB',
+    statusKey: 'dashboard.statusAlert',
+    temp: 20.4,
+    humidity: 32,
+    co2: 1010,
+    noise: 62,
+    qualityKey: 'dashboard.qualityRegular',
+    capacity: 25,
+    isFavorite: false
+  },
+  {
+    id: 3,
+    nameKey: 'management.env3',
+    locationKey: 'locations.roomC',
+    statusKey: 'dashboard.statusWarning',
+    temp: 20.4,
+    humidity: 32,
+    co2: 1010,
+    noise: 62,
+    qualityKey: 'dashboard.qualityRegular',
+    capacity: 20,
+    isFavorite: false
+  },
 ]
 
 export function EnvironmentsProvider({ children }) {
