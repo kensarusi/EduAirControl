@@ -48,7 +48,9 @@
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones"
   },
   "common": {
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "unknown": "Desconocido",
+    "noName": "Sin nombre"
   },
   "forgotPassword": {
     "title": "Olvidé mi contraseña",
@@ -116,7 +118,10 @@
     "humidity": "Humedad",
     "temp": "Temp",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO2",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "noResults": "No se encontraron ambientes con los filtros seleccionados"
   },
   "favorites": {
     "title": "Favoritos",
@@ -350,7 +355,11 @@
     "roomA": "Sala A",
     "roomB": "Sala B",
     "roomC": "Sala C"
-  }
+  },
+
+"filters": {
+  "all": "Todos"
+}
 }
 
 

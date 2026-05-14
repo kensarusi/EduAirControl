@@ -47,7 +47,9 @@
     "mustAgreeTerms": "Vous devez accepter les Conditions générales"
   },
   "common": {
-    "close": "Fermer"
+    "close": "Fermer",
+     "unknown": "un étranger",
+    "noName": "anonyme"
   },
   "forgotPassword": {
     "title": "Mot de passe oublié",
@@ -115,7 +117,10 @@
     "humidity": "Humidité",
     "temp": "Température",
     "db": "dB",
-    "co2": "CO₂"
+    "co2": "CO₂",
+    "filters": "filtres",
+    "hideFilters": "masquer les filtres",
+    "noResults": "Aucun environnement n'a été trouvé avec les filtres sélectionnés."
   },
   "favorites": {
     "title": "Favoris",

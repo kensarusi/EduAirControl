@@ -47,7 +47,9 @@
     "mustAgreeTerms": "You must agree to the Terms and Conditions"
   },
   "common": {
-    "close": "Close"
+    "close": "Close",
+    "unknown": "Unknown",
+    "noName": "No Name"
   },
   "forgotPassword": {
     "title": "Forgot Password",
@@ -115,7 +117,10 @@
     "humidity": "Humidity",
     "temp": "Temp",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO2",
+    "filters": "Filters",
+    "hideFilters": "Hide Filters",
+    "noResults": "No environments found with the selected filters"
   },
   "favorites": {
     "title": "Favorites",
@@ -390,5 +395,8 @@
     "roomB": "Room B",
     "roomC": "Room C"
     }
-  }
+  },
+  "filters": {
+  "all": "All"
+}
 }

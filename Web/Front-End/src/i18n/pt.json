@@ -47,7 +47,9 @@
     "mustAgreeTerms": "Você deve aceitar os Termos e Condições"
   },
   "common": {
-    "close": "Fechar"
+    "close": "Fechar",
+     "unknown": "um estranho",
+    "noName": "sem nome"
   },
   "forgotPassword": {
     "title": "Esqueci minha senha",
@@ -115,7 +117,10 @@
     "humidity": "Umidade",
     "temp": "Temp",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO2",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "noResults": "Não foram encontrados ambientes com os filtros selecionados."
   },
   "favorites": {
     "title": "Favoritos",

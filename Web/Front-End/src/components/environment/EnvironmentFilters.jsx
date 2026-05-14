@@ -1,31 +1,36 @@
 ﻿import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const RANGES = {
-  co2: [
-    { label: 'Todos',           min: null, max: null },
-    { label: '< 600 ppm',       min: 0,    max: 600  },
-    { label: '600 – 800 ppm',   min: 600,  max: 800  },
-    { label: '800 – 1000 ppm',  min: 800,  max: 1000 },
-    { label: '1000 – 1500 ppm', min: 1000, max: 1500 },
-    { label: '> 1500 ppm',      min: 1500, max: null },
-  ],
-  noise: [
-    { label: 'Todos',       min: null, max: null },
-    { label: '< 30 dB',    min: 0,    max: 30   },
-    { label: '30 – 50 dB', min: 30,   max: 50   },
-    { label: '50 – 70 dB', min: 50,   max: 70   },
-    { label: '> 70 dB',    min: 70,   max: null },
-  ],
-  temp: [
-    { label: 'Todos',       min: null, max: null },
-    { label: '< 18 °C',    min: null, max: 18   },
-    { label: '18 – 21 °C', min: 18,   max: 21   },
-    { label: '21 – 24 °C', min: 21,   max: 24   },
-    { label: '24 – 28 °C', min: 24,   max: 28   },
-    { label: '> 28 °C',    min: 28,   max: null },
-  ],
-}
+function EnvironmentFilters({ filters, setFilters, suggestions = [] }) {
+  const { t } = useTranslation()
+
+  const RANGES = {
+    co2: [
+      { label: t('filters.all'), min: null, max: null },
+      { label: '< 600 ppm', min: 0, max: 600 },
+      { label: '600 – 800 ppm', min: 600, max: 800 },
+      { label: '800 – 1000 ppm', min: 800, max: 1000 },
+      { label: '1000 – 1500 ppm', min: 1000, max: 1500 },
+      { label: '> 1500 ppm', min: 1500, max: null },
+    ],
+
+    noise: [
+      { label: t('filters.all'), min: null, max: null },
+      { label: '< 30 dB', min: 0, max: 30 },
+      { label: '30 – 50 dB', min: 30, max: 50 },
+      { label: '50 – 70 dB', min: 50, max: 70 },
+      { label: '> 70 dB', min: 70, max: null },
+    ],
+
+    temp: [
+      { label: t('filters.all'), min: null, max: null },
+      { label: '< 18 °C', min: null, max: 18 },
+      { label: '18 – 21 °C', min: 18, max: 21 },
+      { label: '21 – 24 °C', min: 21, max: 24 },
+      { label: '24 – 28 °C', min: 24, max: 28 },
+      { label: '> 28 °C', min: 28, max: null },
+    ],
+  }
 
 function FloatingInput({ label, value, onChange, suggestions = [] }) {
   const [open, setOpen]       = useState(false)
@@ -130,11 +135,12 @@ function EnvironmentFilters({ filters, setFilters, suggestions = [] }) {
   return (
     <div className="all-env-headers">
       <FloatingInput label={t('allEnvironments.ambiente')} value={filters.name} onChange={update('name')} suggestions={suggestions} />
-      <RangeDropdownInput label="CO₂" rangeKey="co2" selectedRange={filters.co2} onSelect={handleRange('co2')} />
-      <RangeDropdownInput label="Ruido" rangeKey="noise" selectedRange={filters.noise} onSelect={handleRange('noise')} />
-      <RangeDropdownInput label="Temp" rangeKey="temp" selectedRange={filters.temp} onSelect={handleRange('temp')} />
+      <RangeDropdownInput label={t('filters.co2')} rangeKey="co2" selectedRange={filters.co2} onSelect={handleRange('co2')} />
+      <RangeDropdownInput label={t('filters.noise')} rangeKey="noise" selectedRange={filters.noise} onSelect={handleRange('noise')} />
+      <RangeDropdownInput label={t('filters.temp')} rangeKey="temp" selectedRange={filters.temp} onSelect={handleRange('temp')} />
     </div>
   )
 }
+}
 
-export default EnvironmentFilters
+export default EnvironmentFilters 
