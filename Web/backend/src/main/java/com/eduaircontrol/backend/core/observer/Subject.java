@@ -3,5 +3,5 @@ package com.eduaircontrol.backend.core.observer;
 public interface Subject {
     void addObserver(Observer observer);
     void removeObserver(Observer observer);
-    void notifyObservers(SensorEvent event);
+    void notifyObservers(String message);
 }

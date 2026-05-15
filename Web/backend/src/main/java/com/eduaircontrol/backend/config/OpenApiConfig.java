@@ -16,8 +16,8 @@ public class OpenApiConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("EduAirControl API")
-                        .version("1.0")
+                        .title("EduAirControl API de Jota")
+                        .version("0.2")
                         .description("API con JWT"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new io.swagger.v3.oas.models.Components()
