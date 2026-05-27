@@ -96,7 +96,7 @@ function RangeDropdownInput({ label, rangeKey, selectedRange, onSelect }) {
   return (
     <div className={`floating-field ${hasValue ? 'has-value' : ''}`}
       ref={wrapperRef} style={{ position: 'relative', cursor: 'pointer' }}
-      onClick={() => setOpen((o) => !o)}>
+      onClick = {() => setOpen((o) => !o)}>
       <input type="text" readOnly value={hasValue ? active.label : ''} placeholder=" "
         style={{ cursor: 'pointer', caretColor: 'transparent' }} />
       <label>{label}</label>
@@ -113,7 +113,7 @@ function RangeDropdownInput({ label, rangeKey, selectedRange, onSelect }) {
             return (
               <li key={r.label} className="suggestion-item"
                 style={{ fontWeight: isActive ? 700 : 400, color: isActive ? 'var(--accent)' : undefined }}
-                onMouseDown={(e) => { e.preventDefault(); onSelect(r); setOpen(false) }}>
+                onMouseDown = {(e) => { e.preventDefault(); onSelect(r); setOpen(false) }}>
                 <span className="suggestion-icon">{ICON[rangeKey]}</span>
                 <span>{r.label}</span>
                 {isActive && <span style={{ marginLeft: 'auto', color: 'var(--accent)' }}>✓</span>}

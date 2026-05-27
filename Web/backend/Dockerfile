@@ -1,13 +1,25 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 
 WORKDIR /app
-COPY . .
-RUN chmod +x mvnw
+
+# Copiar primero solo archivos Maven
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+
+# Descargar dependencias
+RUN ./mvnw dependency:go-offline
+
+# Ahora copiar código
+COPY src src
+
+# Compilar
 RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
 
 WORKDIR /app
+
 COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
