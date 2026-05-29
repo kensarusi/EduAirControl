@@ -1,164 +1,302 @@
-/* Contenedor principal */
-/* .signup-container estilos movidos a AuthLayout */
+/* ============================================================
+   SIGNUP MODERN DESIGN — EduAirControl (Multi-Company)
+   ============================================================ */
 
-/* Tarjeta */
-/* .signup-card estilos movidos a AuthLayout */
+.signup-container-premium {
+  padding: 20px;
+  position: relative;
+  animation: slideUpFade 0.6s ease-out;
+}
 
-/* Header */
-.signup-header {
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón de volver minimalista */
+.back-btn-minimal {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-.signup-header h1 {
-  color: #ffffff;
-  font-size: 28px;
-  margin: 0;
-}
-
-.signup-avatar img {
-  width: 60px;
-  height: 60px;
   border-radius: 50%;
-  border: 2px solid #5de6c8;
 }
 
-/* Checkbox términos */
-.terms {
-  margin: 15px 0 20px;
+.back-btn-minimal:hover {
+  color: var(--accent);
+  background: rgba(93, 230, 200, 0.1);
+  transform: translateX(-5px);
+}
+
+/* Header Moderno */
+.signup-header-modern {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 20px;
 }
 
-/* CONTENEDOR */
-.terms-toggle {
+.header-text h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.header-text p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 5px 0 0;
+}
+
+.signup-avatar-premium {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.signup-avatar-premium img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+/* Formulario Moderno */
+.signup-form-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-group-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group-modern label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  color: var(--accent);
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 15px 14px 45px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(93, 230, 200, 0.2);
+}
+
+.form-row-modern {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Toggle Moderno */
+.terms-container-modern {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin: 10px 0;
+}
+
+.custom-toggle-modern {
+  position: relative;
+  width: 44px;
+  height: 22px;
   cursor: pointer;
 }
 
-/* OCULTAR CHECKBOX REAL */
-.terms-toggle input {
-  display: none;
+.custom-toggle-modern input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-/* FONDO DEL TOGGLE */
-.toggle-slider {
-  position: relative;
-  width: 46px;
-  height: 24px;
-  background-color: #ccc;
-  border-radius: 50px;
-  transition: 0.3s;
-  flex-shrink: 0;
-}
-
-/* CÍRCULO */
-.toggle-slider::before {
-  content: "";
+.slider-modern {
   position: absolute;
-  width: 18px;
-  height: 18px;
-  left: 3px;
-  top: 3px;
-  background: white;
-  border-radius: 50%;
-  transition: 0.3s;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 34px;
+  transition: .4s;
 }
 
-/* ESTADO ACTIVADO */
-.terms-toggle input:checked + .toggle-slider {
+.slider-modern:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+.custom-toggle-modern input:checked + .slider-modern {
   background-color: var(--accent);
 }
 
-.terms-toggle input:checked + .toggle-slider::before {
+.custom-toggle-modern input:checked + .slider-modern:before {
   transform: translateX(22px);
 }
 
-/* TEXTO */
-.terms-text {
-  font-size: 14px;
+.terms-text-modern {
+  font-size: 13px;
   color: var(--text-secondary);
 }
 
-/* LINK */
-.terms-link {
+.terms-link-btn {
+  background: none;
+  border: none;
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
 }
 
-.toggle-slider:active::before {
-  width: 24px;
+/* Botón de Registro Premium */
+.btn-signup-premium {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, var(--accent), #48c9b0);
+  color: #0a192f;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(93, 230, 200, 0.3);
 }
 
-/* FONDO OSCURO */
-.terms-modal-overlay {
+.btn-signup-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 230, 200, 0.4);
+  filter: brightness(1.1);
+}
+
+/* Modal Moderno */
+.modal-overlay-modern {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 1000;
+  padding: 20px;
 }
 
-/* CAJA */
-.terms-modal {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  padding: 25px;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  animation: fadeIn 0.2s ease;
+.modal-content-modern {
+  background: #112240;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* BOTÓN */
-.terms-modal button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  background: var(--accent);
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
+@keyframes modalIn {
+  from { transform: scale(0.9) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-.terms-modal button:hover {
-  background: var(--accent-hover);
+.modal-content-modern h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 24px;
 }
 
-/* ANIMACIÓN */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.terms-content ul {
-  margin-top: 10px;
-  padding-left: 18px;
-}
-
-.terms-content li {
-  margin-bottom: 8px;
+.terms-scroll-area {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
   color: var(--text-secondary);
   font-size: 14px;
+  line-height: 1.6;
 }
 
-/* Botón Sign Up */
-.btn-signup-submit {
+.terms-scroll-area ul {
+  padding-left: 20px;
+  margin-top: 15px;
+}
+
+.terms-scroll-area li {
+  margin-bottom: 10px;
+}
+
+.btn-close-modal {
   width: 100%;
+  margin-top: 25px;
   padding: 12px;
-  background-color: #5de6c8;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-close-modal:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  .form-row-modern {
+    grid-template-columns: 1fr;
+  }
+  
+  .header-text h1 {
+    font-size: 26px;
+  }
 }
