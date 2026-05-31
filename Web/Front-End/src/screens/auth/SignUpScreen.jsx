@@ -40,7 +40,6 @@ function SignUpScreen() {
       alert(t('signup.errorPassword', 'Las contraseñas no coinciden'))
       return
     }
-    // Aquí iría la lógica para validar el companyCode y registrar al usuario
     alert(`Registro exitoso para la empresa: ${formData.companyCode}`)
     navigate('/dashboard')
   }
@@ -52,18 +51,12 @@ function SignUpScreen() {
           <FaArrowLeft />
         </button>
 
-        <div className="signup-header-modern">
-          <div className="header-text">
-            <h1>{t('signup.title')}</h1>
-            <p>{t('signup.subtitle', 'Únete a la red de monitoreo inteligente')}</p>
-          </div>
-          <div className="signup-avatar-premium">
-            <div className="avatar-glow"></div>
-          </div>
+        <div className="signup-header-centered">
+          <h1>{t('signup.title')}</h1>
+          <p>{t('signup.subtitle', 'Únete a la red de monitoreo inteligente')}</p>
         </div>
 
         <form className="signup-form-modern" onSubmit={handleSubmit}>
-          {/* Campo de Empresa - Clave para Multi-Empresa */}
           <div className="input-group-modern">
             <label>{t('signup.companyCode', 'Código de Empresa')}</label>
             <div className="input-wrapper">
@@ -164,7 +157,7 @@ function SignUpScreen() {
           </button>
         </form>
 
-        <Divider text="OR" />
+        <Divider text="OR" className="divider-clean" />
         <SocialLogin />
       </div>
 

@@ -1,5 +1,5 @@
 /* ============================================================
-   SIGNUP MODERN DESIGN — EduAirControl (Multi-Company)
+   SIGNUP MODERN DESIGN — EduAirControl (Centered & Clean)
    ============================================================ */
 
 .signup-container-premium {
@@ -37,43 +37,26 @@
   transform: translateX(-5px);
 }
 
-/* Header Moderno */
-.signup-header-modern {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  gap: 20px;
+/* Header Centrado */
+.signup-header-centered {
+  text-align: center;
+  margin-bottom: 35px;
 }
 
-.header-text h1 {
-  font-size: 32px;
+.signup-header-centered h1 {
+  font-size: 34px;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
   letter-spacing: -1px;
+  text-shadow: 0 0 20px rgba(93, 230, 200, 0.3);
 }
 
-.header-text p {
+.signup-header-centered p {
   color: var(--text-secondary);
-  font-size: 14px;
-  margin: 5px 0 0;
-}
-
-.signup-avatar-premium {
-  position: relative;
-  width: 70px;
-  height: 70px;
-}
-
-.signup-avatar-premium img {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-  z-index: 2;
+  font-size: 15px;
+  margin: 8px 0 0;
+  opacity: 0.9;
 }
 
 /* Formulario Moderno */
@@ -220,6 +203,20 @@
   filter: brightness(1.1);
 }
 
+/* Limpieza del Divisor OR */
+.divider-clean {
+  background: transparent !important;
+  border: none !important;
+  margin: 25px 0 !important;
+}
+
+.divider-clean span {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
 /* Modal Moderno */
 .modal-overlay-modern {
   position: fixed;
@@ -296,7 +293,7 @@
     grid-template-columns: 1fr;
   }
   
-  .header-text h1 {
-    font-size: 26px;
+  .signup-header-centered h1 {
+    font-size: 28px;
   }
 }
