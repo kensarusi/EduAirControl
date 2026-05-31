@@ -1,5 +1,11 @@
+<<<<<<< Updated upstream
 /* Contenedor principal */
 /* .signup-container estilos movidos a AuthLayout */
+=======
+/* ============================================================
+   SIGNUP MODERN DESIGN — EduAirControl (Centered & Clean)
+   ============================================================ */
+>>>>>>> Stashed changes
 
 /* Tarjeta */
 /* .signup-card estilos movidos a AuthLayout */
@@ -13,10 +19,29 @@
   margin-bottom: 25px;
 }
 
+<<<<<<< Updated upstream
 .signup-header h1 {
+=======
+.back-btn-minimal:hover {
+  color: var(--accent);
+  background: rgba(93, 230, 200, 0.1);
+  transform: translateX(-5px);
+}
+
+/* Header Centrado */
+.signup-header-centered {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.signup-header-centered h1 {
+  font-size: 34px;
+  font-weight: 800;
+>>>>>>> Stashed changes
   color: #ffffff;
   font-size: 28px;
   margin: 0;
+<<<<<<< Updated upstream
 }
 
 .signup-avatar img {
@@ -29,6 +54,21 @@
 /* Checkbox términos */
 .terms {
   margin: 15px 0 20px;
+=======
+  letter-spacing: -1px;
+  text-shadow: 0 0 20px rgba(93, 230, 200, 0.3);
+}
+
+.signup-header-centered p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin: 8px 0 0;
+  opacity: 0.9;
+}
+
+/* Formulario Moderno */
+.signup-form-modern {
+>>>>>>> Stashed changes
   display: flex;
   justify-content: flex-start;
 }
@@ -95,8 +135,33 @@
   width: 24px;
 }
 
+<<<<<<< Updated upstream
 /* FONDO OSCURO */
 .terms-modal-overlay {
+=======
+.btn-signup-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 230, 200, 0.4);
+  filter: brightness(1.1);
+}
+
+/* Limpieza del Divisor OR */
+.divider-clean {
+  background: transparent !important;
+  border: none !important;
+  margin: 25px 0 !important;
+}
+
+.divider-clean span {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Modal Moderno */
+.modal-overlay-modern {
+>>>>>>> Stashed changes
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
@@ -162,3 +227,21 @@
   cursor: pointer;
   font-weight: bold;
 }
+<<<<<<< Updated upstream
+=======
+
+.btn-close-modal:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  .form-row-modern {
+    grid-template-columns: 1fr;
+  }
+  
+  .signup-header-centered h1 {
+    font-size: 28px;
+  }
+}
+>>>>>>> Stashed changes
