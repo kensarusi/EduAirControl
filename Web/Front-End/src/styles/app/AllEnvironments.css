@@ -353,6 +353,7 @@ body.dark-mode .suggestion-icon {
   transition: border-color 0.2s, transform 0.2s;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .summary-card:hover {

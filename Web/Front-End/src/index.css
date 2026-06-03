@@ -825,6 +825,7 @@ button:active { transform: scale(0.97); }
   padding: 20px;
   box-shadow: var(--shadow-card);
   transition: background-color 0.3s;
+  z-index: 1;
 }
 
 .summary-card-header h3 { font-size: 14px; color: var(--text-primary); margin: 0; }
