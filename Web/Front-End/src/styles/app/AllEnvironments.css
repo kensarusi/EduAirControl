@@ -28,7 +28,7 @@ body {
    HEADER (Unified)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .all-env-header {
-  background: #161b22;
+  background: var(--bg-card);
   border: 1px solid #30363d;
   border-radius: 12px;
   padding: 20px 24px;
@@ -270,10 +270,10 @@ body:not(.dark-mode) .summary-label{color:#666}
 body:not(.dark-mode) .summary-value{color:#0f172a}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    DARK MODE OVERRIDES (GitHub Dark Dimmed palette)
+    DARK MODE OVERRIDES
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 body.dark-mode .all-env-headers {
-  background: rgba(22, 27, 34, 0.95);
+  background: var(--bg-card);
   border-color: #30363d;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }

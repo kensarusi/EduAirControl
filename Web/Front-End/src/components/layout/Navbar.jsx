@@ -33,8 +33,8 @@ function Navbar() {
   }, [])
 
   const menuItems = [
-    { icon: <MdOutlineMeetingRoom />, label: t('nav.environments'), path: '/dashboard' },
-    { icon: <IoStatsChart />,         label: t('nav.activity'),     path: '/all-environments' },
+    { icon: <IoStatsChart />, label: t('nav.environments'), path: '/dashboard' },
+    { icon: <MdOutlineMeetingRoom />,         label: t('nav.activity'),     path: '/all-environments' },
     { icon: <FaHeart />,              label: t('nav.favorites'),    path: '/favorites' },
     { icon: <FaUser />,               label: t('nav.management'),   path: '/management' },
   ]
@@ -68,7 +68,7 @@ function Navbar() {
             </div>
           ))}
 
-          {/* 🔔 NOTIFICACIONES */}
+          {/*NOTIFICACIONES */}
           <div
             className="navbar-item notification-bell"
             onClick={() => setNotificationsOpen(true)}
@@ -76,7 +76,7 @@ function Navbar() {
             <FaBell />
           </div>
 
-          {/* 👤 PROFILE DROPDOWN */}
+          {/*PROFILE DROPDOWN */}
           <div
             className={`navbar-item navbar-profile ${isProfileActive ? 'active' : ''}`}
             onClick={() => setDropdownOpen((v) => !v)}
