@@ -83,6 +83,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  border: #48c9b0;
 }
 
 .input-icon {
@@ -97,7 +98,6 @@
   width: 100%;
   padding: 14px 15px 14px 45px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: #ffffff;
   font-size: 15px;
