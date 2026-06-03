@@ -1,4 +1,3 @@
-import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaTrophy, FaHeart, FaRegHeart, FaMapMarkerAlt, FaBell } from 'react-icons/fa'
@@ -7,20 +6,9 @@ import { WiThermometer, WiHumidity } from 'react-icons/wi'
 import { MdCo2 } from 'react-icons/md'
 import { HiSpeakerWave } from 'react-icons/hi2'
 import Navbar from '../../components/layout/Navbar'
-import { useEnvironments } from '../../context/EnvironmentsContext'
+import { useDashboardVM } from '../../viewmodels/useDashboardVM'
 import '../../styles/app/Leaderboard.css'
 
-// ── Score formula ──────────────────────────────────────────────
-function calcScore(env) {
-  const tempScore     = Math.max(0, 100 - Math.abs(env.temp - 21) * 8)
-  const humidityScore = Math.max(0, 100 - Math.abs(env.humidity - 50) * 3)
-  const co2Score      = Math.max(0, 100 - Math.max(0, env.co2 - 600) * 0.08)
-  const noiseScore    = Math.max(0, 100 - Math.max(0, env.noise - 30) * 2)
-
-  return Math.round(
-    (tempScore + humidityScore + co2Score + noiseScore) / 4
-  )
-}
 
 // ── Status icon ────────────────────────────────────────────────
 function StatusIcon({ statusKey, size = 16 }) {
@@ -301,20 +289,10 @@ function RankRow({ env, rank, score, onClick, onToggleFav }) {
 }
 
 // ── Stats bar ──────────────────────────────────────────────────
-function StatsBar({ environments }) {
+function StatsBar({ statusCounts }) {
   const { t } = useTranslation()
 
-  const normal = environments.filter(
-    (e) => e.statusKey === 'dashboard.statusNormal'
-  ).length
-
-  const warning = environments.filter(
-    (e) => e.statusKey === 'dashboard.statusWarning'
-  ).length
-
-  const alert = environments.filter(
-    (e) => e.statusKey === 'dashboard.statusAlert'
-  ).length
+  const { normal, warning, alert } = statusCounts
 
   return (
     <div className="lb-stats-bar">
@@ -344,7 +322,7 @@ function StatsBar({ environments }) {
 
       <div className="lb-stat lb-stat--total">
         <FaTrophy />
-        <span className="lb-stat-count">{environments.length}</span>
+        <span className="lb-stat-count">{statusCounts.total}</span>
         <span className="lb-stat-label">
           {t('leaderboard.total')}
         </span>
@@ -370,34 +348,8 @@ const STATUS_KEY_MAP = {
 // ── Main ───────────────────────────────────────────────────────
 function DashboardScreen() {
   const { t } = useTranslation()
-
   const navigate = useNavigate()
-
-  const { environments, toggleFavorite } = useEnvironments()
-
-  const [filter, setFilter] = useState('all')
-
-  const ranked = useMemo(
-    () =>
-      environments
-        .map((env) => ({
-          env,
-          score: calcScore(env),
-        }))
-        .sort((a, b) => b.score - a.score),
-    [environments]
-  )
-
-  const filtered = useMemo(() => {
-    if (filter === 'all') return ranked
-
-    return ranked.filter(
-      ({ env }) => env.statusKey === STATUS_KEY_MAP[filter]
-    )
-  }, [ranked, filter])
-
-  const top3 = filtered.slice(0, 3)
-  const rest = filtered.slice(3)
+  const { filter, setFilter, filtered, top3, rest, statusCounts, toggleFavorite } = useDashboardVM()
 
   const PODIUM_ORDER = [2, 1, 3]
 
@@ -425,7 +377,7 @@ function DashboardScreen() {
           </p>
         </div>
 
-        <StatsBar environments={environments} />
+        <StatsBar statusCounts={statusCounts} />
 
         <div className="lb-filters">
           {FILTERS.map((f) => (
