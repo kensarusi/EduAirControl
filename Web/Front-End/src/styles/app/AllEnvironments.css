@@ -28,7 +28,7 @@ body {
    HEADER (Unified)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .all-env-header {
-  background: #161b22;
+  background: var(--bg-card);
   border: 1px solid #30363d;
   border-radius: 12px;
   padding: 20px 24px;
