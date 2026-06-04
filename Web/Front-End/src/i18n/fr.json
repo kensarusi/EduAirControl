@@ -30,7 +30,7 @@
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
-      "placeholderName": "Ton nom",
+    "placeholderName": "Ton nom",
     "placeholderEmail": "exemple@mail.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
@@ -46,10 +46,11 @@
     "passwordMismatch": "Les mots de passe ne correspondent pas !",
     "mustAgreeTerms": "Vous devez accepter les Conditions générales"
   },
-    "common": {
-      "close": "Fermer"
-    },
-    
+  "common": {
+    "close": "Fermer",
+     "unknown": "un étranger",
+    "noName": "anonyme"
+  },
   "forgotPassword": {
     "title": "Mot de passe oublié",
     "description": "Entrez votre adresse e-mail et nous vous enverrons un code de récupération.",
@@ -89,9 +90,9 @@
     "humidity": "Humidité",
     "noise": "Niveau de bruit",
     "airQuality": "Qualité de l'air",
-    "env1": "Environnement 290-1",
-    "env2": "Environnement 290-2",
-    "env3": "Environnement 290-3",
+    "env1": "Environnement 209-1",
+    "env2": "Environnement 209-2",
+    "env3": "Environnement 209-3",
     "statusWarning": "Avertissement",
     "statusAlert": "Alerte",
     "statusNormal": "Normal",
@@ -116,7 +117,10 @@
     "humidity": "Humidité",
     "temp": "Température",
     "db": "dB",
-    "co2": "CO₂"
+    "co2": "CO₂",
+    "filters": "filtres",
+    "hideFilters": "masquer les filtres",
+    "noResults": "Aucun environnement n'a été trouvé avec les filtres sélectionnés."
   },
   "favorites": {
     "title": "Favoris",
@@ -165,14 +169,18 @@
     "reminderSound": "Son des notifications",
     "privacy": "Confidentialité et sécurité",
     "privacyDescription": "Contrôlez qui peut voir vos informations et comment elles sont utilisées.",
-    "publicProfile": "Profil public",
-    "shareData": "Partager mes données d'utilisation",
+    "privacyInfoLabel": "Visibilité des données",
+    "privacyInfo": "Vos données ne sont visibles que par les administrateurs de votre institution.",
     "changePassword": "Changer le mot de passe",
     "changePasswordSub": "Mettez à jour votre mot de passe d'accès",
+    "viewPrivacyPolicy": "Voir la politique de confidentialité",
+    "viewPrivacyPolicySub": "Comment nous protégeons vos informations",
     "deleteAccount": "Supprimer le compte",
     "deleteAccountSub": "Cette action est définitive et irréversible",
     "deleteAccountConfirm": "Êtes-vous sûr ? Toutes vos données seront supprimées définitivement.",
+    "deleteAccountDetail": "Votre profil, vos environnements favoris et votre historique seront supprimés.",
     "deleteBtn": "Supprimer le compte",
+    "deleteRequestSent": "Demande envoyée. Nous vous contacterons bientôt.",
     "help": "Aide et support",
     "helpDescription": "Trouvez des réponses et contactez l'équipe de support.",
     "helpFaq": "Questions fréquentes",
@@ -184,8 +192,8 @@
     "helpPrivacy": "Politique de confidentialité",
     "helpPrivacySub": "Comment nous protégeons vos données",
     "helpVersion": "Version de l'application",
-     "versionDesc": "Système de surveillance de la qualité de l'air",
-      "versionDate": "Dernière mise à jour : Avril 2026",
+    "versionDesc": "Système de surveillance de la qualité de l'air",
+    "versionDate": "Dernière mise à jour : Avril 2026",
     "passwordModal": {
       "title": "Changer le mot de passe",
       "current": "Mot de passe actuel",
@@ -197,7 +205,6 @@
       "errorEmpty": "Remplissez tous les champs",
       "errorMatch": "Les mots de passe ne correspondent pas",
       "errorLength": "Le mot de passe doit contenir au moins 6 caractères"
-     
     },
     "faq": {
       "q1": "Comment ajouter un environnement favori ?",
@@ -285,6 +292,7 @@
     "env1": "Environnement 290-1",
     "env2": "Environnement 290-2",
     "env3": "Environnement 290-3"
+    
   },
   "editModal": {
     "dateFormatTitle": "Format de date",
@@ -300,5 +308,94 @@
     "password_min": "Le mot de passe doit contenir au moins 6 caractères",
     "password_match": "Les mots de passe ne correspondent pas",
     "name_short": "Le nom est trop court"
+  },
+
+    "notifications": {
+    "title": "Notifications",
+    "empty": "Aucune notification",
+    
+    "co2High": "CO₂ élevé",
+    "co2Message": "L'environnement {{name}} a {{value}} ppm de CO₂",
+    
+    "tempHigh": "Température élevée",
+    "tempMessage": "L'environnement {{name}} est à {{value}}°C",
+    
+    "warning": "Avertissement",
+    "warningMessage": "L'environnement {{name}} présente des conditions irrégulières",
+    
+    "dailySummary": "Résumé quotidien",
+    "summaryMessage": "{{alerts}} environnements en alerte et {{warnings}} avertissements aujourd’hui"
+  },
+
+  "leaderboard": {
+    "title": "Classement des Environnements",
+    "subtitle": "Score calculé selon la température, l’humidité, le CO₂ et le bruit · Touchez un environnement pour voir les détails",
+
+    "filters": {
+      "all": "Tous",
+      "normal": "✅ Normal",
+      "warning": "⚠️ Avertissement",
+      "alert": "🔴 Alertes"
+    },
+
+    "stats": {
+      "total": "Total"
+    },
+
+    "health": {
+      "good": "État général bon",
+      "attention": "Attention recommandée",
+      "critical": "Intervention nécessaire",
+      "monitored": "{{count}} environnements surveillés",
+      "normal": "Normal",
+      "warning": "Avertissement",
+      "alert": "Alerte"
+    },
+
+    "topVsAverage": {
+      "title": "vs. moyenne générale",
+      "average": "Moyenne"
+    },
+
+    "metrics": {
+      "temperature": "Température",
+      "humidity": "Humidité",
+      "co2": "CO₂",
+      "noise": "Bruit"
+    },
+
+    "alerts": {
+      "title": "Alertes actives",
+      "empty": "Aucune alerte active — tous les environnements vont bien",
+      "temp": "Temp",
+      "humidity": "Humidité",
+      "noise": "Bruit"
+    },
+
+    "ranking": {
+      "positions": "Positions {{start}} – {{end}}",
+      "empty": "Aucun environnement avec ce statut",
+      "days": "{{count}} jours"
+    },
+
+    "favorites": {
+      "add": "Ajouter aux favoris",
+      "remove": "Retirer des favoris"
+    },
+
+    "legend": {
+      "title": "💡 Comment le score est calculé",
+      "temp": "Temp idéale : 18–24 °C",
+      "humidity": "Humidité idéale : 40–60 %",
+      "co2": "CO₂ idéal : < 1000 ppm",
+      "noise": "Bruit idéal : < 50 dB"
+    },
+    
+  "locations": {
+    "roomA": "Salle A",
+    "roomB": "Salle B",
+    "roomC": "Salle C"
+    }
   }
 }
+

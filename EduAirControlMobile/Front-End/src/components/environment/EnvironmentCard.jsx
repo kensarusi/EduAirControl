@@ -1,8 +1,8 @@
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { colors } from '../styles/colors'
-import { STATUS_COLORS, STATUS_LABELS, QUALITY_LABELS } from '../constants/environments'
-import { useEnvironments } from '../context/EnvironmentsContext'
+import { colors } from '../../styles/colors'
+import { STATUS_COLORS, STATUS_LABELS, QUALITY_LABELS } from '../../constants/environments'
+import { useEnvironments } from '../../context/EnvironmentsContext'
 
 export default function EnvironmentCard({ environment, onPress }) {
   const { toggleFavorite } = useEnvironments()
@@ -14,10 +14,10 @@ export default function EnvironmentCard({ environment, onPress }) {
         <View style={styles.titleGroup}>
           <Text style={styles.name}>{environment.name}</Text>
           <Text style={styles.location}>{environment.location}</Text>
-          <View style={[styles.statusBadge, { backgroundColor: `${STATUS_COLORS[environment.status]}20`, borderColor: STATUS_COLORS[environment.status] }]}>
-            <View style={[styles.statusDot, { backgroundColor: STATUS_COLORS[environment.status] }]} />
-            <Text style={[styles.statusText, { color: STATUS_COLORS[environment.status] }]}>
-              {STATUS_LABELS[environment.status]}
+          <View style={[styles.statusBadge, { backgroundColor: `${STATUS_COLORS[environment.statusKey]}20`, borderColor: STATUS_COLORS[environment.statusKey] }]}>
+            <View style={[styles.statusDot, { backgroundColor: STATUS_COLORS[environment.statusKey] }]} />
+            <Text style={[styles.statusText, { color: STATUS_COLORS[environment.statusKey] }]}>
+              {STATUS_LABELS[environment.statusKey]}
             </Text>
           </View>
         </View>
@@ -61,8 +61,8 @@ export default function EnvironmentCard({ environment, onPress }) {
       {/* Footer */}
       <View style={styles.cardFooter}>
         <Text style={styles.qualityLabel}>Calidad del aire:</Text>
-        <Text style={[styles.qualityValue, { color: STATUS_COLORS[environment.status] }]}>
-          {QUALITY_LABELS[environment.quality]}
+        <Text style={[styles.qualityValue, { color: STATUS_COLORS[environment.statusKey] }]}>
+          {QUALITY_LABELS[environment.qualityKey]}
         </Text>
         <Ionicons name="chevron-forward" size={16} color={colors.textMuted} style={styles.chevron} />
       </View>

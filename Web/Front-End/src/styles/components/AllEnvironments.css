@@ -1,6 +1,6 @@
 .all-env-page {
   min-height: 100vh;
-  background-color: #f0fafa;
+  background-color: transparent;
 }
 
 .all-env-container {
@@ -309,7 +309,7 @@
 }
 
 /* ── Dark Mode ── */
-body.dark-mode .all-env-page                  { background-color: var(--bg-body); }
+body.dark-mode .all-env-page                  { background-color: transparent; }
 body.dark-mode .all-env-title                 { color: #e0e0e0; }
 body.dark-mode .all-env-status-btn            { background: #16213e; border-color: #2a2a4a; }
 body.dark-mode .all-env-status-label          { color: #e0e0e0; }

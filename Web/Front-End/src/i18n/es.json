@@ -24,9 +24,10 @@
     "orWith": "Inicia sesión con",
     "or": "O"
   },
+
   "signup": {
-    "title": "Registrarse",
-    "name": "Nombre",
+    "title": "Crear cuenta",
+    "Name": "Nombre completo",
     "email": "Correo electrónico",
     "password": "Contraseña",
     "confirmPassword": "Confirmar contraseña",
@@ -46,11 +47,11 @@
     "passwordMismatch": "¡Las contraseñas no coinciden!",
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones"
   },
-
-   "common": {
-    "close": "Cerrar"
+  "common": {
+    "close": "Cerrar",
+    "unknown": "Desconocido",
+    "noName": "Sin nombre"
   },
-  
   "forgotPassword": {
     "title": "Olvidé mi contraseña",
     "description": "Ingresa tu correo electrónico y te enviaremos un código de recuperación.",
@@ -72,7 +73,6 @@
     "confirmBtn": "Confirmar cambio",
     "mismatch": "¡Las contraseñas no coinciden!"
   },
-
   "terms": {
     "title": "Términos y Condiciones",
     "intro": "Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos:",
@@ -84,7 +84,6 @@
     "footer2": "Al hacer clic en \"Aceptar\", confirmas que has leído y aceptado estos Términos y Condiciones.",
     "acceptBtn": "ACEPTAR"
   },
-
   "dashboard": {
     "clickDetails": "Click Para Ver Detalles",
     "idealRange": "Rango ideal",
@@ -92,9 +91,9 @@
     "humidity": "Humedad",
     "noise": "Nivel de Ruido",
     "airQuality": "Calidad del Aire",
-    "env1": "Ambiente 290-1",
-    "env2": "Ambiente 290-2",
-    "env3": "Ambiente 290-3",
+    "env1": "Ambiente 209-1",
+    "env2": "Ambiente 209-2",
+    "env3": "Ambiente 209-3",
     "statusWarning": "Advertencia",
     "statusAlert": "Alerta",
     "statusNormal": "Normal",
@@ -119,7 +118,10 @@
     "humidity": "Humedad",
     "temp": "Temp",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO2",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "noResults": "No se encontraron ambientes con los filtros seleccionados"
   },
   "favorites": {
     "title": "Favoritos",
@@ -168,14 +170,18 @@
     "reminderSound": "Sonido de notificaciones",
     "privacy": "Privacidad y Seguridad",
     "privacyDescription": "Controla quién puede ver tu información y cómo se usa.",
-    "publicProfile": "Perfil público",
-    "shareData": "Compartir datos de uso",
+    "privacyInfoLabel": "Visibilidad de datos",
+    "privacyInfo": "Tus datos solo son visibles para los administradores de tu institución.",
     "changePassword": "Cambiar contraseña",
     "changePasswordSub": "Actualiza tu contraseña de acceso",
+    "viewPrivacyPolicy": "Ver política de privacidad",
+    "viewPrivacyPolicySub": "Cómo protegemos tu información",
     "deleteAccount": "Eliminar cuenta",
     "deleteAccountSub": "Esta acción es permanente e irreversible",
     "deleteAccountConfirm": "¿Estás seguro? Todos tus datos serán eliminados permanentemente.",
+    "deleteAccountDetail": "Se eliminarán tu perfil, ambientes favoritos e historial de actividad.",
     "deleteBtn": "Eliminar cuenta",
+    "deleteRequestSent": "Solicitud enviada. Nos pondremos en contacto contigo.",
     "help": "Ayuda y Soporte",
     "helpDescription": "Encuentra respuestas y contacta al equipo de soporte.",
     "helpFaq": "Preguntas frecuentes",
@@ -188,7 +194,7 @@
     "helpPrivacySub": "Cómo protegemos tus datos",
     "helpVersion": "Versión de la app",
     "versionDesc": "Sistema de Monitoreo de Calidad del Aire",
-      "versionDate": "Última actualización: Abril 2026",
+    "versionDate": "Última actualización: Abril 2026",
     "passwordModal": {
       "title": "Cambiar contraseña",
       "current": "Contraseña actual",
@@ -296,11 +302,66 @@
     "cancel": "Cancelar",
     "save": "Guardar"
   },
+
     "errors": {
       "required_email": "El correo es obligatorio",
       "invalid_email": "Correo inválido",
       "password_min": "La contraseña debe tener mínimo 6 caracteres",
       "password_match": "Las contraseñas no coinciden",
       "name_short": "El nombre es muy corto"
-  }
+  },
+
+  "notifications": {
+    "title": "Notificaciones",
+    "empty": "No tienes notificaciones",
+
+    "co2High": "CO₂ alto",
+    "co2Message": "El ambiente {{name}} tiene {{value}} ppm de CO₂",
+
+    "tempHigh": "Temperatura alta",
+    "tempMessage": "El ambiente {{name}} tiene {{value}}°C",
+
+    "warning": "Advertencia",
+    "warningMessage": "El ambiente {{name}} presenta condiciones irregulares",
+
+    "dailySummary": "Resumen diario",
+    "summaryMessage": "Hoy {{alerts}} ambientes en alerta y {{warnings}} con advertencias"
+  },
+
+  "leaderboard": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Puntaje calculado por temperatura, humedad, CO₂ y ruido · Toca un ambiente para ver detalles",
+    "days": "días",
+    "removeFavorite": "Quitar favorito",
+    "addFavorite": "Agregar favorito",
+    "total": "Total",
+    "empty": "No hay ambientes con este estado",
+    "positions": "Posiciones",
+    "scoreCalculation": "Cómo se calcula el puntaje",
+    "tempIdeal": "Temp ideal: 18–24 °C",
+    "humidityIdeal": "Humedad ideal: 40–60 %",
+    "co2Ideal": "CO₂ ideal: < 1000 ppm",
+    "noiseIdeal": "Ruido ideal: < 50 dB", 
+
+    "filters": {
+      "all": "Todos",
+      "normal": "✅ Normales",
+      "warning": "⚠️ Advertencia",
+      "alert": "🔴 Alertas"
+    }
+  },
+
+  "locations": {
+    "roomA": "Sala A",
+    "roomB": "Sala B",
+    "roomC": "Sala C"
+  },
+
+"filters": {
+  "all": "Todos"
 }
+}
+
+
+
+ 

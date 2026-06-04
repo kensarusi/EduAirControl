@@ -1,0 +1,155 @@
+/* ============================================================
+   Environment Filters
+   ============================================================ */
+
+.all-env-headers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+
+  position: relative;
+  z-index: 50;
+}
+
+.floating-field {
+  position: relative;
+  width: 100%;
+  z-index: 100;
+}
+
+.floating-field input {
+  width: 100%;
+  height: 52px;
+
+  padding: 16px 14px 0;
+
+  border-radius: 12px;
+  border: 1px solid var(--lb-glass-border);
+
+  background: var(--lb-glass-bg);
+  backdrop-filter: blur(12px);
+
+  color: var(--text-primary);
+  font-size: 14px;
+
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.floating-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(63, 185, 80, 0.15);
+}
+
+.floating-field label {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: var(--text-muted);
+  font-size: 14px;
+
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.floating-field.has-value label,
+.floating-field input:focus + label {
+  top: 12px;
+  transform: none;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  color: var(--accent);
+}
+
+/* ============================================================
+   DROPDOWN
+   ============================================================ */
+
+.suggestions-dropdown {
+  position: absolute;
+
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+
+  margin: 0;
+  padding: 6px;
+
+  list-style: none;
+
+  border-radius: 14px;
+
+  background: #161b22;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  z-index: 99999;
+
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.suggestion-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.suggestion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 20px;
+}
+
+/* ============================================================
+   LIGHT MODE
+   ============================================================ */
+
+body:not(.dark-mode) .suggestions-dropdown {
+  background: white;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+body:not(.dark-mode) .suggestion-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .all-env-headers {
+    grid-template-columns: 1fr;
+  }
+}

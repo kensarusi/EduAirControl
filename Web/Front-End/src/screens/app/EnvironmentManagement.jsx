@@ -1,141 +1,232 @@
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import Navbar from "../../components/layout/Navbar"
-import { MdEdit, MdDelete, MdAdd, MdClose } from "react-icons/md"
-import { MdOutlineMeetingRoom } from "react-icons/md"
-import { useEnvironments } from "../../context/EnvironmentsContext"
-import "../../styles/app/environment.css"
+import { IoSearchOutline, IoAddOutline, IoFilterOutline, IoSwapVerticalOutline } from 'react-icons/io5'
+import { MdOutlineGridView } from 'react-icons/md'
+import { TbBuildingCommunity } from 'react-icons/tb'
+import { useTranslation } from 'react-i18next'
+import DashboardLayout from '../../components/layout/DashboardLayout'
+import ManagementCard from '../../components/environment/ManagementCard'
+import AddEnvironmentModal from '../../components/environment/AddEnvironmentModal'
+import EditEnvironmentModal from '../../components/environment/EditEnvironmentModal'
+import DeleteEnvironmentModal from '../../components/environment/DeleteEnvironmentModal'
+import { useManagementVM } from '../../viewmodels/useManagementVM'
+import '../../styles/app/EnvironmentManagement.css'
 
 function EnvironmentManagement() {
   const { t } = useTranslation()
-  const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments()
-  const [modal, setModal] = useState({ open: false, mode: "add", env: null })
-  const [deleteConfirm, setDeleteConfirm] = useState(null)
+  const {
+    filtered, stats, search, minCapacity, maxCapacity, showAdd, editEnv, deleteEnv,
+    activeFilter, sortBy,
+    setSearch, setMinCapacity, setMaxCapacity, setShowAdd, setEditEnv, openDelete, setDeleteEnv,
+    handleAdd, handleEdit, handleDelete,
+    setActiveFilter, setSortBy,
+  } = useManagementVM()
 
-const [form, setForm] = useState({ name: "", capacity: "", location: "" })
-
-const openAdd = () => {
-  setForm({ name: "", capacity: "", location: "" })
-  setModal({ open: true, mode: "add", env: null })
-}
-
-const closeModal = () => setModal({ open: false, mode: "add", env: null })
-
-const openEdit = (env) => { 
-  setForm({ name: env.nameKey ? t(env.nameKey) : env.name, capacity: env.capacity, location: env.location })
-  setModal({ open: true, mode: "edit", env })
-}
-
-const handleSave = () => {
-  if (!form.name.trim()) return
-  if (modal.mode === "add") {
-    addEnvironment({
-      name: form.name,
-      capacity: Number(form.capacity) || 0,
-      location: form.location || "Unknown",
-    })
-  } else {
-    editEnvironment(modal.env.id, {
-      nameKey: null,
-      name: form.name,
-      capacity: Number(form.capacity) || 0,
-      location: form.location,
-    })
-  }
-  closeModal()
-}
-
-  const handleDelete = (id) => {
-    deleteEnvironment(id)
-    setDeleteConfirm(null)
-  }
+  const FILTERS = [
+    { key: 'all',     label: t('management.filterAll',     'Todos'),       dot: 'all',     mod: '' },
+    { key: 'normal',  label: t('management.filterNormal',  'Normal'),      dot: 'normal',  mod: '' },
+    { key: 'warning', label: t('management.filterWarning', 'Advertencia'), dot: 'warning', mod: 'mod-warning' },
+    { key: 'alert',   label: t('management.filterAlert',   'Alerta'),      dot: 'alert',   mod: 'mod-alert' },
+  ]
 
   return (
-    <div className="mgmt-page">
-      <Navbar />
-      <div className="mgmt-container">
-        <div className="mgmt-title-row">
-          <MdOutlineMeetingRoom className="mgmt-title-icon" />
-          <h1 className="mgmt-title">{t("management.title")}</h1>
+    <DashboardLayout>
+      <div className="env-management">
+
+        {/* ── Top bar: título + buscador + botón en una sola fila ── */}
+        <div className="env-management-topbar">
+          <div className="env-management-topbar__left">
+            <span className="env-management-topbar__icon">
+              <MdOutlineGridView size={19} />
+            </span>
+            <h1 className="env-management-topbar__title">
+              {t('management.title', 'Gestión de Ambientes')}
+            </h1>
+          </div>
+
+          <div className="env-management-topbar__actions">
+            <div className="env-management-search">
+              <span className="env-management-search__icon">
+                <IoSearchOutline size={15} />
+              </span>
+              <input
+                className="env-management-search__input"
+                placeholder={t('management.searchPlaceholder', 'Buscar ambientes…')}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <button className="env-management-add-btn" onClick={() => setShowAdd(true)}>
+              <IoAddOutline size={17} />
+              {t('management.addBtn', 'Agregar Ambiente')}
+            </button>
+          </div>
         </div>
 
-        <div className="mgmt-actions-top">
-          <button className="btn-add-env" onClick={openAdd}>
-            <MdAdd /> {t("management.addBtn")}
-          </button>
+        {/* ── Summary cards ── */}
+        <div className="env-management-summary">
+          <div
+            className="env-management-summary-card env-management-summary-card--total"
+            onClick={() => setActiveFilter('all')}
+          >
+            <div className="env-management-summary-card__icon env-management-summary-card__icon--total">
+              <TbBuildingCommunity size={19} />
+            </div>
+            <div className="env-management-summary-card__info">
+              <span className="env-management-summary-card__label">
+                {t('management.summaryTotal', 'Total')}
+              </span>
+              <span className="env-management-summary-card__value">{stats.total}</span>
+            </div>
+          </div>
+
+          <div
+            className="env-management-summary-card env-management-summary-card--alert"
+            onClick={() => setActiveFilter('alert')}
+          >
+            <div className="env-management-summary-card__icon env-management-summary-card__icon--alert">⚠️</div>
+            <div className="env-management-summary-card__info">
+              <span className="env-management-summary-card__label">
+                {t('management.summaryAlerts', 'En Alerta')}
+              </span>
+              <span className="env-management-summary-card__value env-management-summary-card__value--alert">
+                {stats.alerts}
+              </span>
+            </div>
+          </div>
+
+          <div
+            className="env-management-summary-card env-management-summary-card--warning"
+            onClick={() => setActiveFilter('warning')}
+          >
+            <div className="env-management-summary-card__icon env-management-summary-card__icon--warning">🔔</div>
+            <div className="env-management-summary-card__info">
+              <span className="env-management-summary-card__label">
+                {t('management.summaryWarnings', 'Advertencias')}
+              </span>
+              <span className="env-management-summary-card__value env-management-summary-card__value--warning">
+                {stats.warnings}
+              </span>
+            </div>
+          </div>
         </div>
 
-        <div className="mgmt-list">
-          {environments.length === 0 ? (
-            <div className="mgmt-empty"><p>{t("management.empty")}</p></div>
+        {/* ── Filtros + Ordenar en una sola barra ── */}
+        <div className="env-management-controls">
+          <span className="env-management-controls__label">
+            <IoFilterOutline size={13} />
+            {t('management.filterLabel', 'Filtrar:')}
+          </span>
+
+          <div className="env-management-controls__filters">
+            {FILTERS.map((f) => (
+              <button
+                key={f.key}
+                className={[
+                  'env-management-filter-btn',
+                  activeFilter === f.key ? 'active' : '',
+                  activeFilter === f.key ? f.mod : '',
+                ].filter(Boolean).join(' ')}
+                onClick={() => setActiveFilter(f.key)}
+              >
+                <span className={`env-management-filter-dot env-management-filter-dot--${f.dot}`} />
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="env-management-controls__divider" />
+
+          <div className="env-management-controls__capacity">
+            <span className="env-management-controls__capacity-label">
+              {t('management.capacityLabel', 'Capacidad:')}
+            </span>
+            <input
+              className="env-management-controls__capacity-input"
+              type="number"
+              min={0}
+              placeholder={t('management.min', 'Mín')}
+              value={minCapacity}
+              onChange={(e) => setMinCapacity(e.target.value.replace(/[^\d]/g, ''))}
+            />
+            <span className="env-management-controls__capacity-sep">–</span>
+            <input
+              className="env-management-controls__capacity-input"
+              type="number"
+              min={0}
+              placeholder={t('management.max', 'Máx')}
+              value={maxCapacity}
+              onChange={(e) => setMaxCapacity(e.target.value.replace(/[^\d]/g, ''))}
+            />
+          </div>
+
+          <div className="env-management-controls__divider" />
+
+          <div className="env-management-sort">
+            <IoSwapVerticalOutline size={13} />
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+              <option value="name">{t('management.sortName', 'Nombre')}</option>
+              <option value="capacity">{t('management.sortCapacity', 'Capacidad')}</option>
+              <option value="status">{t('management.sortStatus', 'Estado')}</option>
+            </select>
+          </div>
+        </div>
+
+        {/* ── Contador de resultados ── */}
+        <div className="env-management-results-info">
+          <span className="env-management-results-count">
+            {t('management.resultsCount', 'Mostrando')}{' '}
+            <strong>{filtered.length}</strong>{' '}
+            {t('management.resultsOf', 'de')}{' '}
+            <strong>{stats.total}</strong>{' '}
+            {t('management.resultsEnvironments', 'ambientes')}
+          </span>
+        </div>
+
+        {/* ── Lista ── */}
+        <div className="env-management-list">
+          {filtered.length === 0 ? (
+            <div className="env-management-empty">
+              <div className="env-management-empty__icon">🏫</div>
+              <h3 className="env-management-empty__title">
+                {search
+                  ? t('management.noResultsSearch', 'Sin resultados para tu búsqueda')
+                  : t('management.noResults', 'No hay ambientes aún')}
+              </h3>
+              <p className="env-management-empty__sub">
+                {search
+                  ? t('management.noResultsSearchSub', 'Intenta con otro término o limpia los filtros')
+                  : t('management.noResultsSub', 'Agrega el primer ambiente para comenzar a monitorear')}
+              </p>
+              {search ? (
+                <button
+                  className="env-management-empty__btn"
+                  onClick={() => { setSearch(''); setMinCapacity(''); setMaxCapacity(''); setActiveFilter('all') }}
+                >
+                  {t('management.clearSearch', 'Limpiar búsqueda')}
+                </button>
+              ) : (
+                <button className="env-management-empty__btn" onClick={() => setShowAdd(true)}>
+                  {t('management.addBtn', 'Agregar Ambiente')}
+                </button>
+              )}
+            </div>
           ) : (
-            environments.map((env) => (
-              <div className="mgmt-card" key={env.id}>
-                <div className="mgmt-card-info">
-                  <h3>{env.nameKey ? t(env.nameKey) : env.name}</h3>
-                  <p><span>{t("management.capacity")}:</span> {env.capacity}</p>
-                  <p><span>{t("management.location")}:</span> {env.location}</p>
-                </div>
-               <div className="mgmt-card-actions">
-                  <button className="btn-edit" onClick={() => openEdit(env)}>
-                    <MdEdit /> {t("management.editBtn")}
-                  </button>
-                  <button className="btn-delete" onClick={() => setDeleteConfirm(env.id)}>
-                    <MdDelete />
-                  </button>
-                </div>
-              </div>
+            filtered.map((env) => (
+              <ManagementCard
+                key={env.id}
+                environment={env}
+                onEdit={setEditEnv}
+                onDelete={openDelete}
+              />
             ))
           )}
         </div>
       </div>
 
-      {modal.open && (
-        <div className="mgmt-overlay" onClick={closeModal}>
-          <div className="mgmt-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="mgmt-modal-header">
-              <h3>{modal.mode === "add" ? t("management.addTitle") : t("management.editTitle")}</h3>
-              <button className="btn-close" onClick={closeModal}><MdClose /></button>
-            </div>
-            <div className="mgmt-modal-body">
-              <label>{t("management.nameLabel")} *</label>
-              <input className="mgmt-input" placeholder={t("management.namePlaceholder")} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <label>{t("management.capacityLabel")}</label>
-              <input className="mgmt-input" type="number" placeholder={t("management.capacityPlaceholder")} value={form.capacity} onChange={(e) => setForm({ ...form, capacity: e.target.value })} />
-              <label>{t("management.locationLabel")}</label>
-              <input className="mgmt-input" placeholder={t("management.locationPlaceholder")} value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
-            </div>
-            <div className="mgmt-modal-footer">
-              <button className="btn-cancel" onClick={closeModal}>{t("management.cancelBtn")}</button>
-              <button className="btn-save" onClick={handleSave}>
-                {modal.mode === "add" ? t("management.addConfirmBtn") : t("management.saveBtn")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {deleteConfirm && (
-        <div className="mgmt-overlay" onClick={() => setDeleteConfirm(null)}>
-          <div className="mgmt-modal mgmt-modal--sm" onClick={(e) => e.stopPropagation()}>
-            <div className="mgmt-modal-header">
-              <h3>{t("management.deleteTitle")}</h3>
-              <button className="btn-close" onClick={() => setDeleteConfirm(null)}><MdClose /></button>
-            </div>
-            <div className="mgmt-modal-body">
-              <p>{t("management.deleteMsg")}</p>
-            </div>
-            <div className="mgmt-modal-footer">
-              <button className="btn-cancel" onClick={() => setDeleteConfirm(null)}>{t("management.cancelBtn")}</button>
-              <button className="btn-delete-confirm" onClick={() => handleDelete(deleteConfirm)}>
-                {t("management.deleteBtn")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      {showAdd  && <AddEnvironmentModal    onClose={() => setShowAdd(false)}  onAdd={handleAdd}        />}
+      {editEnv  && <EditEnvironmentModal   environment={editEnv} onClose={() => setEditEnv(null)}  onSave={handleEdit}   />}
+      {deleteEnv && <DeleteEnvironmentModal environment={deleteEnv} onClose={() => setDeleteEnv(null)} onConfirm={handleDelete} />}
+    </DashboardLayout>
   )
 }
 
-export default EnvironmentManagement  
+export default EnvironmentManagement

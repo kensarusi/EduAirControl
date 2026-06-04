@@ -30,11 +30,11 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Re-type password",
-     "placeholderName": "Your name",
+    "placeholderName": "Your name",
     "placeholderEmail": "example@email.com",
     "placeholderPassword": "••••••••",
     "placeholderConfirm": "••••••••",
-   "accept": "I accept",
+    "accept": "I accept",
     "terms": "Terms of Use and Privacy Policy",
     "termsTitle": "Terms and Conditions",
     "termsIntro": "By signing up for the platform, you agree to the following:",
@@ -46,11 +46,11 @@
     "passwordMismatch": "Passwords do not match!",
     "mustAgreeTerms": "You must agree to the Terms and Conditions"
   },
-
-   "common": {
-    "close": "Close"
+  "common": {
+    "close": "Close",
+    "unknown": "Unknown",
+    "noName": "No Name"
   },
-  
   "forgotPassword": {
     "title": "Forgot Password",
     "description": "Enter your email address and we'll send you a recovery code.",
@@ -90,9 +90,9 @@
     "humidity": "Humidity",
     "noise": "Noise Level",
     "airQuality": "Air Quality",
-    "env1": "Environment 290-1",
-    "env2": "Environment 290-2",
-    "env3": "Environment 290-3",
+    "env1": "Environment 209-1",
+    "env2": "Environment 209-2",
+    "env3": "Environment 209-3",
     "statusWarning": "Warning",
     "statusAlert": "Alert",
     "statusNormal": "Normal",
@@ -117,7 +117,10 @@
     "humidity": "Humidity",
     "temp": "Temp",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO2",
+    "filters": "Filters",
+    "hideFilters": "Hide Filters",
+    "noResults": "No environments found with the selected filters"
   },
   "favorites": {
     "title": "Favorites",
@@ -166,14 +169,18 @@
     "reminderSound": "Notification sound",
     "privacy": "Privacy and Security",
     "privacyDescription": "Control who can see your information and how it is used.",
-    "publicProfile": "Public profile",
-    "shareData": "Share usage data",
+    "privacyInfoLabel": "Data visibility",
+    "privacyInfo": "Your data is only visible to your institution's administrators.",
     "changePassword": "Change password",
     "changePasswordSub": "Update your access password",
+    "viewPrivacyPolicy": "View privacy policy",
+    "viewPrivacyPolicySub": "How we protect your information",
     "deleteAccount": "Delete account",
     "deleteAccountSub": "This action is permanent and irreversible",
     "deleteAccountConfirm": "Are you sure? All your data will be permanently deleted.",
+    "deleteAccountDetail": "Your profile, favorite environments, and activity history will be deleted.",
     "deleteBtn": "Delete account",
+    "deleteRequestSent": "Request sent. We will contact you shortly.",
     "help": "Help and Support",
     "helpDescription": "Find answers and contact the support team.",
     "helpFaq": "Frequently asked questions",
@@ -186,7 +193,7 @@
     "helpPrivacySub": "How we protect your data",
     "helpVersion": "App version",
     "versionDesc": "Air Quality Monitoring system",
-      "versionDate": "last update: april 2026",
+    "versionDate": "last update: april 2026",
     "passwordModal": {
       "title": "Change password",
       "current": "Current password",
@@ -198,7 +205,6 @@
       "errorEmpty": "Fill in all fields",
       "errorMatch": "Passwords do not match",
       "errorLength": "Password must be at least 6 characters"
-      
     },
     "faq": {
       "q1": "How do I add a favorite environment?",
@@ -301,5 +307,96 @@
     "password_min": "Password must be at least 6 characters",
     "password_match": "Passwords do not match",
     "name_short": "Name is too short"
-  }
+  },
+
+     "notifications": {
+  "title": "Notifications",
+  "empty": "No notifications",
+
+  "co2High": "High CO₂",
+  "co2Message": "Environment {{name}} has {{value}} ppm CO₂",
+
+  "tempHigh": "High temperature",
+  "tempMessage": "Environment {{name}} is at {{value}}°C",
+
+  "warning": "Warning",
+  "warningMessage": "Environment {{name}} has irregular conditions",
+
+  "dailySummary": "Daily summary",
+  "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings"
+},
+
+  "leaderboard": {
+    "title": "Environment Ranking",
+    "subtitle": "Score calculated by temperature, humidity, CO₂ and noise · Tap an environment to view details",
+
+    "filters": {
+      "all": "All",
+      "normal": "✅ Normal",
+      "warning": "⚠️ Warning",
+      "alert": "🔴 Alerts"
+    },
+
+    "stats": {
+      "total": "Total"
+    },
+
+    "health": {
+      "good": "Overall good condition",
+      "attention": "Attention recommended",
+      "critical": "Intervention required",
+      "monitored": "{{count}} monitored environments",
+      "normal": "Normal",
+      "warning": "Warning",
+      "alert": "Alert"
+    },
+
+    "topVsAverage": {
+      "title": "vs. overall average",
+      "average": "Average"
+    },
+
+    "metrics": {
+      "temperature": "Temperature",
+      "humidity": "Humidity",
+      "co2": "CO₂",
+      "noise": "Noise"
+    },
+
+    "alerts": {
+      "title": "Active alerts",
+      "empty": "No active alerts — all environments are fine",
+      "temp": "Temp",
+      "humidity": "Humidity",
+      "noise": "Noise"
+    },
+
+    "ranking": {
+      "positions": "Positions {{start}} – {{end}}",
+      "empty": "No environments with this status",
+      "days": "{{count}} days"
+    },
+
+    "favorites": {
+      "add": "Add favorite",
+      "remove": "Remove favorite"
+    },
+
+    "legend": {
+      "title": "💡 How the score is calculated",
+      "temp": "Ideal temp: 18–24 °C",
+      "humidity": "Ideal humidity: 40–60 %",
+      "co2": "Ideal CO₂: < 1000 ppm",
+      "noise": "Ideal noise: < 50 dB"
+    },
+    
+  "locations": {
+    "roomA": "Room A",
+    "roomB": "Room B",
+    "roomC": "Room C"
+    }
+  },
+  "filters": {
+  "all": "All"
+}
 }

@@ -46,11 +46,11 @@
     "passwordMismatch": "As senhas não coincidem!",
     "mustAgreeTerms": "Você deve aceitar os Termos e Condições"
   },
-
-    "common": {
-      "close": "Fechar"
-    },
-    
+  "common": {
+    "close": "Fechar",
+     "unknown": "um estranho",
+    "noName": "sem nome"
+  },
   "forgotPassword": {
     "title": "Esqueci minha senha",
     "description": "Digite seu e-mail e enviaremos um código de recuperação.",
@@ -90,9 +90,9 @@
     "humidity": "Umidade",
     "noise": "Nível de ruído",
     "airQuality": "Qualidade do ar",
-    "env1": "Ambiente 290-1",
-    "env2": "Ambiente 290-2",
-    "env3": "Ambiente 290-3",
+    "env1": "Ambiente 209-1",
+    "env2": "Ambiente 209-2",
+    "env3": "Ambiente 209-3",
     "statusWarning": "Aviso",
     "statusAlert": "Alerta",
     "statusNormal": "Normal",
@@ -117,7 +117,10 @@
     "humidity": "Umidade",
     "temp": "Temp",
     "db": "dB",
-    "co2": "CO2"
+    "co2": "CO2",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "noResults": "Não foram encontrados ambientes com os filtros selecionados."
   },
   "favorites": {
     "title": "Favoritos",
@@ -166,14 +169,18 @@
     "reminderSound": "Som de notificações",
     "privacy": "Privacidade e Segurança",
     "privacyDescription": "Controle quem pode ver suas informações e como elas são usadas.",
-    "publicProfile": "Perfil público",
-    "shareData": "Compartilhar dados de uso",
+    "privacyInfoLabel": "Visibilidade dos dados",
+    "privacyInfo": "Seus dados são visíveis apenas para os administradores da sua instituição.",
     "changePassword": "Alterar senha",
     "changePasswordSub": "Atualize sua senha de acesso",
+    "viewPrivacyPolicy": "Ver política de privacidade",
+    "viewPrivacyPolicySub": "Como protegemos suas informações",
     "deleteAccount": "Excluir conta",
     "deleteAccountSub": "Esta ação é permanente e irreversível",
     "deleteAccountConfirm": "Tem certeza? Todos os seus dados serão excluídos permanentemente.",
+    "deleteAccountDetail": "Seu perfil, ambientes favoritos e histórico de atividade serão excluídos.",
     "deleteBtn": "Excluir conta",
+    "deleteRequestSent": "Solicitação enviada. Entraremos em contato em breve.",
     "help": "Ajuda e Suporte",
     "helpDescription": "Encontre respostas e entre em contato com o suporte.",
     "helpFaq": "Perguntas frequentes",
@@ -185,8 +192,8 @@
     "helpPrivacy": "Política de privacidade",
     "helpPrivacySub": "Como protegemos seus dados",
     "helpVersion": "Versão do app",
-     "versionDesc": "Sistema de Monitoramento da Qualidade do Ar", 
-      "versionDate": "Última atualização: Abril 2026",
+    "versionDesc": "Sistema de Monitoramento da Qualidade do Ar",
+    "versionDate": "Última atualização: Abril 2026",
     "passwordModal": {
       "title": "Alterar senha",
       "current": "Senha atual",
@@ -198,7 +205,6 @@
       "errorEmpty": "Preencha todos os campos",
       "errorMatch": "As senhas não coincidem",
       "errorLength": "A senha deve ter pelo menos 6 caracteres"
-     
     },
     "faq": {
       "q1": "Como adiciono um ambiente favorito?",
@@ -301,5 +307,94 @@
     "password_min": "A senha deve conter pelo menos 6 caracteres",
     "password_match": "As senhas não coincidem",
     "name_short": "O nome é muito curto"
+  },
+
+      "notifications": {
+      "title": "Notificações",
+      "empty": "Sem notificações",
+      
+      "co2High": "CO₂ alto",
+      "co2Message": "O ambiente {{name}} tem {{value}} ppm de CO₂",
+      
+      "tempHigh": "Temperatura alta",
+      "tempMessage": "O ambiente {{name}} está com {{value}}°C",
+      
+      "warning": "Aviso",
+      "warningMessage": "O ambiente {{name}} apresenta condições irregulares",
+      
+      "dailySummary": "Resumo diário",
+      "summaryMessage": "{{alerts}} ambientes em alerta e {{warnings}} com avisos hoje"
+    },
+
+  "leaderboard": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Pontuação calculada por temperatura, umidade, CO₂ e ruído · Toque em um ambiente para ver detalhes",
+
+    "filters": {
+      "all": "Todos",
+      "normal": "✅ Normal",
+      "warning": "⚠️ Aviso",
+      "alert": "🔴 Alertas"
+    },
+
+    "stats": {
+      "total": "Total"
+    },
+
+    "health": {
+      "good": "Estado geral bom",
+      "attention": "Atenção recomendada",
+      "critical": "Intervenção necessária",
+      "monitored": "{{count}} ambientes monitorados",
+      "normal": "Normal",
+      "warning": "Aviso",
+      "alert": "Alerta"
+    },
+
+    "topVsAverage": {
+      "title": "vs. média geral",
+      "average": "Média"
+    },
+
+    "metrics": {
+      "temperature": "Temperatura",
+      "humidity": "Umidade",
+      "co2": "CO₂",
+      "noise": "Ruído"
+    },
+
+    "alerts": {
+      "title": "Alertas ativos",
+      "empty": "Sem alertas ativos — todos os ambientes estão bem",
+      "temp": "Temp",
+      "humidity": "Umidade",
+      "noise": "Ruído"
+    },
+
+    "ranking": {
+      "positions": "Posições {{start}} – {{end}}",
+      "empty": "Não há ambientes com este status",
+      "days": "{{count}} dias"
+    },
+
+    "favorites": {
+      "add": "Adicionar favorito",
+      "remove": "Remover favorito"
+    },
+
+    "legend": {
+      "title": "💡 Como a pontuação é calculada",
+      "temp": "Temp ideal: 18–24 °C",
+      "humidity": "Umidade ideal: 40–60 %",
+      "co2": "CO₂ ideal: < 1000 ppm",
+      "noise": "Ruído ideal: < 50 dB"
+    },
+    
+  "locations": {
+    "roomA": "Sala A",
+    "roomB": "Sala B",
+    "roomC": "Sala C"
+    }
   }
 }
+

@@ -1,0 +1,217 @@
+/* ─── Management Card ───────────────────────────────────────── */
+.mgmt-card {
+  /* Glass adaptativo — igual que .environment-card en el dashboard */
+  background:              var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter:         var(--lb-glass-blur);
+  border:                  1px solid var(--lb-glass-border);
+  border-radius:           var(--radius-md, 16px);
+  box-shadow:              var(--lb-glass-shadow);
+
+  padding: 18px 22px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+
+  animation: mgmt-card-in 0.25s ease both;
+}
+
+@keyframes mgmt-card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mgmt-card:hover {
+  transform: translateY(-3px);
+  background: var(--lb-glass-bg-hover);
+  border-color: var(--lb-glass-border-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Barra de estado lateral */
+.mgmt-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 3px 0 0 3px;
+  background: var(--lb-glass-border);
+  transition: background 0.25s;
+}
+
+.mgmt-card[data-status="normal"]::before  { background: var(--accent); }
+.mgmt-card[data-status="warning"]::before { background: #d69e2e; }
+.mgmt-card[data-status="alert"]::before   { background: #e53e3e; }
+
+/* ─── Header ────────────────────────────────────────────────── */
+.mgmt-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mgmt-card__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mgmt-card__name {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mgmt-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mgmt-card__meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: var(--radius-full, 999px);
+  padding: 2px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.mgmt-card__header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ─── Badge ─────────────────────────────────────────────────── */
+.mgmt-card__badge {
+  padding: 3px 12px;
+  border-radius: var(--radius-full, 999px);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+}
+
+/* ─── Action buttons ─────────────────────────────────────────── */
+.mgmt-card__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: var(--radius-sm, 10px);
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.18s;
+}
+
+.mgmt-card__btn:hover {
+  background: var(--lb-glass-bg-hover);
+  border-color: var(--lb-glass-border-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.mgmt-card__btn--danger {
+  color: #e53e3e;
+  border-color: rgba(229, 62, 62, 0.25);
+  background: rgba(229, 62, 62, 0.06);
+}
+
+.mgmt-card__btn--danger:hover {
+  color: #fc5c5c;
+  border-color: rgba(229, 62, 62, 0.6);
+  background: rgba(229, 62, 62, 0.14);
+}
+
+/* ─── Divider ────────────────────────────────────────────────── */
+.mgmt-card__divider {
+  height: 1px;
+  background: var(--lb-glass-border);
+  margin: 0 -2px;
+}
+
+/* ─── Metrics grid ───────────────────────────────────────────── */
+.mgmt-card__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.mgmt-card__metric {
+  /* tile de métrica: mismo glass del sistema */
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: var(--radius-sm, 10px);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.mgmt-card__metric:hover {
+  background: var(--lb-glass-bg);
+  border-color: var(--lb-glass-border-hover);
+}
+
+.mgmt-card__metric-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.mgmt-card__metric-icon {
+  display: flex;
+  align-items: center;
+}
+
+.mgmt-card__metric-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.mgmt-card__metric-value {
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .mgmt-card__metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 420px) {
+  .mgmt-card__metric-value { font-size: 16px; }
+  .mgmt-card__header-right { gap: 6px; }
+}

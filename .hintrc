@@ -10,7 +10,8 @@
           "backdrop-filter",
           "-webkit-overflow-scrolling",
           "position: -webkit-sticky",
-          "user-select"
+          "user-select",
+          "-webkit-backdrop-filter"
         ]
       }
     ]

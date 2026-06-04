@@ -11,14 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class Test {
     
-    private final LoginRequest  auth;
     
     @GetMapping("/test")
     public String test(){
         return "Contenido";
-    }
-    @GetMapping("/me")
-    public String me(){
-        return auth.getEmail();
     }
 }
