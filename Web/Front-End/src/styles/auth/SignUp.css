@@ -84,6 +84,7 @@
   display: flex;
   align-items: center;
   border: #48c9b0;
+
 }
 
 .input-icon {
@@ -98,6 +99,7 @@
   width: 100%;
   padding: 14px 15px 14px 45px;
   background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: #ffffff;
   font-size: 15px;
@@ -184,6 +186,43 @@
 /* Botón de Registro Premium */
 .btn-signup-premium {
   width: 100%;
+  padding: 12px;
+  background: linear-gradient(45deg, var(--accent), #48c9b0);
+  color: #0a192f;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(93, 230, 200, 0.3);
+}
+
+.btn-signup-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 230, 200, 0.4);
+  filter: brightness(1.1);
+}
+
+/* Limpieza del Divisor OR */
+.divider-clean {
+  background: transparent !important;
+  border: none !important;
+  margin: 25px 0 !important;
+}
+
+.divider-clean span {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+}
+
+/* Botón de Registro Premium */
+.btn-signup-premium {
+  width: 100%;
   padding: 15px;
   background: linear-gradient(45deg, var(--accent), #48c9b0);
   color: #0a192f;
@@ -216,6 +255,7 @@
   font-weight: 600 !important;
   font-size: 14px !important;
 }
+
 
 /* Modal Moderno */
 .modal-overlay-modern {

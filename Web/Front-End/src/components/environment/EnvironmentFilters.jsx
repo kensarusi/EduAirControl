@@ -1,5 +1,7 @@
-﻿import { useState, useRef, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+﻿import '../../styles/components/EnvironmentFilters.css'
+import { useState, useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next' 
+
 
 function FloatingInput({
   label,
