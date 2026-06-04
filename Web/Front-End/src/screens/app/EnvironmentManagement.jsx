@@ -1,4 +1,4 @@
-import { IoSearchOutline, IoAddOutline, IoFilterOutline, IoSwapVerticalOutline } from 'react-icons/io5'
+import { IoSearchOutline, IoAddOutline, IoSwapVerticalOutline } from 'react-icons/io5'
 import { MdOutlineGridView } from 'react-icons/md'
 import { TbBuildingCommunity } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
@@ -20,18 +20,11 @@ function EnvironmentManagement() {
     setActiveFilter, setSortBy,
   } = useManagementVM()
 
-  const FILTERS = [
-    { key: 'all',     label: t('management.filterAll',     'Todos'),       dot: 'all',     mod: '' },
-    { key: 'normal',  label: t('management.filterNormal',  'Normal'),      dot: 'normal',  mod: '' },
-    { key: 'warning', label: t('management.filterWarning', 'Advertencia'), dot: 'warning', mod: 'mod-warning' },
-    { key: 'alert',   label: t('management.filterAlert',   'Alerta'),      dot: 'alert',   mod: 'mod-alert' },
-  ]
-
   return (
     <DashboardLayout>
       <div className="env-management">
 
-        {/* ── Top bar: título + buscador + botón en una sola fila ── */}
+        {/* ── Top bar ── */}
         <div className="env-management-topbar">
           <div className="env-management-topbar__left">
             <span className="env-management-topbar__icon">
@@ -79,16 +72,16 @@ function EnvironmentManagement() {
           </div>
 
           <div
-            className="env-management-summary-card env-management-summary-card--alert"
-            onClick={() => setActiveFilter('alert')}
+            className="env-management-summary-card env-management-summary-card--normal"
+            onClick={() => setActiveFilter('normal')}
           >
-            <div className="env-management-summary-card__icon env-management-summary-card__icon--alert">⚠️</div>
+            <div className="env-management-summary-card__icon env-management-summary-card__icon--normal">✅</div>
             <div className="env-management-summary-card__info">
               <span className="env-management-summary-card__label">
-                {t('management.summaryAlerts', 'En Alerta')}
+                {t('management.summaryNormal', 'Normal')}
               </span>
-              <span className="env-management-summary-card__value env-management-summary-card__value--alert">
-                {stats.alerts}
+              <span className="env-management-summary-card__value env-management-summary-card__value--normal">
+                {stats.normals}
               </span>
             </div>
           </div>
@@ -107,34 +100,25 @@ function EnvironmentManagement() {
               </span>
             </div>
           </div>
+
+          <div
+            className="env-management-summary-card env-management-summary-card--alert"
+            onClick={() => setActiveFilter('alert')}
+          >
+            <div className="env-management-summary-card__icon env-management-summary-card__icon--alert">⚠️</div>
+            <div className="env-management-summary-card__info">
+              <span className="env-management-summary-card__label">
+                {t('management.summaryAlerts', 'En Alerta')}
+              </span>
+              <span className="env-management-summary-card__value env-management-summary-card__value--alert">
+                {stats.alerts}
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* ── Filtros + Ordenar en una sola barra ── */}
+        {/* ── Capacidad + Ordenar ── */}
         <div className="env-management-controls">
-          <span className="env-management-controls__label">
-            <IoFilterOutline size={13} />
-            {t('management.filterLabel', 'Filtrar:')}
-          </span>
-
-          <div className="env-management-controls__filters">
-            {FILTERS.map((f) => (
-              <button
-                key={f.key}
-                className={[
-                  'env-management-filter-btn',
-                  activeFilter === f.key ? 'active' : '',
-                  activeFilter === f.key ? f.mod : '',
-                ].filter(Boolean).join(' ')}
-                onClick={() => setActiveFilter(f.key)}
-              >
-                <span className={`env-management-filter-dot env-management-filter-dot--${f.dot}`} />
-                {f.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="env-management-controls__divider" />
-
           <div className="env-management-controls__capacity">
             <span className="env-management-controls__capacity-label">
               {t('management.capacityLabel', 'Capacidad:')}
@@ -222,8 +206,8 @@ function EnvironmentManagement() {
         </div>
       </div>
 
-      {showAdd  && <AddEnvironmentModal    onClose={() => setShowAdd(false)}  onAdd={handleAdd}        />}
-      {editEnv  && <EditEnvironmentModal   environment={editEnv} onClose={() => setEditEnv(null)}  onSave={handleEdit}   />}
+      {showAdd   && <AddEnvironmentModal    onClose={() => setShowAdd(false)}          onAdd={handleAdd}       />}
+      {editEnv   && <EditEnvironmentModal   environment={editEnv}  onClose={() => setEditEnv(null)}   onSave={handleEdit}  />}
       {deleteEnv && <DeleteEnvironmentModal environment={deleteEnv} onClose={() => setDeleteEnv(null)} onConfirm={handleDelete} />}
     </DashboardLayout>
   )

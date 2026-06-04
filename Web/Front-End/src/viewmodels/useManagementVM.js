@@ -78,10 +78,11 @@ export function useManagementVM() {
     return result
   }, [environments, search, minCapacity, maxCapacity, activeFilter, sortBy, t])
 
-  const stats = useMemo(() => ({
+const stats = useMemo(() => ({
     total:    environments.length,
     alerts:   environments.filter((e) => e.statusKey === 'dashboard.statusAlert').length,
     warnings: environments.filter((e) => e.statusKey === 'dashboard.statusWarning').length,
+    normals:  environments.filter((e) => e.statusKey === 'dashboard.statusNormal' || !e.statusKey).length,
   }), [environments])
 
   const handleAdd = (data) => {
