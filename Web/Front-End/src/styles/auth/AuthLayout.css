@@ -1,7 +1,6 @@
-
 /* ================================
    🌿 AUTH CONTAINER
-================================ */
+=============================== */
 
 .auth-container {
   min-height: 100vh;
@@ -148,23 +147,9 @@ background-attachment: fixed;
 
 }
 
-  background:
-    linear-gradient(rgba(4, 12, 24, 0.55),
-    rgba(4, 12, 24, 0.65)),
-    url('/src/assets/fondo-login.png');
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
 /* ================================
    GLASS CARD
-================================ */
+=============================== */
 
 .auth-card {
   width: 100%;
@@ -184,7 +169,7 @@ background-attachment: fixed;
 
 /* ================================
    🌿 EFECTO BRILLO
-================================ */
+=============================== */
 
 .auth-card::before {
   content: "";
@@ -211,7 +196,7 @@ background-attachment: fixed;
 
 /* ================================
    🌿 RESPONSIVE
-================================ */
+=============================== */
 
 @media (max-width: 768px) {
 
@@ -229,4 +214,3 @@ background-attachment: fixed;
   }
 
 }
-

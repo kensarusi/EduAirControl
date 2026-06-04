@@ -218,7 +218,6 @@
   font-weight: 600 !important;
   font-size: 14px !important;
 }
-}
 
 /* Botón de Registro Premium */
 .btn-signup-premium {
@@ -336,4 +335,5 @@
   .signup-header-centered h1 {
     font-size: 28px;
   }
+}
 }
