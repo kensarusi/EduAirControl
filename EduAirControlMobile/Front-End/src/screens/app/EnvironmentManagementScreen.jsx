@@ -1,24 +1,42 @@
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
   StyleSheet, SafeAreaView, StatusBar,
-  TextInput, Modal,
+  TextInput, Modal, Alert,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
-import {
-  STATUS_COLORS, STATUS_LABELS,
-} from '../../constants/environments'
+import { STATUS_COLORS, STATUS_LABELS } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 
-const EMPTY_FORM = { name: '', capacity: '', location: '' }
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+const isNormal  = (e) => e.statusKey === 'normal'  || e.statusKey === 'dashboard.statusNormal'
+const isWarning = (e) => e.statusKey === 'warning' || e.statusKey === 'dashboard.statusWarning'
+const isAlert   = (e) => e.statusKey === 'alert'   || e.statusKey === 'dashboard.statusAlert'
 
+function getMetricColor(key, val) {
+  if (key === 'temp')     return val > 26 ? '#F44336' : val > 24 ? '#FFC107' : '#4CAF50'
+  if (key === 'humidity') return val < 35 || val > 65 ? '#F44336' : val < 40 || val > 60 ? '#FFC107' : '#4CAF50'
+  if (key === 'co2')      return val > 1200 ? '#F44336' : val > 1000 ? '#FFC107' : '#4CAF50'
+  if (key === 'noise')    return val > 70 ? '#F44336' : val > 55 ? '#FFC107' : '#4CAF50'
+  return '#4CAF50'
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FormField
+// ─────────────────────────────────────────────────────────────────────────────
 function FormField({ label, value, onChangeText, placeholder, keyboardType = 'default', currentColors }) {
   return (
     <View style={styles.fieldGroup}>
       <Text style={[styles.fieldLabel, { color: currentColors.textMuted }]}>{label}</Text>
       <TextInput
-        style={[styles.fieldInput, { backgroundColor: currentColors.bgInput, borderColor: currentColors.borderColor, color: currentColors.textPrimary }]}
+        style={[styles.fieldInput, {
+          backgroundColor: currentColors.bgInput,
+          borderColor: currentColors.borderColor,
+          color: currentColors.textPrimary,
+        }]}
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
@@ -30,29 +48,182 @@ function FormField({ label, value, onChangeText, placeholder, keyboardType = 'de
   )
 }
 
-export default function EnvironmentManagementScreen() {
-  const { darkMode, currentColors, loaded } = useTheme()
-
-  const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments()
-  const [modal, setModal] = useState({ open: false, mode: 'add', env: null })
-  const [form, setForm] = useState(EMPTY_FORM)
-  const [search, setSearch] = useState('')
-
-  const filtered = environments.filter((env) =>
-    env.name.toLowerCase().includes(search.toLowerCase()) ||
-    env.location.toLowerCase().includes(search.toLowerCase())
+// ─────────────────────────────────────────────────────────────────────────────
+// SummaryCard — filtro rápido por estado (igual que web)
+// ─────────────────────────────────────────────────────────────────────────────
+function SummaryCard({ label, value, emoji, accent, active, onPress }) {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.summaryCard,
+        active && { borderColor: accent, backgroundColor: `${accent}18` },
+      ]}
+      onPress={onPress}
+      activeOpacity={0.8}
+    >
+      <Text style={styles.summaryEmoji}>{emoji}</Text>
+      <Text style={[styles.summaryValue, { color: active ? accent : '#f9fafb' }]}>{value}</Text>
+      <Text style={styles.summaryLabel}>{label}</Text>
+    </TouchableOpacity>
   )
+}
 
-  const openAdd = () => {
-    setForm(EMPTY_FORM)
-    setModal({ open: true, mode: 'add', env: null })
+// ─────────────────────────────────────────────────────────────────────────────
+// EnvironmentCard — métricas + toque para navegar al detalle (igual que web)
+// ─────────────────────────────────────────────────────────────────────────────
+function EnvironmentCard({ environment, onEdit, onDelete, onPress, currentColors }) {
+  const statusColor = STATUS_COLORS[environment.statusKey] || currentColors.accent
+  const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
+
+  const metrics = [
+    { key: 'temp',     icon: '🌡️', label: 'Temp',   value: `${environment.temp}°C`       },
+    { key: 'humidity', icon: '💧', label: 'Hum',    value: `${environment.humidity}%`     },
+    { key: 'co2',      icon: '☁️', label: 'CO₂',    value: `${environment.co2}ppm`        },
+    { key: 'noise',    icon: '🔊', label: 'Ruido',  value: `${environment.noise}dB`       },
+  ]
+
+  // raw values for color coding
+  const raws = {
+    temp: environment.temp,
+    humidity: environment.humidity,
+    co2: environment.co2,
+    noise: environment.noise,
   }
 
+  return (
+    <TouchableOpacity
+      style={[styles.envCard, {
+        backgroundColor: currentColors.bgCard,
+        borderColor: currentColors.borderColor,
+        borderLeftColor: statusColor,
+      }]}
+      onPress={onPress}
+      activeOpacity={0.85}
+    >
+      {/* Card top: icon + info + status pill */}
+      <View style={styles.cardTop}>
+        <View style={[styles.cardIcon, { backgroundColor: `${statusColor}18` }]}>
+          <Ionicons name="business-outline" size={18} color={statusColor} />
+        </View>
+
+        <View style={styles.cardInfo}>
+          <Text style={[styles.cardName, { color: currentColors.textPrimary }]} numberOfLines={1}>
+            {environment.name}
+          </Text>
+          <View style={styles.cardMeta}>
+            <Ionicons name="location-outline" size={11} color={currentColors.textMuted} />
+            <Text style={[styles.cardMetaTxt, { color: currentColors.textMuted }]}>{environment.location}</Text>
+            <Ionicons name="people-outline" size={11} color={currentColors.textMuted} style={{ marginLeft: 6 }} />
+            <Text style={[styles.cardMetaTxt, { color: currentColors.textMuted }]}>{environment.capacity} p.</Text>
+          </View>
+        </View>
+
+        <View style={[styles.statusPill, {
+          backgroundColor: `${statusColor}18`,
+          borderColor: statusColor,
+        }]}>
+          <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
+          <Text style={[styles.statusTxt, { color: statusColor }]}>{statusLabel}</Text>
+        </View>
+      </View>
+
+      {/* Metrics row — igual que web */}
+      <View style={[styles.metricsRow, { borderTopColor: currentColors.borderColor }]}>
+        {metrics.map((m) => {
+          const color = getMetricColor(m.key, raws[m.key])
+          return (
+            <View key={m.key} style={styles.metricCell}>
+              <Text style={styles.metricIcon}>{m.icon}</Text>
+              <Text style={[styles.metricValue, { color }]}>{m.value}</Text>
+              <Text style={[styles.metricLabel, { color: currentColors.textMuted }]}>{m.label}</Text>
+            </View>
+          )
+        })}
+      </View>
+
+      {/* Actions */}
+      <View style={[styles.cardActions, { borderTopColor: currentColors.borderColor }]}>
+        <TouchableOpacity
+          style={[styles.editBtn, { borderRightColor: currentColors.borderColor }]}
+          onPress={(e) => { onEdit(environment) }}
+        >
+          <Ionicons name="create-outline" size={14} color={currentColors.accent} />
+          <Text style={[styles.editBtnTxt, { color: currentColors.accent }]}>Editar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.deleteBtn} onPress={() => onDelete(environment)}>
+          <Ionicons name="trash-outline" size={14} color={currentColors.error} />
+          <Text style={[styles.deleteBtnTxt, { color: currentColors.error }]}>Eliminar</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Main screen
+// ─────────────────────────────────────────────────────────────────────────────
+const EMPTY_FORM = { name: '', capacity: '', location: '' }
+
+export default function EnvironmentManagementScreen({ navigation }) {
+  const { darkMode, currentColors, loaded } = useTheme()
+  const { environments, addEnvironment, editEnvironment, deleteEnvironment } = useEnvironments()
+
+  // ── Filtros (igual que web) ───────────────────────────────────
+  const [search, setSearch]             = useState('')
+  const [activeFilter, setActiveFilter] = useState('all')   // all | normal | warning | alert
+  const [minCap, setMinCap]             = useState('')
+  const [maxCap, setMaxCap]             = useState('')
+  const [sortBy, setSortBy]             = useState('name')   // name | capacity | status
+  const [showSort, setShowSort]         = useState(false)
+
+  // ── Modal ─────────────────────────────────────────────────────
+  const [modal, setModal] = useState({ open: false, mode: 'add', env: null })
+  const [form, setForm]   = useState(EMPTY_FORM)
+
+  // ── Stats (igual que web) ─────────────────────────────────────
+  const stats = useMemo(() => ({
+    total:    environments.length,
+    normals:  environments.filter(isNormal).length,
+    warnings: environments.filter(isWarning).length,
+    alerts:   environments.filter(isAlert).length,
+  }), [environments])
+
+  // ── Filtered + sorted list (igual que web) ────────────────────
+  const filtered = useMemo(() => {
+    let list = environments.filter((env) => {
+      const q = search.toLowerCase()
+      const matchSearch = !q || env.name.toLowerCase().includes(q) || env.location.toLowerCase().includes(q)
+      const matchFilter =
+        activeFilter === 'all'
+        || (activeFilter === 'normal'  && isNormal(env))
+        || (activeFilter === 'warning' && isWarning(env))
+        || (activeFilter === 'alert'   && isAlert(env))
+      const cap = env.capacity
+      const matchMin = !minCap || cap >= Number(minCap)
+      const matchMax = !maxCap || cap <= Number(maxCap)
+      return matchSearch && matchFilter && matchMin && matchMax
+    })
+
+    list = [...list].sort((a, b) => {
+      if (sortBy === 'capacity') return b.capacity - a.capacity
+      if (sortBy === 'status') {
+        const order = { alert: 0, warning: 1, normal: 2 }
+        const ka = order[a.statusKey] ?? 3
+        const kb = order[b.statusKey] ?? 3
+        return ka - kb
+      }
+      return a.name.localeCompare(b.name)
+    })
+
+    return list
+  }, [environments, search, activeFilter, minCap, maxCap, sortBy])
+
+  // ── Handlers ──────────────────────────────────────────────────
+  const openAdd  = () => { setForm(EMPTY_FORM); setModal({ open: true, mode: 'add', env: null }) }
   const openEdit = (env) => {
     setForm({ name: env.name, capacity: String(env.capacity), location: env.location })
     setModal({ open: true, mode: 'edit', env })
   }
-
   const closeModal = () => setModal({ open: false, mode: 'add', env: null })
 
   const handleSave = () => {
@@ -79,122 +250,227 @@ export default function EnvironmentManagementScreen() {
   const confirmDelete = (env) => {
     Alert.alert(
       'Eliminar ambiente',
-      `¿Estás seguro de que quieres eliminar "${env.name}"? Esta acción no se puede deshacer.`,
+      `¿Eliminar "${env.name}"? Esta acción no se puede deshacer.`,
       [
         { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Eliminar',
-          style: 'destructive',
-          onPress: () => deleteEnvironment(env.id),
-        },
+        { text: 'Eliminar', style: 'destructive', onPress: () => deleteEnvironment(env.id) },
       ]
     )
   }
 
+  const clearAll = () => {
+    setSearch(''); setMinCap(''); setMaxCap(''); setActiveFilter('all')
+  }
+
   if (!loaded) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
-        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+      <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+        <StatusBar barStyle="dark-content" />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
         </View>
       </SafeAreaView>
     )
   }
 
+  const sortLabels = { name: 'Nombre', capacity: 'Capacidad', status: 'Estado' }
+
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
-      <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} backgroundColor={currentColors.bgBody} />
+      <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} backgroundColor={currentColors.bgBody} />
 
-      {/* Header */}
-      <View style={styles.header}>
-        <Ionicons style={styles.headerIcon} name="settings-outline" size={30} color={currentColors.accent} />
-        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>Gestión de Ambientes</Text>
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <View style={[styles.header, { borderBottomColor: currentColors.borderColor }]}>
+        <View style={styles.headerLeft}>
+          <Ionicons name="grid-outline" size={20} color={currentColors.accent} />
+          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]}>
+            Gestión de Ambientes
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={[styles.addBtn, { backgroundColor: currentColors.accent }]}
+          onPress={openAdd}
+          activeOpacity={0.85}
+        >
+          <Ionicons name="add" size={18} color={currentColors.bgBody} />
+          <Text style={[styles.addBtnTxt, { color: currentColors.bgBody }]}>Agregar</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Botón agregar ambiente */}
-      <TouchableOpacity style={[styles.addBtn, { backgroundColor: currentColors.accent }]} onPress={openAdd} activeOpacity={0.85}>
-        <Ionicons name="add-circle-outline" size={20} color={currentColors.bgBody} />
-        <Text style={[styles.addBtnText, { color: currentColors.bgBody }]}>Agregar ambiente</Text>
-      </TouchableOpacity>
-
-      {/* Search */}
-      <View style={[styles.searchBar, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-        <Ionicons name="search-outline" size={16} color={currentColors.textMuted} />
-        <TextInput
-          style={[styles.searchInput, { color: currentColors.textPrimary }]}
-          placeholder="Buscar por nombre o ubicación..."
-          placeholderTextColor={currentColors.textMuted}
-          value={search}
-          onChangeText={setSearch}
-        />
-        {search.length > 0 && (
-          <TouchableOpacity onPress={() => setSearch('')}>
-            <Ionicons name="close-circle" size={16} color={currentColors.textMuted} />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      {/* List */}
       <ScrollView
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
+        {/* ── Summary cards (NUEVO — igual que web) ──────────── */}
+        <View style={styles.summaryRow}>
+          <SummaryCard
+            label="Total"  value={stats.total}    emoji="🏫"
+            accent={currentColors.accent}
+            active={activeFilter === 'all'}
+            onPress={() => setActiveFilter('all')}
+          />
+          <SummaryCard
+            label="Normal"  value={stats.normals}  emoji="✅"
+            accent="#4CAF50"
+            active={activeFilter === 'normal'}
+            onPress={() => setActiveFilter('normal')}
+          />
+          <SummaryCard
+            label="Advertencia" value={stats.warnings} emoji="🔔"
+            accent="#FFC107"
+            active={activeFilter === 'warning'}
+            onPress={() => setActiveFilter('warning')}
+          />
+          <SummaryCard
+            label="Alerta" value={stats.alerts}   emoji="⚠️"
+            accent="#F44336"
+            active={activeFilter === 'alert'}
+            onPress={() => setActiveFilter('alert')}
+          />
+        </View>
+
+        {/* ── Buscador ────────────────────────────────────────── */}
+        <View style={[styles.searchBar, {
+          backgroundColor: currentColors.bgCard,
+          borderColor: currentColors.borderColor,
+        }]}>
+          <Ionicons name="search-outline" size={16} color={currentColors.textMuted} />
+          <TextInput
+            style={[styles.searchInput, { color: currentColors.textPrimary }]}
+            placeholder="Buscar por nombre o ubicación..."
+            placeholderTextColor={currentColors.textMuted}
+            value={search}
+            onChangeText={setSearch}
+          />
+          {search.length > 0 && (
+            <TouchableOpacity onPress={() => setSearch('')}>
+              <Ionicons name="close-circle" size={16} color={currentColors.textMuted} />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {/* ── Capacidad + Ordenar (NUEVO — igual que web) ─────── */}
+        <View style={styles.controlsRow}>
+          <View style={[styles.capacityGroup, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+            <Text style={[styles.controlLabel, { color: currentColors.textMuted }]}>Cap:</Text>
+            <TextInput
+              style={[styles.capInput, { color: currentColors.textPrimary, borderColor: currentColors.borderColor }]}
+              placeholder="Mín"
+              placeholderTextColor={currentColors.textMuted}
+              keyboardType="numeric"
+              value={minCap}
+              onChangeText={(v) => setMinCap(v.replace(/[^\d]/g, ''))}
+            />
+            <Text style={[styles.controlSep, { color: currentColors.textMuted }]}>–</Text>
+            <TextInput
+              style={[styles.capInput, { color: currentColors.textPrimary, borderColor: currentColors.borderColor }]}
+              placeholder="Máx"
+              placeholderTextColor={currentColors.textMuted}
+              keyboardType="numeric"
+              value={maxCap}
+              onChangeText={(v) => setMaxCap(v.replace(/[^\d]/g, ''))}
+            />
+          </View>
+
+          <TouchableOpacity
+            style={[styles.sortBtn, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}
+            onPress={() => setShowSort(true)}
+          >
+            <Ionicons name="swap-vertical-outline" size={14} color={currentColors.textMuted} />
+            <Text style={[styles.sortBtnTxt, { color: currentColors.textMuted }]}>
+              {sortLabels[sortBy]}
+            </Text>
+            <Ionicons name="chevron-down" size={12} color={currentColors.textMuted} />
+          </TouchableOpacity>
+        </View>
+
+        {/* ── Contador de resultados (NUEVO — igual que web) ──── */}
+        <View style={styles.resultsInfo}>
+          <Text style={[styles.resultsCount, { color: currentColors.textMuted }]}>
+            Mostrando{' '}
+            <Text style={{ color: currentColors.textPrimary, fontWeight: '700' }}>{filtered.length}</Text>
+            {' '}de{' '}
+            <Text style={{ color: currentColors.textPrimary, fontWeight: '700' }}>{stats.total}</Text>
+            {' '}ambientes
+          </Text>
+          {(search || minCap || maxCap || activeFilter !== 'all') && (
+            <TouchableOpacity onPress={clearAll}>
+              <Text style={[styles.clearTxt, { color: currentColors.accent }]}>Limpiar</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {/* ── Lista ───────────────────────────────────────────── */}
         {filtered.length === 0 ? (
           <View style={styles.empty}>
-            <Ionicons name="cube-outline" size={52} color={currentColors.borderColor} />
+            <Text style={styles.emptyIcon}>🏫</Text>
             <Text style={[styles.emptyTitle, { color: currentColors.textPrimary }]}>
-              {search ? 'Sin resultados' : 'Sin ambientes'}
+              {search || activeFilter !== 'all' ? 'Sin resultados' : 'Sin ambientes'}
             </Text>
             <Text style={[styles.emptyText, { color: currentColors.textMuted }]}>
-              {search ? 'Intenta con otro término' : 'Toca "Agregar ambiente" para comenzar'}
+              {search || activeFilter !== 'all'
+                ? 'Intenta con otro término o cambia los filtros'
+                : 'Toca "Agregar" para comenzar a monitorear'}
             </Text>
+            {(search || activeFilter !== 'all') ? (
+              <TouchableOpacity
+                style={[styles.emptyBtn, { backgroundColor: currentColors.accent }]}
+                onPress={clearAll}
+              >
+                <Text style={[styles.emptyBtnTxt, { color: currentColors.bgBody }]}>Limpiar búsqueda</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={[styles.emptyBtn, { backgroundColor: currentColors.accent }]}
+                onPress={openAdd}
+              >
+                <Text style={[styles.emptyBtnTxt, { color: currentColors.bgBody }]}>Agregar ambiente</Text>
+              </TouchableOpacity>
+            )}
           </View>
         ) : (
           filtered.map((env) => (
-            <View key={env.id} style={[styles.envCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-              <View style={styles.cardTop}>
-                <View style={[styles.cardIcon, { backgroundColor: currentColors.accentDim }]}>
-                  <Ionicons name="business-outline" size={18} color={currentColors.accent} />
-                </View>
-                <View style={styles.cardInfo}>
-                  <Text style={[styles.cardName, { color: currentColors.textPrimary }]} numberOfLines={1}>{env.name}</Text>
-                  <View style={styles.cardMeta}>
-                    <Ionicons name="location-outline" size={12} color={currentColors.textMuted} />
-                    <Text style={[styles.cardMetaText, { color: currentColors.textMuted }]}>{env.location}</Text>
-                    <Ionicons name="people-outline" size={12} color={currentColors.textMuted} style={{ marginLeft: 8 }} />
-                    <Text style={[styles.cardMetaText, { color: currentColors.textMuted }]}>{env.capacity} personas</Text>
-                  </View>
-                </View>
-                <View style={[
-                  styles.statusPill,
-                  { backgroundColor: `${STATUS_COLORS[env.statusKey] || currentColors.accent}15`, borderColor: STATUS_COLORS[env.statusKey] || currentColors.accent }
-                ]}>
-                  <View style={[styles.statusDot, { backgroundColor: STATUS_COLORS[env.statusKey] || currentColors.accent }]} />
-                  <Text style={[styles.statusTxt, { color: STATUS_COLORS[env.statusKey] || currentColors.accent }]}>
-                    {STATUS_LABELS[env.statusKey] || env.statusKey}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.cardActions}>
-                <TouchableOpacity style={styles.editBtn} onPress={() => openEdit(env)}>
-                  <Ionicons name="create-outline" size={15} color={currentColors.accent} />
-                  <Text style={[styles.editBtnText, { color: currentColors.accent }]}>Editar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.deleteBtn} onPress={() => confirmDelete(env)}>
-                  <Ionicons name="trash-outline" size={15} color={currentColors.error} />
-                  <Text style={[styles.deleteBtnText, { color: currentColors.error }]}>Eliminar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <EnvironmentCard
+              key={env.id}
+              environment={env}
+              currentColors={currentColors}
+              onEdit={openEdit}
+              onDelete={confirmDelete}
+              onPress={() => navigation.navigate('EnvironmentDetail', { envId: env.id })}
+            />
           ))
         )}
-        <View style={{ height: 20 }} />
+
+        <View style={{ height: 24 }} />
       </ScrollView>
 
-      {/* Modal */}
+      {/* ── Sort picker modal ────────────────────────────────── */}
+      <Modal visible={showSort} transparent animationType="fade" onRequestClose={() => setShowSort(false)}>
+        <TouchableOpacity style={styles.sortOverlay} activeOpacity={1} onPress={() => setShowSort(false)}>
+          <View style={[styles.sortSheet, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+            <Text style={[styles.sortSheetTitle, { color: currentColors.textMuted }]}>ORDENAR POR</Text>
+            {['name', 'capacity', 'status'].map((opt) => (
+              <TouchableOpacity
+                key={opt}
+                style={[styles.sortOption, sortBy === opt && { backgroundColor: `${currentColors.accent}18` }]}
+                onPress={() => { setSortBy(opt); setShowSort(false) }}
+              >
+                <Text style={[styles.sortOptionTxt, {
+                  color: sortBy === opt ? currentColors.accent : currentColors.textPrimary,
+                  fontWeight: sortBy === opt ? '700' : '400',
+                }]}>
+                  {sortLabels[opt]}
+                </Text>
+                {sortBy === opt && <Ionicons name="checkmark" size={16} color={currentColors.accent} />}
+              </TouchableOpacity>
+            ))}
+          </View>
+        </TouchableOpacity>
+      </Modal>
+
+      {/* ── Add / Edit modal ─────────────────────────────────── */}
       <Modal visible={modal.open} transparent animationType="slide" onRequestClose={closeModal}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard }]}>
@@ -238,11 +514,17 @@ export default function EnvironmentManagementScreen() {
             </ScrollView>
 
             <View style={styles.modalActions}>
-              <TouchableOpacity style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]} onPress={closeModal}>
-                <Text style={[styles.cancelBtnText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+              <TouchableOpacity
+                style={[styles.cancelBtn, { borderColor: currentColors.borderColor }]}
+                onPress={closeModal}
+              >
+                <Text style={[styles.cancelBtnTxt, { color: currentColors.textSecondary }]}>Cancelar</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.saveBtn, { backgroundColor: currentColors.accent }]} onPress={handleSave}>
-                <Text style={[styles.saveBtnText, { color: currentColors.bgBody }]}>
+              <TouchableOpacity
+                style={[styles.saveBtn, { backgroundColor: currentColors.accent }]}
+                onPress={handleSave}
+              >
+                <Text style={[styles.saveBtnTxt, { color: currentColors.bgBody }]}>
                   {modal.mode === 'add' ? 'Agregar' : 'Guardar'}
                 </Text>
               </TouchableOpacity>
@@ -254,61 +536,112 @@ export default function EnvironmentManagementScreen() {
   )
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Styles
+// ─────────────────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#f0fafa' },
+  safe:          { flex: 1 },
+  scroll:        { flex: 1 },
+  scrollContent: { paddingHorizontal: 16, paddingTop: 12 },
 
+  // Header
   header: {
-    flexDirection: 'row', alignItems: 'center', gap: 8,
-    paddingHorizontal: 20, paddingTop: 55, paddingBottom: 20,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: 16, paddingTop: 52, paddingBottom: 14,
+    borderBottomWidth: 1,
   },
-  headerIcon: { paddingLeft: 20 },
-  headerTitle: { paddingLeft: 20, fontSize: 24, fontWeight: 'bold' },
-
+  headerLeft:  { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  headerTitle: { fontSize: 18, fontWeight: '800', letterSpacing: -0.3 },
   addBtn: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: 8, marginHorizontal: 20, marginBottom: 20,
-    borderRadius: 12,
-    paddingVertical: 13,
+    flexDirection: 'row', alignItems: 'center', gap: 5,
+    borderRadius: 10, paddingHorizontal: 13, paddingVertical: 8,
   },
-  addBtnText: { fontSize: 15, fontWeight: 'bold' },
+  addBtnTxt: { fontSize: 13, fontWeight: '700' },
 
+  // Summary cards
+  summaryRow: {
+    flexDirection: 'row', gap: 8, marginBottom: 14,
+  },
+  summaryCard: {
+    flex: 1, alignItems: 'center', paddingVertical: 10, paddingHorizontal: 4,
+    backgroundColor: '#1a2332', borderRadius: 12, borderWidth: 1.5,
+    borderColor: '#2d3748',
+  },
+  summaryEmoji: { fontSize: 16, marginBottom: 2 },
+  summaryValue: { fontSize: 18, fontWeight: '900', lineHeight: 22 },
+  summaryLabel: { fontSize: 9.5, color: '#9ca3af', fontWeight: '600', marginTop: 1, textAlign: 'center' },
+
+  // Search
   searchBar: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
-    marginHorizontal: 20, marginBottom: 12,
     borderRadius: 10, borderWidth: 1,
     paddingHorizontal: 12, paddingVertical: 10,
+    marginBottom: 10,
   },
   searchInput: { flex: 1, fontSize: 14 },
 
-  list: { flex: 1 },
-  listContent: { paddingHorizontal: 20 },
+  // Controls: capacity + sort
+  controlsRow: { flexDirection: 'row', gap: 8, marginBottom: 10, alignItems: 'center' },
+  capacityGroup: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6,
+    borderRadius: 10, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 8,
+  },
+  controlLabel: { fontSize: 12, fontWeight: '600' },
+  capInput: {
+    flex: 1, fontSize: 13, borderWidth: 1, borderRadius: 8,
+    paddingHorizontal: 8, paddingVertical: 5, textAlign: 'center',
+    minWidth: 42,
+  },
+  controlSep: { fontSize: 12 },
+  sortBtn: {
+    flexDirection: 'row', alignItems: 'center', gap: 5,
+    borderRadius: 10, borderWidth: 1, paddingHorizontal: 11, paddingVertical: 10,
+  },
+  sortBtnTxt: { fontSize: 12, fontWeight: '600' },
 
-  empty: { alignItems: 'center', paddingTop: 60, gap: 10 },
-  emptyTitle: { fontSize: 17, fontWeight: 'bold', color: '#0f172a' },
-  emptyText: { fontSize: 13, color: '#999999', textAlign: 'center' },
+  // Results info
+  resultsInfo: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  resultsCount: { fontSize: 12 },
+  clearTxt:     { fontSize: 12, fontWeight: '700' },
 
+  // Environment card
   envCard: {
-    borderRadius: 14, borderWidth: 1,
+    borderRadius: 14, borderWidth: 1.5, borderLeftWidth: 4,
     overflow: 'hidden', marginBottom: 12,
   },
   cardTop: {
-    flexDirection: 'row', alignItems: 'center', padding: 14, gap: 12,
+    flexDirection: 'row', alignItems: 'center', padding: 14, gap: 11,
   },
   cardIcon: {
-    width: 40, height: 40, borderRadius: 10,
+    width: 38, height: 38, borderRadius: 10,
     alignItems: 'center', justifyContent: 'center',
   },
-  cardInfo: { flex: 1 },
-  cardName: { fontSize: 15, fontWeight: '700', marginBottom: 4 },
-  cardMeta: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  cardMetaText: { fontSize: 12, color: '#999999' },
+  cardInfo:    { flex: 1 },
+  cardName:    { fontSize: 15, fontWeight: '700', marginBottom: 3 },
+  cardMeta:    { flexDirection: 'row', alignItems: 'center', gap: 3 },
+  cardMetaTxt: { fontSize: 11 },
   statusPill: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
-    borderRadius: 20, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 3,
+    borderRadius: 20, borderWidth: 1, paddingHorizontal: 7, paddingVertical: 3,
   },
   statusDot: { width: 6, height: 6, borderRadius: 3 },
-  statusTxt: { fontSize: 11, fontWeight: '600' },
+  statusTxt:  { fontSize: 10, fontWeight: '700' },
 
+  // Metrics row (NUEVO)
+  metricsRow: {
+    flexDirection: 'row', borderTopWidth: 1,
+  },
+  metricCell: {
+    flex: 1, alignItems: 'center', paddingVertical: 10, gap: 2,
+  },
+  metricIcon:  { fontSize: 14 },
+  metricValue: { fontSize: 13, fontWeight: '800', lineHeight: 17 },
+  metricLabel: { fontSize: 9.5, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.3 },
+
+  // Card actions
   cardActions: {
     flexDirection: 'row', borderTopWidth: 1,
   },
@@ -316,17 +649,38 @@ const styles = StyleSheet.create({
     flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 5, paddingVertical: 11, borderRightWidth: 1,
   },
-  editBtnText: { fontSize: 13, fontWeight: '600' },
+  editBtnTxt:   { fontSize: 13, fontWeight: '600' },
   deleteBtn: {
     flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 5, paddingVertical: 11,
   },
-  deleteBtnText: { fontSize: 13, fontWeight: '600' },
+  deleteBtnTxt: { fontSize: 13, fontWeight: '600' },
 
-  // Modal
+  // Empty state
+  empty: { alignItems: 'center', paddingTop: 60, gap: 10 },
+  emptyIcon:    { fontSize: 52 },
+  emptyTitle:   { fontSize: 17, fontWeight: '800' },
+  emptyText:    { fontSize: 13, textAlign: 'center', lineHeight: 19 },
+  emptyBtn:     { borderRadius: 12, paddingHorizontal: 20, paddingVertical: 11, marginTop: 6 },
+  emptyBtnTxt:  { fontSize: 14, fontWeight: '700' },
+
+  // Sort picker
+  sortOverlay:    { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' },
+  sortSheet: {
+    borderTopLeftRadius: 20, borderTopRightRadius: 20,
+    borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1,
+    paddingTop: 20, paddingHorizontal: 20, paddingBottom: 36,
+  },
+  sortSheetTitle: { fontSize: 11, fontWeight: '700', letterSpacing: 1, marginBottom: 10 },
+  sortOption: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingVertical: 14, paddingHorizontal: 12, borderRadius: 10, marginBottom: 4,
+  },
+  sortOptionTxt: { fontSize: 15 },
+
+  // Add/Edit modal
   modalOverlay: {
-    flex: 1, backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'flex-end',
+    flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end',
   },
   modalCard: {
     borderTopLeftRadius: 24, borderTopRightRadius: 24,
@@ -335,10 +689,10 @@ const styles = StyleSheet.create({
   modalHeader: {
     flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 20,
   },
-  modalTitle: { flex: 1, fontSize: 17, fontWeight: 'bold' },
+  modalTitle: { flex: 1, fontSize: 17, fontWeight: '800' },
 
-  fieldGroup: { marginBottom: 16 },
-  fieldLabel: { fontSize: 13, fontWeight: '600', marginBottom: 6 },
+  fieldGroup:  { marginBottom: 16 },
+  fieldLabel:  { fontSize: 13, fontWeight: '600', marginBottom: 6 },
   fieldInput: {
     borderRadius: 10, borderWidth: 1,
     paddingHorizontal: 14, paddingVertical: 11,
@@ -350,10 +704,10 @@ const styles = StyleSheet.create({
     flex: 1, borderRadius: 12, borderWidth: 1,
     paddingVertical: 13, alignItems: 'center',
   },
-  cancelBtnText: { fontWeight: '600', fontSize: 15 },
+  cancelBtnTxt: { fontWeight: '600', fontSize: 15 },
   saveBtn: {
     flex: 1, borderRadius: 12,
     paddingVertical: 13, alignItems: 'center',
   },
-  saveBtnText: { fontWeight: 'bold', fontSize: 15 },
+  saveBtnTxt: { fontWeight: '800', fontSize: 15 },
 })
