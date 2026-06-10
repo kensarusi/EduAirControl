@@ -54,10 +54,10 @@ export default function ProfileScreen({ navigation, route }) {
 
   if (!loaded) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
-        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+      <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={currentColors.bgBody} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
         </View>
       </SafeAreaView>
     )

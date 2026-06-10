@@ -51,19 +51,20 @@ function FormField({ label, value, onChangeText, placeholder, keyboardType = 'de
 // ─────────────────────────────────────────────────────────────────────────────
 // SummaryCard — filtro rápido por estado (igual que web)
 // ─────────────────────────────────────────────────────────────────────────────
-function SummaryCard({ label, value, emoji, accent, active, onPress }) {
+function SummaryCard({ label, value, emoji, accent, active, onPress, currentColors }) {
   return (
     <TouchableOpacity
       style={[
         styles.summaryCard,
+        { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor },
         active && { borderColor: accent, backgroundColor: `${accent}18` },
       ]}
       onPress={onPress}
       activeOpacity={0.8}
     >
       <Text style={styles.summaryEmoji}>{emoji}</Text>
-      <Text style={[styles.summaryValue, { color: active ? accent : '#f9fafb' }]}>{value}</Text>
-      <Text style={styles.summaryLabel}>{label}</Text>
+      <Text style={[styles.summaryValue, { color: active ? accent : currentColors.textPrimary }]}>{value}</Text>
+      <Text style={[styles.summaryLabel, { color: active ? accent : currentColors.textMuted }]}>{label}</Text>
     </TouchableOpacity>
   )
 }
@@ -171,10 +172,6 @@ export default function EnvironmentManagementScreen({ navigation }) {
   // ── Filtros (igual que web) ───────────────────────────────────
   const [search, setSearch]             = useState('')
   const [activeFilter, setActiveFilter] = useState('all')   // all | normal | warning | alert
-  const [minCap, setMinCap]             = useState('')
-  const [maxCap, setMaxCap]             = useState('')
-  const [sortBy, setSortBy]             = useState('name')   // name | capacity | status
-  const [showSort, setShowSort]         = useState(false)
 
   // ── Modal ─────────────────────────────────────────────────────
   const [modal, setModal] = useState({ open: false, mode: 'add', env: null })
@@ -198,25 +195,15 @@ export default function EnvironmentManagementScreen({ navigation }) {
         || (activeFilter === 'normal'  && isNormal(env))
         || (activeFilter === 'warning' && isWarning(env))
         || (activeFilter === 'alert'   && isAlert(env))
-      const cap = env.capacity
-      const matchMin = !minCap || cap >= Number(minCap)
-      const matchMax = !maxCap || cap <= Number(maxCap)
-      return matchSearch && matchFilter && matchMin && matchMax
+      return matchSearch && matchFilter
     })
 
     list = [...list].sort((a, b) => {
-      if (sortBy === 'capacity') return b.capacity - a.capacity
-      if (sortBy === 'status') {
-        const order = { alert: 0, warning: 1, normal: 2 }
-        const ka = order[a.statusKey] ?? 3
-        const kb = order[b.statusKey] ?? 3
-        return ka - kb
-      }
       return a.name.localeCompare(b.name)
     })
 
     return list
-  }, [environments, search, activeFilter, minCap, maxCap, sortBy])
+  }, [environments, search, activeFilter])
 
   // ── Handlers ──────────────────────────────────────────────────
   const openAdd  = () => { setForm(EMPTY_FORM); setModal({ open: true, mode: 'add', env: null }) }
@@ -259,7 +246,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
   }
 
   const clearAll = () => {
-    setSearch(''); setMinCap(''); setMaxCap(''); setActiveFilter('all')
+    setSearch(''); setActiveFilter('all')
   }
 
   if (!loaded) {
@@ -272,8 +259,6 @@ export default function EnvironmentManagementScreen({ navigation }) {
       </SafeAreaView>
     )
   }
-
-  const sortLabels = { name: 'Nombre', capacity: 'Capacidad', status: 'Estado' }
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
@@ -310,24 +295,28 @@ export default function EnvironmentManagementScreen({ navigation }) {
             accent={currentColors.accent}
             active={activeFilter === 'all'}
             onPress={() => setActiveFilter('all')}
+            currentColors={currentColors}
           />
           <SummaryCard
             label="Normal"  value={stats.normals}  emoji="✅"
             accent="#4CAF50"
             active={activeFilter === 'normal'}
             onPress={() => setActiveFilter('normal')}
+            currentColors={currentColors}
           />
           <SummaryCard
             label="Advertencia" value={stats.warnings} emoji="🔔"
             accent="#FFC107"
             active={activeFilter === 'warning'}
             onPress={() => setActiveFilter('warning')}
+            currentColors={currentColors}
           />
           <SummaryCard
             label="Alerta" value={stats.alerts}   emoji="⚠️"
             accent="#F44336"
             active={activeFilter === 'alert'}
             onPress={() => setActiveFilter('alert')}
+            currentColors={currentColors}
           />
         </View>
 
@@ -351,41 +340,6 @@ export default function EnvironmentManagementScreen({ navigation }) {
           )}
         </View>
 
-        {/* ── Capacidad + Ordenar (NUEVO — igual que web) ─────── */}
-        <View style={styles.controlsRow}>
-          <View style={[styles.capacityGroup, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-            <Text style={[styles.controlLabel, { color: currentColors.textMuted }]}>Cap:</Text>
-            <TextInput
-              style={[styles.capInput, { color: currentColors.textPrimary, borderColor: currentColors.borderColor }]}
-              placeholder="Mín"
-              placeholderTextColor={currentColors.textMuted}
-              keyboardType="numeric"
-              value={minCap}
-              onChangeText={(v) => setMinCap(v.replace(/[^\d]/g, ''))}
-            />
-            <Text style={[styles.controlSep, { color: currentColors.textMuted }]}>–</Text>
-            <TextInput
-              style={[styles.capInput, { color: currentColors.textPrimary, borderColor: currentColors.borderColor }]}
-              placeholder="Máx"
-              placeholderTextColor={currentColors.textMuted}
-              keyboardType="numeric"
-              value={maxCap}
-              onChangeText={(v) => setMaxCap(v.replace(/[^\d]/g, ''))}
-            />
-          </View>
-
-          <TouchableOpacity
-            style={[styles.sortBtn, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}
-            onPress={() => setShowSort(true)}
-          >
-            <Ionicons name="swap-vertical-outline" size={14} color={currentColors.textMuted} />
-            <Text style={[styles.sortBtnTxt, { color: currentColors.textMuted }]}>
-              {sortLabels[sortBy]}
-            </Text>
-            <Ionicons name="chevron-down" size={12} color={currentColors.textMuted} />
-          </TouchableOpacity>
-        </View>
-
         {/* ── Contador de resultados (NUEVO — igual que web) ──── */}
         <View style={styles.resultsInfo}>
           <Text style={[styles.resultsCount, { color: currentColors.textMuted }]}>
@@ -395,7 +349,7 @@ export default function EnvironmentManagementScreen({ navigation }) {
             <Text style={{ color: currentColors.textPrimary, fontWeight: '700' }}>{stats.total}</Text>
             {' '}ambientes
           </Text>
-          {(search || minCap || maxCap || activeFilter !== 'all') && (
+          {(search || activeFilter !== 'all') && (
             <TouchableOpacity onPress={clearAll}>
               <Text style={[styles.clearTxt, { color: currentColors.accent }]}>Limpiar</Text>
             </TouchableOpacity>
@@ -445,30 +399,6 @@ export default function EnvironmentManagementScreen({ navigation }) {
 
         <View style={{ height: 24 }} />
       </ScrollView>
-
-      {/* ── Sort picker modal ────────────────────────────────── */}
-      <Modal visible={showSort} transparent animationType="fade" onRequestClose={() => setShowSort(false)}>
-        <TouchableOpacity style={styles.sortOverlay} activeOpacity={1} onPress={() => setShowSort(false)}>
-          <View style={[styles.sortSheet, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-            <Text style={[styles.sortSheetTitle, { color: currentColors.textMuted }]}>ORDENAR POR</Text>
-            {['name', 'capacity', 'status'].map((opt) => (
-              <TouchableOpacity
-                key={opt}
-                style={[styles.sortOption, sortBy === opt && { backgroundColor: `${currentColors.accent}18` }]}
-                onPress={() => { setSortBy(opt); setShowSort(false) }}
-              >
-                <Text style={[styles.sortOptionTxt, {
-                  color: sortBy === opt ? currentColors.accent : currentColors.textPrimary,
-                  fontWeight: sortBy === opt ? '700' : '400',
-                }]}>
-                  {sortLabels[opt]}
-                </Text>
-                {sortBy === opt && <Ionicons name="checkmark" size={16} color={currentColors.accent} />}
-              </TouchableOpacity>
-            ))}
-          </View>
-        </TouchableOpacity>
-      </Modal>
 
       {/* ── Add / Edit modal ─────────────────────────────────── */}
       <Modal visible={modal.open} transparent animationType="slide" onRequestClose={closeModal}>
@@ -564,12 +494,11 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     flex: 1, alignItems: 'center', paddingVertical: 10, paddingHorizontal: 4,
-    backgroundColor: '#1a2332', borderRadius: 12, borderWidth: 1.5,
-    borderColor: '#2d3748',
+    borderRadius: 12, borderWidth: 1.5,
   },
   summaryEmoji: { fontSize: 16, marginBottom: 2 },
   summaryValue: { fontSize: 18, fontWeight: '900', lineHeight: 22 },
-  summaryLabel: { fontSize: 9.5, color: '#9ca3af', fontWeight: '600', marginTop: 1, textAlign: 'center' },
+  summaryLabel: { fontSize: 9.5, fontWeight: '600', marginTop: 1, textAlign: 'center' },
 
   // Search
   searchBar: {

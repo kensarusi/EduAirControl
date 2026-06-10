@@ -95,23 +95,6 @@ export default function NotificationsScreen({ navigation }) {
         )}
       </View>
 
-      {/* Summary cards */}
-      <View style={[styles.summaryRow, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
-        {[
-          { type: 'danger',  label: 'Alertas',        color: '#F44336' },
-          { type: 'warning', label: 'Advertencias',   color: '#FFC107' },
-          { type: 'info',    label: 'Informativas',   color: '#00b894' },
-        ].map((s) => {
-          const count = notifications.filter((n) => n.type === s.type).length
-          return (
-            <View key={s.type} style={styles.summaryItem}>
-              <Text style={[styles.summaryCount, { color: s.color }]}>{count}</Text>
-              <Text style={[styles.summaryLabel, { color: currentColors.textMuted }]}>{s.label}</Text>
-            </View>
-          )
-        })}
-      </View>
-
       {/* Filter chips */}
       <ScrollView
         horizontal
@@ -187,17 +170,14 @@ const styles = StyleSheet.create({
   },
   badgeText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
 
-  summaryRow:  { flexDirection: 'row', borderBottomWidth: 1 },
-  summaryItem: { flex: 1, alignItems: 'center', paddingVertical: 12, gap: 2 },
-  summaryCount:{ fontSize: 20, fontWeight: 'bold' },
-  summaryLabel:{ fontSize: 10, fontWeight: '600' },
-
-  filterScroll:     { marginTop: 10 },
-  filterRow:        { flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 4 },
+  filterScroll:     { marginTop: 12, maxHeight: 48, flexGrow: 0 },
+  filterRow:        { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 16, paddingBottom: 4 },
   filterChip: {
     paddingHorizontal: 14, paddingVertical: 7,
     borderRadius: 20, borderWidth: 1.5,
     backgroundColor: 'transparent',
+    minHeight: 36,
+    justifyContent: 'center',
   },
   filterChipText: { fontSize: 13, fontWeight: '600' },
 

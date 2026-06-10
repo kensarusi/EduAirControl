@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, SafeAreaView, StatusBar,
+  StyleSheet, SafeAreaView, StatusBar, Modal,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTheme } from '../../context/ThemeContext'
@@ -11,12 +11,27 @@ import {
 } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 
-function EnvironmentCard({ environment, onPress, onToggleFavorite, currentColors }) {
+function getMetricColor(key, value) {
+  if (key === 'temp') return value < 18 || value > 24 ? '#FFC107' : '#00b894'
+  if (key === 'humidity') return value < 40 || value > 60 ? '#FFC107' : '#00b894'
+  if (key === 'co2') return value > 1000 ? '#F44336' : '#00b894'
+  if (key === 'noise') return value > 50 ? '#FFC107' : '#00b894'
+  return '#00b894'
+}
+
+function EnvironmentCard({ environment, onPress, onRemoveFavorite, currentColors }) {
   const statusColor = STATUS_COLORS[environment.statusKey] || '#00b894'
   const statusDim = STATUS_DIM[environment.statusKey] || 'rgba(0,184,148,0.1)'
   const statusLabel = STATUS_LABELS[environment.statusKey] || environment.statusKey
   const qualityLabel = QUALITY_LABELS[environment.qualityKey] || environment.qualityKey
   const qualityColor = QUALITY_COLORS[environment.qualityKey] || '#00b894'
+  const temp = environment.temp ?? environment.temperature ?? 0
+  const metrics = [
+    { key: 'temp', icon: 'thermometer-outline', label: 'Temp', value: `${temp}C`, raw: temp },
+    { key: 'humidity', icon: 'water-outline', label: 'Hum', value: `${environment.humidity ?? 0}%`, raw: environment.humidity ?? 0 },
+    { key: 'co2', icon: 'cloud-outline', label: 'CO2', value: `${environment.co2 ?? 0}ppm`, raw: environment.co2 ?? 0 },
+    { key: 'noise', icon: 'volume-medium-outline', label: 'Ruido', value: `${environment.noise ?? 0}dB`, raw: environment.noise ?? 0 },
+  ]
 
   return (
     <TouchableOpacity style={[styles.card, { backgroundColor: currentColors.bgCard }]} onPress={onPress} activeOpacity={0.85}>
@@ -29,13 +44,13 @@ function EnvironmentCard({ environment, onPress, onToggleFavorite, currentColors
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => onToggleFavorite(environment.id, !environment.isFavorite)}
+          onPress={() => onRemoveFavorite(environment)}
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         >
           <Ionicons
-            name={environment.isFavorite ? 'heart' : 'heart-outline'}
+            name="heart"
             size={22}
-            color={environment.isFavorite ? '#ff6b6b' : currentColors.textMuted}
+            color="#ff6b6b"
           />
         </TouchableOpacity>
       </View>
@@ -48,22 +63,16 @@ function EnvironmentCard({ environment, onPress, onToggleFavorite, currentColors
       </View>
 
       <View style={styles.metricsRow}>
-        <View style={[styles.metricChip, { borderColor: qualityColor }]}>
-          <Text style={styles.metricIcon}>💨</Text>
-          <Text style={[styles.metricValue, { color: qualityColor }]}>{environment.airQuality || '--'}</Text>
-        </View>
-        <View style={[styles.metricChip, { borderColor: '#00b894' }]}>
-          <Text style={styles.metricIcon}>🌡️</Text>
-          <Text style={[styles.metricValue, { color: '#00b894' }]}>
-            {environment.temperature !== undefined ? `${environment.temperature}°C` : '--'}
-          </Text>
-        </View>
-        <View style={[styles.metricChip, { borderColor: '#00b894' }]}>
-          <Text style={styles.metricIcon}>💧</Text>
-          <Text style={[styles.metricValue, { color: '#00b894' }]}>
-            {environment.humidity !== undefined ? `${environment.humidity}%` : '--'}
-          </Text>
-        </View>
+        {metrics.map((metric) => {
+          const color = getMetricColor(metric.key, metric.raw)
+          return (
+            <View key={metric.key} style={[styles.metricChip, { borderColor: color, backgroundColor: `${color}12` }]}>
+              <Ionicons name={metric.icon} size={14} color={color} />
+              <Text style={[styles.metricValue, { color }]} numberOfLines={1}>{metric.value}</Text>
+              <Text style={[styles.metricLabel, { color: currentColors.textMuted }]}>{metric.label}</Text>
+            </View>
+          )
+        })}
       </View>
 
       <View style={[styles.qualityRow, { borderTopColor: currentColors.borderColor }]}>
@@ -78,15 +87,22 @@ export default function FavoritesScreen({ navigation }) {
   const { darkMode, currentColors, loaded } = useTheme()
 
   const { environments, toggleFavorite } = useEnvironments()
+  const [confirmEnv, setConfirmEnv] = useState(null)
 
   const favorites = environments.filter((e) => e.isFavorite)
 
+  const confirmRemove = () => {
+    if (!confirmEnv) return
+    toggleFavorite(confirmEnv.id, false)
+    setConfirmEnv(null)
+  }
+
   if (!loaded) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
-        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+      <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={currentColors.bgBody} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
         </View>
       </SafeAreaView>
     )
@@ -125,7 +141,7 @@ export default function FavoritesScreen({ navigation }) {
             </Text>
             <TouchableOpacity
               style={styles.goBackBtn}
-              onPress={() => navigation.goBack()}
+              onPress={() => navigation.getParent()?.navigate('Dashboard')}
             >
               <Text style={styles.goBackText}>Ir al Dashboard</Text>
             </TouchableOpacity>
@@ -136,13 +152,41 @@ export default function FavoritesScreen({ navigation }) {
               key={fav.id}
               environment={fav}
               onPress={() => navigation.navigate('EnvironmentDetail', { envId: fav.id })}
-              onToggleFavorite={toggleFavorite}
+              onRemoveFavorite={setConfirmEnv}
               currentColors={currentColors}
             />
           ))
         )}
         <View style={{ height: 20 }} />
       </ScrollView>
+
+      <Modal visible={!!confirmEnv} transparent animationType="fade" onRequestClose={() => setConfirmEnv(null)}>
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+            <View style={styles.modalHeader}>
+              <Ionicons name="heart" size={24} color="#ff6b6b" />
+              <Text style={[styles.modalTitle, { color: currentColors.textPrimary }]}>Eliminar de favoritos</Text>
+            </View>
+            <Text style={[styles.modalText, { color: currentColors.textSecondary }]}>
+              {`Deseas quitar "${confirmEnv?.name || 'este ambiente'}" de tus favoritos?`}
+            </Text>
+            <View style={styles.modalActions}>
+              <TouchableOpacity
+                style={[styles.modalBtn, styles.cancelBtn, { borderColor: currentColors.borderColor }]}
+                onPress={() => setConfirmEnv(null)}
+              >
+                <Text style={[styles.cancelText, { color: currentColors.textSecondary }]}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalBtn, styles.removeBtn]}
+                onPress={confirmRemove}
+              >
+                <Text style={styles.removeText}>Eliminar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   )
 }
@@ -218,16 +262,18 @@ const styles = StyleSheet.create({
   },
   metricChip: {
     flex: 1,
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
-    paddingVertical: 8,
+    gap: 2,
+    paddingVertical: 7,
+    paddingHorizontal: 3,
     borderRadius: 8,
     borderWidth: 1,
+    minHeight: 58,
   },
   metricIcon: { fontSize: 12 },
-  metricValue: { fontSize: 12, fontWeight: '600' },
+  metricValue: { fontSize: 11, fontWeight: '800' },
+  metricLabel: { fontSize: 9, fontWeight: '600', textTransform: 'uppercase' },
 
   qualityRow: {
     flexDirection: 'row',
@@ -258,4 +304,35 @@ const styles = StyleSheet.create({
     borderColor: '#00b894',
   },
   goBackText: { color: '#00b894', fontWeight: '600' },
+
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    justifyContent: 'center',
+    padding: 24,
+  },
+  modalCard: {
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 20,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 12,
+  },
+  modalTitle: { fontSize: 18, fontWeight: '800' },
+  modalText: { fontSize: 14, lineHeight: 20, marginBottom: 18 },
+  modalActions: { flexDirection: 'row', gap: 10 },
+  modalBtn: {
+    flex: 1,
+    borderRadius: 10,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  cancelBtn: { borderWidth: 1 },
+  removeBtn: { backgroundColor: '#ff6b6b' },
+  cancelText: { fontSize: 14, fontWeight: '700' },
+  removeText: { color: '#fff', fontSize: 14, fontWeight: '800' },
 })

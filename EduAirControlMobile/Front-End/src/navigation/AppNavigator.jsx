@@ -6,9 +6,11 @@ import { useTheme } from '../context/ThemeContext'
 import DashboardScreen from '../screens/app/DashboardScreen'
 import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
 import FavoritesScreen from '../screens/app/FavoritesScreen'
+import NotificationsScreen from '../screens/app/NotificationsScreen'
 import ProfileScreen from '../screens/app/ProfileScreen'
 import EnvironmentManagementScreen from '../screens/app/EnvironmentManagementScreen'
 import SettingsScreen from '../screens/app/SettingsScreen'
+import { useNotifications } from '../hooks/useNotifications'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -35,6 +37,16 @@ function ManagementStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ManagementHome" component={EnvironmentManagementScreen} />
+      <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
+    </Stack.Navigator>
+  )
+}
+
+function NotificationsStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="NotificationsHome" component={NotificationsScreen} />
+      <Stack.Screen name="EnvironmentDetail" component={EnvironmentDetailScreen} />
     </Stack.Navigator>
   )
 }
@@ -50,6 +62,7 @@ function ProfileStack() {
 
 export default function AppNavigator() {
   const { currentColors } = useTheme()
+  const { unreadCount } = useNotifications()
 
   return (
     <Tab.Navigator
@@ -74,6 +87,8 @@ export default function AppNavigator() {
             iconName = focused ? 'heart' : 'heart-outline'
           } else if (route.name === 'Management') {
             iconName = focused ? 'settings' : 'settings-outline'
+          } else if (route.name === 'Notifications') {
+            iconName = focused ? 'notifications' : 'notifications-outline'
           } else if (route.name === 'Settings') {
             iconName = focused ? 'options' : 'options-outline'
           } else if (route.name === 'Profile') {
@@ -97,6 +112,15 @@ export default function AppNavigator() {
         name="Management"
         component={ManagementStack}
         options={{ tabBarLabel: 'Gestión' }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationsStack}
+        options={{
+          tabBarLabel: 'Alertas',
+          tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
+          tabBarBadgeStyle: { backgroundColor: '#ff6b6b', color: '#fff' },
+        }}
       />
       <Tab.Screen
         name="Profile"

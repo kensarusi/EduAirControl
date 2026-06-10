@@ -259,10 +259,10 @@ export default function SettingsScreen({ navigation, route }) {
 
   if (!loaded) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: lightColors.bgBody }]}>
-        <StatusBar barStyle="dark-content" backgroundColor={lightColors.bgBody} />
+      <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+        <StatusBar barStyle="dark-content" backgroundColor={currentColors.bgBody} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: lightColors.textMuted }}>Cargando...</Text>
+          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
         </View>
       </SafeAreaView>
     )
@@ -289,7 +289,7 @@ export default function SettingsScreen({ navigation, route }) {
         {/* Apariencia */}
         <View style={[styles.card, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
           <View style={styles.cardHeader}>
-            <Ionicons name="palette-outline" size={18} color={currentColors.accent} />
+            <Ionicons name="color-palette-outline" size={18} color={currentColors.accent} />
             <Text style={[styles.cardTitle, { color: currentColors.textPrimary }]}>Apariencia</Text>
           </View>
           <TouchableOpacity style={styles.row} onPress={() => handleDarkModeToggle(!darkMode)}>
@@ -309,7 +309,7 @@ export default function SettingsScreen({ navigation, route }) {
               <Ionicons name="color-palette-outline" size={16} color={currentColors.textMuted} />
               <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Tema accesible</Text>
             </View>
-            <Text style={[styles.rowValue, { color: currentColors.textMuted }]}>{themeLabel(theme)}</Text>
+            <Text style={[styles.rowValue, { color: currentColors.textMuted }]} numberOfLines={1}>{themeLabel(theme)}</Text>
           </View>
           <View style={styles.themePicker}>
             {THEMES.map(({ key, label }) => (
@@ -345,7 +345,7 @@ export default function SettingsScreen({ navigation, route }) {
               <Ionicons name="language-outline" size={16} color={currentColors.textMuted} />
               <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Idioma</Text>
             </View>
-            <Text style={[styles.rowValue, { color: currentColors.textMuted }]}>{settings.language}</Text>
+            <Text style={[styles.rowValue, { color: currentColors.textMuted }]} numberOfLines={1}>{settings.language}</Text>
             <Ionicons name="chevron-forward" size={16} color={currentColors.textMuted} />
           </TouchableOpacity>
           <View style={styles.row}>
@@ -353,7 +353,7 @@ export default function SettingsScreen({ navigation, route }) {
               <Ionicons name="calendar-outline" size={16} color={currentColors.textMuted} />
               <Text style={[styles.rowLabel, { color: currentColors.textPrimary }]}>Formato de fecha</Text>
             </View>
-            <Text style={[styles.rowValue, { color: currentColors.textMuted }]}>{settings.dateFormat}</Text>
+            <Text style={[styles.rowValue, { color: currentColors.textMuted }]} numberOfLines={1}>{settings.dateFormat}</Text>
           </View>
           <TouchableOpacity style={styles.row} onPress={() => handleAutoTimezoneToggle(!autoTimezone)}>
             <View style={styles.rowLeft}>

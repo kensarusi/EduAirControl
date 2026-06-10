@@ -79,10 +79,21 @@ function GlobalHealthCard({ environments, currentColors }) {
         {alert   > 0 && <View style={[hcStyles.seg, { flex: alert,   backgroundColor: '#F44336' }]} />}
       </View>
       <View style={hcStyles.legend}>
-        {[['#4CAF50', `${normal} Normal`], ['#FFC107', `${warning} Advertencia`], ['#F44336', `${alert} Alerta`]].map(([c, l]) => (
-          <View key={l} style={hcStyles.legendItem}>
-            <View style={[hcStyles.dot, { backgroundColor: c }]} />
-            <Text style={[hcStyles.legendTxt, { color: currentColors.textMuted }]}>{l}</Text>
+        {[
+          { color: '#4CAF50', icon: 'checkmark-circle', count: normal, label: 'Normal' },
+          { color: '#FFC107', icon: 'warning', count: warning, label: 'Advertencia' },
+          { color: '#F44336', icon: 'alert-circle', count: alert, label: 'Alerta' },
+        ].map((item) => (
+          <View
+            key={item.label}
+            style={[
+              hcStyles.legendItem,
+              { backgroundColor: `${item.color}14`, borderColor: `${item.color}55` },
+            ]}
+          >
+            <Ionicons name={item.icon} size={13} color={item.color} />
+            <Text style={[hcStyles.legendCount, { color: item.color }]}>{item.count}</Text>
+            <Text style={[hcStyles.legendTxt, { color: currentColors.textMuted }]} numberOfLines={1}>{item.label}</Text>
           </View>
         ))}
       </View>
@@ -97,10 +108,20 @@ const hcStyles = StyleSheet.create({
   pct:        { fontSize: 20, fontWeight: 'bold' },
   track:      { flexDirection: 'row', height: 8, borderRadius: 4, overflow: 'hidden', marginBottom: 10, backgroundColor: '#f0f0f0' },
   seg:        { height: '100%' },
-  legend:     { flexDirection: 'row', gap: 14, flexWrap: 'wrap' },
-  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  dot:        { width: 8, height: 8, borderRadius: 4 },
-  legendTxt:  { fontSize: 12 },
+  legend:     { flexDirection: 'row', gap: 8 },
+  legendItem: {
+    flex: 1,
+    minHeight: 30,
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingHorizontal: 7,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+  },
+  legendCount: { fontSize: 13, fontWeight: '800' },
+  legendTxt:  { fontSize: 10.5, fontWeight: '700', flexShrink: 1 },
 })
 
 // ── Stats Bar ──────────────────────────────────────────────────
@@ -196,33 +217,41 @@ const apStyles = StyleSheet.create({
 const MEDAL = { 1: '#FFD700', 2: '#C0C0C0', 3: '#CD7F32' }
 
 function PodiumCard({ env, rank, score, onPress, onToggleFav, currentColors }) {
+  const isWinner = rank === 1
+
   return (
     <TouchableOpacity
       style={[
         pdStyles.card,
-        rank === 1 ? pdStyles.rank1 : pdStyles.rank23,
+        isWinner ? pdStyles.rank1 : pdStyles.rank23,
         { backgroundColor: currentColors.bgCard, borderColor: MEDAL[rank] },
       ]}
       onPress={() => onPress(env.id)}
       activeOpacity={0.85}
     >
       {rank === 1 && <Text style={pdStyles.crown}>👑</Text>}
-      <View style={[pdStyles.bubble, { borderColor: MEDAL[rank], backgroundColor: `${MEDAL[rank]}20` }]}>
-        <StatusIcon statusKey={env.statusKey} size={rank === 1 ? 24 : 20} />
+      <View style={[pdStyles.bubble, isWinner && pdStyles.bubbleWinner, { borderColor: MEDAL[rank], backgroundColor: `${MEDAL[rank]}20` }]}>
+        <StatusIcon statusKey={env.statusKey} size={isWinner ? 24 : 19} />
       </View>
-      <Text style={[pdStyles.name, { color: currentColors.textPrimary, fontSize: rank === 1 ? 13 : 11 }]} numberOfLines={2}>{env.name}</Text>
+      <Text
+        style={[pdStyles.name, isWinner && pdStyles.nameWinner, { color: currentColors.textPrimary }]}
+        numberOfLines={2}
+        ellipsizeMode="tail"
+      >
+        {env.name}
+      </Text>
       {env.location ? (
         <View style={pdStyles.locRow}>
           <Ionicons name="location-outline" size={10} color={currentColors.textMuted} />
           <Text style={[pdStyles.loc, { color: currentColors.textMuted }]} numberOfLines={1}>{env.location}</Text>
         </View>
       ) : null}
-      <ScoreRing score={score} size={rank === 1 ? 52 : 44} currentColors={currentColors} />
+      <ScoreRing score={score} size={isWinner ? 50 : 42} currentColors={currentColors} />
       <TouchableOpacity onPress={() => onToggleFav(env.id, !env.isFavorite)} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
-        <Ionicons name={env.isFavorite ? 'heart' : 'heart-outline'} size={15} color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted} />
+        <Ionicons name={env.isFavorite ? 'heart' : 'heart-outline'} size={50} color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted} />
       </TouchableOpacity>
-      <View style={[pdStyles.stand, { backgroundColor: MEDAL[rank] }]}>
-        <Text style={pdStyles.standN}>{rank}</Text>
+      <View style={[pdStyles.stand, isWinner && pdStyles.standWinner, { backgroundColor: MEDAL[rank] }]}>
+        <Text style={[pdStyles.standN, isWinner && pdStyles.standWinnerN]}>{rank}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -230,18 +259,28 @@ function PodiumCard({ env, rank, score, onPress, onToggleFav, currentColors }) {
 const pdStyles = StyleSheet.create({
   card: {
     alignItems: 'center', borderRadius: 14, borderWidth: 2,
-    padding: 10, paddingBottom: 0, gap: 5,
+    paddingHorizontal: 8, paddingTop: 12, paddingBottom: 42, gap: 5,
+    justifyContent: 'flex-start',
+    overflow: 'visible',
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 6, elevation: 4,
   },
-  rank1:  { width: 120, marginTop: 0, zIndex: 2 },
-  rank23: { width: 105, marginTop: 20 },
-  crown:  { fontSize: 18, position: 'absolute', top: -15 },
-  bubble: { width: 42, height: 42, borderRadius: 21, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
-  name:   { textAlign: 'center', fontWeight: '700', lineHeight: 16 },
+  rank1:  { width: 132, height: 300, marginTop: 5, zIndex: 2 },
+  rank23: { width: 120, height: 260, marginTop: 24 },
+  crown:  { fontSize: 21, position: 'absolute', top: -20, zIndex: 3 },
+  bubble: { width: 40, height: 40, borderRadius: 20, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
+  bubbleWinner: { width: 46, height: 46, borderRadius: 23 },
+  name:   { textAlign: 'center', fontWeight: '800', fontSize: 11.5, lineHeight: 14, minHeight: 30, maxWidth: '100%' },
+  nameWinner: { fontSize: 13, lineHeight: 16, minHeight: 34 },
   locRow: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  loc:    { fontSize: 10 },
-  stand:  { width: '100%', alignItems: 'center', paddingVertical: 6, borderBottomLeftRadius: 12, borderBottomRightRadius: 12 },
-  standN: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+  loc:    { fontSize: 10, maxWidth: 82 },
+  stand:  {
+    position: 'absolute', left: 0, right: 0, bottom: 0,
+    height: 34, alignItems: 'center', justifyContent: 'center',
+    borderBottomLeftRadius: 11, borderBottomRightRadius: 11,
+  },
+  standWinner: { height: 38 },
+  standN: { color: '#fff', fontWeight: '900', fontSize: 16 },
+  standWinnerN: { fontSize: 18 },
 })
 
 // ── Rank Row (rank 4+) ─────────────────────────────────────────
@@ -277,7 +316,7 @@ function RankRow({ env, rank, score, onPress, onToggleFav, currentColors }) {
       </View>
       <ScoreRing score={score} size={42} currentColors={currentColors} />
       <TouchableOpacity onPress={() => onToggleFav(env.id, !env.isFavorite)} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }} style={{ marginLeft: 6 }}>
-        <Ionicons name={env.isFavorite ? 'heart' : 'heart-outline'} size={16} color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted} />
+        <Ionicons name={env.isFavorite ? 'heart' : 'heart-outline'} size={50} color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted} />
       </TouchableOpacity>
     </TouchableOpacity>
   )
@@ -353,21 +392,19 @@ export default function DashboardScreen({ navigation }) {
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
-        {/* Global Health */}
-        <GlobalHealthCard environments={environments} currentColors={currentColors} />
-
         {/* Stats */}
         <StatsBar environments={environments} currentColors={currentColors} />
-
-        {/* Alerts */}
-        <AlertsPanel environments={environments} onPress={handlePress} currentColors={currentColors} />
 
         {/* Filters */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll} contentContainerStyle={styles.filterRow}>
           {FILTERS.map((f) => (
             <TouchableOpacity
               key={f.key}
-              style={[styles.filterBtn, filter === f.key && { backgroundColor: currentColors.accent }]}
+              style={[
+                styles.filterBtn,
+                { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor },
+                filter === f.key && { backgroundColor: currentColors.accent, borderColor: currentColors.accent },
+              ]}
               onPress={() => setFilter(f.key)}
             >
               <Text style={[styles.filterTxt, { color: filter === f.key ? currentColors.bgBody : currentColors.textSecondary }]}>{f.label}</Text>
@@ -398,7 +435,7 @@ export default function DashboardScreen({ navigation }) {
                   onToggleFav={toggleFavorite}
                   currentColors={currentColors}
                 />
-              ) : <View key={rank} style={{ width: 105 }} />
+              ) : <View key={rank} style={{ width: 100 }} />
             })}
           </View>
         )}
@@ -449,13 +486,13 @@ const styles = StyleSheet.create({
   headerSub:    { fontSize: 12, marginTop: 1 },
   scroll:       { flex: 1 },
   scrollContent:{ padding: 16 },
-  filterScroll: { marginBottom: 12 },
+  filterScroll: { marginBottom: 12, maxHeight: 44, flexGrow: 0 },
   filterRow:    { flexDirection: 'row', gap: 8, paddingRight: 8 },
-  filterBtn:    { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, backgroundColor: '#f0f0f0' },
-  filterTxt:    { fontSize: 13, fontWeight: '600' },
+  filterBtn:    { paddingHorizontal: 13, paddingVertical: 7, borderRadius: 20, borderWidth: 1, minHeight: 36, justifyContent: 'center' },
+  filterTxt:    { fontSize: 12, fontWeight: '700' },
   empty:        { alignItems: 'center', paddingVertical: 40, gap: 8 },
   emptyTxt:     { fontSize: 14 },
-  podium:       { flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', gap: 10, marginBottom: 24, paddingTop: 20 },
+  podium:       { flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', gap: 8, marginBottom: 24, paddingTop: 20 },
   listSection:  { marginTop: 4 },
   listTitle:    { fontSize: 13, fontWeight: '600', marginBottom: 10 },
   legend:       { borderRadius: 14, borderWidth: 1, padding: 14, gap: 6 },

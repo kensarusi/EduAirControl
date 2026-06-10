@@ -12,66 +12,91 @@ import {
 } from '../../constants/environments'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 
-function MetricBar({ value, min, max, color }) {
-  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
-  return (
-    <View style={styles.barTrack}>
-      <View style={[styles.barFill, { flex: pct, backgroundColor: color }]} />
-      <View style={{ flex: 100 - pct }} />
-    </View>
-  )
+const STATUS_ICONS = {
+  normal: 'checkmark-circle',
+  warning: 'warning',
+  alert: 'alert-circle',
+  'dashboard.statusNormal': 'checkmark-circle',
+  'dashboard.statusWarning': 'warning',
+  'dashboard.statusAlert': 'alert-circle',
 }
 
-function MetricCard({ icon, label, value, unit, ideal, color, barValue, barMin, barMax, currentColors }) {
+function getProgress(value, min, max) {
+  return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
+}
+
+function MetricTile({ metric, currentColors }) {
+  const pct = getProgress(metric.raw, metric.min, metric.max)
+
   return (
-    <View style={[styles.metricCard, { borderLeftColor: color, borderLeftWidth: 3, backgroundColor: currentColors.bgCard }]}>
-      <View style={styles.metricTop}>
-        <Text style={styles.metricIcon}>{icon}</Text>
-        <View style={styles.metricInfo}>
-          <Text style={[styles.metricLabel, { color: currentColors.textSecondary }]}>{label}</Text>
-          <Text style={[styles.metricValue, { color }]}>
-            {value}<Text style={[styles.metricUnit, { color: currentColors.textMuted }]}>{unit}</Text>
-          </Text>
+    <View style={[styles.metricTile, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+      <View style={styles.metricTileTop}>
+        <View style={[styles.metricIconBox, { backgroundColor: `${metric.color}18` }]}>
+          <Ionicons name={metric.icon} size={20} color={metric.color} />
         </View>
+        <Text style={[styles.metricLabel, { color: currentColors.textMuted }]}>{metric.label}</Text>
       </View>
-      <MetricBar value={barValue} min={barMin} max={barMax} color={color} />
-      <Text style={[styles.idealText, { color: currentColors.textMuted }]}>Ideal: {ideal}</Text>
+
+      <Text style={[styles.metricValue, { color: currentColors.textPrimary }]}>
+        {metric.value}
+        <Text style={[styles.metricUnit, { color: currentColors.textMuted }]}>{metric.unit}</Text>
+      </Text>
+
+      <View style={[styles.progressTrack, { backgroundColor: currentColors.bgInput }]}>
+        <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: metric.color }]} />
+      </View>
+
+      <View style={styles.metricFooter}>
+        <Text style={[styles.idealText, { color: currentColors.textMuted }]} numberOfLines={1}>
+          Ideal {metric.ideal}
+        </Text>
+        {metric.warning && <Ionicons name="alert-circle" size={14} color={metric.color} />}
+      </View>
     </View>
   )
 }
 
-// ── Star Rating (igual que web) ────────────────────────────────
 function RatingCard({ rating, setRating, onSubmit, submitted, currentColors }) {
   if (submitted) {
     return (
       <View style={[styles.ratingCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-        <View style={styles.ratingSubmittedRow}>
-          <Ionicons name="checkmark-circle" size={28} color={currentColors.accent} />
-          <Text style={[styles.ratingSubmittedTxt, { color: currentColors.textPrimary }]}>
-            ¡Calificación enviada! Gracias por tu opinión.
-          </Text>
-        </View>
+        <Ionicons name="checkmark-circle" size={28} color={currentColors.accent} />
+        <Text style={[styles.ratingSubmittedTxt, { color: currentColors.textPrimary }]}>
+          Calificacion enviada. Gracias por tu opinion.
+        </Text>
       </View>
     )
   }
+
   return (
     <View style={[styles.ratingCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-      <Text style={[styles.ratingQuestion, { color: currentColors.textPrimary }]}>
-        ¿Cómo percibes el confort de este ambiente?
+      <View style={styles.sectionHeader}>
+        <Ionicons name="star-outline" size={18} color={currentColors.accent} />
+        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Confort percibido</Text>
+      </View>
+
+      <Text style={[styles.ratingQuestion, { color: currentColors.textMuted }]}>
+        Califica como se siente este ambiente para estudiar o trabajar.
       </Text>
+
       <View style={styles.starsRow}>
         {[1, 2, 3, 4, 5].map((star) => (
-          <TouchableOpacity key={star} onPress={() => setRating(star)} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
-            <Text style={[styles.star, { color: rating >= star ? '#FFD700' : currentColors.borderColor }]}>★</Text>
+          <TouchableOpacity key={star} onPress={() => setRating(star)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+            <Ionicons
+              name={rating >= star ? 'star' : 'star-outline'}
+              size={32}
+              color={rating >= star ? '#FFD700' : currentColors.borderColor}
+            />
           </TouchableOpacity>
         ))}
       </View>
+
       <TouchableOpacity
         style={[styles.ratingBtn, { backgroundColor: rating > 0 ? currentColors.accent : currentColors.borderColor }]}
         onPress={() => rating > 0 && onSubmit(rating)}
         disabled={rating === 0}
       >
-        <Text style={[styles.ratingBtnTxt, { color: currentColors.bgBody }]}>⭐ Enviar calificación</Text>
+        <Text style={[styles.ratingBtnTxt, { color: currentColors.bgBody }]}>Enviar calificacion</Text>
       </TouchableOpacity>
     </View>
   )
@@ -86,139 +111,186 @@ export default function EnvironmentDetailScreen({ route, navigation }) {
   const [rating, setRating] = useState(0)
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
 
-  const handleSubmitRating = (r) => setRatingSubmitted(true)
+  if (!loaded) {
+    return (
+      <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
+        <View style={styles.center}>
+          <Text style={{ color: currentColors.textMuted }}>Cargando...</Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
 
   if (!env) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: '#f0fafa' }]}>
+      <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
         <View style={styles.center}>
-          <Text style={{ color: '#0f172a', fontSize: 16 }}>Ambiente no encontrado</Text>
+          <Text style={{ color: currentColors.textPrimary, fontSize: 16 }}>Ambiente no encontrado</Text>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={{ color: '#00b894', marginTop: 10 }}>Volver</Text>
+            <Text style={{ color: currentColors.accent, marginTop: 10 }}>Volver</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
     )
   }
 
-  if (!loaded) {
-    return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: '#f0fafa' }]}>
-        <View style={styles.center}>
-          <Text style={{ color: '#999' }}>Cargando...</Text>
-        </View>
-      </SafeAreaView>
-    )
-  }
-
-  const statusColor = STATUS_COLORS[env.statusKey] || '#00b894'
-  const statusDim   = STATUS_DIM[env.statusKey]   || 'rgba(0,184,148,0.1)'
+  const statusColor = STATUS_COLORS[env.statusKey] || currentColors.accent
+  const statusDim = STATUS_DIM[env.statusKey] || currentColors.accentDim
   const statusLabel = STATUS_LABELS[env.statusKey] || env.statusKey
   const qualityLabel = QUALITY_LABELS[env.qualityKey] || env.qualityKey
-  const qualityColor = QUALITY_COLORS[env.qualityKey] || '#00b894'
+  const qualityColor = QUALITY_COLORS[env.qualityKey] || currentColors.accent
 
-  const temp     = env.temp ?? env.temperature ?? 0
+  const temp = env.temp ?? env.temperature ?? 0
   const humidity = env.humidity ?? 0
-  const co2      = env.co2 ?? 0
-  const noise    = env.noise ?? 0
+  const co2 = env.co2 ?? 0
+  const noise = env.noise ?? 0
 
   const metrics = [
-    { icon: '🌡️', label: 'Temperatura',     value: temp,     unit: '°C',  ideal: IDEAL_RANGES.temperature || '18–24°C', color: temp < 18 || temp > 24 ? '#FFC107' : '#00b894', barMin: 10, barMax: 40 },
-    { icon: '💧', label: 'Humedad',          value: humidity, unit: '%',   ideal: IDEAL_RANGES.humidity    || '40–60%',  color: humidity < 40 || humidity > 60 ? '#FFC107' : '#00b894', barMin: 0, barMax: 100 },
-    { icon: '💨', label: 'CO₂',              value: co2,      unit: ' ppm',ideal: IDEAL_RANGES.co2         || '< 1000 ppm', color: co2 > 1000 ? '#F44336' : '#00b894', barMin: 400, barMax: 2000 },
-    { icon: '🔊', label: 'Ruido',            value: noise,    unit: ' dB', ideal: IDEAL_RANGES.noise       || '< 50 dB',   color: noise > 50 ? '#FFC107' : '#00b894', barMin: 0, barMax: 120 },
+    {
+      key: 'temp',
+      icon: 'thermometer-outline',
+      label: 'Temperatura',
+      value: temp,
+      unit: ' C',
+      raw: temp,
+      ideal: IDEAL_RANGES.temperature || '18-24 C',
+      color: temp < 18 || temp > 24 ? '#FFC107' : '#4CAF50',
+      warning: temp < 18 || temp > 24,
+      min: 10,
+      max: 40,
+    },
+    {
+      key: 'humidity',
+      icon: 'water-outline',
+      label: 'Humedad',
+      value: humidity,
+      unit: '%',
+      raw: humidity,
+      ideal: IDEAL_RANGES.humidity || '40-60%',
+      color: humidity < 40 || humidity > 60 ? '#FFC107' : '#4CAF50',
+      warning: humidity < 40 || humidity > 60,
+      min: 0,
+      max: 100,
+    },
+    {
+      key: 'co2',
+      icon: 'cloud-outline',
+      label: 'CO2',
+      value: co2,
+      unit: ' ppm',
+      raw: co2,
+      ideal: IDEAL_RANGES.co2 || '< 1000 ppm',
+      color: co2 > 1000 ? '#F44336' : '#4CAF50',
+      warning: co2 > 1000,
+      min: 400,
+      max: 2000,
+    },
+    {
+      key: 'noise',
+      icon: 'volume-medium-outline',
+      label: 'Ruido',
+      value: noise,
+      unit: ' dB',
+      raw: noise,
+      ideal: IDEAL_RANGES.noise || '< 50 dB',
+      color: noise > 50 ? '#FFC107' : '#4CAF50',
+      warning: noise > 50,
+      min: 0,
+      max: 120,
+    },
   ]
 
-  const StatusIconComp = () => {
-    const iconMap = { normal: 'checkmark-circle', warning: 'warning', alert: 'alert-circle', 'dashboard.statusNormal': 'checkmark-circle', 'dashboard.statusWarning': 'warning', 'dashboard.statusAlert': 'alert-circle' }
-    return <Ionicons name={iconMap[env.statusKey] || 'help-circle'} size={28} color={statusColor} />
-  }
+  const activeIssues = metrics.filter((metric) => metric.warning)
+  const recommendation = activeIssues.length
+    ? `Revisar ${activeIssues.map((metric) => metric.label.toLowerCase()).join(', ')}.`
+    : 'Las condiciones estan dentro del rango recomendado.'
+
+  const handleSubmitRating = () => setRatingSubmitted(true)
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: currentColors.bgBody }]}>
       <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} backgroundColor={currentColors.bgBody} />
 
-      {/* Header */}
-      <View style={[styles.header, { backgroundColor: currentColors.bgCard, borderBottomColor: currentColors.borderColor }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name="arrow-back" size={24} color={currentColors.accent} />
+      <View style={[styles.header, { backgroundColor: currentColors.bgBody }]}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={[styles.iconButton, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}
+        >
+          <Ionicons name="arrow-back" size={21} color={currentColors.textPrimary} />
         </TouchableOpacity>
-        <View style={styles.headerTitleBlock}>
-          <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]} numberOfLines={1}>{env.name}</Text>
-          <Text style={[styles.headerLocation, { color: currentColors.textMuted }]}>{env.location}</Text>
-        </View>
-        <TouchableOpacity onPress={() => toggleFavorite(env.id, !env.isFavorite)}>
+        <Text style={[styles.headerTitle, { color: currentColors.textPrimary }]} numberOfLines={1}>Detalle</Text>
+        <TouchableOpacity
+          onPress={() => toggleFavorite(env.id, !env.isFavorite)}
+          style={[styles.iconButton, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}
+        >
           <Ionicons
             name={env.isFavorite ? 'heart' : 'heart-outline'}
-            size={24}
+            size={21}
             color={env.isFavorite ? '#ff6b6b' : currentColors.textMuted}
           />
         </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
-        {/* Status Card */}
-        <View style={[styles.statusCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-          <View style={styles.statusRow}>
-            <StatusIconComp />
-            <View style={styles.statusInfo}>
-              <Text style={[styles.statusLabel, { color: currentColors.textMuted }]}>Estado</Text>
-              <Text style={[styles.statusValue, { color: statusColor }]}>{statusLabel}</Text>
+        <View style={[styles.heroCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
+          <View style={styles.heroTop}>
+            <View style={[styles.roomIcon, { backgroundColor: statusDim, borderColor: statusColor }]}>
+              <Ionicons name="business-outline" size={28} color={statusColor} />
+            </View>
+            <View style={styles.heroTitleBlock}>
+              <Text style={[styles.roomName, { color: currentColors.textPrimary }]} numberOfLines={2}>{env.name}</Text>
+              <View style={styles.metaRow}>
+                <Ionicons name="location-outline" size={14} color={currentColors.textMuted} />
+                <Text style={[styles.metaText, { color: currentColors.textMuted }]} numberOfLines={1}>{env.location || 'Sin ubicacion'}</Text>
+              </View>
             </View>
           </View>
-          <View style={[styles.qualityBadge, { backgroundColor: qualityColor + '20', borderColor: qualityColor }]}>
-            <Text style={[styles.qualityText, { color: qualityColor }]}>{qualityLabel}</Text>
+
+          <View style={styles.badgeRow}>
+            <View style={[styles.statusBadge, { backgroundColor: statusDim, borderColor: statusColor }]}>
+              <Ionicons name={STATUS_ICONS[env.statusKey] || 'help-circle'} size={14} color={statusColor} />
+              <Text style={[styles.statusBadgeText, { color: statusColor }]}>{statusLabel}</Text>
+            </View>
+            <View style={[styles.statusBadge, { backgroundColor: `${qualityColor}18`, borderColor: qualityColor }]}>
+              <Ionicons name="leaf-outline" size={14} color={qualityColor} />
+              <Text style={[styles.statusBadgeText, { color: qualityColor }]}>{qualityLabel}</Text>
+            </View>
+          </View>
+
+          <View style={[styles.heroStats, { borderTopColor: currentColors.borderColor }]}>
+            <View style={styles.heroStat}>
+              <Text style={[styles.heroStatValue, { color: currentColors.textPrimary }]}>{env.capacity || 0}</Text>
+              <Text style={[styles.heroStatLabel, { color: currentColors.textMuted }]}>Personas</Text>
+            </View>
+            <View style={[styles.heroDivider, { backgroundColor: currentColors.borderColor }]} />
+            <View style={styles.heroStat}>
+              <Text style={[styles.heroStatValue, { color: qualityColor }]}>{qualityLabel}</Text>
+              <Text style={[styles.heroStatLabel, { color: currentColors.textMuted }]}>Calidad</Text>
+            </View>
           </View>
         </View>
 
-        {/* Air Quality banner */}
-        <View style={[styles.qualityBanner, { borderLeftColor: qualityColor, backgroundColor: currentColors.bgCard }]}>
-          <View>
-            <Text style={[styles.qualityBannerLabel, { color: currentColors.textSecondary }]}>Calidad del aire</Text>
-            <Text style={[styles.qualityBannerValue, { color: qualityColor }]}>{qualityLabel}</Text>
+        <View style={[styles.insightCard, { backgroundColor: `${statusColor}12`, borderColor: `${statusColor}55` }]}>
+          <Ionicons name={activeIssues.length ? 'alert-circle-outline' : 'checkmark-circle-outline'} size={22} color={statusColor} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.insightTitle, { color: statusColor }]}>
+              {activeIssues.length ? 'Atencion necesaria' : 'Ambiente estable'}
+            </Text>
+            <Text style={[styles.insightText, { color: currentColors.textSecondary }]}>{recommendation}</Text>
           </View>
-          <Text style={[styles.qualityBannerDesc, { color: currentColors.textMuted }]}>
-            Basado en niveles de CO₂, temperatura, humedad y ruido.
-          </Text>
         </View>
 
-        {/* Metrics — todas 4 igual que web */}
-        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Métricas en tiempo real</Text>
+        <View style={styles.sectionHeader}>
+          <Ionicons name="analytics-outline" size={18} color={currentColors.accent} />
+          <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Metricas en tiempo real</Text>
+        </View>
+
         <View style={styles.metricsGrid}>
-          {metrics.map((m) => (
-            <MetricCard
-              key={m.label}
-              icon={m.icon}
-              label={m.label}
-              value={m.value !== undefined ? m.value : '--'}
-              unit={m.unit}
-              ideal={m.ideal}
-              color={m.color}
-              barValue={m.value || 0}
-              barMin={m.barMin}
-              barMax={m.barMax}
-              currentColors={currentColors}
-            />
+          {metrics.map((metric) => (
+            <MetricTile key={metric.key} metric={metric} currentColors={currentColors} />
           ))}
         </View>
 
-        {/* Info extra */}
-        <View style={[styles.infoCard, { backgroundColor: currentColors.bgCard, borderColor: currentColors.borderColor }]}>
-          <View style={styles.infoRow}>
-            <Ionicons name="people-outline" size={18} color={currentColors.textMuted} />
-            <Text style={[styles.infoLabel, { color: currentColors.textSecondary }]}>Capacidad</Text>
-            <Text style={[styles.infoValue, { color: currentColors.textPrimary }]}>{env.capacity} personas</Text>
-          </View>
-          <View style={[styles.infoRow, { borderTopWidth: 1, borderTopColor: currentColors.borderColor, paddingTop: 12 }]}>
-            <Ionicons name="location-outline" size={18} color={currentColors.textMuted} />
-            <Text style={[styles.infoLabel, { color: currentColors.textSecondary }]}>Ubicación</Text>
-            <Text style={[styles.infoValue, { color: currentColors.textPrimary }]}>{env.location}</Text>
-          </View>
-        </View>
-
-        {/* Calificación del aula — igual que web */}
-        <Text style={[styles.sectionTitle, { color: currentColors.textPrimary }]}>Calificación del aula</Text>
         <RatingCard
           rating={rating}
           setRating={setRating}
@@ -238,63 +310,130 @@ const styles = StyleSheet.create({
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
 
   header: {
-    flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 20, paddingTop: 55, paddingBottom: 20,
-    gap: 12, borderBottomWidth: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 52,
+    paddingBottom: 12,
   },
-  backBtn:           { padding: 4 },
-  headerTitleBlock:  { flex: 1 },
-  headerTitle:       { fontSize: 20, fontWeight: 'bold' },
-  headerLocation:    { fontSize: 13 },
-
-  scroll:        { flex: 1 },
-  scrollContent: { padding: 20, paddingTop: 10 },
-
-  statusCard: {
-    borderRadius: 15, padding: 20, marginBottom: 12, borderWidth: 1,
-    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+  headerTitle: { fontSize: 17, fontWeight: '800' },
+  iconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  statusRow:  { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  statusInfo: {},
-  statusLabel:{ fontSize: 12, marginBottom: 2 },
-  statusValue:{ fontSize: 18, fontWeight: 'bold' },
-  qualityBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1 },
-  qualityText:  { fontSize: 12, fontWeight: '600' },
 
-  qualityBanner: {
-    borderLeftWidth: 4, borderRadius: 10, padding: 14,
-    marginBottom: 16, flexDirection: 'row', gap: 12, alignItems: 'center',
+  scroll: { flex: 1 },
+  scrollContent: { padding: 18, paddingTop: 8 },
+
+  heroCard: {
+    borderRadius: 18,
+    borderWidth: 1,
+    padding: 16,
+    marginBottom: 12,
   },
-  qualityBannerLabel: { fontSize: 12 },
-  qualityBannerValue: { fontSize: 16, fontWeight: 'bold' },
-  qualityBannerDesc:  { fontSize: 12, flex: 1 },
+  heroTop: { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
+  roomIcon: {
+    width: 58,
+    height: 58,
+    borderRadius: 16,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroTitleBlock: { flex: 1 },
+  roomName: { fontSize: 23, fontWeight: '900', lineHeight: 29 },
+  metaRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 5 },
+  metaText: { fontSize: 13, fontWeight: '600', flex: 1 },
 
-  sectionTitle: { fontSize: 16, fontWeight: '700', marginBottom: 10, marginTop: 4 },
+  badgeRow: { flexDirection: 'row', gap: 8, marginTop: 14, flexWrap: 'wrap' },
+  statusBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    borderRadius: 999,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  statusBadgeText: { fontSize: 12, fontWeight: '800' },
 
-  metricsGrid: { gap: 10, marginBottom: 16 },
-  metricCard:  { borderRadius: 12, padding: 14, marginBottom: 4 },
-  metricTop:   { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 },
-  metricIcon:  { fontSize: 22 },
-  metricInfo:  { flex: 1 },
-  metricLabel: { fontSize: 13, marginBottom: 2 },
-  metricValue: { fontSize: 20, fontWeight: 'bold' },
-  metricUnit:  { fontSize: 14, fontWeight: 'normal' },
-  barTrack:    { height: 6, backgroundColor: '#f0f0f0', borderRadius: 3, flexDirection: 'row', overflow: 'hidden', marginBottom: 4 },
-  barFill:     { height: '100%' },
-  idealText:   { fontSize: 11, textAlign: 'right' },
+  heroStats: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16,
+    paddingTop: 14,
+    borderTopWidth: 1,
+  },
+  heroStat: { flex: 1, alignItems: 'center' },
+  heroStatValue: { fontSize: 18, fontWeight: '900' },
+  heroStatLabel: { fontSize: 11, fontWeight: '700', marginTop: 2 },
+  heroDivider: { width: 1, height: 34 },
 
-  infoCard: { borderRadius: 12, padding: 16, borderWidth: 1, marginBottom: 16 },
-  infoRow:  { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  infoLabel:{ fontSize: 13, flex: 1 },
-  infoValue:{ fontSize: 14, fontWeight: '600' },
+  insightCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
+    borderRadius: 14,
+    borderWidth: 1,
+    padding: 14,
+    marginBottom: 16,
+  },
+  insightTitle: { fontSize: 14, fontWeight: '900', marginBottom: 2 },
+  insightText: { fontSize: 13, lineHeight: 18 },
 
-  // Rating
-  ratingCard: { borderRadius: 14, borderWidth: 1, padding: 18, alignItems: 'center', gap: 14 },
-  ratingQuestion: { fontSize: 15, fontWeight: '600', textAlign: 'center' },
-  starsRow:   { flexDirection: 'row', gap: 10 },
-  star:       { fontSize: 38 },
-  ratingBtn:  { borderRadius: 12, paddingHorizontal: 24, paddingVertical: 13, alignItems: 'center' },
-  ratingBtnTxt:{ fontSize: 15, fontWeight: 'bold' },
-  ratingSubmittedRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  ratingSubmittedTxt: { fontSize: 14, fontWeight: '500', flex: 1 },
+  sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 10 },
+  sectionTitle: { fontSize: 16, fontWeight: '900' },
+
+  metricsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 16,
+  },
+  metricTile: {
+    width: '48.5%',
+    minHeight: 146,
+    borderRadius: 15,
+    borderWidth: 1,
+    padding: 12,
+  },
+  metricTileTop: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
+  metricIconBox: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  metricLabel: { fontSize: 12, fontWeight: '800', flex: 1 },
+  metricValue: { fontSize: 23, fontWeight: '900', marginBottom: 10 },
+  metricUnit: { fontSize: 13, fontWeight: '700' },
+  progressTrack: { height: 7, borderRadius: 4, overflow: 'hidden', marginBottom: 8 },
+  progressFill: { height: '100%', borderRadius: 4 },
+  metricFooter: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 6 },
+  idealText: { fontSize: 10.5, fontWeight: '700', flex: 1 },
+
+  ratingCard: {
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 16,
+    alignItems: 'center',
+    gap: 12,
+  },
+  ratingQuestion: { fontSize: 13, textAlign: 'center', lineHeight: 18 },
+  starsRow: { flexDirection: 'row', gap: 8 },
+  ratingBtn: {
+    borderRadius: 12,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    alignItems: 'center',
+    alignSelf: 'stretch',
+  },
+  ratingBtnTxt: { fontSize: 14, fontWeight: '900' },
+  ratingSubmittedTxt: { fontSize: 14, fontWeight: '700', textAlign: 'center', lineHeight: 20 },
 })
