@@ -2,17 +2,32 @@ import '../../styles/auth/AuthLayout.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaChevronDown } from 'react-icons/fa'
-import { LanguageSelector } from '../ui'
 
 function AuthLayout({ children }) {
   const { i18n } = useTranslation()
   const [showLangs, setShowLangs] = useState(false)
 
   const languages = [
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'pt', label: 'Português', flag: '🇧🇷' }
+    { 
+      code: 'es', 
+      label: 'Español', 
+      flag: 'https://flagcdn.com/w40/es.png' 
+    },
+    { 
+      code: 'en', 
+      label: 'English', 
+      flag: 'https://flagcdn.com/w40/us.png' 
+    },
+    { 
+      code: 'fr', 
+      label: 'Français', 
+      flag: 'https://flagcdn.com/w40/fr.png' 
+    },
+    { 
+      code: 'pt', 
+      label: 'Português', 
+      flag: 'https://flagcdn.com/w40/pt.png' 
+    }
   ]
 
   const currentLang =
@@ -26,14 +41,18 @@ function AuthLayout({ children }) {
 
   return (
     <div className="auth-container">
-
+      {/* Selector de Idiomas Fijo en la Esquina Superior Derecha */}
       <div className="language-selector-fixed">
         <button
           className="lang-btn-premium"
           onClick={() => setShowLangs(!showLangs)}
         >
-          <span>{currentLang.flag}</span>
-          <span>{currentLang.label}</span>
+          <img 
+            src={currentLang.flag} 
+            alt={currentLang.label} 
+            className="lang-flag-img"
+          />
+          <span className="lang-label-text">{currentLang.label}</span>
           <FaChevronDown
             className={`lang-arrow ${showLangs ? 'open' : ''}`}
           />
@@ -49,7 +68,11 @@ function AuthLayout({ children }) {
                 }`}
                 onClick={() => changeLanguage(lang.code)}
               >
-                <span>{lang.flag}</span>
+                <img 
+                  src={lang.flag} 
+                  alt={lang.label} 
+                  className="lang-flag-img-dropdown"
+                />
                 <span>{lang.label}</span>
               </button>
             ))}
@@ -62,7 +85,6 @@ function AuthLayout({ children }) {
       <div className="auth-card">
         {children}
       </div>
-
     </div>
   )
 }
