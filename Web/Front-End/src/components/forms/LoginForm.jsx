@@ -27,7 +27,7 @@ function LoginForm() {
 
   return (
     <form className="login-form-modern" onSubmit={handleSubmit(onSubmit)}>
-      {/* Campo de Empresa - Consistencia con el Registro */}
+      {/* Campo de Empresa*/}
       <div className="input-group-modern">
         <label>{t('login.companyCode', 'Código de Empresa')}</label>
         <div className="input-wrapper">

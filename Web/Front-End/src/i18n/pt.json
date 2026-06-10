@@ -302,28 +302,30 @@
     "save": "Salvar"
   },
   "errors": {
-    "required_email": "O e-mail é obrigatório",
-    "invalid_email": "Endereço de e-mail inválido",
-    "password_min": "A senha deve conter pelo menos 6 caracteres",
-    "password_match": "As senhas não coincidem",
-    "name_short": "O nome é muito curto"
+    "required_email": "L'adresse e-mail est obligatoire",
+    "invalid_email": "Adresse e-mail invalide",
+    "password_min": "Le mot de passe doit contenir au moins 6 caractères",
+    "password_match": "Les mots de passe ne correspondent pas",
+    "name_short": "Le nom est trop court",
+    "required_company_code": "Le code de l'entreprise est obligatoire",
+    "invalid_company_code": "Le code de l'entreprise doit respecter le format ABC-1234"
   },
 
-      "notifications": {
-      "title": "Notificações",
-      "empty": "Sem notificações",
-      
-      "co2High": "CO₂ alto",
-      "co2Message": "O ambiente {{name}} tem {{value}} ppm de CO₂",
-      
-      "tempHigh": "Temperatura alta",
-      "tempMessage": "O ambiente {{name}} está com {{value}}°C",
-      
-      "warning": "Aviso",
-      "warningMessage": "O ambiente {{name}} apresenta condições irregulares",
-      
-      "dailySummary": "Resumo diário",
-      "summaryMessage": "{{alerts}} ambientes em alerta e {{warnings}} com avisos hoje"
+  "notifications": {
+    "title": "Notificações",
+    "empty": "Sem notificações",
+    
+    "co2High": "CO₂ alto",
+    "co2Message": "O ambiente {{name}} tem {{value}} ppm de CO₂",
+    
+    "tempHigh": "Temperatura alta",
+    "tempMessage": "O ambiente {{name}} está com {{value}}°C",
+    
+    "warning": "Aviso",
+    "warningMessage": "O ambiente {{name}} apresenta condições irregulares",
+    
+    "dailySummary": "Resumo diário",
+    "summaryMessage": "{{alerts}} ambientes em alerta e {{warnings}} com avisos hoje"
     },
 
   "leaderboard": {
