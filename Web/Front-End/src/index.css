@@ -1222,7 +1222,6 @@ button:active { transform: scale(0.97); }
   .dashboard-layout {
     grid-template-columns: repeat(3, 1fr);
     max-width: 1400px;
-    margin: 0 auto;
   }
 
   .dashboard-page,
@@ -1288,4 +1287,33 @@ body::after {
   backdrop-filter: blur(3px); 
   pointer-events: none;
   z-index: -1;
+}
+
+/* ==========================================================
+   APP CONTAINER GLOBAL
+========================================================== */
+
+.app-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px 40px;
+  box-sizing: border-box;
+}
+
+.app-content-card {
+  background: rgba(17, 34, 64, 0.55);
+
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 24px;
+
+  min-height: 450px;
+
+  padding: 40px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.25);
 }
