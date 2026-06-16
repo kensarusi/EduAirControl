@@ -38,14 +38,14 @@
 .login-header-centered h1 {
   font-size: 36px;
   font-weight: 800;
-  color: #ffffff;
+  color: #5de6c8;
   margin: 0;
   letter-spacing: -1px;
   text-shadow: 0 0 20px rgba(93, 230, 200, 0.3);
 }
 
 .login-subtitle {
-  color: var(--text-secondary);
+  color: #000000;
   font-size: 15px;
   margin: 10px 0 0;
   opacity: 0.8;
@@ -67,7 +67,7 @@
 .input-group-modern label {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: #000000;
   margin-left: 4px;
 }
 
@@ -80,7 +80,7 @@
 .input-icon {
   position: absolute;
   left: 15px;
-  color: var(--accent);
+  color: #5de6c8;
   font-size: 16px;
   opacity: 0.8;
 }
@@ -89,9 +89,9 @@
   width: 100%;
   padding: 14px 15px 14px 45px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border: 1.5px solid #5de6c8;
   border-radius: 12px;
-  color: #ffffff;
+  color: #5de6c8;
   font-size: 15px;
   transition: all 0.3s ease;
 }
@@ -99,7 +99,7 @@
 .input-wrapper input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent);
+  border-color: #5de6c8;
   box-shadow: 0 0 15px rgba(93, 230, 200, 0.2);
 }
 
@@ -127,7 +127,7 @@
 .checkmark {
   width: 18px;
   height: 18px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(80, 71, 71, 0.62);
   border-radius: 5px;
   position: relative;
   transition: all 0.2s;
@@ -199,7 +199,7 @@
   padding: 12px;
    border: 2px solid transparent;
     background:
-        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(#bdfff0, #fff) padding-box,
         linear-gradient(90deg, #2c8a89, #76b6ff) border-box;
     border-radius: 12px;
   color: var(--accent);
@@ -224,7 +224,7 @@
 
 .divider-clean span {
   background: transparent !important;
-  color: var(--text-secondary) !important;
+  color: #000000!important;
   font-weight: 600 !important;
   font-size: 14px !important;
 }
