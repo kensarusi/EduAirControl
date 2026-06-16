@@ -95,16 +95,6 @@
   opacity: 0.8;
 }
 
-.input-wrapper input {
-  width: 100%;
-  padding: 14px 15px 14px 45px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid #5de6c8;
-  border-radius: 12px;
-  color: #ffffff;
-  font-size: 15px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 .input-wrapper input:focus {
   outline: none;
@@ -336,4 +326,8 @@
   .signup-header-centered h1 {
     font-size: 28px;
   }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

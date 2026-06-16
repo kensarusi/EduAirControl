@@ -45,7 +45,7 @@
 }
 
 .login-subtitle {
-  color: #000000;
+  color: var(--text-primary); /* Cambiado de #000000 a variable dinámica */
   font-size: 15px;
   margin: 10px 0 0;
   opacity: 0.8;
@@ -67,7 +67,7 @@
 .input-group-modern label {
   font-size: 13px;
   font-weight: 600;
-  color: #000000;
+  color: var(--text-primary); /* Cambiado de #000000 a variable dinámica */
   margin-left: 4px;
 }
 
@@ -91,7 +91,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1.5px solid #5de6c8;
   border-radius: 12px;
-  color: #5de6c8;
+  color: var(--text-primary); /* Cambiado de #000000 a variable dinámica */
   font-size: 15px;
   transition: all 0.3s ease;
 }
@@ -203,7 +203,6 @@
         linear-gradient(90deg, #2c8a89, #76b6ff) border-box;
     border-radius: 12px;
   color: var(--accent);
-  border-radius: 12px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -224,7 +223,7 @@
 
 .divider-clean span {
   background: transparent !important;
-  color: #000000!important;
+  color: var(--text-primary) !important; /* Cambiado de #000000 a variable dinámica */
   font-weight: 600 !important;
   font-size: 14px !important;
 }
@@ -256,6 +255,34 @@
   color: var(--text-secondary);
   font-size: 13px;
   margin-top: 10px;
+}
+
+/* ============================================================
+   THEME OVERRIDES (Dark/Light Mode)
+   ============================================================ */
+
+/* MODO OSCURO (body.dark-mode) */
+body.dark-mode .login-subtitle,
+body.dark-mode .input-group-modern label,
+body.dark-mode .input-wrapper input,
+body.dark-mode .divider-clean span {
+  color: #ffffff !important;
+}
+
+body.dark-mode .input-wrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* MODO CLARO (body:not(.dark-mode)) */
+body:not(.dark-mode) .login-subtitle,
+body:not(.dark-mode) .input-group-modern label,
+body:not(.dark-mode) .input-wrapper input,
+body:not(.dark-mode) .divider-clean span {
+  color: #000000 !important;
+}
+
+body:not(.dark-mode) .input-wrapper input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* Responsividad */
