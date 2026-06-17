@@ -6,6 +6,7 @@ import com.eduaircontrol.backend.core.domain.Role;
 import com.eduaircontrol.backend.core.domain.Users;
 import com.eduaircontrol.backend.core.repository.UserRepository;
 import com.eduaircontrol.backend.security.JwtService;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -63,6 +64,7 @@ public class UserService {
                 .orElseGet(() -> userRepository.save(Users.builder()
                         .name(name != null ? name : email)
                         .email(email)
+                        .password(passwordEncoder.encode(UUID.randomUUID().toString()))
                         .googleId(googleId)
                         .role(Role.USER)
                         .build()));

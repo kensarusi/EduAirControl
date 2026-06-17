@@ -38,6 +38,7 @@ services:
   jenkins:
     build:
       context: ../jenkins
+      dockerfile: dockerfile
     container_name: jenkins
     user: root
     ports:

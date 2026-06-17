@@ -19,7 +19,7 @@ public class Users {
     private String name;
     @Column(nullable = true, unique = true)
     private String email;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String password;
     @Column(name = "google_id", nullable = true, unique = true)
     private String googleId;
