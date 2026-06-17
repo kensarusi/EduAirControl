@@ -4,14 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema } from '../../schemas/loginSchema'
-import { Input } from '../ui'
+import { FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa'
 import '../../styles/auth/Login.css'
-import { is } from 'zod/v4/locales'
 
 function LoginForm() {
   const navigate = useNavigate()
   const { t } = useTranslation()
-
+  
   const {
     register,
     handleSubmit,
@@ -22,61 +21,79 @@ function LoginForm() {
 
   const onSubmit = (data) => {
     console.log(data)
+    // Aquí se incluiría la lógica para validar el companyCode junto con las credenciales
     navigate('/dashboard')
   }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-
-
-      <div className="input-group">
-        <Input
-          {...register("email")}
-          label={t('login.email')}
-          placeholder={t('login.placeholderEmail')}
-          className={errors.email ? "input-error shake" : ""}
-        />
-        {errors.email && (
-          <p className="error-text">
-            ⚠{t(errors.email.message)}
-          </p>)}
-      </div>
-      <div className="input-group password-group">
-        <Input
-          {...register("password")}
-          label={t('login.password')}
-          placeholder={t('login.placeholderPassword')}
-          type="password"
-          className={`${errors.password ? "input-error shake" : ""}${errors.password ? " shake" : ""}`}
-        />
-      {errors.password && 
-        <p className="error-text">
-          ⚠{t(errors.password.message)}
-        </p>} 
-      </div>
-      <div className="login-options">
-        <label className="remember-me">
+    <form className="login-form-modern" onSubmit={handleSubmit(onSubmit)}>
+      {/* Campo de Empresa*/}
+      <div className="input-group-modern">
+        <label>{t('login.companyCode', 'Código de Empresa')}</label>
+        <div className="input-wrapper">
+          <FaBuilding className="input-icon" />
           <input
-            type="checkbox"
-            {...register('rememberMe')}
+            {...register("companyCode")}
+            type="text"
+            placeholder={t('login.placeholderCompany', 'Ej: EDU-2024')}
+            className={errors.companyCode ? "input-error shake" : ""}
           />
+        </div>
+        {errors.companyCode && <p className="error-text">⚠ {t(errors.companyCode.message)}</p>}
+      </div>
+
+      <div className="input-group-modern">
+        <label>{t('login.email')}</label>
+        <div className="input-wrapper">
+          <FaEnvelope className="input-icon" />
+          <input
+            {...register("email")}
+            type="email"
+            placeholder={t('login.placeholderEmail')}
+            className={errors.email ? "input-error shake" : ""}
+          />
+        </div>
+        {errors.email && <p className="error-text">⚠ {t(errors.email.message)}</p>}
+      </div>
+
+      <div className="input-group-modern">
+        <label>{t('login.password')}</label>
+        <div className="input-wrapper">
+          <FaLock className="input-icon" />
+          <input
+            {...register("password")}
+            type="password"
+            placeholder={t('login.placeholderPassword')}
+            className={errors.password ? "input-error shake" : ""}
+          />
+        </div>
+        {errors.password && <p className="error-text">⚠ {t(errors.password.message)}</p>}
+      </div>
+
+      <div className="login-options-modern">
+        <label className="custom-checkbox-modern">
+          <input type="checkbox" {...register('rememberMe')} />
+          <span className="checkmark"></span>
           {t('login.rememberMe')}
         </label>
-        <a
-          href="#"
-          className="forgot-password"
-          onClick={(e) => { e.preventDefault(); navigate('/forgot-password') }}
+        <button 
+          type="button"
+          className="forgot-password-link"
+          onClick={() => navigate('/forgot-password')}
         >
           {t('login.forgotPassword')}
-        </a>
+        </button>
       </div>
 
       <button 
-      type="submit" 
-      className="btn-login"
-      disabled={isSubmitting}>
+        type="submit" 
+        className="btn-login-premium"
+        disabled={isSubmitting}
+      >
         {isSubmitting ? "..." : t('login.title')}
       </button>
-      {isSubmitting && <p className="loading">Validando...</p>}
+      
+      {isSubmitting && <p className="loading-text">Validando credenciales...</p>}
     </form>
   )
 }

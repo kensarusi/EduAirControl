@@ -672,8 +672,8 @@ button:active { transform: scale(0.97); }
 
 .btn-google {
   padding: 10px 20px;
-  background-color: var(--accent);
-  color: white;
+  background-color: rgba(255, 255, 255);
+  color: rgb(0, 0, 0);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -719,18 +719,6 @@ button:active { transform: scale(0.97); }
 .google-account-item { background-color: var(--bg-subtle); color: var(--text-primary); transition: background-color 0.2s; }
 .google-account-item:hover { background-color: var(--bg-input); }
 
-/* ============================================ */
-/* DASHBOARD                                    */
-/* ============================================ */
-
-
-.dashboard-layout {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-  gap: 20px;
-  padding: 20px;
-  width: 100%;
-}
 
 /* ============================================ */
 /* FILTER BAR                                   */
@@ -825,6 +813,7 @@ button:active { transform: scale(0.97); }
   padding: 20px;
   box-shadow: var(--shadow-card);
   transition: background-color 0.3s;
+  z-index: 1;
 }
 
 .summary-card-header h3 { font-size: 14px; color: var(--text-primary); margin: 0; }

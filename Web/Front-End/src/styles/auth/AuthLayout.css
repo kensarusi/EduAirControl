@@ -1,6 +1,6 @@
 /* ================================
    🌿 AUTH CONTAINER
-================================ */
+=============================== */
 
 .auth-container {
   min-height: 100vh;
@@ -9,23 +9,147 @@
   justify-content: center;
   align-items: center;
 
-  background:
-    linear-gradient(rgba(4, 12, 24, 0.55),
-    rgba(4, 12, 24, 0.65)),
-    url('/src/assets/fondo-login.png');
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
 
+  background-image: url('/background\ principal.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
 
-  padding: 20px;
+.auth-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    rgba(4, 15, 35, 0.70),
+    rgba(4, 15, 35, 0.85)
+  );
+}
+
+.auth-card {
   position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 40px;
+
+  border-radius: 28px;
+
+  background: rgba(10, 20, 40, 0.80);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.45),
+    0 0 30px rgba(0,255,180,.08);
+}
+
+.language-selector-fixed {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+}
+
+.lang-btn-premium {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+
+  background: rgba(10, 20, 40, 0.85);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+
+  color: white;
+  cursor: pointer;
+}
+
+.lang-dropdown-premium {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+
+  min-width: 180px;
+
+  background: rgba(10,20,40,.95);
+  backdrop-filter: blur(12px);
+
+  border-radius: 12px;
   overflow: hidden;
+
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.lang-option-premium {
+  width: 100%;
+  padding: 12px 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: transparent;
+  border: none;
+
+  color: white;
+  cursor: pointer;
+}
+
+.lang-option-premium:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.lang-option-premium.active {
+  background: rgba(0,255,180,.15);
+}
+
+.lang-arrow {
+  transition: transform .25s ease;
+}
+
+.lang-arrow.open {
+  transform: rotate(180deg);
+}
+
+.auth-container {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+
+  background:
+  linear-gradient(
+    rgba(4, 15, 35, 0.70),
+    rgba(4, 15, 35, 0.82)
+  ),
+  url('/background-principal.png');
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
 }
 
 /* ================================
    GLASS CARD
-================================ */
+=============================== */
 
 .auth-card {
   width: 100%;
@@ -45,7 +169,7 @@
 
 /* ================================
    🌿 EFECTO BRILLO
-================================ */
+=============================== */
 
 .auth-card::before {
   content: "";
@@ -72,7 +196,7 @@
 
 /* ================================
    🌿 RESPONSIVE
-================================ */
+=============================== */
 
 @media (max-width: 768px) {
 

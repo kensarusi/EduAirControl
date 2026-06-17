@@ -301,12 +301,15 @@
     "cancel": "Cancel",
     "save": "Save"
   },
+
   "errors": {
     "required_email": "Email is required",
-    "invalid_email": "Invalid email",
+    "invalid_email": "Invalid email address",
     "password_min": "Password must be at least 6 characters",
     "password_match": "Passwords do not match",
-    "name_short": "Name is too short"
+    "name_short": "Name is too short",
+    "required_company_code": "Company code is required",
+    "invalid_company_code": "Company code must follow the format ABC-1234"
   },
 
      "notifications": {
