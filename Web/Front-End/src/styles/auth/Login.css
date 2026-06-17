@@ -38,14 +38,14 @@
 .login-header-centered h1 {
   font-size: 36px;
   font-weight: 800;
-  color: #ffffff;
+  color: #5de6c8;
   margin: 0;
   letter-spacing: -1px;
   text-shadow: 0 0 20px rgba(93, 230, 200, 0.3);
 }
 
 .login-subtitle {
-  color: var(--text-secondary);
+  color: var(--text-primary); /* Cambiado de #000000 a variable dinámica */
   font-size: 15px;
   margin: 10px 0 0;
   opacity: 0.8;
@@ -67,7 +67,7 @@
 .input-group-modern label {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-primary); /* Cambiado de #000000 a variable dinámica */
   margin-left: 4px;
 }
 
@@ -80,26 +80,15 @@
 .input-icon {
   position: absolute;
   left: 15px;
-  color: var(--accent);
+  color: #5de6c8;
   font-size: 16px;
   opacity: 0.8;
-}
-
-.input-wrapper input {
-  width: 100%;
-  padding: 14px 15px 14px 45px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: #ffffff;
-  font-size: 15px;
-  transition: all 0.3s ease;
 }
 
 .input-wrapper input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent);
+  border-color: #5de6c8;
   box-shadow: 0 0 15px rgba(93, 230, 200, 0.2);
 }
 
@@ -127,7 +116,7 @@
 .checkmark {
   width: 18px;
   height: 18px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(80, 71, 71, 0.62);
   border-radius: 5px;
   position: relative;
   transition: all 0.2s;
@@ -199,11 +188,10 @@
   padding: 12px;
    border: 2px solid transparent;
     background:
-        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(#bdfff0, #fff) padding-box,
         linear-gradient(90deg, #2c8a89, #76b6ff) border-box;
     border-radius: 12px;
   color: var(--accent);
-  border-radius: 12px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -224,7 +212,7 @@
 
 .divider-clean span {
   background: transparent !important;
-  color: var(--text-secondary) !important;
+  color: var(--text-primary) !important; /* Cambiado de #000000 a variable dinámica */
   font-weight: 600 !important;
   font-size: 14px !important;
 }
@@ -256,6 +244,34 @@
   color: var(--text-secondary);
   font-size: 13px;
   margin-top: 10px;
+}
+
+/* ============================================================
+   THEME OVERRIDES (Dark/Light Mode)
+   ============================================================ */
+
+/* MODO OSCURO (body.dark-mode) */
+body.dark-mode .login-subtitle,
+body.dark-mode .input-group-modern label,
+body.dark-mode .input-wrapper input,
+body.dark-mode .divider-clean span {
+  color: #ffffff !important;
+}
+
+body.dark-mode .input-wrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* MODO CLARO (body:not(.dark-mode)) */
+body:not(.dark-mode) .login-subtitle,
+body:not(.dark-mode) .input-group-modern label,
+body:not(.dark-mode) .input-wrapper input,
+body:not(.dark-mode) .divider-clean span {
+  color: #000000 !important;
+}
+
+body:not(.dark-mode) .input-wrapper input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* Responsividad */

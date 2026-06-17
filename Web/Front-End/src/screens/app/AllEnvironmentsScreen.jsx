@@ -30,7 +30,7 @@ function AllEnvironmentsScreen() {
   return (
     <div className='all-env-page'>
       <Navbar />
-      <div className='all-env-container'>
+      <div className='app-page-container'>
 
         <div className='all-env-header'>
           <div className='all-env-header-top'>

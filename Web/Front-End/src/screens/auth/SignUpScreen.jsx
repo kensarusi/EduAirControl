@@ -119,7 +119,7 @@ function SignUpScreen() {
             </div>
 
             <div className="input-group-modern">
-              <label>{t('signup.confirmPassword')}</label>
+              <label>Confirmar contraseña</label>
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
                 <input
@@ -134,23 +134,29 @@ function SignUpScreen() {
             </div>
           </div>
 
-          <div className="terms-container-modern">
-            <label className="custom-toggle-modern">
-              <input
-                type="checkbox"
-                name="acceptTerms"
-                checked={formData.acceptTerms}
-                onChange={handleChange}
-              />
-              <span className="slider-modern"></span>
-            </label>
-            <span className="terms-text-modern">
-              {t('signup.accept')}{' '}
-              <button type="button" className="terms-link-btn" onClick={() => setShowTerms(true)}>
-                {t('signup.terms')}
-              </button>
-            </span>
-          </div>
+        <div className="terms-container-modern">
+          <label className="custom-toggle-modern">
+            <input
+              type="checkbox"
+              name="acceptTerms"
+              checked={formData.acceptTerms}
+              onChange={handleChange}
+            />
+            <span className="slider-modern"></span>
+          </label>
+
+          <p className="terms-text-modern">
+            He leído y acepto los{" "}
+
+            <button
+              type="button"
+              className="terms-link-btn"
+              onClick={() => setShowTerms(true)}
+            >
+              Términos y Políticas de Seguridad
+            </button>
+          </p>
+        </div>
 
           <button type="submit" className="btn-signup-premium">
             {t('signup.signUpBtn')}

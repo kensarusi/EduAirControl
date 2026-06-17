@@ -277,7 +277,7 @@ function EnvironmentDetailScreen() {
         {/* Classroom Rating (inline card) */}
         <h2 className="detail-section-title">Calificación del aula</h2>
 
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div>
           <RatingCard
             rating={rating}
             setRating={setRating}
