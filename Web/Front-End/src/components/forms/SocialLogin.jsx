@@ -6,13 +6,18 @@ import { useTranslation } from 'react-i18next'
 function SocialLogin() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${apiUrl}/oauth2/authorization/google`
+  }
 
   return (
     <div>
       <p className="social-text">{t('login.orWith')}</p>
       <div className="social-buttons">
         <button className="btn-facebook" onClick={() => navigate('/facebook-signup')}><FaFacebookF /> Facebook</button>
-        <button className="btn-google" onClick={() => navigate('/google-signup')}><FcGoogle /> Google</button>
+        <button className="btn-google" onClick={handleGoogleLogin}><FcGoogle /> Google</button>
       </div>
     </div>
   )

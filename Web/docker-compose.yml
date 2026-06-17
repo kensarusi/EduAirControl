@@ -4,6 +4,12 @@ services:
     container_name: backend-app
     ports:
       - "8080:8080"
+    environment:
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      JWT_SECRET: ${JWT_SECRET:-mi_clave_super_segura_de_mas_de_32_caracteres}
+      FRONTEND_OAUTH2_SUCCESS_URL: ${FRONTEND_OAUTH2_SUCCESS_URL:-http://localhost:3000/oauth2/success}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:5173}
     depends_on:
       - postgres
     restart: always

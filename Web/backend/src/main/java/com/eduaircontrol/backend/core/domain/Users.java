@@ -21,8 +21,8 @@ public class Users {
     private String email;
     @Column(nullable = true)
     private String password;
-    @Column(nullable = true)
-    private String google_id;
+    @Column(name = "google_id", nullable = true, unique = true)
+    private String googleId;
     @Enumerated(EnumType.STRING)
     private Role role;
 }

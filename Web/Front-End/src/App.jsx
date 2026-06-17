@@ -7,6 +7,7 @@ import ChangePasswordScreen from './screens/auth/ChangePasswordScreen'
 import TermsScreen from './screens/auth/TermsScreen'
 import GoogleSignUpScreen from './screens/auth/GoogleSignUpScreen'
 import FacebookSignUpScreen from './screens/auth/FacebookSignUpScreen'
+import OAuth2SuccessScreen from './screens/auth/OAuth2SuccessScreen'
 import DashboardScreen from './screens/app/DashboardScreen'
 import AllEnvironmentsScreen from './screens/app/AllEnvironmentsScreen'
 import ProfileScreen from './screens/app/ProfileScreen'
@@ -27,6 +28,7 @@ function App() {
       <Route path="/terms"           element={<TermsScreen />} />
       <Route path="/google-signup"    element={<GoogleSignUpScreen />} />
       <Route path="/facebook-signup"  element={<FacebookSignUpScreen />} />
+      <Route path="/oauth2/success"   element={<OAuth2SuccessScreen />} />
 
       {/* App */}
       <Route path="/dashboard"        element={<DashboardScreen />} />

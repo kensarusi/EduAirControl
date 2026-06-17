@@ -95,9 +95,7 @@
 }
 
 /* Dark Mode */
-body.dark-mode /* .google-container estilos movidos a AuthLayout */
-
-body.dark-mode /* .google-card estilos movidos a AuthLayout */
+/* .google-container y .google-card usan AuthLayout */
 
 body.dark-mode .choose-title {
   color: #e0e0e0;

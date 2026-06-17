@@ -79,9 +79,7 @@
 }
 
 /* Dark Mode */
-body.dark-mode /* .verify-container estilos movidos a AuthLayout */
-
-body.dark-mode /* .verify-card estilos movidos a AuthLayout */
+/* .verify-container y .verify-card usan AuthLayout */
 
 body.dark-mode .verify-card h1 {
   color: #e0e0e0;
