@@ -85,17 +85,6 @@
   opacity: 0.8;
 }
 
-.input-wrapper input {
-  width: 100%;
-  padding: 14px 15px 14px 45px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid #5de6c8;
-  border-radius: 12px;
-  color: var(--text-primary); /* Cambiado de #000000 a variable dinámica */
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
 .input-wrapper input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.08);
