@@ -1,0 +1,9 @@
+/*TechStack.css*/
+
+.techstack-section {
+    height: 90px;
+    border: 1px dashed #00E5B0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
