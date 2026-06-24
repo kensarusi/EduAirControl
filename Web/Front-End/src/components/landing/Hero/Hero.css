@@ -1,10 +1,110 @@
-/*Hero style*/
+.hero{
 
-.hero-section {
-    min-height: 300px;
-    border: 1px dashed #00E5B0;
+    position: relative;
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 8%;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at top,#072540 0%,#020817 45%,#01030d 100%);
+}
+
+.hero-glow{
+
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.35;
+
+}
+
+.hero-glow-left{
+
+    width:500px;
+
+    height:500px;
+
+    background:#00E5B0;
+
+    top:-180px;
+
+    left:-180px;
+
+}
+
+.hero-glow-right{
+
+    width:600px;
+
+    height:600px;
+
+    background:#00C2FF;
+
+    bottom:-250px;
+
+    right:-250px;
+
+}
+
+.hero{
+    position: relative;
+    overflow: visible;
+    min-height: 100vh;
+    background: radial-gradient(circle at top,#072540 0%,#020817 45%,#01030d 100%);
+}
+
+.hero-container{
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: auto;
+
+    min-height: 100vh;
+
     display: flex;
-    justify-content: center;
+
     align-items: center;
-    font-size: 2rem;
+
+    justify-content: space-between;
+
+    gap: 70px;
+
+    padding: 0 60px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.hero-left{
+
+   position:relative;
+   z-index:3;
+   max-width: 650px;
+}
+
+.hero-right{
+
+   position:absolute;
+   right: -180px;
+   top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+
+}
+
+.hero-dashboard{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
 }

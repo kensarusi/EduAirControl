@@ -10,20 +10,18 @@ import Footer from '../../components/landing/Footer/Footer'
 import './Landing.css'
 
 function Landing() {
-    return (
-        <div className="landing">
-
-            <Navbar />
-            <Hero />
-            <Statistics />
-            <Features />
-            <Modules />
-            <TechStack />
-            <CTA />
-            <Footer />
-
-        </div>
-    )
+  return (
+    <div className="landing">
+      <Navbar />
+      <Hero />
+      <Statistics />
+      <Features />
+      <Modules />
+      <TechStack />
+      <CTA />
+      <Footer />
+    </div>
+  )
 }
 
 export default Landing
