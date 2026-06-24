@@ -11,6 +11,9 @@ function SocialLogin() {
   const handleGoogleLogin = () => {
     window.location.href = `${apiUrl}/oauth2/authorization/google`
   }
+  const handleFacebookLogin = () => {
+    window.location.href = `${apiUrl}`
+  }
 
   return (
     <div>
