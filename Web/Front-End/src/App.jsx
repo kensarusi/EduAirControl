@@ -15,12 +15,14 @@ import SettingsScreen from './screens/app/SettingsScreen'
 import FavoritesScreen from './screens/app/FavoritesScreen'
 import EnvironmentManagement from "./screens/app/EnvironmentManagement";
 import EnvironmentDetailScreen from './screens/app/EnvironmentDetailScreen'
+import Landing from './screens/Landing/Landing'
 
 function App() {
   return (
     <Routes>
       {/* Auth */}
       <Route path="/"                element={<LoginScreen />} />
+      <Route path="/landing" element={<Landing />} />
       <Route path="/signup"          element={<SignUpScreen />} />
       <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
       <Route path="/verify-code"     element={<VerifyCodeScreen />} />
