@@ -1,3 +1,5 @@
+import "./HeroCards.css";
+
 import {
     FaLeaf,
     FaChartLine,

@@ -10,12 +10,12 @@ function HeroContent() {
       </span>
 
       <h1 className="hero-title">
-            Respira Tranquilo.
-            <br />
-            Aprende Mejor.
-            <br />
-            <span>EduAirControl.</span>
-        </h1>
+        Respira Tranquilo.
+        <br />
+        Aprende Mejor.
+        <br />
+        <span>EduAirControl.</span>
+    </h1>
 
       <p className="hero-description">
         Monitorea en tiempo real la calidad del aire de aulas,
