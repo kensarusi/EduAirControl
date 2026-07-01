@@ -16,6 +16,8 @@ import FavoritesScreen from './screens/app/FavoritesScreen'
 import EnvironmentManagement from "./screens/app/EnvironmentManagement";
 import EnvironmentDetailScreen from './screens/app/EnvironmentDetailScreen'
 import Landing from './screens/Landing/Landing'
+import Login from "./screens/auth/LoginScreen"
+import Register from "./screens/auth/SignUpScreen"
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       {/* Auth */}
       <Route path="/"                element={<LoginScreen />} />
       <Route path="/landing" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       <Route path="/signup"          element={<SignUpScreen />} />
       <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
       <Route path="/verify-code"     element={<VerifyCodeScreen />} />
