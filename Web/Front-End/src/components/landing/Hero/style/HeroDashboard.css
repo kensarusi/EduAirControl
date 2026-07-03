@@ -1,7 +1,7 @@
 .dashboard-mockup {
 
-    width: 770px;
-    max-width: 770px;
+    width: 780px;
+    max-width: 780px;
     opacity: 0.88;
     background: rgba(8, 15, 32, 0.95);
     border: 1px solid rgba(0,255,200,.15);
@@ -20,13 +20,14 @@
         translateX(-40px)
         scale(.95);
 
-        transition: transform .4s ease, box-shadow .4s ease;}
+        transition:.5s;
+}
 
 .dashboard-mockup:hover{
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     box-shadow:
-        0 20px 60px rgba(0,0,0,.35),
-        0 0 30px rgba(0,255,200,.12);
+        0 30px 60px rgba(0,0,0,.45),
+        0 0 50px rgba(39,245,210,.08);
 }
 
 .dashboard-header {
@@ -69,16 +70,40 @@
     margin-bottom: 24px;
 }
 
-   .metric-card{
+ .metric-card{
     flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:8px;
 
     background:rgba(255,255,255,.03);
-
     border:1px solid rgba(255,255,255,.05);
-
     border-radius:16px;
-
     padding:16px;
+
+    transition:.35s;
+}
+
+.metric-footer{
+    
+    display:flex;
+    justify-content:space-between;  
+    align-items:center;
+}
+
+.metric-trend{
+
+    font-size:.75rem;
+    font-weight:600;
+}
+
+.metric-trend.positive{
+    color:#27F5D2;
+}
+
+.metric-trend.negative{
+    color:#FF5C5C;
 }
 
 .metric-card span{
@@ -99,37 +124,151 @@
     font-weight:700;
 }
 
-.chart-placeholder {
+.metric-card:hover{
 
-    height: 160px;
+    transform:translateY(-5px);
+    border-color:#27F5D2;
+    box-shadow:0 10px 25px rgba(39,245,210,.15);
+}
 
-   margin-bottom: 24px;
+.metric-header{
 
-   border-radius: 22px;
+    display:flex;
+    align-items:center;
+    gap:8px;
 
-   background:
-   linear-gradient(
+    color:#27F5D2;
+}
+
+.widget-title{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#27F5D2;
+
+    margin-bottom:10px;
+}
+
+.metric-card svg,
+.mini-widget svg{
+
+    transition:.3s;
+}
+
+.metric-card:hover svg,
+.mini-widget:hover svg{
+
+    transform:rotate(-8deg) scale(1.15);
+
+    color:#3ffff0;
+}
+
+.chart-placeholder{
+
+    width:100%;
+    height:180px;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+
+    background:
+    linear-gradient(
         180deg,
-        rgba(39,245,210,.15),
-        rgba(39,245,210,.02)
-   );
+        rgba(39,245,210,.10),
+        rgba(18,30,55,.55)
+    );
 
-   position: relative;
+    border: 1px solid rgba(39,254,210,.08);
+    box-shadow: inset 0 0 40px rgba(39,245,210,.03);
 
-   overflow: hidden;
+    display:flex;
+    align-items:center;
+}
+
+@keyframes shine{
+
+0%{
+
+transform:translateX(-100%);
+
+}
+
+100%{
+
+transform:translateX(100%);
+
+}
+
+}
+
+.chart-svg{
+
+    width:100%;
+    height:100%;
+}
+
+.chart-line{
+
+    fill:none;
+    stroke:url(#lineGradient);
+    stroke-width:4;
+    stroke-linecap: round;
+    stroke-linejoin:round;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+
+    animation: drawLine 3s ease forwards;
+}
+
+@keyframes drawLine{
+    to{
+        stroke-dashoffset:0;
+    }
 }
 
 .chart-placeholder::before{
 
     content:"";
-
     position:absolute;
-
     inset:0;
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.05),
+        transparent
+    );
 
-    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='200'%3E%3Cpath d='M0 130 C100 30 180 180 280 90 C380 10 470 190 580 70 C680 20 740 120 800 40' stroke='%2327f5d2' stroke-width='4' fill='none'/%3E%3C/svg%3E");
+    animation:shine 5s infinite;
+}
 
-    background-size:cover;
+.chart-svg circle{
+
+    animation:pulsePoint 2s infinite;
+}
+
+@keyframes pulsePoint{
+
+0%{
+
+r:4;
+
+}
+
+50%{
+
+r:6;
+
+}
+
+100%{
+
+r:4;
+
+}
+
 }
 
 .dashboard-grid{
@@ -144,6 +283,16 @@
     border-radius:18px;
     padding:18px;
     backdrop-filter:blur(10px);
+
+    transition:.35s;
+}
+
+.mini-widget:hover{
+
+    transform:translateY(-5px);
+    border-color:#27F5D2;
+    box-shadow:
+        0 15px 30px rgba(39,245,210,.12);
 }
 
 .mini-widget h4{
