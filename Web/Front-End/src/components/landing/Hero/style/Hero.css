@@ -6,7 +6,7 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 8%;
+    padding-top: 90px;
     overflow:hidden;
     background:
         radial-gradient(circle at top,#072540 0%,#020817 45%,#01030d 100%);
@@ -51,34 +51,67 @@
 
 .hero-container{
     width:100%;
-
-    max-width:1700px;
-
-    margin:0 auto;
-
-    padding:0 60px;
+    max-width:1800px;
+    padding:0 30px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
 
-    gap:140px;
+    gap: -30px;
 }
 
 
 .hero-left{
 
    flex: 0 0 48%;
-   max-width: 760px;
+   max-width: none;
+
+   animation: slideLeft 1s ease;
 }
 
 .hero-right{
 
-    flex: 0 0 52%;
+    flex: 0 0 50%;
 
     display:flex;
     justify-content:center;
     align-items:center;
+
+    position:relative;
+    right:0;
+    top:auto;
+    transform:none;
+
+    animation: slideRight 1s ease;
+
+}
+
+@keyframes slideLeft{
+
+    from{
+        opacity:0;
+        transform:translateX(-60px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+
+}
+
+@keyframes slideRight{
+
+    from{
+        opacity:0;
+        transform:translateX(60px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
 
 }
 

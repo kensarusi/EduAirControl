@@ -8,16 +8,48 @@
 }
 
 .hero-card{
+    width:140px;
+    height:120px;
 
-    width: 140px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 
-    padding:18px;
+    text-align:center;
 
-    min-width:130px;
+    gap: -2px;
+
+    padding:20px;
 
     border-radius:20px;
 
     background:rgba(255,255,255,.03);
 
     border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.hero-card:hover{
+
+    transform:translateY(-10px);
+    border-color:#2CF6D0;
+    box-shadow:0 15px 30px rgba(44,246,208, .2);
+}
+
+.hero-card svg{
+
+    font-size:2rem;
+    color:#2CF6D0;
+    margin-bottom:16px;
+
+}
+
+.hero-card span{
+
+    color:white;
+    line-height:1.35;
+    font-size: -0.85rem;
+    font-weight: 600;
 }

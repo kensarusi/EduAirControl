@@ -74,6 +74,14 @@
     font-size:1rem;
 
     cursor:pointer;
+
+    transition:.3s;
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(44,246,208,.35);
 }
 
 .secondary-btn{
@@ -95,7 +103,12 @@
 }
 
 .secondary-btn:hover{
-    background:rgba(255,255,255,.05);
+
+    transform:translateY(-3px);
+    border-color:#2CF6D0;
+    color:#2CF6D0;
+    background:rgba(44,246,208,.05);
+
 }
 
 .hero-content{

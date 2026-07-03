@@ -1,13 +1,22 @@
-import "./HeroDashboard.css";
+import "../style/HeroDashboard.css";
 
 export default function HeroDashboard() {
   return (
     <div className="dashboard-mockup">
 
       <div className="dashboard-header">
-        <span>EduAirControl</span>
-        <span>Online</span>
+
+      <div>
+          <h3>EduAirControl</h3>
+          <span>Última actualización hace 3 s</span>
       </div>
+
+      <div className="status">
+          <span className="status-dot"></span>
+          Online
+      </div>
+
+    </div>
 
       <div className="dashboard-metrics">
 

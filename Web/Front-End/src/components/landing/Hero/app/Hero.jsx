@@ -1,4 +1,4 @@
-import "./Hero.css";
+import "../style/Hero.css";
 
 import HeroContent from "./HeroContent";
 import HeroCards from "./HeroCards";

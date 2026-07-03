@@ -1,4 +1,4 @@
-import "./HeroContent.css";
+import "../style/HeroContent.css";
 
 function HeroContent() {
   return (
@@ -6,7 +6,7 @@ function HeroContent() {
     <div className="hero-content">
 
       <span className="hero-badge">
-        🌿 Plataforma líder en monitoreo ambiental educativo
+         Plataforma líder en monitoreo ambiental educativo
       </span>
 
       <h1 className="hero-title">
@@ -26,11 +26,11 @@ function HeroContent() {
       <div className="hero-actions">
 
         <button className="primary-btn">
-          Solicitar Demo
+          Contactanos
         </button>
 
         <button className="secondary-btn">
-          Ver Plataforma
+          Explorar app
         </button>
 
       </div>

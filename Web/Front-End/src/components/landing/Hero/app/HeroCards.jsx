@@ -1,4 +1,4 @@
-import "./HeroCards.css";
+import "../style/HeroCards.css";
 
 import {
     FaLeaf,
@@ -20,7 +20,9 @@ function HeroCards() {
 
             <div className="hero-card">
                 <FaChartLine />
-                <span>Tiempo Real</span>
+                <span>Tiempo
+                    <br />
+                     Real</span>
             </div>
 
             <div className="hero-card">

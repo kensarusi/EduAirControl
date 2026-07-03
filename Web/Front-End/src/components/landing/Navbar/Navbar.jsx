@@ -1,11 +1,67 @@
-import './Navbar.css'
+import "./Navbar.css";
+import {FaCalendarAlt} from "react-icons/fa";
+import { FaLeaf } from "react-icons/fa";
+import logo from "../../../assets/EduAirControlLogo.png";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  return (
-    <section className="navbar-section">
-      <h2>Navbar</h2>
-    </section>
-  )
+const [scrolled, setScrolled] = useState(false);
+const navigate = useNavigate();
+
+useEffect(() => {
+
+    const handleScroll = () => {
+
+        setScrolled(window.scrollY > 40);
+
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+
+    }, []);
+
+    return (
+        <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+
+            <div className="logo">
+            <img src={logo} alt="EduAirControl" />
+            <span>EduAirControl</span>
+                </div>
+
+            <nav className="navbar-menu">
+
+                <a href="#">Inicio</a>
+                <a href="#">Soluciones</a>
+                <a href="#">Tecnología</a>
+                <a href="#">Recursos</a>
+                <a href="#">Contacto</a>
+
+            </nav>
+
+            <div className="navbar-actions">
+
+            <button
+            className="login-btn"
+            onClick={() => navigate("/login")}
+        >
+            Iniciar sesión
+        </button>
+
+        <button
+            className="register-btn"
+            onClick={() => navigate("/register")}
+        >
+            <FaCalendarAlt />
+            Registrarse
+        </button>
+
+        </div>
+
+        </header>
+    );
 }
 
-export default Navbar
+export default Navbar;
