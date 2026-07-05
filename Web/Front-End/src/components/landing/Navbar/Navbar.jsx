@@ -34,7 +34,7 @@ useEffect(() => {
             <nav className="navbar-menu">
 
                 <a href="#">Inicio</a>
-                <a href="#">Soluciones</a>
+                <a href="#">Por qué elegirnos?</a>
                 <a href="#">Tecnología</a>
                 <a href="#">Recursos</a>
                 <a href="#">Contacto</a>
@@ -48,14 +48,6 @@ useEffect(() => {
             onClick={() => navigate("/login")}
         >
             Iniciar sesión
-        </button>
-
-        <button
-            className="register-btn"
-            onClick={() => navigate("/register")}
-        >
-            <FaCalendarAlt />
-            Registrarse
         </button>
 
         </div>

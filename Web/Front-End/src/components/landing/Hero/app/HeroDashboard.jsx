@@ -52,8 +52,16 @@ export default function HeroDashboard() {
           </div>
           
           <p>612</p>
-          <small>ppm</small>
+
+          <div className="metric-footer">
+            <small>ppm</small>
+
+           <span className="metric-trend positive">
+                ↑ 12%
+            </span>
         </div>
+        </div>
+    
 
         <div className="metric-card">
           <div className="metric-header">

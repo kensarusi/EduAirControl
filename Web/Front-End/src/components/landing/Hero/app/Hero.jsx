@@ -19,11 +19,15 @@ function Hero() {
           <HeroCards />
         </div>
 
+          <div className="dashboard-glow"></div>
+
         <div className="hero-right">
           <HeroDashboard />
         </div>
 
       </div>
+
+        <div className="hero-transition"></div>
 
     </section>
   );

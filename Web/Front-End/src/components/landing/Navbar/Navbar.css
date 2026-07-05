@@ -140,36 +140,6 @@
     box-shadow:0 12px 28px rgba(34,245,211,.28);
 }
 
-.register-btn{
-
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:14px 28px;
-    border-radius:14px;
-    border:1px solid rgba(44,246,208,.35);
-    background:rgba(44,246,208,.06);
-    color:white;
-    font-weight:600;
-    cursor:pointer;
-    transition: .35s ease;
-
-}
-
-.register-btn:hover{
-
-    background: #22f5d3;
-    color: #06131f;;
-    transform:translateY(-3px);
-    box-shadow:0 12px 28px rgba(34,245,211,.28);
-
-}
-
-.register-btn:active{
-
-    transform:scale(.96);
-}
-
 .navbar-links a{
     position: relative;
     color:#d7dde8;

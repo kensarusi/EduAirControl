@@ -36,7 +36,7 @@ function HeroContent() {
         </Link>
 
         <Link to="/login" className="secondary-btn">
-          Explorar app
+          Ver demostraciones
         </Link>
 
       </div>
