@@ -1,23 +1,23 @@
 import { Routes, Route } from 'react-router-dom'
-import LoginScreen from './screens/auth/LoginScreen'
-import SignUpScreen from './screens/auth/SignUpScreen'
-import ForgotPasswordScreen from './screens/auth/ForgotPasswordScreen'
-import VerifyCodeScreen from './screens/auth/VerifyCodeScreen'
-import ChangePasswordScreen from './screens/auth/ChangePasswordScreen'
-import TermsScreen from './screens/auth/TermsScreen'
-import GoogleSignUpScreen from './screens/auth/GoogleSignUpScreen'
-import FacebookSignUpScreen from './screens/auth/FacebookSignUpScreen'
-import OAuth2SuccessScreen from './screens/auth/OAuth2SuccessScreen'
-import DashboardScreen from './screens/app/DashboardScreen'
-import AllEnvironmentsScreen from './screens/app/AllEnvironmentsScreen'
-import ProfileScreen from './screens/app/ProfileScreen'
-import SettingsScreen from './screens/app/SettingsScreen'
-import FavoritesScreen from './screens/app/FavoritesScreen'
-import EnvironmentManagement from "./screens/app/EnvironmentManagement";
-import EnvironmentDetailScreen from './screens/app/EnvironmentDetailScreen'
-import Landing from './screens/Landing/Landing'
-import Login from "./screens/auth/LoginScreen"
-import Register from "./screens/auth/SignUpScreen"
+import LoginScreen from '../modules/auth/LoginScreen'
+import SignUpScreen from '../modules/auth/SignUpScreen'
+import ForgotPasswordScreen from '../modules/auth/ForgotPasswordScreen'
+import VerifyCodeScreen from '../modules/auth/VerifyCodeScreen'
+import ChangePasswordScreen from '../modules/auth/ChangePasswordScreen'
+import TermsScreen from '../modules/auth/TermsScreen'
+import GoogleSignUpScreen from '../modules/auth/GoogleSignUpScreen'
+import FacebookSignUpScreen from '../modules/auth/FacebookSignUpScreen'
+import OAuth2SuccessScreen from '../modules/auth/OAuth2SuccessScreen'
+import DashboardScreen from '../screens/app/DashboardScreen'
+import AllEnvironmentsScreen from '../screens/app/AllEnvironmentsScreen'
+import ProfileScreen from '../screens/app/ProfileScreen'
+import SettingsScreen from '../screens/app/SettingsScreen'
+import FavoritesScreen from '../screens/app/FavoritesScreen'
+import EnvironmentManagement from "../screens/app/EnvironmentManagement";
+import EnvironmentDetailScreen from '../screens/app/EnvironmentDetailScreen'
+import Landing from '../shared/Landing/Landing'
+import Login from "../modules/auth/LoginScreen"
+import Register from "../modules/auth/SignUpScreen"
 
 function App() {
   return (
