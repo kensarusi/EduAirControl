@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useEnvironments } from "../context/EnvironmentsContext";
+import { useEnvironments } from "../../environment/context/EnvironmentsContext";
 
 export const useNotifications = () => {
   const { environments } = useEnvironments();

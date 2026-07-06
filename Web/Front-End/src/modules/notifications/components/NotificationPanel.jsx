@@ -2,6 +2,7 @@ import { formatDate, getDateFormat } from "../../../shared/hooks/useDateFormat";
 import './NotificationPanel.css'
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef } from "react";
+import { useNotifications} from "../hooks/useNotifications"
 
 function NotificationPanel({ isOpen, onClose, notifications }) {
   const { notifications: defaultNotifications } = useNotifications();
