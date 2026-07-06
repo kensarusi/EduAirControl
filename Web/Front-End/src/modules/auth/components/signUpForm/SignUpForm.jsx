@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Input } from '../ui'
-import '../../styles/auth/SignUp.css'
+import "../../pages/signUp/SignUp.css";
 
 function SignUpForm() {
   const [name, setName] = useState('')

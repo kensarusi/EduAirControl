@@ -6,10 +6,9 @@ import { MdOutlineMeetingRoom } from 'react-icons/md'
 import { FaUser, FaHeart, FaChevronDown, FaBell } from 'react-icons/fa'
 import { IoStatsChart, IoSettings, IoLogOut } from 'react-icons/io5'
 
-import NavbarInfo from './NavbarInfo'
-import NotificationPanel from '../ui/NotificationPanel'
-
-import '../../styles/layout/Navbar.css'
+import NavbarInfo from "../NavbarInfo/NavbarInfo";
+import NotificationPanel from "../../../notifications/components/NotificationPanel";
+import "./Navbar.css";
 
 function Navbar() {
   const navigate  = useNavigate()

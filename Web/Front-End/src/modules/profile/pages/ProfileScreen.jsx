@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { FaUser, FaEnvelope, FaBriefcase, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
 import { IoLogOut } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
-import Navbar from '../../components/layout/Navbar'
-import '../../styles/app/Profile.css'
+import Navbar from "../../dashboard/components/Navbar/Navbar";
+import "./Profile.css";
 
 const DEFAULT_PROFILE = {
   fullName: 'Keneth Santiago Rubiano Silva',

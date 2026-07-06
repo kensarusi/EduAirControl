@@ -1,4 +1,3 @@
-import '../../styles/app/AllEnvironments.css'
 import { useTranslation } from 'react-i18next'
 
 function EnvironmentSummaryCard({

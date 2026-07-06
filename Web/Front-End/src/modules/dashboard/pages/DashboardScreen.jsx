@@ -5,9 +5,9 @@ import { IoCheckmarkCircle, IoWarning, IoAlertCircle, IoTrendingUp, IoTrendingDo
 import { WiThermometer, WiHumidity } from 'react-icons/wi'
 import { MdCo2 } from 'react-icons/md'
 import { HiSpeakerWave } from 'react-icons/hi2'
-import Navbar from '../../components/layout/Navbar'
-import { useDashboardVM } from '../../viewmodels/useDashboardVM'
-import '../../styles/app/Leaderboard.css'
+import Navbar from "../components/Navbar/Navbar";
+import { useDashboardVM } from "../hooks/useDashboardVM";
+import "./Dashboard.css";
 
 
 // ── Status icon ────────────────────────────────────────────────

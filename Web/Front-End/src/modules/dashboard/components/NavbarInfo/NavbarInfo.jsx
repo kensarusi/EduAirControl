@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { formatDate, getDateFormat } from "../../hooks/useDateFormat"
+import {
+  formatDate,
+  getDateFormat,
+} from "../../../../shared/hooks/useDateFormat";
 
 function getActiveTimezone() {
   const auto = JSON.parse(localStorage.getItem('autoTimezone')) ?? true

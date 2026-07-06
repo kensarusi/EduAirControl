@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import './AddEnvironmentModal.css'
+
 
 const LOCATION_OPTIONS = [
   { value: 'Área Administrativa', label: 'Área Administrativa' },

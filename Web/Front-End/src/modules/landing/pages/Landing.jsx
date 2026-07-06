@@ -1,11 +1,11 @@
-import Navbar from "../../components/landing/Navbar/Navbar";
-import Hero from "../../components/landing/Hero/app/Hero";
-import WhyChoose from "../../components/landing/WhyChoose/WhyChoose";
-import Features from "../../components/landing/Features/Features";
-import Modules from "../../components/landing/Modules/Modules";
-import TechStack from "../../components/landing/TechStack/TechStack";
-import CTA from "../../components/landing/CTA/CTA";
-import Footer from "../../components/landing/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
+import Hero from "../components/Hero/Hero/Hero";
+import WhyChoose from "../components/WhyChoose/WhyChoose";
+import Features from "../components/Features/Features";
+import Modules from "../components/Modules/Modules";
+import TechStack from "../components/TechStack/TechStack";
+import CTA from "../components/CTA/CTA";
+import Footer from "../components/Footer/Footer";
 
 import "./Landing.css";
 

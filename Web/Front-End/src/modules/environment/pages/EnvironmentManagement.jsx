@@ -2,13 +2,13 @@ import { IoSearchOutline, IoAddOutline, IoSwapVerticalOutline } from 'react-icon
 import { MdOutlineGridView } from 'react-icons/md'
 import { TbBuildingCommunity } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
-import DashboardLayout from '../../components/layout/DashboardLayout'
-import ManagementCard from '../../components/environment/ManagementCard'
-import AddEnvironmentModal from '../../components/environment/AddEnvironmentModal'
-import EditEnvironmentModal from '../../components/environment/EditEnvironmentModal'
-import DeleteEnvironmentModal from '../../components/environment/DeleteEnvironmentModal'
-import { useManagementVM } from '../../viewmodels/useManagementVM'
-import '../../styles/app/EnvironmentManagement.css'
+import DashboardLayout from "../../dashboard/components/DashboardLayout/DashboardLayout";
+import ManagementCard from "../components/ManagementCard/ManagementCard";
+import AddEnvironmentModal from "../components/AddEnvironmentModal/AddEnvironmentModal";
+import EditEnvironmentModal from "../components/EditEnvironmentModal/EditEnvironmentModal";
+import DeleteEnvironmentModal from "../components/DeleteEnvironmentModal/DeleteEnvironmentModal";
+import { useManagementVM } from "../hooks/useManagementVM";
+import "./EnvironmentManagement.css";
 
 function EnvironmentManagement() {
   const { t } = useTranslation()

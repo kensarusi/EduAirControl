@@ -3,11 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { FaGlobe, FaCalendar, FaClock, FaMoon, FaPalette, FaMapMarkerAlt, FaBell, FaShieldAlt, FaQuestionCircle, FaChevronRight, FaLock, FaTrash, FaEye, FaEyeSlash, FaInfoCircle } from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
-import Navbar from '../../components/layout/Navbar'
-import { EditModal } from '../../components/ui'
-import { useDarkMode } from '../../hooks/useDarkMode'
-import { saveDateFormat } from '../../hooks/useDateFormat'
-import '../../styles/app/Settings.css'
+import Navbar from "../../dashboard/components/Navbar/Navbar";
+
+// Shared
+import { EditModal } from "../../../shared/components";
+import { useDarkMode } from "../../../shared/hooks/useDarkMode";
+import { saveDateFormat } from "../../../shared/hooks/useDateFormat";
+
+// CSS
+import "./Settings.css";
 
 const TIMEZONES = [
   { value: 'America/Bogota',      label: 'Bogotá (UTC-5)' },

@@ -1,4 +1,4 @@
-import '../../styles/auth/AuthLayout.css'
+import "./AuthLayout.css";
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaChevronDown } from 'react-icons/fa'

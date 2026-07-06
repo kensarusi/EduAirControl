@@ -3,7 +3,7 @@ import { IoTrendingUp, IoTrendingDown } from 'react-icons/io5'
 import { TiWarning } from 'react-icons/ti'
 import { MdShowChart } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
-import '../../styles/components/FilterBar.css'
+import './FilterBar.css'
 
 function FilterBar({ activeFilter, setActiveFilter, counts }) {
   const navigate = useNavigate()

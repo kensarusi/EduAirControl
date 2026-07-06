@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Input, Button } from '../ui'
+import { Input, Button } from '../../../../shared/components'
 
 function ChangePasswordForm() {
   const [newPassword, setNewPassword] = useState('')

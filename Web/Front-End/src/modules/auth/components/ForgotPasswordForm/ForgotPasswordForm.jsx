@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Input } from '../ui'
+import { Input } from '../../../../shared/components'
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('')

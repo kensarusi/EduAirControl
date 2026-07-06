@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import AuthLayout from '../../components/layout/AuthLayout'
-import VerifyCodeForm from '../../components/forms/VerifyCodeForm'
-import { BackButton } from '../../components/ui'
-import '../../styles/auth/VerifyCode.css'
+import AuthLayout from "../../components/AuthLayout/AuthLayout";
+import VerifyCodeForm from '../../components/VerifyCodeForm/VerifyCodeForm'
+import { BackButton } from "../../../../shared/components";
+import "./VerifyCode.css";
 
 function VerifyCodeScreen() {
   const navigate = useNavigate()

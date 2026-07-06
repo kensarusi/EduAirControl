@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import AuthLayout from '../../components/layout/AuthLayout'
-import ChangePasswordForm from '../../components/forms/ChangePasswordForm'
-import { BackButton } from '../../components/ui'
-import '../../styles/auth/ChangePassword.css'
+import AuthLayout from "../../components/AuthLayout/AuthLayout";
+import ChangePasswordForm from '../../components/ChangePasswordForm/ChangePasswordForm'
+import { BackButton } from "../../../../shared/components";
+import "./ChangePassword.css";
+
 
 function ChangePasswordScreen() {
   const navigate = useNavigate()

@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaUser, FaEnvelope, FaLock, FaBuilding, FaArrowLeft } from 'react-icons/fa'
-import AuthLayout from '../../components/layout/AuthLayout'
-import SocialLogin from '../../components/forms/SocialLogin'
-import { Divider } from '../../components/ui'
-import '../../styles/auth/SignUp.css'
+import AuthLayout from "../../components/AuthLayout/AuthLayout";
+import SocialLogin from '../../components/SocialLogin/SocialLogin'
+import { Divider } from "../../../../shared/components";
+import "./SignUp.css";
 
 function SignUpScreen() {
   const navigate = useNavigate()

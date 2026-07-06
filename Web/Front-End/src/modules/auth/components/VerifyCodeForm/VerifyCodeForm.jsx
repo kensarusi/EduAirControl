@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../ui'
+import { Button } from '../../../../shared/components'
 
 function VerifyCodeForm() {
   const [code, setCode] = useState(['', '', '', '', ''])

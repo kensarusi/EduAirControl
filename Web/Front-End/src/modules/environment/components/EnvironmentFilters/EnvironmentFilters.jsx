@@ -1,4 +1,4 @@
-﻿import '../../styles/components/EnvironmentFilters.css'
+﻿import "./EnvironmentFilters.css";
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next' 
 

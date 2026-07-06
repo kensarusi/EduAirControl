@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaUser } from 'react-icons/fa'
-import AuthLayout from '../../components/layout/AuthLayout'
-import { BackButton } from '../../components/ui'
-import '../../styles/auth/GoogleSignUp.css'
+import AuthLayout from "../../components/AuthLayout/AuthLayout";
+import { BackButton } from "../../../../shared/components";
+import "./GoogleSignUp.css";
 
 const MOCK_ACCOUNTS = [
   { name: 'Account 1', email: 'account1@gmail.com' },

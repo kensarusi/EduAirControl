@@ -6,7 +6,7 @@ import { WiThermometer, WiHumidity } from 'react-icons/wi'
 import { MdCo2 } from 'react-icons/md'
 import { HiSpeakerWave } from 'react-icons/hi2'
 import { STATUS_COLORS, IDEAL_RANGES } from '../../constants/environments'
-import '../../styles/components/EnvironmentCard.css'
+import './EnvironmentCard.css'
 
 function EnvironmentCard({ environment, onToggleFavorite }) {
   const [isFavorite, setIsFavorite] = useState(environment.isFavorite || false)

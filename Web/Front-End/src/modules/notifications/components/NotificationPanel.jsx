@@ -1,5 +1,5 @@
-import { useNotifications } from "../../hooks/useNotifications";
-import "../../styles/components/NotificationPanel.css";
+import { formatDate, getDateFormat } from "../../../shared/hooks/useDateFormat";
+import './NotificationPanel.css'
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef } from "react";
 

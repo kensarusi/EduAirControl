@@ -1,4 +1,4 @@
-import "../style/HeroDashboard.css";
+import "./HeroDashboard.css";
 import {
   Activity,
   Thermometer,

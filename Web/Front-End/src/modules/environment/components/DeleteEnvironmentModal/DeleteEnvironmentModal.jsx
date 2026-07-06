@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next'
 import { IoTrashOutline, IoWarningOutline } from 'react-icons/io5'
-import './AddEnvironmentModal.css'
 
 function DeleteEnvironmentModal({ environment, onClose, onConfirm }) {
   const { t } = useTranslation()

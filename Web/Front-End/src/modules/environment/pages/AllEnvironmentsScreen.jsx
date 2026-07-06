@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { IoTrendingUp, IoTrendingDown, IoOptionsOutline } from 'react-icons/io5'
 import { TiWarning } from 'react-icons/ti'
 import { HiOutlineViewGrid } from 'react-icons/hi'
-import Navbar from '../../components/layout/Navbar'
-import EnvironmentSummaryCard from '../../components/environment/EnvironmentSummaryCard'
-import EnvironmentFilters from '../../components/environment/EnvironmentFilters'
-import { useAllEnvironmentsVM } from '../../viewmodels/useAllEnvironmentsVM'
-import '../../styles/app/AllEnvironments.css'
+import Navbar from "../../dashboard/components/Navbar/Navbar";
+import EnvironmentSummaryCard from "../components/EnvironmentSummaryCard/EnvironmentSummaryCard";
+import EnvironmentFilters from "../components/EnvironmentFilters/EnvironmentFilters";
+import { useAllEnvironmentsVM } from "../../../viewmodels/useAllEnvironmentsVM";
+import "./AllEnvironments.css";
 
 const STATUS_NORMAL  = 'dashboard.statusNormal'
 const STATUS_WARNING = 'dashboard.statusWarning'

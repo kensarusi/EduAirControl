@@ -1,7 +1,6 @@
 import "./Navbar.css";
-import {FaCalendarAlt} from "react-icons/fa";
 import { FaLeaf } from "react-icons/fa";
-import logo from "../../../assets/EduAirControlLogo.png";
+import logo from "../../../../shared/assets/EduAirControlLogo.png";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

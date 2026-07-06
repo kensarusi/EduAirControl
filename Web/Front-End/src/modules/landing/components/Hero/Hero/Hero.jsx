@@ -1,8 +1,8 @@
-import "../style/Hero.css";
+import "./Hero.css";
 
-import HeroContent from "./HeroContent";
-import HeroCards from "./HeroCards";
-import HeroDashboard from "./HeroDashboard";
+import HeroContent from "../HeroContent/HeroContent";
+import HeroCards from "../HeroCards/HeroCards";
+import HeroDashboard from "../HeroDashboard/HeroDashboard";
 
 function Hero() {
   return (

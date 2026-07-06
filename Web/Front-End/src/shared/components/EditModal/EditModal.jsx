@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoClose } from 'react-icons/io5'
-import '../../styles/components/EditModal.css'
+import './EditModal.css'
 
 const DATE_FORMATS = [
   { label: 'DD/MM/YYYY', example: (d) => `${d.dd}/${d.mm}/${d.yyyy}` },

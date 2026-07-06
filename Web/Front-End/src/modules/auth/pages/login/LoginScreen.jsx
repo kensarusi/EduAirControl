@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import LoginForm from '../../components/forms/LoginForm'
-import SocialLogin from '../../components/forms/SocialLogin'
-import AuthLayout from '../../components/layout/AuthLayout'
-import { Divider } from '../../components/ui'
-import '../../styles/auth/Login.css'
+import LoginForm from '../../components/loginForm/LoginForm'
+import SocialLogin from '../../components/SocialLogin/SocialLogin'
+import AuthLayout from "../../components/AuthLayout/AuthLayout";
+import { Divider } from "../../../../shared/components";
+import "./Login.css";
 
 function LoginScreen() {
   const navigate = useNavigate()

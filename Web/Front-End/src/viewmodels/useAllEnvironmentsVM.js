@@ -5,7 +5,7 @@
 
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useEnvironments } from '../context/EnvironmentsContext'
+import { useEnvironments } from '../modules/environment/context/EnvironmentsContext'
 
 export function useAllEnvironmentsVM() {
   const { t } = useTranslation()

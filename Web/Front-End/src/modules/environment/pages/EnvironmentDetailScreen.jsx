@@ -6,11 +6,15 @@ import { MdCo2 } from 'react-icons/md'
 import { HiSpeakerWave } from 'react-icons/hi2'
 import { FaHeart, FaRegHeart, FaUser, FaMapMarkerAlt } from 'react-icons/fa'
 import { IoCheckmarkCircle, IoWarning, IoAlertCircle } from 'react-icons/io5'
-import Navbar from '../../components/layout/Navbar'
-import { BackButton } from '../../components/ui'
-import { useEnvironments } from '../../context/EnvironmentsContext'
-import { STATUS_COLORS, QUALITY_COLORS, IDEAL_RANGES } from '../../constants/environments'
-import '../../styles/app/EnvironmentDetail.css'
+import Navbar from "../../dashboard/components/Navbar/Navbar";
+import { BackButton } from "../../../shared/components";
+import { useEnvironments } from "../context/EnvironmentsContext";
+import {
+  STATUS_COLORS,
+  QUALITY_COLORS,
+  IDEAL_RANGES
+} from "../constants/environments";
+import "./EnvironmentDetail.css";
 
 function MetricBar({ value, min, max }) {
   const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))

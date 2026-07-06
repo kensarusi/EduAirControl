@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema } from '../../schemas/loginSchema'
+import { loginSchema } from '../../../../schemas/loginSchema'
 import { FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa'
-import '../../styles/auth/Login.css'
+import "../../pages/login/Login.css";
 
 function LoginForm() {
   const navigate = useNavigate()

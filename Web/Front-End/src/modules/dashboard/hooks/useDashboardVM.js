@@ -4,8 +4,8 @@
  */
 
 import { useState, useMemo } from 'react'
-import { useEnvironments } from '../context/EnvironmentsContext'
-import { calcScore } from './environmentHelpers'
+import { useEnvironments } from '../../environment/context/EnvironmentsContext'
+import { calcScore } from '../../environment/hooks/environmentHelpers'
 
 const STATUS_KEY_MAP = {
   normal:  'dashboard.statusNormal',

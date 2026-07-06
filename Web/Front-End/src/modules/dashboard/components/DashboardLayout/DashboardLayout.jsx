@@ -1,5 +1,5 @@
-import Navbar from './Navbar'
-import '../../styles/layout/DashboardLayout.css'
+import Navbar from '../Navbar/Navbar'
+import './DashboardLayout.css'
 
 function DashboardLayout({ children }) {
   return (

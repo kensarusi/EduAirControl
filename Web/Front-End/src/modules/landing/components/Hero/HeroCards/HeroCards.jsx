@@ -1,4 +1,4 @@
-import "../style/HeroCards.css";
+import "./HeroCards.css";
 
 import {
     FaLeaf,

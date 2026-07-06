@@ -4,7 +4,12 @@ import { IoCreateOutline, IoTrashOutline, IoPeopleOutline, IoLocationOutline } f
 import { WiThermometer, WiHumidity } from 'react-icons/wi'
 import { MdCo2 } from 'react-icons/md'
 import { HiSpeakerWave } from 'react-icons/hi2'
-import { getBadgeClass, getMetricColor, getDisplayName, getDisplayLocation } from '../../viewmodels/environmentHelpers'
+import {
+  getBadgeClass,
+  getMetricColor,
+  getDisplayName,
+  getDisplayLocation
+} from '../../hooks/environmentHelpers'
 import './ManagementCard.css'
 
 const STATUS_DATA_ATTR = {

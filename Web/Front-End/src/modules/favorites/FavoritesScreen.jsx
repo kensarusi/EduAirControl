@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaHeart } from 'react-icons/fa'
-import Navbar from '../../components/layout/Navbar'
-import { useEnvironments } from '../../context/EnvironmentsContext'
-import '../../styles/app/Favorites.css'
+import Navbar from "../dashboard/components/Navbar/Navbar";
+import { useEnvironments } from "../environment/context/EnvironmentsContext";
+import "./Favorites.css";
 
 function FavoritesScreen() {
   const { t } = useTranslation()
