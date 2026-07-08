@@ -1,9 +1,10 @@
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero/Hero";
 import WhyChoose from "../components/WhyChoose/WhyChoose";
-import Features from "../components/Features/Features";
-import Modules from "../components/Modules/Modules";
-import TechStack from "../components/TechStack/TechStack";
+import SystemModules from "../components/SystemModules/SystemModules";
+import HowItWorks from "../components/HowItWorks/HowItWorks";
+import Technologies from "../components/Technologies/Technologies";
+import DesignedFor from "../components/DesignedFor/DesignedFor"
 import CTA from "../components/CTA/CTA";
 import Footer from "../components/Footer/Footer";
 
@@ -15,9 +16,10 @@ function Landing() {
       <Navbar />
       <Hero />
       <WhyChoose />
-      <Features />
-      <Modules />
-      <TechStack />
+      <SystemModules />
+      <HowItWorks />
+      <Technologies />
+      <DesignedFor />
       <CTA />
       <Footer />
     </div>

@@ -37,12 +37,6 @@ body:not(.dark-mode) .navbar {
   white-space: nowrap;
 }
 
-/* ── Menu ── */
-.navbar-menu {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
 
 /* ── Item base (Barra Principal) ── */
 .navbar-item {
@@ -186,6 +180,9 @@ body:not(.dark-mode) .profile-dropdown-divider {
     border-top: 1px solid rgba(0, 184, 148, 0.1);
     padding: 8px 0 10px;
     gap: 0;
+    display: flex;
+    gap: 5px;
+    align-items: center;
   }
 
   .navbar-item {

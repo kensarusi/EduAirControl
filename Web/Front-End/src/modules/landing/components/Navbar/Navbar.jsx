@@ -34,9 +34,11 @@ useEffect(() => {
 
                 <a href="#">Inicio</a>
                 <a href="#">Por qué elegirnos?</a>
-                <a href="#">Tecnología</a>
-                <a href="#">Recursos</a>
-                <a href="#">Contacto</a>
+                <a href="#">Modulos</a>
+                <a href="#">Como funciona</a>
+                <a href="#">Tecnologias</a>
+                <a href="#">Diseñado para</a>
+                <a href="#">CTA</a>
 
             </nav>
 
