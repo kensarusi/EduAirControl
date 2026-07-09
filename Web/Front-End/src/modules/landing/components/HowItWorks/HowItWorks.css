@@ -1,5 +1,5 @@
 .how-it-works{
-    padding:100px 8%;
+    padding:60px 8%;
 }
 
 .how-header{
@@ -344,34 +344,20 @@
     font-size:.9rem;
 }
 
-.fake-chart{
-    height:170px;
-    border-radius:18px;
-    background:#182231;
-    margin-bottom:28px;
-    position:relative;
-    overflow:hidden;
+.chart{
+
+    height:210px;
+
+    display:flex;
+    align-items:center;
+
 }
 
-.chart-line{
-    position:absolute;
-    left:0;
-    bottom:45px;
+.chart svg{
+
     width:100%;
-    height:3px;
-    background:#27F5D2;
-    clip-path:polygon(
-    0% 80%,
-    10% 65%,
-    20% 75%,
-    30% 35%,
-    40% 50%,
-    50% 20%,
-    60% 45%,
-    70% 15%,
-    80% 35%,
-    90% 10%,
-    100% 30%);
+    height:100%;
+
 }
 
 .system-flow{
@@ -402,9 +388,18 @@
     font-size:.9rem;
 }
 
-.metric-card h2{
-    margin:12px 0 4px;
+.metric-card{
+
+    padding:18px;
+
+    min-height:150px;
+
+}
+
+.metric-card h3{
+
     font-size:2rem;
+
 }
 
 .metric-card small{
@@ -458,47 +453,86 @@
 .h7{height:75%;}
 .h8{height:100%;}
 
-.flow{
+
+.system-flow{
+
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
+    gap:14px;
+    margin-top:30px;
     flex-wrap:wrap;
-    gap:10px;
-    margin:30px 0;
+
 }
 
-.flow-item{
-    background:#1A2433;
-    padding:12px 16px;
+.flow-step{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 18px;
+
     border-radius:14px;
+    background:#1C2635;
+    border:1px solid rgba(255,255,255,.05);
+
     color:white;
-    font-size:.9rem;
+    font-weight:600;
+
+}
+
+.flow-step svg{
+
+    color:#36F4D8;
+
 }
 
 .flow-arrow{
-    color:#27F5D2;
+
+    color:#36F4D8;
     font-size:22px;
+    font-weight:bold;
+    opacity:.8;
+
 }
 
-.alert-banner{
+.flow-step.alert{
+
+    background:rgba(54,244,216,.08);
+    border:1px solid rgba(54,244,216,.35);
+
+}
+
+.status-card{
+
     display:flex;
-    align-items:center;
-    gap:15px;
-    padding:18px;
+    gap:18px;
+
+    padding:22px;
     border-radius:18px;
-    background:rgba(39,245,210,.08);
-    border:1px solid rgba(39,245,210,.15);
+
+    background:rgba(54,244,216,.08);
+    border:1px solid rgba(54,244,216,.25);
+
 }
 
-.alert-banner svg{
-    color:#27F5D2;
+.status-card svg{
+
+    color:#36F4D8;
+    flex-shrink:0;
+
 }
 
-.alert-banner strong{
+.status-card h4{
+
     color:white;
+    margin-bottom:6px;
+
 }
 
-.alert-banner p{
-    color:#94A3B8;
-    margin-top:4px;
+.status-card p{
+
+    color:#9BA8BC;
+
 }

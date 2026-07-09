@@ -1,10 +1,14 @@
 import "./HowItWorks.css";
 import {
+  Cpu,
+  Wifi,
+  Server,
+  Database,
+  LayoutDashboard,
+  BellRing,
   Thermometer,
   Droplets,
   Wind,
-  BellRing,
-  Activity,
 } from "lucide-react";
 
 function ArchitectureDiagram() {
@@ -52,64 +56,88 @@ function ArchitectureDiagram() {
 
   <div className="chart">
 
-    <div className="chart-title">
-      Calidad del aire (última hora)
-    </div>
+    <svg viewBox="0 0 600 180">
 
-    <div className="chart-area">
+        <polyline
+            fill="none"
+            stroke="#39F4D8"
+            strokeWidth="5"
+            points="
+            0,140
+            80,120
+            160,130
+            240,90
+            320,100
+            400,70
+            480,85
+            560,40
+            "
+        />
 
-      <div className="bar h1"></div>
-      <div className="bar h2"></div>
-      <div className="bar h3"></div>
-      <div className="bar h4"></div>
-      <div className="bar h5"></div>
-      <div className="bar h6"></div>
-      <div className="bar h7"></div>
-      <div className="bar h8"></div>
+    </svg>
 
-    </div>
+</div>
 
+<div className="system-flow">
+
+  <div className="flow-step">
+    <Cpu size={18}/>
+    <span>Sensores</span>
   </div>
 
-  <div className="flow">
+  <div className="flow-arrow">→</div>
 
-    <div className="flow-item">📡 Sensores</div>
-
-    <div className="flow-arrow">↓</div>
-
-    <div className="flow-item">🌐 API REST</div>
-
-    <div className="flow-arrow">↓</div>
-
-    <div className="flow-item">⚙ Backend</div>
-
-    <div className="flow-arrow">↓</div>
-
-    <div className="flow-item">🗄 PostgreSQL</div>
-
-    <div className="flow-arrow">↓</div>
-
-    <div className="flow-item">📊 Dashboard</div>
-
-    <div className="flow-arrow">↓</div>
-
-    <div className="flow-item">🔔 Alertas</div>
-
+  <div className="flow-step">
+    <Wifi size={18}/>
+    <span>API</span>
   </div>
 
-  <div className="alert-banner">
+  <div className="flow-arrow">→</div>
+
+  <div className="flow-step">
+    <Server size={18}/>
+    <span>Backend</span>
+  </div>
+
+  <div className="flow-arrow">→</div>
+
+  <div className="flow-step">
+    <Database size={18}/>
+    <span>PostgreSQL</span>
+  </div>
+
+  <div className="flow-arrow">→</div>
+
+  <div className="flow-step">
+    <LayoutDashboard size={18}/>
+    <span>Dashboard</span>
+  </div>
+
+  <div className="flow-arrow">→</div>
+
+  <div className="flow-step alert">
+    <BellRing size={18}/>
+    <span>Alertas</span>
+  </div>
+
+</div>
+
+  <div className="status-card">
 
     <BellRing size={20}/>
 
     <div>
 
-      <strong>Calidad del aire óptima</strong>
+        <h4>Sistema funcionando correctamente</h4>
 
-      <p>No se detectan riesgos ambientales.</p>
+        <p>
+            Todos los sensores están reportando datos.
+            No existen riesgos ambientales detectados.
+        </p>
 
     </div>
 
-  </div>
+</div>
 
 </div>
   );
