@@ -1,8 +1,206 @@
+.designed-for{
 
-.DesignedFor-section {
-    height: 90px;
-    border: 1px dashed #00E5B0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding:60px 8%;
+
+}
+
+.section-badge{
+
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(39,245,210,.08);
+    border:1px solid rgba(39,245,210,.15);
+    color:#27F5D2;
+    margin-bottom:24px;
+
+}
+
+.designed-for h2{
+
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:20px;
+
+}
+
+.designed-for h2 span{
+
+    color:#27F5D2;
+
+}
+
+.designed-for>p{
+
+    max-width:720px;
+    color:#94A3B8;
+    line-height:1.8;
+    font-size:1.05rem;
+    margin-bottom:45px;
+
+}
+
+
+
+.users-grid{
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+
+}
+
+/* Tarjeta superior*/
+
+.user-card:first-child{
+
+    grid-column:1 / span 2;
+
+}
+
+/* Tarjeta inferior */
+
+.user-card:last-child{
+
+    grid-column:1 / span 2;
+
+}
+
+
+
+.user-card{
+
+    position:relative;
+    overflow:hidden;
+    background:#111827;
+    border:1px solid rgba(255,255,255,.05);
+    border-radius:24px;
+    padding:35px;
+    transition:.35s;
+
+}
+
+.user-card::before{
+
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background:#27F5D2;
+
+}
+
+.user-card:hover{
+
+    transform:translateY(-8px);
+    border-color:#27F5D2;
+    box-shadow:0 20px 45px rgba(39,245,210,.12);
+
+}
+
+.user-icon{
+
+    width:68px;
+    height:68px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:18px;
+    background:rgba(39,245,210,.08);
+    color:#27F5D2;
+    margin-bottom:24px;
+    transition:.35s;
+
+}
+
+.user-card:hover .user-icon{
+
+    transform:scale(1.08) rotate(5deg);
+
+}
+
+.user-card h3{
+
+    font-size:1.6rem;
+    margin-bottom:14px;
+    color:white;
+
+}
+
+.user-card p{
+
+    color:#94A3B8;
+    line-height:1.8;
+    max-width:550px;
+
+}
+
+
+.user-card:first-child{
+
+    display:flex;
+    align-items:center;
+    gap:35px;
+
+}
+
+.user-card:first-child .user-icon{
+
+    margin-bottom:0;
+
+}
+
+.user-card:last-child{
+
+    display:flex;
+    align-items:center;
+    gap:35px;
+
+}
+
+.user-card:last-child .user-icon{
+
+    margin-bottom:0;
+
+}
+
+
+@media(max-width:1000px){
+
+    .users-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .user-card:first-child,
+
+    .user-card:last-child{
+
+        grid-column:auto;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .designed-for h2{
+
+        font-size:2.3rem;
+
+    }
+
+    .user-card{
+
+        padding:28px;
+
+    }
+
 }

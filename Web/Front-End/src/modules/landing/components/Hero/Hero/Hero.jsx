@@ -6,7 +6,7 @@ import HeroDashboard from "../HeroDashboard/HeroDashboard";
 
 function Hero() {
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
 
       {/* Luces del fondo */}
       <div className="hero-glow hero-glow-left"></div>

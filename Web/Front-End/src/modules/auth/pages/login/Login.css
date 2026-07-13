@@ -284,3 +284,37 @@ body:not(.dark-mode) .input-wrapper input::placeholder {
     font-size: 30px;
   }
 }
+
+.back-home-container{
+    width:100%;
+    display:flex;
+    justify-content:flex-start;
+    margin-bottom:25px;
+}
+
+.back-home{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    color:#BFC7D5;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.back-home:hover{
+    background:rgba(57,244,216,.08);
+    border-color:#39F4D8;
+    color:#39F4D8;
+}
+
+.back-home svg{
+    transition:.3s;
+}
+
+.back-home:hover svg{
+    transform:translateX(-4px);
+}

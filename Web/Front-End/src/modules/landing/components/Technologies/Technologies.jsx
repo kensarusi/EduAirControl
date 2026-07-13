@@ -6,7 +6,7 @@ function Technologies() {
 
   return (
 
-    <section className="technologies">
+    <section id="technologies" className="technologies">
 
       <span className="section-badge">
         Stack Tecnológico

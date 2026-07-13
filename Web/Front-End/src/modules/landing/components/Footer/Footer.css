@@ -1,9 +1,128 @@
-/*Footer*/
+.footer{
+    background:#111827;
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:60px;
+}
 
-.footer-section {
-    height: 90px;
-    border: 1px dashed #00E5B0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.footer-container{
+    width:min(1400px,90%);
+    margin:auto;
+    padding:80px 0 50px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.5fr;
+    gap:60px;
+}
+
+.footer-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#39F4D8;
+    font-size:1.8rem;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.footer-brand p{
+    color:#9CA3AF;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.footer-social{
+    display:flex;
+    gap:15px;
+}
+
+.footer-social a{
+    width:45px;
+    height:45px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:12px;
+    background:#1B2433;
+    color:#fff;
+    transition:.3s;
+}
+
+.footer-social a:hover{
+    background:#39F4D8;
+    color:#111827;
+    transform:translateY(-5px);
+}
+
+.footer-links,
+.footer-contact{
+    display:flex;
+    flex-direction:column;
+}
+
+.footer-links h3,
+.footer-contact h3{
+    color:#fff;
+    margin-bottom:20px;
+}
+
+.footer-links a{
+    color:#A7B0C0;
+    text-decoration:none;
+    margin-bottom:14px;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    color:#39F4D8;
+    padding-left:8px;
+}
+
+.footer-contact div{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#A7B0C0;
+    margin-bottom:18px;
+}
+
+.footer-contact svg{
+    color:#39F4D8;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:25px;
+    text-align:center;
+    color:#7F8A9D;
+}
+
+@media(max-width:1000px){
+
+.footer-container{
+    grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:700px){
+
+.footer-container{
+    grid-template-columns:1fr;
+    gap:40px;
+}
+
+.footer-logo{
+    justify-content:center;
+}
+
+.footer-brand,
+.footer-links,
+.footer-contact{
+    text-align:center;
+}
+
+.footer-contact div,
+.footer-social{
+    justify-content:center;
+}
+
 }

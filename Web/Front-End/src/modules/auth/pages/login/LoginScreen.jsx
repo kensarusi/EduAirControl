@@ -5,6 +5,8 @@ import SocialLogin from '../../components/SocialLogin/SocialLogin'
 import AuthLayout from "../../components/AuthLayout/AuthLayout";
 import { Divider } from "../../../../shared/components";
 import "./Login.css";
+import { Link } from "react-router-dom"
+import { ArrowLeft } from "lucide-react"
 
 function LoginScreen() {
   const navigate = useNavigate()
@@ -12,6 +14,14 @@ function LoginScreen() {
 
   return (
     <AuthLayout>
+
+    <div className="back-home-container">
+       <Link to="/landing" className="back-home">
+          <ArrowLeft size={18}/>
+          Volver al inicio
+        </Link>
+        </div>
+
       <div className="login-header-centered">
         <h1>{t('login.title')}</h1>
         <p className="login-subtitle">

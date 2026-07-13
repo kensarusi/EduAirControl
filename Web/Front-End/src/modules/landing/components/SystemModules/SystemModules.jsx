@@ -5,7 +5,7 @@ import dashboardPreview from "../../../../shared/assets/dashboard-preview.png";
 
 function SystemModules() {
   return (
-    <section className="modules">
+    <section id="modules" className="modules">
 
       <span className="modules-badge">
         Plataforma completa

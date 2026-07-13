@@ -8,7 +8,7 @@ import {
 
 function WhyChoose() {
   return (
-    <section className="why">
+    <section id="why" className="why">
         
       <span className="why-badge">
         ¿Por qué EduAirControl?

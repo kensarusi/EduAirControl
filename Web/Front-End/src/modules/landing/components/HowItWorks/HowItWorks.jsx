@@ -5,7 +5,7 @@ import { architectureData } from "./ArchitectureData";
 
 function HowItWorks() {
   return (
-    <section className="how-it-works">
+    <section id="how" className="how-it-works">
 
       <div className="how-header">
 

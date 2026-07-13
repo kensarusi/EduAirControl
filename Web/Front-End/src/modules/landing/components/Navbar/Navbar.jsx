@@ -3,6 +3,7 @@ import { FaLeaf } from "react-icons/fa";
 import logo from "../../../../shared/assets/EduAirControlLogo.png";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ScrollLink from "../../../../shared/components/ScrollLink/ScrollLink";
 
 function Navbar() {
 const [scrolled, setScrolled] = useState(false);
@@ -30,17 +31,37 @@ useEffect(() => {
             <span>EduAirControl</span>
                 </div>
 
-            <nav className="navbar-menu">
+          <nav className="navbar-menu">
 
-                <a href="#">Inicio</a>
-                <a href="#">Por qué elegirnos?</a>
-                <a href="#">Modulos</a>
-                <a href="#">Como funciona</a>
-                <a href="#">Tecnologias</a>
-                <a href="#">Diseñado para</a>
-                <a href="#">CTA</a>
+            <ScrollLink to="hero">
+                Inicio
+            </ScrollLink>
 
-            </nav>
+            <ScrollLink to="why">
+                ¿Por qué elegirnos?
+            </ScrollLink>
+
+            <ScrollLink to="modules">
+                Módulos
+            </ScrollLink>
+
+            <ScrollLink to="how">
+                Cómo funciona
+            </ScrollLink>
+
+            <ScrollLink to="technologies">
+                Tecnologías
+            </ScrollLink>
+
+            <ScrollLink to="designed">
+                Diseñado para
+            </ScrollLink>
+
+            <ScrollLink to="cta">
+                CTA
+            </ScrollLink>
+
+        </nav>
 
             <div className="navbar-actions">
 
