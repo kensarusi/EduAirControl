@@ -62,25 +62,47 @@
 
 .navbar-menu{
 
-    display:flex;
-    gap:45px;
+    position:fixed;
 
+    top:75px;
+    right:-100%;
+
+    width:320px;
+    height:calc(100vh - 75px);
+
+    display:flex;
+    flex-direction:column;
+
+    padding:30px 24px;
+
+    gap:8px;
+
+    background:#08111d;
+
+    border-left:1px solid rgba(44,246,208,.12);
+
+    transition:.35s;
+
+    overflow-y:auto;
 }
 
 .navbar-menu a{
 
-    color:#c8d2df;
+    width:100%;
+    padding:16px 18px;
+    border-radius:14px;
+    color:white;
     text-decoration:none;
-    font-weight:500;
+    font-size:1rem;
+    font-weight:600;
     transition:.3s;
-    position:relative;
-
 }
 
 .navbar-menu a:hover{
 
-    color:#2CF6D0;
-
+    background:rgba(40,244,214,.10);
+    color:#28F4D6;
+    transform:translateX(6px);
 }
 
 .navbar-menu a::after{
@@ -102,8 +124,9 @@
 
 }
 
-.navbar-menu .active{
+.navbar-menu.active{
     color:#2CF6D0;
+    right: 0;
 }
 
 .navbar-menu .active::after{
@@ -180,4 +203,251 @@
 
 .navbar-links .active::after{
     width:100%;
+}
+
+/* ========================= */
+/* BOTÓN HAMBURGUESA */
+/* ========================= */
+
+.menu-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    width:48px;
+    height:48px;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(44,246,208,.08);
+    border:1px solid rgba(44,246,208,.15);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.menu-toggle:hover{
+    background:#28F4D6;
+    color:#07111d;
+}
+
+.navbar-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+
+@media (max-width:1400px){
+
+    .navbar{
+
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+
+        padding:0 24px;
+        height:75px;
+    }
+
+    .logo{
+
+        display:flex;
+        align-items:center;
+        gap:12px;
+    }
+
+    .logo span{
+
+        font-size:1.55rem;
+    }
+
+    .navbar-actions{
+
+        display:none;
+    }
+
+    .menu-toggle{
+
+        display:flex;
+    }
+
+    .navbar-menu{
+
+        position:fixed;
+
+        top:75px;
+        right:-100%;
+
+        width:320px;
+        height:calc(100vh - 75px);
+
+        display:flex;
+        flex-direction:column;
+
+        gap:12px;
+
+        padding:30px 24px;
+
+        background:#08111d;
+
+        border-left:1px solid rgba(44,246,208,.12);
+
+        box-shadow:-15px 0 40px rgba(0,0,0,.35);
+
+        transition:right .35s ease;
+
+        overflow-y:auto;
+
+        z-index:999;
+    }
+
+    .navbar-menu.active{
+
+        right:0;
+    }
+
+    .navbar-menu a{
+
+        width:100%;
+
+        padding:15px 18px;
+
+        border-radius:14px;
+
+        color:white;
+
+        font-size:1rem;
+        font-weight:600;
+
+        text-decoration:none;
+
+        transition:.3s;
+    }
+
+    .navbar-menu a:hover{
+
+        background:rgba(44,246,208,.08);
+
+        color:#28F4D6;
+
+        transform:translateX(6px);
+    }
+
+    .mobile-login{
+
+        display:block;
+
+        width:100%;
+
+        margin-top:20px;
+
+        padding:15px;
+
+        border:none;
+        border-radius:14px;
+
+        background:#28F4D6;
+
+        color:#07111d;
+
+        font-weight:700;
+
+        cursor:pointer;
+    }
+
+}
+
+/* ========================= */
+/* 768px (Tablets y Móviles) */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        display: flex !important; /* Fuerza el comportamiento flex */
+        flex-direction: row !important; /* Obliga a que se pongan uno al lado del otro */
+        justify-content: space-between !important; /* Separa el logo a la izquierda y el menú a la derecha */
+        align-items: center !important; /* Los centra verticalmente */
+        flex-wrap: nowrap !important; /* Prohíbe terminantemente que salte abajo */
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 18px;
+    }
+
+    /* Asegura que el contenedor del logo no ocupe todo el ancho */
+    .logo {
+        display: flex;
+        align-items: center;
+        flex-shrink: 1; 
+    }
+
+    .logo img {
+        width: 44px;
+        height: auto;
+    }
+
+    .logo span {
+        font-size: 1.35rem;
+        white-space: nowrap; /* Evita que el texto del título se rompa en dos líneas */
+    }
+
+    .navbar-right {
+        display: flex !important;
+        align-items: center;
+        flex-shrink: 0; /* Evita que este contenedor se comprima */
+    }
+
+    /* Ocultamos el contenedor de iniciar sesión si lo vas a meter dentro del menú */
+    .navbar-actions {
+        display: none !important;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+    }
+
+}
+
+/* ========================= */
+/* 480px (Móviles Pequeños)  */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 0 14px;
+        height: 70px;
+    }
+
+    .logo img {
+        width: 38px;
+    }
+
+    .logo span {
+        font-size: 1.15rem;
+    }
+
+    .menu-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .navbar-menu {
+        width: 100%;
+        top: 70px;
+        height: calc(100vh - 70px);
+    }
+
 }

@@ -160,3 +160,224 @@
     font-size: .96rem;
 
 }
+
+/* ========================================= */
+/* 1400px */
+/* ========================================= */
+
+@media (max-width:1400px){
+
+    .modules{
+
+        padding:60px 6%;
+
+    }
+
+    .modules-title{
+
+        font-size:3rem;
+
+    }
+
+    .modules-showcase{
+
+        gap:26px;
+
+    }
+
+    .dashboard-image{
+
+        height:460px;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 1100px */
+/* ========================================= */
+
+@media (max-width:1100px){
+
+    .modules{
+
+        text-align:center;
+
+    }
+
+    .modules-description{
+
+        margin:0 auto 50px;
+
+    }
+
+    .modules-showcase{
+
+        grid-template-columns:1fr;
+
+        gap:40px;
+
+    }
+
+    .dashboard-preview{
+
+        max-width:900px;
+
+        margin:0 auto;
+
+    }
+
+    .dashboard-image{
+
+        height:auto;
+
+    }
+
+    .modules-grid{
+
+        width:100%;
+
+        max-width:900px;
+
+        margin:auto;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 768px */
+/* ========================================= */
+
+@media (max-width:768px){
+
+    .modules{
+
+        padding:55px 20px;
+
+    }
+
+    .modules-title{
+
+        font-size:2.4rem;
+
+    }
+
+    .modules-description{
+
+        font-size:1rem;
+
+        line-height:1.7;
+
+    }
+
+    .modules-grid{
+
+        grid-template-columns:1fr;
+
+        gap:18px;
+
+    }
+
+    .dashboard-preview{
+
+        padding:14px;
+
+    }
+
+    .module-card{
+
+        min-height:auto;
+
+        padding:24px;
+
+        text-align:left;
+
+    }
+
+    .module-content h3{
+
+        font-size:1.2rem;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 480px */
+/* ========================================= */
+
+@media (max-width:480px){
+
+    .modules{
+
+        padding:45px 16px;
+
+    }
+
+    .modules-badge{
+
+        font-size:.8rem;
+
+        padding:8px 14px;
+
+    }
+
+    .modules-title{
+
+        font-size:2rem;
+
+    }
+
+    .modules-description{
+
+        font-size:.92rem;
+
+    }
+
+    .dashboard-preview{
+
+        padding:12px;
+
+        border-radius:20px;
+
+    }
+
+    .dashboard-image{
+
+        border-radius:12px;
+
+    }
+
+    .module-card{
+
+        padding:20px;
+
+        border-radius:18px;
+
+    }
+
+    .module-icon{
+
+        width:44px;
+
+        height:44px;
+
+    }
+
+    .module-content h3{
+
+        font-size:1.1rem;
+
+    }
+
+    .module-content p{
+
+        font-size:.9rem;
+
+    }
+
+}

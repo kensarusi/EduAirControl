@@ -239,47 +239,6 @@
 }
 
 
-@media(max-width:1150px){
-
-    .architecture-container{
-
-        grid-template-columns:1fr;
-
-    }
-
-}
-
-@media(max-width:850px){
-
-    .diagram-flow{
-
-        flex-wrap:wrap;
-
-        gap:20px;
-
-    }
-
-    .diagram-connector{
-
-        display:none;
-
-    }
-
-    .how-title{
-
-        font-size:2.5rem;
-
-    }
-
-    .architecture-diagram{
-
-        padding:35px;
-
-    }
-
-}
-
-
 .dashboard-demo{
     background:#111827;
     border-radius:26px;
@@ -534,5 +493,228 @@
 .status-card p{
 
     color:#9BA8BC;
+
+}
+
+/* ========================================= */
+/* 1400px */
+/* ========================================= */
+
+@media (max-width:1400px){
+
+    .how-it-works{
+        padding:60px 6%;
+    }
+
+    .how-title{
+        font-size:3rem;
+    }
+
+    .architecture-container{
+        gap:35px;
+    }
+
+    .architecture-diagram{
+        padding:45px;
+    }
+
+    .diagram-card{
+        width:130px;
+        height:105px;
+    }
+
+}
+
+/* ========================================= */
+/* 1100px */
+/* ========================================= */
+
+@media (max-width:1100px){
+
+    .how-header{
+        max-width:100%;
+        text-align:center;
+        margin:0 auto 50px;
+    }
+
+    .how-description{
+        max-width:720px;
+        margin:auto;
+    }
+
+    .architecture-container{
+
+        grid-template-columns:1fr;
+        gap:45px;
+
+    }
+
+    .architecture-info{
+
+        max-width:850px;
+        margin:auto;
+    }
+
+    .architecture-diagram{
+
+        padding:40px;
+
+    }
+
+    .diagram-flow{
+
+        justify-content:center;
+
+    }
+
+}
+
+/* ========================================= */
+/* 768px */
+/* ========================================= */
+
+@media (max-width:768px){
+
+    .how-it-works{
+
+        padding:55px 20px;
+
+    }
+
+    .how-title{
+
+        font-size:2.3rem;
+        line-height:1.2;
+
+    }
+
+    .how-description{
+
+        font-size:1rem;
+
+    }
+
+    .architecture-diagram{
+
+        padding:28px;
+
+    }
+
+    .diagram-flow{
+
+        flex-direction:column;
+        gap:18px;
+
+    }
+
+    .diagram-connector,
+    .diagram-vertical-line{
+
+        display:none;
+
+    }
+
+    .diagram-column{
+
+        margin-top:20px;
+
+    }
+
+    .diagram-card{
+
+        width:100%;
+        max-width:260px;
+        height:105px;
+
+    }
+
+    .info-card{
+
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+
+        padding:22px;
+
+    }
+
+    .info-number{
+
+        margin-bottom:8px;
+
+    }
+
+}
+
+/* ========================================= */
+/* 480px */
+/* ========================================= */
+
+@media (max-width:480px){
+
+    .how-it-works{
+
+        padding:45px 16px;
+
+    }
+
+    .how-badge{
+
+        font-size:.8rem;
+        padding:8px 14px;
+
+    }
+
+    .how-title{
+
+        font-size:1.9rem;
+
+    }
+
+    .how-description{
+
+        font-size:.92rem;
+        line-height:1.7;
+
+    }
+
+    .architecture-diagram{
+
+        padding:22px;
+
+        border-radius:22px;
+
+    }
+
+    .diagram-card{
+
+        max-width:220px;
+        height:95px;
+
+    }
+
+    .diagram-card span{
+
+        font-size:.88rem;
+
+    }
+
+    .info-card{
+
+        padding:18px;
+
+    }
+
+    .info-content h3{
+
+        font-size:1.1rem;
+
+    }
+
+    .info-content p{
+
+        font-size:.92rem;
+
+    }
 
 }

@@ -167,16 +167,80 @@
 }
 
 
-@media(max-width:1000px){
+/* ========================================= */
+/* 1400px */
+/* ========================================= */
+
+@media (max-width:1400px){
+
+    .designed-for{
+
+        padding:60px 6%;
+
+    }
+
+    .designed-for h2{
+
+        font-size:2.8rem;
+
+    }
+
+    .designed-for > p{
+
+        max-width:680px;
+
+    }
+
+    .users-grid{
+
+        gap:20px;
+
+    }
+
+    .user-card{
+
+        padding:30px;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 1100px */
+/* ========================================= */
+
+@media (max-width:1100px){
+
+    .designed-for{
+
+        padding:55px 5%;
+
+    }
+
+    .designed-for h2{
+
+        font-size:2.5rem;
+
+    }
+
+    .designed-for > p{
+
+        font-size:1rem;
+
+        margin-bottom:35px;
+
+    }
 
     .users-grid{
 
         grid-template-columns:1fr;
 
+        gap:20px;
+
     }
 
     .user-card:first-child,
-
     .user-card:last-child{
 
         grid-column:auto;
@@ -185,21 +249,162 @@
 
         align-items:flex-start;
 
+        gap:20px;
+
+    }
+
+    .user-card:first-child .user-icon,
+    .user-card:last-child .user-icon{
+
+        margin-bottom:0;
+
     }
 
 }
 
-@media(max-width:768px){
+
+/* ========================================= */
+/* 768px */
+/* ========================================= */
+
+@media (max-width:768px){
+
+    .designed-for{
+
+        padding:50px 20px;
+
+    }
+
+    .section-badge{
+
+        font-size:.85rem;
+
+        padding:9px 16px;
+
+    }
 
     .designed-for h2{
 
-        font-size:2.3rem;
+        font-size:2.2rem;
+
+        line-height:1.25;
+
+    }
+
+    .designed-for > p{
+
+        font-size:.95rem;
+
+        line-height:1.7;
+
+        margin-bottom:30px;
 
     }
 
     .user-card{
 
-        padding:28px;
+        padding:24px;
+
+    }
+
+    .user-icon{
+
+        width:60px;
+        height:60px;
+
+    }
+
+    .user-icon svg{
+
+        width:28px;
+        height:28px;
+
+    }
+
+    .user-card h3{
+
+        font-size:1.35rem;
+
+    }
+
+    .user-card p{
+
+        font-size:.95rem;
+
+        max-width:100%;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 480px */
+/* ========================================= */
+
+@media (max-width:480px){
+
+    .designed-for{
+
+        padding:45px 16px;
+
+    }
+
+    .section-badge{
+
+        font-size:.8rem;
+
+        padding:8px 14px;
+
+    }
+
+    .designed-for h2{
+
+        font-size:1.9rem;
+
+    }
+
+    .designed-for > p{
+
+        font-size:.9rem;
+
+    }
+
+    .user-card{
+
+        padding:20px;
+
+        border-radius:18px;
+
+    }
+
+    .user-icon{
+
+        width:54px;
+        height:54px;
+
+        border-radius:16px;
+
+    }
+
+    .user-icon svg{
+
+        width:24px;
+        height:24px;
+
+    }
+
+    .user-card h3{
+
+        font-size:1.2rem;
+
+    }
+
+    .user-card p{
+
+        font-size:.88rem;
+
+        line-height:1.6;
 
     }
 

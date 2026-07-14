@@ -166,3 +166,229 @@
     pointer-events:none;
 
 }
+
+/* ========================================= */
+/* 1400px */
+/* ========================================= */
+
+@media (max-width:1400px){
+
+    .why{
+
+        padding:65px 6% 70px;
+
+    }
+
+    .why h2{
+
+        font-size:3rem;
+
+    }
+
+    .why-description{
+
+        max-width:650px;
+
+    }
+
+    .why-grid{
+
+        gap:24px;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 1100px */
+/* ========================================= */
+
+@media (max-width:1100px){
+
+    .why{
+
+        padding:60px 5%;
+
+    }
+
+    .why h2{
+
+        font-size:2.7rem;
+
+    }
+
+    .why-description{
+
+        max-width:700px;
+        margin:0 auto 55px;
+
+        font-size:1rem;
+
+    }
+
+    .why-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:22px;
+
+    }
+
+    .section-divider{
+
+        margin:0 auto 55px;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 768px */
+/* ========================================= */
+
+@media (max-width:768px){
+
+    .why{
+
+        padding:55px 20px;
+
+    }
+
+    .why-badge{
+
+        font-size:.85rem;
+
+        padding:9px 16px;
+
+    }
+
+    .why h2{
+
+        font-size:2.3rem;
+
+        line-height:1.25;
+
+    }
+
+    .why-description{
+
+        font-size:.98rem;
+
+        line-height:1.7;
+
+        margin-bottom:45px;
+
+    }
+
+    .why-grid{
+
+        grid-template-columns:1fr;
+
+        gap:18px;
+
+    }
+
+    .why-card{
+
+        padding:26px;
+
+    }
+
+    .why-card svg{
+
+        width:32px;
+        height:32px;
+
+        margin-bottom:18px;
+
+    }
+
+    .why-card h3{
+
+        font-size:1.2rem;
+
+    }
+
+    .section-divider{
+
+        width:140px;
+
+        margin-bottom:45px;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* 480px */
+/* ========================================= */
+
+@media (max-width:480px){
+
+    .why{
+
+        padding:45px 16px;
+
+    }
+
+    .why-badge{
+
+        font-size:.8rem;
+
+        padding:8px 14px;
+
+    }
+
+    .why h2{
+
+        font-size:1.9rem;
+
+    }
+
+    .why-description{
+
+        font-size:.92rem;
+
+    }
+
+    .why-card{
+
+        padding:22px;
+
+        border-radius:18px;
+
+    }
+
+    .why-card svg{
+
+        width:28px;
+        height:28px;
+
+    }
+
+    .why-card h3{
+
+        font-size:1.1rem;
+
+    }
+
+    .why-card p{
+
+        font-size:.9rem;
+
+        line-height:1.6;
+
+    }
+
+    .section-divider{
+
+        width:110px;
+
+        margin-bottom:35px;
+
+    }
+
+}
