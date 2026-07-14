@@ -60,6 +60,52 @@
     color:#28F4D6;
 }
 
+.navbar-links{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.navbar-links a{
+    
+    color:#d7dde8;
+    text-decoration:none;
+    font-size: 1rem;
+    font-weight:600;
+    transition:.3s;
+    white-space:nowrap;
+}
+
+.navbar-links a::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:-8px;
+    width:0;
+    height:2px;
+    border-radius:999px;
+    background:#28F4D6;
+    transform:translateX(-50%);
+    transition:.3s;
+}
+
+.navbar-links a:hover{
+    color:#28F4D6;
+}
+
+.navbar-links a:hover::after{
+    width:100%;
+}
+
+.navbar-actions{
+    display:flex;
+    align-items:center;
+}
+
+.mobile-login{
+    display:none;
+}
+
 .navbar-menu{
 
     position:fixed;
@@ -205,9 +251,9 @@
     width:100%;
 }
 
-/* ========================= */
+/* ====================================== */
 /* BOTÓN HAMBURGUESA */
-/* ========================= */
+/* ====================================== */
 
 .menu-toggle{
     display:none;
@@ -224,7 +270,6 @@
     border:1px solid rgba(44,246,208,.15);
 
     color:#fff;
-
     cursor:pointer;
 
     transition:.3s;
@@ -235,47 +280,67 @@
     color:#07111d;
 }
 
-.navbar-right{
-    display:flex;
-    align-items:center;
-    gap:18px;
+.mobile-login{
+    display:none;
 }
 
-/* ========================= */
-/* TABLET */
-/* ========================= */
 
-@media (max-width:1400px){
+/* ====================================== */
+/* DESKTOP */
+/* ====================================== */
+
+@media (min-width:1281px){
 
     .navbar{
-
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-
-        padding:0 24px;
-        height:75px;
+        padding:0 60px;
     }
 
-    .logo{
-
+    .navbar-links{
         display:flex;
         align-items:center;
-        gap:12px;
+        gap:30px;
     }
 
-    .logo span{
-
-        font-size:1.55rem;
+    .navbar-links a{
+        white-space:nowrap;
+        font-size:1rem;
     }
 
     .navbar-actions{
+        display:flex;
+    }
 
+    .menu-toggle{
+        display:none;
+    }
+
+    .navbar-menu{
+        display:none;
+    }
+
+}
+
+
+/* ====================================== */
+/* 1280px hacia abajo */
+/* Desde aquí aparece hamburguesa */
+/* ====================================== */
+
+@media (max-width:1280px){
+
+    .navbar{
+        padding:0 24px;
+    }
+
+    .navbar-links{
+        display:none;
+    }
+
+    .navbar-actions{
         display:none;
     }
 
     .menu-toggle{
-
         display:flex;
     }
 
@@ -307,10 +372,10 @@
         overflow-y:auto;
 
         z-index:999;
+
     }
 
     .navbar-menu.active{
-
         right:0;
     }
 
@@ -324,12 +389,12 @@
 
         color:white;
 
-        font-size:1rem;
-        font-weight:600;
-
         text-decoration:none;
 
+        font-weight:600;
+
         transition:.3s;
+
     }
 
     .navbar-menu a:hover{
@@ -339,6 +404,7 @@
         color:#28F4D6;
 
         transform:translateX(6px);
+
     }
 
     .mobile-login{
@@ -347,7 +413,7 @@
 
         width:100%;
 
-        margin-top:20px;
+        margin-top:18px;
 
         padding:15px;
 
@@ -361,93 +427,92 @@
         font-weight:700;
 
         cursor:pointer;
+
     }
 
 }
 
-/* ========================= */
-/* 768px (Tablets y Móviles) */
-/* ========================= */
 
-@media (max-width: 768px) {
+/* ====================================== */
+/* TABLETS */
+/* ====================================== */
 
-    .navbar {
-        display: flex !important; /* Fuerza el comportamiento flex */
-        flex-direction: row !important; /* Obliga a que se pongan uno al lado del otro */
-        justify-content: space-between !important; /* Separa el logo a la izquierda y el menú a la derecha */
-        align-items: center !important; /* Los centra verticalmente */
-        flex-wrap: nowrap !important; /* Prohíbe terminantemente que salte abajo */
-        width: 100%;
-        box-sizing: border-box;
-        padding: 0 18px;
+ @media (max-width: 768px) { 
+    
+.navbar { 
+    display: flex !important;
+    flex-direction: row !important; 
+    justify-content: space-between !important; 
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    width: 100%; 
+    box-sizing: border-box; 
+    padding: 0 18px;
     }
 
-    /* Asegura que el contenedor del logo no ocupe todo el ancho */
-    .logo {
-        display: flex;
-        align-items: center;
-        flex-shrink: 1; 
-    }
 
-    .logo img {
-        width: 44px;
-        height: auto;
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 1;
+    } 
+         
+.logo img {
+    width: 44px;
+    height: auto;
     }
-
-    .logo span {
-        font-size: 1.35rem;
-        white-space: nowrap; /* Evita que el texto del título se rompa en dos líneas */
-    }
-
-    .navbar-right {
-        display: flex !important;
-        align-items: center;
-        flex-shrink: 0; /* Evita que este contenedor se comprima */
-    }
-
-    /* Ocultamos el contenedor de iniciar sesión si lo vas a meter dentro del menú */
-    .navbar-actions {
-        display: none !important;
-    }
-
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-    }
-
+    
+.logo span { 
+    font-size: 1.35rem; 
+    white-space: nowrap;
+     } 
+     
+.navbar-right { 
+    display: flex !important;
+    align-items: center; 
+    flex-shrink: 0;
+     } 
+     
+.navbar-actions { 
+    display: none !important; 
+    } 
+    
+.menu-toggle { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    }   
 }
 
+/* ========================= */ 
+/* 480px (Móviles Pequeños) */ 
 /* ========================= */
-/* 480px (Móviles Pequeños)  */
-/* ========================= */
 
-@media (max-width: 480px) {
-
-    .navbar {
-        padding: 0 14px;
-        height: 70px;
+@media (max-width: 480px) { 
+    
+.navbar { 
+    padding: 0 14px;
+    height: 70px;
     }
-
-    .logo img {
-        width: 38px;
+    
+.logo img {
+    width: 38px;
+    } 
+    
+.logo span {
+    font-size: 1.15rem;
+    } 
+    
+.menu-toggle { 
+    width: 42px;
+    height: 42px;
+    } 
+    
+.navbar-menu { 
+    width: 100%;
+    top: 70px;
+    height: calc(100vh - 70px);
     }
-
-    .logo span {
-        font-size: 1.15rem;
-    }
-
-    .menu-toggle {
-        width: 42px;
-        height: 42px;
-    }
-
-    .navbar-menu {
-        width: 100%;
-        top: 70px;
-        height: calc(100vh - 70px);
-    }
-
-}
+ }
