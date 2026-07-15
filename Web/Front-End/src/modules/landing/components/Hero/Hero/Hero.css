@@ -13,6 +13,52 @@
         radial-gradient(circle at top,#072540 0%,#020817 55%,#020817 100%);
 }
 
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-250px;
+    left:-150px;
+
+    width:700px;
+    height:700px;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(39,245,210,.15),
+        transparent 70%
+    );
+
+    filter:blur(120px);
+
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-300px;
+    bottom:-300px;
+
+    width:800px;
+    height:800px;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(0,160,255,.10),
+        transparent 70%
+    );
+
+    filter:blur(160px);
+
+}
+
 .hero-glow{
 
     position:absolute;
@@ -66,7 +112,7 @@
 .hero-left{
 
    flex: 0 0 48%;
-   max-width: none;
+   max-width: 620px;
 
    animation: slideLeft 1s ease;
 }
@@ -74,6 +120,8 @@
 .hero-right{
 
     flex: 0 0 50%;
+
+    padding-top: 25px;
 
     display:flex;
     justify-content:center;

@@ -12,20 +12,20 @@
         rgba(7,15,25,.95)
     );
 
-    border: 1px solid rgba(0,255,200,.15);
+    border: 1px solid rgba(39,245,210,.15);
     border-radius: 32px;
     padding: 24px;
     backdrop-filter: blur(18px);
 
     box-shadow:
-        0 0 40px rgba(0,255,200,.12),
-        0 20px 80px rgba(0,0,0,.5);
+        0 50px 120px rgba(0,0,0,.55),
+        0 0 70px rgba(39,245,210,.12),
+        0 0 0 1px rgba(39,245,210,.05);
 
     transform:
-        perspective(1600px)
-        rotateY(-16deg)
-        rotateX(6deg)
-        translateX(-40px)
+        perspective(1700px)
+        rotateY(-10deg)
+        rotateX(5deg)
         scale(.95);
 
         transition:.5s;
@@ -39,6 +39,32 @@
         rotateX(6deg)
         translateY(-8px)
         scale(.96);
+
+}
+
+.dashboard-mockup::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-120px;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(39,245,210,.08),
+
+            transparent 70%
+
+        );
+
+    filter:blur(80px);
+
+    z-index:-1;
 
 }
 
@@ -148,29 +174,18 @@
     color:#27F5D2;
 }
 
-.widget-title{
-
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    color:#27F5D2;
-
-    margin-bottom:10px;
-}
-
-.metric-card svg,
-.mini-widget svg{
+.metric-card svg{
 
     transition:.3s;
+
 }
 
-.metric-card:hover svg,
-.mini-widget:hover svg{
+.metric-card:hover svg{
 
     transform:rotate(-8deg) scale(1.15);
 
     color:#3ffff0;
+
 }
 
 .chart-placeholder{
@@ -273,36 +288,6 @@ to{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:16px;
-}
-
-.mini-widget{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.05);
-    border-radius:18px;
-    padding:18px;
-    backdrop-filter:blur(10px);
-
-    transition:.35s;
-}
-
-.mini-widget:hover{
-
-    transform:translateY(-5px);
-    border-color:#27F5D2;
-    box-shadow:
-        0 15px 30px rgba(39,245,210,.12);
-}
-
-.mini-widget h4{
-    color:#8aa0b8;
-    font-size:.9rem;
-    margin-bottom:10px;
-}
-
-.mini-widget p{
-    color:white;
-    font-size:1.6rem;
-    font-weight:700;
 }
 
 .dashboard-footer{

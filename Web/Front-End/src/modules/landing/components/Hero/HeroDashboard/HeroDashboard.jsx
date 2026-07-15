@@ -1,160 +1,230 @@
 import "./HeroDashboard.css";
+
+import Header from "./components/header/Header";
+import Gauge from "./components/Gauge/Gauge";
+import MetricCard from "./components/MetricCard/MetricCard";
+import MainChart from "./components/MainChart/MainChart";
+import MiniWidget from "./components/MiniWidget/MiniWidget";
+
 import {
-  Activity,
-  Thermometer,
-  Droplets,
-  Bell,
-  Database,
-  Leaf,
+    Activity,
+    Leaf,
+    Thermometer,
+    Droplets,
+    Bell,
+    Database
 } from "lucide-react";
 
 export default function HeroDashboard() {
-  return (
-    <div className="dashboard-mockup">
 
-      <div className="dashboard-header">
+    return (
 
-      <div>
-          <h3>EduAirControl</h3>
-          <span>Última actualización hace 3 s</span>
-      </div>
+        <div className="dashboard-mockup">
 
-      <div className="status">
-          <span className="status-dot"></span>
-          Online
-      </div>
+            {/* ================= Header ================= */}
 
-    </div>
+            <Header />
 
-      <div className="dashboard-metrics">
+            {/* ================= Métricas superiores ================= */}
 
-       <div className="metric-card">
-        <div className="metric-header">
-            <Activity size={16}/>
-            <span>IAQ</span>
-        </div>
+            <div className="dashboard-metrics">
 
-        <p>28</p>
+                {/* IAQ */}
 
-        <div className="metric-footer">
-            <small>Excelente</small>
+                <div className="metric-card gauge-card">
 
-            <span className="metric-trend positive">
-                ↑ 3%
-            </span>
-        </div>
-    </div>
+                    <div className="metric-title">
 
-        <div className="metric-card">
-          <div className="metric-header">
-            <Leaf size={16} />
-          <span>CO₂</span>
-          </div>
-          
-          <p>612</p>
+                        <Activity
+                            size={18}
+                            color="#4ADE80"
+                        />
 
-          <div className="metric-footer">
-            <small>ppm</small>
+                        <span>Índice de calidad del aire</span>
 
-           <span className="metric-trend positive">
-                ↑ 12%
-            </span>
-        </div>
-        </div>
-    
+                    </div>
 
-        <div className="metric-card">
-          <div className="metric-header">
-            <Thermometer size={16} />
-            <span>Temp</span>
-          </div>
+                    <Gauge
 
-          <p>23.6°</p>
-          <small>Óptima</small>
-        </div>
+                        value={28}
 
-      </div>
+                        label="Excelente"
 
-        <div className="chart-placeholder">
+                        color="#4ADE80"
 
-            <svg
-                viewBox="0 0 800 220"
-                className="chart-svg"
-                preserveAspectRatio="none"
-            >
+                    />
 
-                <defs>
+                </div>
 
-                    <linearGradient id="lineGradient" x1="0" x2="1">
+                {/* CO2 */}
 
-                        <stop offset="0%" stopColor="#27F5D2"/>
+                <MetricCard
 
-                        <stop offset="100%" stopColor="#66FFD6"/>
+                    icon={Leaf}
 
-                    </linearGradient>
+                    title="CO₂"
 
-                </defs>
+                    value="612"
 
-                <path
-                    className="chart-line"
-                    d="
-                    M0,140
-                    C80,80 140,170 220,120
-                    S360,40 430,90
-                    S570,180 650,80
-                    S760,110 800,50
-                    "
+                    unit="ppm"
+
+                    status="Buena"
+
+                    color="#27F5D2"
+
+                >
+
+                    <svg
+                        className="mini-chart"
+                        viewBox="0 0 120 40"
+                    >
+
+                        <path
+
+                            d="M0 30 L15 26 L30 28 L45 22 L60 25 L75 18 L90 20 L105 12 L120 15"
+
+                        />
+
+                    </svg>
+
+                </MetricCard>
+
+                {/* Humedad */}
+
+                <MetricCard
+
+                    icon={Droplets}
+
+                    title="Humedad"
+
+                    value="48"
+
+                    unit="%"
+
+                    status="Optimo"
+
+                    color="#38BDF8"
+
+                >
+
+                    <svg
+                        className="mini-chart humidity-chart"
+                        viewBox="0 0 120 40"
+                    >
+
+                        <path
+
+                            d="M0 28 L15 24 L30 30 L45 18 L60 20 L75 15 L90 23 L105 12 L120 18"
+
+                        />
+
+                    </svg>
+
+                </MetricCard>
+
+                {/* Temperatura */}
+
+                <MetricCard
+
+                    icon={Thermometer}
+
+                    title="Temperatura"
+
+                    value="23.6"
+
+                    unit="°C"
+
+                    status="Confortable"
+
+                    color="#FBBF24"
+
+                >
+
+                    <svg
+                        className="mini-chart temp-chart"
+                        viewBox="0 0 120 40"
+                    >
+
+                        <path
+
+                            d="M0 32 L20 30 L40 26 L60 24 L80 20 L100 22 L120 18"
+
+                        />
+
+                    </svg>
+
+                </MetricCard>
+
+            </div>
+
+            {/* ================= Gráfico Principal ================= */}
+
+            <MainChart />
+
+            {/* ================= Widgets inferiores ================= */}
+
+            <div className="dashboard-grid">
+
+                <MiniWidget
+
+                    icon={Droplets}
+
+                    title="Humedad"
+
+                    value="48%"
+
+                    subtitle="Optimo"
+
+                    color="#38BDF8"
+
                 />
 
-                <circle cx="90" cy="95" r="4" fill="#27F5D2"/>
-                <circle cx="250" cy="125" r="4" fill="#27F5D2"/>
-                <circle cx="430" cy="90" r="4" fill="#27F5D2"/>
-                <circle cx="650" cy="80" r="4" fill="#27F5D2"/>
-                <circle cx="790" cy="50" r="4" fill="#27F5D2"/>
+                <MiniWidget
 
-            </svg>
+                    icon={Bell}
+
+                    title="Alertas"
+
+                    value="2"
+
+                    subtitle="1 Critico • 1 Advertencia"
+
+                    color="#F59E0B"
+
+                />
+
+                <MiniWidget
+
+                    icon={Database}
+
+                    title="Dispositivos"
+
+                    value="18"
+
+                    subtitle="16 Activos • 2 Desconectado"
+
+                    color="#A855F7"
+
+                />
+
+                <MiniWidget
+
+                    icon={Activity}
+
+                    title="Calidad de Aire"
+
+                    value="Buena"
+
+                    subtitle="Ambiente Saludable"
+
+                    color="#4ADE80"
+
+                />
+
+            </div>
+
         </div>
 
-      <div className="dashboard-grid">
+    );
 
-        <div className="mini-widget">
-          <div className="widget-title">
-            <Droplets size={16} />
-            <span>Humedad</span>
-          </div>
-
-          <p>48%</p>
-        </div>
-
-        <div className="mini-widget">
-          <div className="widget-title">
-            <Bell size={16} />
-            <span>Alertas</span>
-          </div>
-
-          <p>2</p>
-        </div>
-
-        <div className="mini-widget">
-          <div className="widget-title">
-              <Database size={16}/>
-              <h4>Dispositivos</h4>
-          </div>
-
-          <p>18</p>
-      </div>
-
-        <div className="mini-widget">
-          <div className="widget-title">
-            <Activity size={16} />
-            <span>Calidad</span>
-          </div>
-          
-          <p>Buena</p>
-        </div>
-
-      </div>
-
-    </div>
-  );
 }

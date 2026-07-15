@@ -139,34 +139,28 @@
 .btn-primary{
 
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
     padding:16px 34px;
-
     border-radius:14px;
-
     text-decoration:none;
-
     font-weight:600;
+
+    background:#27F5D2;
+    color:#07111E;
 
     transition:.35s;
 
-}
-
-.btn-primary{
-
-    background:#27F5D2;
-
-    color:#07111E;
+    box-shadow: 
+        0 0 30px rgba(39,245,210,.45);
 
 }
 
 .btn-primary:hover{
 
-    transform:translateY(-4px);
+    transform:
+        translateY(-4px)
+        scale(1.03);
 
     box-shadow:0 15px 35px rgba(39,245,210,.30);
 
