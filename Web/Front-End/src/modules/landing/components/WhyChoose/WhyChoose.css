@@ -2,9 +2,43 @@
 
     position:relative;
     overflow:hidden;
-    padding:70px 8% 75px;
+    padding:90px 8%;
     text-align:center;
-    background:#020817;
+       background:
+        radial-gradient(circle at 15% 20%,
+        rgba(39,245,210,.12),
+        transparent 35%),
+
+        radial-gradient(circle at 85% 80%,
+        rgba(59,130,246,.10),
+        transparent 35%),
+
+        linear-gradient(
+            180deg,
+            #06101c,
+            #020817
+        );
+}
+
+.why::before{
+
+    content:"";
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    background:#27F5D2;
+
+    opacity:.05;
+
+    filter:blur(140px);
+
+    top:-180px;
+    left:-120px;
+
 }
 
 .why-badge{

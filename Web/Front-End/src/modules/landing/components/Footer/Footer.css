@@ -1,8 +1,17 @@
 .footer{
-    background:#111827;
-    border-top:1px solid rgba(255,255,255,.08);
-    margin-top:60px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+
+    linear-gradient(
+        180deg,
+        #09111d,
+        #050b15
+    );
 }
+
 
 .footer-container{
     width:min(1400px,90%);

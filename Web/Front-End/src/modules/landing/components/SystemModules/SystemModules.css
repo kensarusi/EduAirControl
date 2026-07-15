@@ -1,6 +1,43 @@
 .modules{
 
     padding:60px 8%;
+    position:relative;
+     background:
+
+        radial-gradient(circle at 80% 20%,
+        rgba(39,245,210,.08),
+        transparent 30%),
+
+        linear-gradient(
+            180deg,
+            #020817,
+            #071423
+        );
+
+}
+
+.modules::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+        rgba(255,255,255,.015) 1px,
+        transparent 1px),
+
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.015) 1px,
+        transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.25;
 
 }
 

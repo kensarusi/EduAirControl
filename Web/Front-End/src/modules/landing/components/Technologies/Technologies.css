@@ -1,6 +1,38 @@
 .technologies{
 
     padding:60px 8%;
+    position:relative;
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(circle at 80% 20%,
+        rgba(39,245,210,.08),
+        transparent 30%),
+
+        linear-gradient(
+            180deg,
+            #020817,
+            #071423
+        );
+
+}
+
+.technologies::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle,
+    rgba(39,245,210,.04) 1px,
+    transparent 1px);
+
+    background-size:35px 35px;
 
 }
 

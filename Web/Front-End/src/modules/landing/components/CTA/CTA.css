@@ -37,9 +37,9 @@
 
     background:#27F5D2;
 
-    opacity:.08;
+    opacity:.12;
 
-    filter:blur(120px);
+    filter:blur(150px);
 
     top:-120px;
     right:-100px;
@@ -57,9 +57,9 @@
 
     background:#3B82F6;
 
-    opacity:.08;
+    opacity:.10;
 
-    filter:blur(120px);
+    filter:blur(150px);
 
     bottom:-120px;
     left:-80px;

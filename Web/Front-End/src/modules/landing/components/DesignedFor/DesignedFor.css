@@ -1,6 +1,21 @@
 .designed-for{
 
     padding:60px 8%;
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+    radial-gradient(circle at left,
+    rgba(39,245,210,.08),
+    transparent 30%),
+
+    radial-gradient(circle at right,
+    rgba(59,130,246,.08),
+    transparent 30%),
+
+    #07111d;
 
 }
 

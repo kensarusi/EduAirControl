@@ -1,37 +1,54 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
-function ScrollLink({ to, children, className }) {
-  const navigate = useNavigate();
-  const location = useLocation();
+function ScrollLink({ to, children, className, onClick }) {
 
-  const handleClick = (e) => {
-    e.preventDefault();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const scrollToSection = () => {
-      const section = document.getElementById(to);
+    const handleClick = (e) => {
 
-      if (section) {
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
+        e.preventDefault();
+
+        if (onClick) {
+            onClick();
+        }
+
+        if (location.pathname !== "/landing") {
+
+            navigate("/landing", {
+                state: {
+                    scrollTo: to
+                }
+            });
+
+            return;
+        }
+
+        const section = document.getElementById(to);
+
+        if (section) {
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
     };
 
-    if (location.pathname !== "/landing") {
-      navigate("/landing");
+    return (
 
-      setTimeout(scrollToSection, 300);
-    } else {
-      scrollToSection();
-    }
-  };
+        <a
+            href={`#${to}`}
+            className={className}
+            onClick={handleClick}
+        >
+            {children}
+        </a>
 
-  return (
-    <a href={`#${to}`} onClick={handleClick} className={className}>
-      {children}
-    </a>
-  );
+    );
+
 }
 
 export default ScrollLink;

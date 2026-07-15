@@ -1,5 +1,36 @@
 .how-it-works{
     padding:60px 8%;
+
+    background: 
+
+       linear-gradient(
+        135deg,
+        #061423,
+        #08111d,
+        #020817
+    );
+}
+
+.how::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-200px;
+    top:-150px;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:#27F5D2;
+
+    filter:blur(180px);
+
+    opacity:.05;
+
 }
 
 .how-header{
