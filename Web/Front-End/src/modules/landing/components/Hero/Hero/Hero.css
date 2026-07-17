@@ -115,6 +115,8 @@
    max-width: 620px;
 
    animation: slideLeft 1s ease;
+
+   transform: translateY(-5px);
 }
 
 .hero-right{

@@ -39,19 +39,24 @@ className="mini-value">
 
 </div>
 
+<div className="mini-progress">
+
+    <div
+        className="mini-progress-fill"
+        style={{
+            background: color,
+            width: "75%"
+        }}
+    />
+
+</div>
+
 <div
-
-className="mini-subtitle"
-
-style={{
-
-color
-
-}}
-
+    className="mini-subtitle"
+    style={{ color }}
 >
 
-{subtitle}
+    {subtitle}
 
 </div>
 

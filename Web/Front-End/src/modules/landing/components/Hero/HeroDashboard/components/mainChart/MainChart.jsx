@@ -1,19 +1,26 @@
 import "./MainChart.css";
 
 export default function MainChart() {
+
     return (
 
         <div className="main-chart">
 
             <div className="chart-top">
 
-                <h3>Tendencia de la calidad del aire</h3>
+                <div>
+
+                    <h3>Tendencia de la Calidad del Aire</h3>
+
+                    <p>Monitoreo en tiempo real</p>
+
+                </div>
 
                 <select>
 
-                    <option>Ultimas 24 Horas</option>
-                    <option>Ultimos 7 Dias</option>
-                    <option>Ultimo Mes</option>
+                    <option>Últimas 24 horas</option>
+                    <option>Últimos 7 días</option>
+                    <option>Último mes</option>
 
                 </select>
 
@@ -28,7 +35,7 @@ export default function MainChart() {
                 <defs>
 
                     <linearGradient
-                        id="chartGradient"
+                        id="areaGradient"
                         x1="0"
                         y1="0"
                         x2="0"
@@ -37,13 +44,13 @@ export default function MainChart() {
 
                         <stop
                             offset="0%"
-                            stopColor="#28F4D6"
-                            stopOpacity=".35"
+                            stopColor="#27F5D2"
+                            stopOpacity=".28"
                         />
 
                         <stop
                             offset="100%"
-                            stopColor="#28F4D6"
+                            stopColor="#27F5D2"
                             stopOpacity="0"
                         />
 
@@ -56,17 +63,20 @@ export default function MainChart() {
                     >
 
                         <stop offset="0%" stopColor="#27F5D2"/>
-                        <stop offset="100%" stopColor="#6AFFC7"/>
+
+                        <stop offset="50%" stopColor="#49FFD8"/>
+
+                        <stop offset="100%" stopColor="#6DFFC8"/>
 
                     </linearGradient>
 
                 </defs>
 
-                {/* Área */}
+                {/* Área inferior */}
 
                 <path
 
-                    fill="url(#chartGradient)"
+                    className="chart-area"
 
                     d="
 
@@ -112,9 +122,36 @@ export default function MainChart() {
 
                 />
 
+                {/* Puntos */}
+
+                <circle className="chart-dot" cx="80" cy="160" r="5"/>
+
+                <circle className="chart-dot" cx="230" cy="120" r="5"/>
+
+                <circle className="chart-dot" cx="470" cy="110" r="5"/>
+
+                <circle className="chart-dot" cx="710" cy="130" r="5"/>
+
+                <circle className="chart-dot" cx="900" cy="100" r="5"/>
+
             </svg>
+
+            <div className="chart-labels">
+
+                <span>00:00</span>
+
+                <span>06:00</span>
+
+                <span>12:00</span>
+
+                <span>18:00</span>
+
+                <span>24:00</span>
+
+            </div>
 
         </div>
 
     );
+
 }

@@ -60,6 +60,40 @@ function HeroContent() {
 
       </div>
 
+      <div className="trusted-section">
+
+    <div className="trusted-line"></div>
+
+    <span className="trusted-title">
+        Con la confianza de
+    </span>
+
+    <div className="trusted-items">
+
+        <div className="trusted-item">
+            🏫
+            <span>Instituciones</span>
+        </div>
+
+        <div className="trusted-item">
+            🎓
+            <span>Universidades</span>
+        </div>
+
+        <div className="trusted-item">
+            🧪
+            <span>Laboratorios</span>
+        </div>
+
+        <div className="trusted-item">
+            🏢
+            <span>Centros de Formación</span>
+        </div>
+
+    </div>
+
+</div>
+
     </div>
   );
 }

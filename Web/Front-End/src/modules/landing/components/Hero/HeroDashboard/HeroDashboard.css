@@ -68,220 +68,11 @@
 
 }
 
-.dashboard-header {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    margin-bottom: 24px;
-}
-
-.dashboard-header span:first-child {
-
-    color:#27F5d2;
-
-    font-weight:700;
-
-    font-size: 1.1rem;
-
-}
-
-.dashboard-header span:last-child {
-
-    color:#57ff57;
-
-    font-size:.9rem;
-
-}
-
 .dashboard-metrics {
     
     display: flex;
     gap: 16px;
-    margin-bottom: 24px;
-}
-
- .metric-card{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    gap:8px;
-
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.05);
-    border-radius:16px;
-    padding:16px;
-
-    transition:.35s;
-}
-
-.metric-footer{
-    
-    display:flex;
-    justify-content:space-between;  
-    align-items:center;
-}
-
-.metric-trend{
-
-    font-size:.75rem;
-    font-weight:600;
-}
-
-.metric-trend.positive{
-    color:#27F5D2;
-}
-
-.metric-trend.negative{
-    color:#FF5C5C;
-}
-
-.metric-card span{
-    color:#8aa0b8;
-    font-size:.85rem;
-}
-
-.metric-card small{
-    color:#27F5D2;
-}
-
-.metric-card p{
-
-    color:white;
-
-    font-size:1.8rem;
-
-    font-weight:700;
-}
-
-.metric-card:hover{
-
-    transform:translateY(-5px);
-    border-color:#27F5D2;
-    box-shadow:0 10px 25px rgba(39,245,210,.15);
-}
-
-.metric-header{
-
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    color:#27F5D2;
-}
-
-.metric-card svg{
-
-    transition:.3s;
-
-}
-
-.metric-card:hover svg{
-
-    transform:rotate(-8deg) scale(1.15);
-
-    color:#3ffff0;
-
-}
-
-.chart-placeholder{
-
-    width:100%;
-    height:180px;
-    border-radius:22px;
-    overflow:hidden;
-    position:relative;
-
-    background:
-    linear-gradient(
-        180deg,
-        rgba(39,245,210,.10),
-        rgba(18,30,55,.55)
-    );
-
-    border: 1px solid rgba(39,254,210,.08);
-    box-shadow: inset 0 0 40px rgba(39,245,210,.03);
-
-    display:flex;
-    align-items:center;
-}
-
-@keyframes shine{
-
-0%{
-
-transform:translateX(-100%);
-
-}
-
-100%{
-
-transform:translateX(100%);
-
-}
-
-}
-
-.chart-svg{
-
-    width:100%;
-    height:100%;
-}
-
-.chart-line{
-
-    fill:none;
-    stroke:url(#lineGradient);
-    stroke-width:4;
-    stroke-linecap: round;
-    stroke-linejoin:round;
-    stroke-dasharray: 1200;
-    stroke-dashoffset: 1200;
-
-    animation: drawLine 3s ease forwards;
-}
-
-@keyframes drawLine{
-    to{
-        stroke-dashoffset:0;
-    }
-}
-
-.chart-placeholder::before{
-
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-    linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.05),
-        transparent
-    );
-
-    animation:shine 5s infinite;
-}
-
-.chart-svg circle{
-
-    animation:moveDot 5s linear infinite;
-}
-
-@keyframes moveDot{
-
-from{
-    transform:translateX(-30px);
-}
-
-to{
-    transform:translateX(30px);
-    }
-
+    margin-bottom: 16px;
 }
 
 .dashboard-grid{
@@ -290,67 +81,19 @@ to{
     gap:16px;
 }
 
-.dashboard-footer{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:16px;
-}
-
-.small-card{
-
-    background:#0f172a;
-
-    border-radius:16px;
-
-    padding:18px;
-
-    color:white;
-
-    text-align:center;
-}
-
-.status{
+.gauge-card{
 
     display:flex;
+    justify-content:center;
 
     align-items:center;
+    min-height:230px;
 
-    gap:8px;
-
-}
-
-.status-dot{
-
-    width:10px;
-
-    height:10px;
-
-    border-radius:50%;
-
-    background:#29ff75;
-
-    animation:pulse 2s infinite;
+    overflow:hidden;
 
 }
 
-@keyframes pulse{
 
-    0%{
-        box-shadow:0 0 0 0 rgba(41,255,117,.7);
-    }
-
-    70%{
-        box-shadow:0 0 0 12px rgba(41,255,117,0);
-    }
-
-    100%{
-        box-shadow:0 0 0 0 rgba(41,255,117,0);
-    }
-
-}
 
 @media (max-width:1400px){
 
@@ -398,35 +141,15 @@ to{
 
     }
 
-    .dashboard-header{
-
-        flex-direction:column;
-        align-items:flex-start;
-        gap:15px;
-
-    }
-
     .dashboard-metrics{
 
         flex-direction:column;
 
     }
 
-    .metric-card{
-
-        width:100%;
-
-    }
-
     .dashboard-grid{
 
         grid-template-columns:1fr;
-
-    }
-
-    .chart-placeholder{
-
-        height:150px;
 
     }
 
@@ -441,23 +164,4 @@ to{
         border-radius:20px;
 
     }
-
-    .metric-card p{
-
-        font-size:1.5rem;
-
-    }
-
-    .mini-widget p{
-
-        font-size:1.3rem;
-
-    }
-
-    .chart-placeholder{
-
-        height:120px;
-
-    }
-
 }

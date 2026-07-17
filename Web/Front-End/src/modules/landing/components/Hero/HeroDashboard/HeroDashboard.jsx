@@ -1,7 +1,6 @@
 import "./HeroDashboard.css";
 
 import Header from "./components/header/Header";
-import Gauge from "./components/Gauge/Gauge";
 import MetricCard from "./components/MetricCard/MetricCard";
 import MainChart from "./components/MainChart/MainChart";
 import MiniWidget from "./components/MiniWidget/MiniWidget";
@@ -30,31 +29,37 @@ export default function HeroDashboard() {
             <div className="dashboard-metrics">
 
                 {/* IAQ */}
+                
+              <MetricCard
+                  icon={Activity}
+                  title="Índice AQI"
+                  value="28"
+                  unit=""
+                  status="Excelente"
+                  color="#4ADE80"
+              >
 
-                <div className="metric-card gauge-card">
+                  <svg
+                      className="mini-chart aqi-chart"
+                      viewBox="0 0 120 40"
+                  >
 
-                    <div className="metric-title">
+                      <path
+                          d="M0 30
+                            L15 28
+                            L30 25
+                            L45 20
+                            L60 18
+                            L75 15
+                            L90 10
+                            L105 14
+                            L120 8"
+                      />
 
-                        <Activity
-                            size={18}
-                            color="#4ADE80"
-                        />
+                  </svg>
 
-                        <span>Índice de calidad del aire</span>
+              </MetricCard>
 
-                    </div>
-
-                    <Gauge
-
-                        value={28}
-
-                        label="Excelente"
-
-                        color="#4ADE80"
-
-                    />
-
-                </div>
 
                 {/* CO2 */}
 
@@ -75,7 +80,7 @@ export default function HeroDashboard() {
                 >
 
                     <svg
-                        className="mini-chart"
+                        className="mini-chart co2-chart"
                         viewBox="0 0 120 40"
                     >
 

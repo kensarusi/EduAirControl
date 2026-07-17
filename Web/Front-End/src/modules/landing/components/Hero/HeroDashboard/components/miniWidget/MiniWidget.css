@@ -10,7 +10,7 @@
 
     border-radius:18px;
 
-    padding:20px;
+    padding:15px;
 
     transition:
         transform .35s,
@@ -72,7 +72,9 @@
 
 .mini-widget:hover{
 
-    transform:translateY(-7px);
+    transform:
+        translateY(-8px)
+        scale(1.02);
 
     border-color:rgba(39,245,210,.25);
 
@@ -100,7 +102,7 @@
 
     gap:10px;
 
-    margin-bottom:16px;
+    margin-bottom:12px;
 
     color:#9eb4ca;
 
@@ -132,7 +134,8 @@
 
 .mini-value{
 
-    font-size:2rem;
+    font-size:2.2rem;
+    letter-spacing: -1px;
 
     font-weight:700;
 
@@ -181,6 +184,44 @@
 .mini-subtitle.success{
 
     color:#47E881;
+
+}
+
+.mini-progress{
+
+    margin:16px 0 12px;
+
+    height:7px;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.06);
+
+}
+
+.mini-progress-fill{
+
+    height:100%;
+
+    border-radius:999px;
+
+    width:0;
+
+    animation:progressGrow 1.5s ease forwards;
+
+    box-shadow:0 0 12px currentColor;
+
+}
+
+@keyframes progressGrow{
+
+    from{
+
+        width:0;
+
+    }
 
 }
 
