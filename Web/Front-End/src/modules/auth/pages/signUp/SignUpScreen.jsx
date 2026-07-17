@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaUser, FaEnvelope, FaLock, FaBuilding, FaArrowLeft } from 'react-icons/fa'
+import { HiOutlineDocumentText, HiCheckCircle } from "react-icons/hi2";
 import AuthLayout from "../../components/AuthLayout/AuthLayout";
 import SocialLogin from '../../components/SocialLogin/SocialLogin'
 import { Divider } from "../../../../shared/components";
@@ -167,27 +168,64 @@ function SignUpScreen() {
         <SocialLogin />
       </div>
 
-      {showTerms && (
-        <div className="modal-overlay-modern" onClick={() => setShowTerms(false)}>
-          <div className="modal-content-modern" onClick={(e) => e.stopPropagation()}>
-            <h2>{t('signup.termsTitle')}</h2>
-            <div className="terms-scroll-area">
-              <p>{t('signup.termsIntro')}</p>
-              <ul>
-                <li>{t('signup.term1')}</li>
-                <li>{t('signup.term2')}</li>
-                <li>{t('signup.term3')}</li>
-                <li>{t('signup.term4')}</li>
-              </ul>
+    {showTerms && (
+      <div
+        className="modal-overlay-modern"
+        onClick={() => setShowTerms(false)}
+      >
+        <div
+          className="modal-content-modern"
+          onClick={(e) => e.stopPropagation()}
+        >
+
+          <div className="modal-header">
+
+            <div className="modal-icon">
+              <HiOutlineDocumentText />
             </div>
-            <button className="btn-close-modal" onClick={() => setShowTerms(false)}>
-              {t('common.close', 'Cerrar')}
-            </button>
+
+            <h2>{t("terms.title")}</h2>
+
+            <p>{t("terms.subtitle")}</p>
+
           </div>
+
+          <div className="terms-scroll-area"
+                key={showTerms}
+          >
+
+            <p>{t("terms.intro")}</p>
+
+            <div className="terms-modal-list">
+
+              {[1,2,3,4,5,6,7,8].map((item)=>(
+                <div className="term-modal-item" key={item}>
+                  <HiCheckCircle />
+                  <span>{t(`terms.item${item}`)}</span>
+                </div>
+              ))}
+
+            </div>
+
+            <p>{t("terms.footer1")}</p>
+
+            <p>{t("terms.footer2")}</p>
+
+          </div>
+
+          <button
+            className="btn-close-modal"
+            onClick={() => setShowTerms(false)}
+          >
+            {t("common.close")}
+          </button>
+
         </div>
-      )}
+      </div>
+    )}
+
     </AuthLayout>
-  )
+  );
 }
 
-export default SignUpScreen
+export default SignUpScreen;
