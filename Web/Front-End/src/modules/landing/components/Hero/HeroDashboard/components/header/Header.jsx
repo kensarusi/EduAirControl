@@ -1,32 +1,38 @@
 import "./Header.css";
+import { useTranslation } from "react-i18next";
+import { ChevronDown, MapPin } from "lucide-react";
 
 export default function Header() {
+    const { t } = useTranslation();
+    
     return (
         <div className="dashboard-header">
 
-            <div>
+            <div className="header-info">
 
-                <h2>Descripción General</h2>
+                <h2>{t("landing.hero.dashboard.headerTitle")}</h2>
 
-                <span>Datos ambientales en tiempo real</span>
+                <span className="subtitle">{t("landing.hero.dashboard.headerSubtitle")}</span>
 
             </div>
 
             <div className="header-actions">
 
-                <select>
+                <div className="room-selector-wrapper">
+                    <MapPin size={16} className="selector-icon" />
+                    <select className="premium-select">
+                        <option>{t("landing.hero.dashboard.roomPrefix")} 209-1</option>
+                        <option>{t("landing.hero.dashboard.roomPrefix")} 209-2</option>
+                        <option>{t("landing.hero.dashboard.roomPrefix")} 209-3</option>
+                    </select>
+                    <ChevronDown size={16} className="selector-arrow" />
+                </div>
 
-                    <option>Ambiente 209-1</option>
-                    <option>Ambiente 209-2</option>
-                    <option>Ambiente 209-3</option>
-
-                </select>
-
-                <div className="status">
+                <div className="status-badge">
 
                     <span className="status-dot"></span>
 
-                    En Linea
+                    <span className="status-text">{t("landing.hero.dashboard.statusOnline")}</span>
 
                 </div>
 

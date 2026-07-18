@@ -1,25 +1,41 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { FaChevronDown } from 'react-icons/fa'
 import i18n from '../../i18n/i18n'
 
 const LANGUAGES = [
-  { code: 'es', label: 'Español',   flag: '🇪🇸' },
-  { code: 'en', label: 'English',   flag: '🇬🇧' },
-  { code: 'fr', label: 'Français',  flag: '🇫🇷' },
-  { code: 'pt', label: 'Português', flag: '🇧🇷' },
+  { 
+    code: 'es', 
+    label: 'Español', 
+    flag: 'https://flagcdn.com/w40/es.png' 
+  },
+  { 
+    code: 'en', 
+    label: 'English', 
+    flag: 'https://flagcdn.com/w40/us.png' 
+  },
+  { 
+    code: 'fr', 
+    label: 'Français', 
+    flag: 'https://flagcdn.com/w40/fr.png' 
+  },
+  { 
+    code: 'pt', 
+    label: 'Português', 
+    flag: 'https://flagcdn.com/w40/pt.png' 
+  }
 ]
 
 function LanguageSelector() {
   const { i18n: i18nInstance } = useTranslation()
-  const currentLang = i18nInstance.language
-  const current = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0]
-
-  const [open, setOpen] = useState(false)
+  const [showLangs, setShowLangs] = useState(false)
   const ref = useRef(null)
+
+  const currentLang = LANGUAGES.find(l => l.code === i18nInstance.language) || LANGUAGES[0]
 
   useEffect(() => {
     const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+      if (ref.current && !ref.current.contains(e.target)) setShowLangs(false)
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
@@ -28,33 +44,43 @@ function LanguageSelector() {
   const handleChange = (code) => {
     i18n.changeLanguage(code)
     localStorage.setItem('language', code)
-    setOpen(false)
+    setShowLangs(false)
   }
 
   return (
-    <div className="language-selector" ref={ref}>
+    <div className="language-selector-premium" ref={ref}>
       <button
         type="button"
-        className="lang-trigger"
-        onClick={() => setOpen(v => !v)}
+        className="lang-btn-premium"
+        onClick={() => setShowLangs(v => !v)}
       >
-        <span className="lang-flag">{current.flag}</span>
-        <span className="lang-code">{current.label}</span>
-        <span className={`lang-arrow ${open ? 'open' : ''}`}>▾</span>
+        <img 
+          src={currentLang.flag} 
+          alt={currentLang.label} 
+          className="lang-flag-img"
+        />
+        <span className="lang-label-text">{currentLang.label}</span>
+        <FaChevronDown
+          className={`lang-arrow ${showLangs ? 'open' : ''}`}
+        />
       </button>
 
-      {open && (
-        <div className="lang-dropdown">
+      {showLangs && (
+        <div className="lang-dropdown-premium">
           {LANGUAGES.map(lang => (
             <button
               key={lang.code}
               type="button"
-              className={`lang-option ${lang.code === currentLang ? 'active' : ''}`}
+              className={`lang-option-premium ${lang.code === i18nInstance.language ? 'active' : ''}`}
               onClick={() => handleChange(lang.code)}
             >
-              <span className="lang-flag">{lang.flag}</span>
-              <span className="lang-label">{lang.label}</span>
-              {lang.code === currentLang && <span className="lang-check">✓</span>}
+              <img 
+                src={lang.flag} 
+                alt={lang.label} 
+                className="lang-flag-img-dropdown"
+              />
+              <span>{lang.label}</span>
+              {lang.code === i18nInstance.language && <span className="lang-check">✓</span>}
             </button>
           ))}
         </div>

@@ -1,6 +1,8 @@
 import "./MainChart.css";
+import { useTranslation } from "react-i18next";
 
 export default function MainChart() {
+    const { t } = useTranslation();
 
     return (
 
@@ -10,17 +12,17 @@ export default function MainChart() {
 
                 <div>
 
-                    <h3>Tendencia de la Calidad del Aire</h3>
+                    <h3>{t("landing.hero.dashboard.chartTitle")}</h3>
 
-                    <p>Monitoreo en tiempo real</p>
+                    <p>{t("landing.hero.dashboard.chartSubtitle")}</p>
 
                 </div>
 
                 <select>
 
-                    <option>Últimas 24 horas</option>
-                    <option>Últimos 7 días</option>
-                    <option>Último mes</option>
+                    <option>{t("landing.hero.dashboard.chartRange24h")}</option>
+                    <option>{t("landing.hero.dashboard.chartRange7d")}</option>
+                    <option>{t("landing.hero.dashboard.chartRangeMonth")}</option>
 
                 </select>
 
@@ -59,7 +61,9 @@ export default function MainChart() {
                     <linearGradient
                         id="lineGradient"
                         x1="0"
+                        y1="0"
                         x2="1"
+                        y2="0"
                     >
 
                         <stop offset="0%" stopColor="#27F5D2"/>

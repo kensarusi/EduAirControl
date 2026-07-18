@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import ScrollLink from "../../../../shared/components/ScrollLink/ScrollLink";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "../../../../shared/components/LanguageSelector/LanguageSelector";
 
 function Navbar() {
 
+    const { t } = useTranslation();
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -55,32 +58,34 @@ function Navbar() {
 
             <div className="navbar-links">
 
-                <ScrollLink to="hero">Inicio</ScrollLink>
+                <ScrollLink to="hero">{t("landing.navbar.home")}</ScrollLink>
 
-                <ScrollLink to="why">¿Por qué elegirnos?</ScrollLink>
+                <ScrollLink to="why">{t("landing.navbar.why")}</ScrollLink>
 
-                <ScrollLink to="modules">Módulos</ScrollLink>
+                <ScrollLink to="modules">{t("landing.navbar.modules")}</ScrollLink>
 
-                <ScrollLink to="how">Cómo funciona</ScrollLink>
+                <ScrollLink to="how">{t("landing.navbar.howItWorks")}</ScrollLink>
 
-                <ScrollLink to="technologies">Tecnologías</ScrollLink>
+                <ScrollLink to="technologies">{t("landing.navbar.technologies")}</ScrollLink>
 
-                <ScrollLink to="designed">Diseñado para</ScrollLink>
+                <ScrollLink to="designed">{t("landing.navbar.designedFor")}</ScrollLink>
 
-                <ScrollLink to="cta">CTA</ScrollLink>
+                <ScrollLink to="cta">{t("landing.navbar.cta")}</ScrollLink>
 
             </div>
 
-            {/* Botón Desktop */}
+            {/* Acciones Desktop */}
 
             <div className="navbar-actions">
+
+                <LanguageSelector />
 
                 <button
                     className="login-btn"
                     onClick={() => navigate("/login")}
                 >
 
-                    Iniciar sesión
+                    {t("landing.navbar.login")}
 
                 </button>
 
@@ -101,19 +106,23 @@ function Navbar() {
 
             <nav className={`navbar-menu ${menuOpen ? "active" : ""}`}>
 
-                <ScrollLink to="hero" onClick={closeMenu}>Inicio</ScrollLink>
+                <ScrollLink to="hero" onClick={closeMenu}>{t("landing.navbar.home")}</ScrollLink>
 
-                <ScrollLink to="why" onClick={closeMenu}>¿Por qué elegirnos?</ScrollLink>
+                <ScrollLink to="why" onClick={closeMenu}>{t("landing.navbar.why")}</ScrollLink>
 
-                <ScrollLink to="modules" onClick={closeMenu}>Módulos</ScrollLink>
+                <ScrollLink to="modules" onClick={closeMenu}>{t("landing.navbar.modules")}</ScrollLink>
 
-                <ScrollLink to="how" onClick={closeMenu}>Cómo funciona</ScrollLink>
+                <ScrollLink to="how" onClick={closeMenu}>{t("landing.navbar.howItWorks")}</ScrollLink>
 
-                <ScrollLink to="technologies" onClick={closeMenu}>Tecnologías</ScrollLink>
+                <ScrollLink to="technologies" onClick={closeMenu}>{t("landing.navbar.technologies")}</ScrollLink>
 
-                <ScrollLink to="designed" onClick={closeMenu}>Diseñado para</ScrollLink>
+                <ScrollLink to="designed" onClick={closeMenu}>{t("landing.navbar.designedFor")}</ScrollLink>
 
-                <ScrollLink to="cta" onClick={closeMenu}>CTA</ScrollLink>
+                <ScrollLink to="cta" onClick={closeMenu}>{t("landing.navbar.cta")}</ScrollLink>
+
+                <div className="mobile-lang-selector">
+                    <LanguageSelector />
+                </div>
 
                 <button
                     className="mobile-login"
@@ -126,7 +135,7 @@ function Navbar() {
                     }}
                 >
 
-                    Iniciar sesión
+                    {t("landing.navbar.login")}
 
                 </button>
 

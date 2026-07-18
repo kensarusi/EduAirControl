@@ -5,24 +5,25 @@ import {
   BarChart3,
   ShieldCheck,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 function WhyChoose() {
+  const { t } = useTranslation();
+
   return (
     <section id="why" className="why">
         
       <span className="why-badge">
-        ¿Por qué EduAirControl?
+        {t("landing.why.badge")}
       </span>
 
       <h2>
-        Todo lo que necesitas para
-        <span> monitorear ambientes educativos</span>
+        {t("landing.why.title")}
+        <span> {t("landing.why.titleHighlight")}</span>
       </h2>
 
       <p className="why-description">
-        EduAirControl integra sensores IoT, análisis inteligente
-        y visualización en tiempo real para mantener espacios
-        saludables y seguros.
+        {t("landing.why.description")}
       </p>
 
        <div className="section-divider"></div>
@@ -31,38 +32,26 @@ function WhyChoose() {
 
         <div className="why-card">
           <Cpu size={34}/>
-          <h3>Sensores IoT</h3>
-          <p>
-            Captura datos ambientales en tiempo real
-            desde múltiples dispositivos.
-          </p>
+          <h3>{t("landing.why.card1Title")}</h3>
+          <p>{t("landing.why.card1Desc")}</p>
         </div>
 
         <div className="why-card">
           <BellRing size={34}/>
-          <h3>Alertas Inteligentes</h3>
-          <p>
-            Detecta riesgos automáticamente y notifica
-            antes de que se conviertan en un problema.
-          </p>
+          <h3>{t("landing.why.card2Title")}</h3>
+          <p>{t("landing.why.card2Desc")}</p>
         </div>
 
         <div className="why-card">
           <BarChart3 size={34}/>
-          <h3>Dashboard Analítico</h3>
-          <p>
-            Visualiza indicadores, gráficas e históricos
-            desde cualquier lugar.
-          </p>
+          <h3>{t("landing.why.card3Title")}</h3>
+          <p>{t("landing.why.card3Desc")}</p>
         </div>
 
         <div className="why-card">
           <ShieldCheck size={34}/>
-          <h3>Ambientes Seguros</h3>
-          <p>
-            Ayuda a mejorar la calidad del aire y el bienestar
-            de estudiantes y docentes.
-          </p>
+          <h3>{t("landing.why.card4Title")}</h3>
+          <p>{t("landing.why.card4Desc")}</p>
         </div>
 
       </div>

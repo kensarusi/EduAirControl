@@ -7,7 +7,7 @@ import { MdCo2 } from 'react-icons/md'
 import { HiSpeakerWave } from 'react-icons/hi2'
 import Navbar from "../components/Navbar/Navbar";
 import { useDashboardVM } from "../hooks/useDashboardVM";
-import "./Dashboard.css";
+import "../../../modules/leaderboard/leaderboard.css";
 
 
 // ── Status icon ────────────────────────────────────────────────

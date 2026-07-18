@@ -1,9 +1,10 @@
 import "./HeroDashboard.css";
+import { useTranslation } from "react-i18next";
 
 import Header from "./components/header/Header";
-import MetricCard from "./components/MetricCard/MetricCard";
-import MainChart from "./components/MainChart/MainChart";
-import MiniWidget from "./components/MiniWidget/MiniWidget";
+import MetricCard from "./components/metricCard/MetricCard";
+import MainChart from "./components/mainChart/MainChart";
+import MiniWidget from "./components/miniWidget/MiniWidget";
 
 import {
     Activity,
@@ -15,6 +16,7 @@ import {
 } from "lucide-react";
 
 export default function HeroDashboard() {
+    const { t } = useTranslation();
 
     return (
 
@@ -32,10 +34,10 @@ export default function HeroDashboard() {
                 
               <MetricCard
                   icon={Activity}
-                  title="Índice AQI"
+                  title={t("landing.hero.dashboard.aqiTitle")}
                   value="28"
                   unit=""
-                  status="Excelente"
+                  status={t("landing.hero.dashboard.aqiStatus")}
                   color="#4ADE80"
               >
 
@@ -73,7 +75,7 @@ export default function HeroDashboard() {
 
                     unit="ppm"
 
-                    status="Buena"
+                    status={t("landing.hero.dashboard.co2Status")}
 
                     color="#27F5D2"
 
@@ -100,13 +102,13 @@ export default function HeroDashboard() {
 
                     icon={Droplets}
 
-                    title="Humedad"
+                    title={t("landing.hero.dashboard.humidityTitle")}
 
                     value="48"
 
                     unit="%"
 
-                    status="Optimo"
+                    status={t("landing.hero.dashboard.humidityStatus")}
 
                     color="#38BDF8"
 
@@ -133,13 +135,13 @@ export default function HeroDashboard() {
 
                     icon={Thermometer}
 
-                    title="Temperatura"
+                    title={t("landing.hero.dashboard.tempTitle")}
 
                     value="23.6"
 
                     unit="°C"
 
-                    status="Confortable"
+                    status={t("landing.hero.dashboard.tempStatus")}
 
                     color="#FBBF24"
 
@@ -174,11 +176,11 @@ export default function HeroDashboard() {
 
                     icon={Droplets}
 
-                    title="Humedad"
+                    title={t("landing.hero.dashboard.humidityTitle")}
 
                     value="48%"
 
-                    subtitle="Optimo"
+                    subtitle={t("landing.hero.dashboard.humidityStatus")}
 
                     color="#38BDF8"
 
@@ -188,11 +190,11 @@ export default function HeroDashboard() {
 
                     icon={Bell}
 
-                    title="Alertas"
+                    title={t("landing.hero.dashboard.widgetAlerts")}
 
                     value="2"
 
-                    subtitle="1 Critico • 1 Advertencia"
+                    subtitle={t("landing.hero.dashboard.widgetAlertsDesc")}
 
                     color="#F59E0B"
 
@@ -202,11 +204,11 @@ export default function HeroDashboard() {
 
                     icon={Database}
 
-                    title="Dispositivos"
+                    title={t("landing.hero.dashboard.widgetDevices")}
 
                     value="18"
 
-                    subtitle="16 Activos • 2 Desconectado"
+                    subtitle={t("landing.hero.dashboard.widgetDevicesDesc")}
 
                     color="#A855F7"
 
@@ -216,11 +218,11 @@ export default function HeroDashboard() {
 
                     icon={Activity}
 
-                    title="Calidad de Aire"
+                    title={t("landing.hero.dashboard.widgetAirQuality")}
 
-                    value="Buena"
+                    value={t("landing.hero.dashboard.widgetAirQualityValue")}
 
-                    subtitle="Ambiente Saludable"
+                    subtitle={t("landing.hero.dashboard.widgetAirQualityDesc")}
 
                     color="#4ADE80"
 

@@ -1,8 +1,11 @@
 import "./HeroContent.css";
 import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 function HeroContent() {
+  const { t } = useTranslation();
+
   return (
     <div className="hero-content">
 
@@ -10,33 +13,31 @@ function HeroContent() {
         <ShieldCheck size={16} />
 
         <span>
-          Plataforma líder en monitoreo ambiental educativo
+          {t("landing.hero.badge")}
         </span>
       </div>
 
       <h1 className="hero-title">
-        Respira Tranquilo.
+        {t("landing.hero.title1")}
         <br />
-        Aprende Mejor.
+        {t("landing.hero.title2")}
         <br />
-        <span>EduAirControl.</span>
+        <span>{t("landing.hero.title3")}</span>
       </h1>
 
       <p className="hero-description">
-        Monitorea en tiempo real la calidad del aire de aulas,
-        laboratorios y espacios educativos mediante sensores IoT,
-        análisis inteligentes y alertas automáticas.
+        {t("landing.hero.description")}
       </p>
 
       <div className="hero-actions">
 
         <Link to="/signup" className="primary-btn">
-          Crear cuenta
+          {t("landing.hero.createAccount")}
           <span className="btn-arrow">→</span>
         </Link>
 
         <Link to="/login" className="secondary-btn">
-          Ver demostraciones
+          {t("landing.hero.viewDemo")}
         </Link>
 
       </div>
@@ -44,55 +45,55 @@ function HeroContent() {
       <div className="hero-stats">
 
         <div className="stat-item">
-          <h3>+120</h3>
-          <span>Instituciones</span>
+          <h3>{t("landing.hero.stat1Value")}</h3>
+          <span>{t("landing.hero.stat1Label")}</span>
         </div>
 
         <div className="stat-item">
-          <h3>99.8%</h3>
-          <span>Disponibilidad</span>
+          <h3>{t("landing.hero.stat2Value")}</h3>
+          <span>{t("landing.hero.stat2Label")}</span>
         </div>
 
         <div className="stat-item">
-          <h3>24/7</h3>
-          <span>Monitoreo</span>
+          <h3>{t("landing.hero.stat3Value")}</h3>
+          <span>{t("landing.hero.stat3Label")}</span>
         </div>
 
       </div>
 
       <div className="trusted-section">
 
-    <div className="trusted-line"></div>
+        <div className="trusted-line"></div>
 
-    <span className="trusted-title">
-        Con la confianza de
-    </span>
+        <span className="trusted-title">
+          {t("landing.hero.trustedBy")}
+        </span>
 
-    <div className="trusted-items">
+        <div className="trusted-items">
 
-        <div className="trusted-item">
+          <div className="trusted-item">
             🏫
-            <span>Instituciones</span>
-        </div>
+            <span>{t("landing.hero.trusted1")}</span>
+          </div>
 
-        <div className="trusted-item">
+          <div className="trusted-item">
             🎓
-            <span>Universidades</span>
-        </div>
+            <span>{t("landing.hero.trusted2")}</span>
+          </div>
 
-        <div className="trusted-item">
+          <div className="trusted-item">
             🧪
-            <span>Laboratorios</span>
-        </div>
+            <span>{t("landing.hero.trusted3")}</span>
+          </div>
 
-        <div className="trusted-item">
+          <div className="trusted-item">
             🏢
-            <span>Centros de Formación</span>
+            <span>{t("landing.hero.trusted4")}</span>
+          </div>
+
         </div>
 
-    </div>
-
-</div>
+      </div>
 
     </div>
   );

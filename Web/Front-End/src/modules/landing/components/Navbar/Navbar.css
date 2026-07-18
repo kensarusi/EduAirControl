@@ -516,3 +516,161 @@
     height: calc(100vh - 70px);
     }
  }
+
+
+/* ====================================== */
+/* LANGUAGE SELECTOR PREMIUM (NAVBAR)     */
+/* ====================================== */
+
+.language-selector-premium {
+    position: relative;
+}
+
+.lang-btn-premium {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    background: rgba(10, 20, 40, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-btn-premium:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(44, 246, 208, 0.4);
+}
+
+.lang-flag-img {
+    width: 22px;
+    height: 15px;
+    border-radius: 2px;
+    object-fit: cover;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.lang-label-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.lang-arrow {
+    font-size: 12px;
+    transition: transform 0.25s ease;
+    opacity: 0.7;
+}
+
+.lang-arrow.open {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown-premium {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: rgba(10, 20, 40, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.2s ease-out;
+    z-index: 9999;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lang-option-premium {
+    width: 100%;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.lang-option-premium:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #28F4D6;
+}
+
+.lang-option-premium.active {
+    background: rgba(44, 246, 208, 0.15);
+    color: #28F4D6;
+    font-weight: 700;
+}
+
+.lang-flag-img-dropdown {
+    width: 24px;
+    height: 16px;
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.lang-check {
+    margin-left: auto;
+    color: #28F4D6;
+    font-size: 0.85rem;
+}
+
+/* Selector de idioma en menú mobile */
+
+.mobile-lang-selector {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+}
+
+.mobile-lang-selector .language-selector-premium {
+    width: 100%;
+}
+
+.mobile-lang-selector .lang-btn-premium {
+    width: 100%;
+    justify-content: flex-start;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 14px 18px;
+}
+
+.mobile-lang-selector .lang-arrow {
+    margin-left: auto;
+}
+
+.mobile-lang-selector .lang-dropdown-premium {
+    position: relative;
+    top: 6px;
+    width: 100%;
+    right: auto;
+    left: 0;
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .lang-label-text {
+        display: none; /* En el trigger del navbar desktop (cuando colapsa a tablet) */
+    }
+    
+    .mobile-lang-selector .lang-label-text {
+        display: inline; /* Pero en el menú lateral sí queremos el texto */
+    }
+}

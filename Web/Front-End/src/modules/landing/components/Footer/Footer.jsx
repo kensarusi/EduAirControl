@@ -1,5 +1,6 @@
 import "./Footer.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   ShieldCheck,
@@ -16,6 +17,8 @@ import {
 import ScrollLink from "../../../../shared/components/ScrollLink/ScrollLink";
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer id="footer" className="footer">
 
@@ -33,9 +36,7 @@ function Footer() {
           </div>
 
           <p>
-            Plataforma inteligente para el monitoreo ambiental en tiempo real,
-            ayudando a las instituciones educativas a tomar mejores decisiones
-            mediante datos confiables.
+            {t("landing.footer.description")}
           </p>
 
           <div className="footer-social">
@@ -55,34 +56,34 @@ function Footer() {
         {/* Navegación */}
         <div className="footer-links">
 
-          <h3>Navegación</h3>
+          <h3>{t("landing.footer.navTitle")}</h3>
 
             <ScrollLink to="hero">
-            Inicio
+              {t("landing.navbar.home")}
             </ScrollLink>
 
             <ScrollLink to="why">
-            ¿Por qué elegirnos?
+              {t("landing.navbar.why")}
             </ScrollLink>
 
             <ScrollLink to="modules">
-            Módulos
+              {t("landing.navbar.modules")}
             </ScrollLink>
 
             <ScrollLink to="how">
-            Cómo funciona
+              {t("landing.navbar.howItWorks")}
             </ScrollLink>
 
             <ScrollLink to="technologies">
-            Tecnologías
+              {t("landing.navbar.technologies")}
             </ScrollLink>
 
             <ScrollLink to="designed">
-            Diseñado para
+              {t("landing.navbar.designedFor")}
             </ScrollLink>
 
             <ScrollLink to="cta">
-            CTA
+              {t("landing.navbar.cta")}
             </ScrollLink>
 
         </div>
@@ -90,18 +91,18 @@ function Footer() {
         {/* Recursos */}
         <div className="footer-links">
 
-          <h3>Recursos</h3>
+          <h3>{t("landing.footer.resourcesTitle")}</h3>
 
-          <Link to="/login">Iniciar sesión</Link>
-          <Link to="/signup">Crear cuenta</Link>
-          <Link to="/terms">Términos y condiciones</Link>
+          <Link to="/login">{t("landing.footer.loginLink")}</Link>
+          <Link to="/signup">{t("landing.footer.signupLink")}</Link>
+          <Link to="/terms">{t("landing.footer.termsLink")}</Link>
 
         </div>
 
         {/* Contacto */}
         <div className="footer-contact">
 
-          <h3>Contacto</h3>
+          <h3>{t("landing.footer.contactTitle")}</h3>
 
           <div>
             <Mail size={18} />
@@ -125,7 +126,7 @@ function Footer() {
       <div className="footer-bottom">
 
         <p>
-          © 2026 EduAirControl. Todos los derechos reservados.
+          {t("landing.footer.copyright")}
         </p>
 
       </div>

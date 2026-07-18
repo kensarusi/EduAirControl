@@ -1,35 +1,35 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, LogIn } from "lucide-react";
-import "./CTA.css"
-
+import "./CTA.css";
+import { useTranslation } from "react-i18next";
 
 function CTA() {
+  const { t } = useTranslation();
+
   return (
     <section id="cta" className="cta">
 
       <div className="cta-container">
 
         <span className="cta-badge">
-          Comienza hoy
+          {t("landing.cta.badge")}
         </span>
 
         <h2>
-          Construyamos instituciones
-          <span> más saludables</span>
+          {t("landing.cta.title")}
+          <span> {t("landing.cta.titleHighlight")}</span>
         </h2>
 
         <p>
-          EduAirControl ayuda a monitorear la calidad del aire en tiempo real,
-          generar alertas inteligentes y tomar decisiones basadas en datos para
-          proteger a toda la comunidad educativa.
+          {t("landing.cta.description")}
         </p>
 
         <div className="cta-buttons">
 
-        <Link to="/signup" className="btn-primary">
+          <Link to="/signup" className="btn-primary">
             <LogIn size={20}/>
-            REGISTRATE AHORA MISMO!
-        </Link>
+            {t("landing.cta.registerBtn")}
+          </Link>
 
         </div>
 

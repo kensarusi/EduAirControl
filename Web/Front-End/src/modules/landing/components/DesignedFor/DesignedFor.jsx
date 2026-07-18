@@ -1,23 +1,53 @@
 import "./DesignedFor.css";
 import UserCard from "./UserCard";
-import { users } from "./usersData";
+import { useTranslation } from "react-i18next";
+import {
+  ShieldCheck,
+  GraduationCap,
+  UserRound,
+  Wrench
+} from "lucide-react";
 
 function DesignedFor() {
+  const { t } = useTranslation();
+
+  const users = [
+    {
+      icon: ShieldCheck,
+      title: t("landing.designedFor.user1Title"),
+      description: t("landing.designedFor.user1Desc"),
+    },
+    {
+      icon: GraduationCap,
+      title: t("landing.designedFor.user2Title"),
+      description: t("landing.designedFor.user2Desc"),
+    },
+    {
+      icon: UserRound,
+      title: t("landing.designedFor.user3Title"),
+      description: t("landing.designedFor.user3Desc"),
+    },
+    {
+      icon: Wrench,
+      title: t("landing.designedFor.user4Title"),
+      description: t("landing.designedFor.user4Desc"),
+    },
+  ];
+
   return (
     <section id="designed" className="designed-for">
 
       <span className="section-badge">
-        Usuarios del sistema
+        {t("landing.designedFor.badge")}
       </span>
 
       <h2>
-        Diseñado para
-        <span> toda la comunidad educativa</span>
+        {t("landing.designedFor.title")}
+        <span> {t("landing.designedFor.titleHighlight")}</span>
       </h2>
 
       <p>
-        EduAirControl ofrece herramientas específicas para cada perfil,
-        permitiendo una gestión ambiental eficiente dentro de las instituciones educativas.
+        {t("landing.designedFor.description")}
       </p>
 
       <div className="users-grid">
