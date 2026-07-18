@@ -1,200 +1,671 @@
-/* ============================================================
-   NAVBAR — EduAirControl (Fixed Responsive & Dropdown)
-   ============================================================ */
+/* ===========================================================
+   DASHBOARD NAVBAR
+   PARTE 1
+=========================================================== */
 
-/* ── Base ── */
-.navbar {
-  width: 100%;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2.5rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(4, 8, 22, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 184, 148, 0.14);
-  box-shadow: 0 1px 0 rgba(0, 184, 148, 0.08), 0 8px 32px rgba(0, 0, 0, 0.28);
-  transition: background 0.3s ease, border-color 0.3s ease;
+/* ========= CONTENEDOR ========= */
+
+.dashboard-navbar{
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    width:100%;
+    height:82px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 40px;
+
+    background:rgba(7,14,28,.86);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(39,245,210,.12);
+
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+
 }
 
-body:not(.dark-mode) .navbar {
-  background: rgba(240, 250, 248, 0.82);
-  border-bottom-color: rgba(0, 184, 148, 0.20);
-  box-shadow: 0 1px 0 rgba(0, 184, 148, 0.12), 0 4px 20px rgba(0, 0, 0, 0.08);
+body:not(.dark-mode) .dashboard-navbar{
+
+    background:rgba(255,255,255,.92);
+
+    border-bottom:1px solid rgba(0,184,148,.15);
+
 }
 
-/* ── Logo ── */
-.navbar-logo h2 {
-  color: var(--accent);
-  margin: 0;
-  font-size: 22px;
-  font-weight: 800;
-  cursor: pointer;
-  text-shadow: 0 0 16px rgba(0, 184, 148, 0.30);
-  white-space: nowrap;
+/* ========= IZQUIERDA ========= */
+
+.dashboard-navbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:36px;
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+/* ========= LOGO ========= */
+
+.dashboard-navbar-logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+    transition:.30s;
+
+}
+
+.dashboard-navbar-logo:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.dashboard-navbar-logo img{
+
+    width:54px;
+    margin-top: 15px;
+    height:100px;
+
+    object-fit:contain;
+
+}
+
+.dashboard-navbar-logo-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.dashboard-navbar-logo-text h2{
+
+    margin:0;
+
+    font-size:30px;
+
+    font-weight:800;
+
+    color:#27F5D2;
+
+    line-height:1;
+
+}
+
+.dashboard-navbar-logo-text span{
+
+    margin-top:4px;
+
+    font-size:13px;
+
+    color:#8EA4B8;
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-logo-text h2{
+
+    color:#00B894;
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-logo-text span{
+
+    color:#64748B;
+
+}
+
+/* ========= INFORMACIÓN ========= */
+
+.dashboard-navbar-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.dashboard-navbar-info-greeting{
+
+    color:#FFFFFF;
+
+    font-size:17px;
+
+    font-weight:700;
+
+}
+
+.dashboard-navbar-info-time{
+
+    margin-top:4px;
+
+    color:#27F5D2;
+
+    font-size:13px;
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-info-greeting{
+
+    color:#1E293B;
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-info-time{
+
+    color:#00B894;
+
+}
+
+/* ========= MENÚ ========= */
+
+.dashboard-navbar-menu{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-left:auto;
+
+}
+
+/* ========= ITEMS ========= */
+
+.dashboard-navbar-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 16px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    color:#DCE8F2;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+    user-select:none;
+
+}
+
+.dashboard-navbar-item svg{
+
+    font-size:18px;
+
+}
+
+.dashboard-navbar-item:hover{
+
+    background:rgba(39,245,210,.10);
+
+    color:#27F5D2;
+
+    transform:translateY(-2px);
+
+}
+
+.dashboard-navbar-item.active{
+
+    background:rgba(39,245,210,.15);
+
+    color:#27F5D2;
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-item{
+
+    color:#334155;
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-item:hover{
+
+    background:rgba(0,184,148,.08);
+
+}
+
+body:not(.dark-mode)
+.dashboard-navbar-item.active{
+
+    background:rgba(0,184,148,.12);
+
+    color:#00B894;
+
+}
+
+/* ========= DERECHA ========= */
+
+.dashboard-navbar-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-left:18px;
+
+}
+
+.dashboard-navbar-profile{
+
+    position:relative;
+
+}
+
+.dashboard-profile-chevron{
+
+    transition:.30s;
+
+}
+
+.dashboard-profile-chevron.open{
+
+    transform:rotate(180deg);
+
+}
+
+/* ========= BOTÓN MÓVIL ========= */
+
+.dashboard-mobile-button{
+
+    display:none;
+
+    border:none;
+
+    outline:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    color:#27F5D2;
+
+    font-size:28px;
+
+}
+
+/* ===========================================================
+   DROPDOWN PERFIL
+=========================================================== */
+
+.dashboard-profile-dropdown{
+
+    position:absolute;
+
+    top:62px;
+
+    right:0;
+
+    width:240px;
+
+    background:#101B2B;
+
+    border:1px solid rgba(39,245,210,.12);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+
+    animation:dashboardDropdown .25s ease;
+
+    z-index:1200;
+
+}
+
+body:not(.dark-mode)
+.dashboard-profile-dropdown{
+
+    background:#FFFFFF;
+
+}
+
+@keyframes dashboardDropdown{
+
+    from{
+
+        opacity:0;
+        transform:translateY(-12px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.dashboard-profile-dropdown-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:15px 18px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    color:#FFFFFF;
+
+}
+
+body:not(.dark-mode)
+.dashboard-profile-dropdown-item{
+
+    color:#1E293B;
+
+}
+
+.dashboard-profile-dropdown-item:hover{
+
+    background:rgba(39,245,210,.08);
+
+}
+
+.dashboard-profile-dropdown-divider{
+
+    height:1px;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+body:not(.dark-mode)
+.dashboard-profile-dropdown-divider{
+
+    background:#E5E7EB;
+
+}
+
+.dashboard-profile-dropdown-item.logout{
+
+    color:#FF5A5F;
+
+}
+
+.dashboard-profile-dropdown-item.logout:hover{
+
+    background:rgba(255,90,95,.10);
+
+}
+
+/* ===========================================================
+   CAMPANA
+=========================================================== */
+
+.dashboard-notification-bell{
+
+    position:relative;
+
+}
+
+.dashboard-notification-bell::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    top:10px;
+    right:10px;
+
+    border-radius:50%;
+
+    background:#27F5D2;
+
+    box-shadow:0 0 8px #27F5D2;
+
 }
 
 
-/* ── Item base (Barra Principal) ── */
-.navbar-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  transition: all 0.2s ease;
-  white-space: nowrap;
+
+/* ===========================================================
+   RESPONSIVE
+=========================================================== */
+
+@media (max-width:1200px){
+
+.dashboard-navbar-info{
+
+    display:none;
+
 }
 
-body:not(.dark-mode) .navbar-item {
-  color: var(--text-secondary);
 }
 
-.navbar-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+@media (max-width:1100px){
+
+.dashboard-navbar{
+
+    padding:0 20px;
+
 }
 
-body:not(.dark-mode) .navbar-item:hover {
-  background: rgba(0, 184, 148, 0.1);
-  color: var(--accent);
+.dashboard-navbar-logo-text span{
+
+    display:none;
+
 }
 
-.navbar-item.active {
-  background: rgba(0, 184, 148, 0.15);
-  color: var(--accent);
+.dashboard-navbar-item span{
+
+    display:none;
+
 }
 
-/* ── Dropdown ── */
-.profile-dropdown {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  min-width: 220px;
-  background: rgba(8, 16, 38, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 184, 148, 0.2);
-  border-radius: 16px;
-  padding: 8px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-  z-index: 1001;
-}
+.dashboard-profile-dropdown span{
 
-body:not(.dark-mode) .profile-dropdown {
-  background: #ffffff;
-  border-color: rgba(0, 184, 148, 0.2);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-}
-
-.profile-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-/* ASEGURAR QUE EL TEXTO DEL DROPDOWN SIEMPRE SE VEA */
-.profile-dropdown-item span {
   display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+  opacity: 1;
+  visibility: visible;
 }
 
-body:not(.dark-mode) .profile-dropdown-item {
-  color: #333333;
+.dashboard-profile-chevron{
+
+    display:none;
+
 }
 
-.profile-dropdown-item:hover {
-  background: rgba(0, 184, 148, 0.1);
-  color: var(--accent);
+.dashboard-navbar-item{
+
+    width:46px;
+
+    height:46px;
+
+    justify-content:center;
+
+    padding:0;
+
 }
 
-/* CERRAR SESIÓN EN ROJO */
-.profile-dropdown-item.logout {
-  color: #ff4d4f !important;
 }
 
-.profile-dropdown-item.logout:hover {
-  background: rgba(255, 77, 79, 0.1) !important;
-}
-
-.profile-dropdown-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 6px 0;
-}
-
-body:not(.dark-mode) .profile-dropdown-divider {
-  background: rgba(0, 0, 0, 0.08);
-}
-
-/* ── Responsive ── */
-
-/* Entre 1200px y 1000px: Reducimos padding para que quepa todo */
-@media (max-width: 1200px) {
-  .navbar { padding: 0 1.5rem; }
-  .navbar-item { padding: 8px 10px; gap: 6px; font-size: 12px; }
-  .navbar-info { display: none; } /* Ocultamos reloj para ganar espacio */
-}
-
-/* Entre 1000px y 769px: Ocultamos texto SOLO de la barra principal, NO del dropdown */
-@media (max-width: 1000px) and (min-width: 769px) {
-  /* Ocultar texto de los items de la barra principal */
-  .navbar-menu > .navbar-item:not(.navbar-profile) span {
-    display: none;
-  }
-  
-  /* El perfil puede mantener el texto o no, según prefieras. 
-     Aquí lo ocultamos también para que sea simétrico */
-  .navbar-profile > span {
-    display: none;
-  }
-
-  .navbar-item { padding: 10px; }
-}
-
-/* Mobile: Bottom Bar */
+/* ===========================================================
+   TABLET & MOBILE BASE (Se aplica desde 768px hacia abajo)
+=========================================================== */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 16px 0;
+    .dashboard-navbar {
+        height: 78px;
+        padding: 0 18px;
+        display: flex; /* Asegura el comportamiento flex para alinear todo */
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .dashboard-navbar-info,
+    .dashboard-navbar-menu {
+        display: none;
+    }
+
+    /* Contenedor de las acciones de la derecha */
+    .dashboard-navbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px; /* Un poco más de espacio para pantallas táctiles */
+    }
+
+    /* Forzamos el orden estricto de los iconos en el navbar */
+    .dashboard-notification-bell {
+        order: 1 !important;
+    }
+
+    .dashboard-navbar-profile {
+        order: 2 !important;
+    }
+
+    .dashboard-mobile-button {
+        order: 3 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* Menú Lateral Desplegable */
+    .dashboard-mobile-menu {
+        position: fixed;
+        top: 78px;
+        right: -320px;
+        width: 300px;
+        height: calc(100vh - 78px);
+
+        background:linear-gradient(180deg, #0b1a30 0%, #0f223d 100%);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.6);
+
+        transition: right 0.35s ease-in-out;
+        z-index: 9999;
+        overflow-y: auto;
+        padding: 20px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    
+    .dashboard-mobile-menu.open {
+            right: 0;
+    }
+
+        .dashboard-mobile-header {
+        font-size: 18px;
+        font-weight: 700;
+        color: #27F5D2;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .dashboard-mobile-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        color: #DCE8F2;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.25, transform 0.25;
+    }
+
+    .dashboard-mobile-item svg {
+      font-size: 20px;
+      color:#27F5D2;
+      transition: color 0.25;
+    }
+
+    .dashboard-mobile-item:hover {
+        background: rgba(39, 245, 210, 0.12); 
+        transform: translateX(4px);
+    }
+
+    .dashboard-mobile-item:hover svg {
+      transform: scale(1.1);
+    }
+
+    .dashboard-mobile-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        margin: 12px 0;
+    }
+
+    .dashboard-mobile-item.logout {
+        color: #FF5A5F;
+    }
+
+    .dashboard-mobile-item.logout svg {
+      color:#FF5A5F;
+    }
+
+    .dashboard-mobile-item.logout:hover {
+      background: rgba(255,90,95,0.12);
+    }
   }
 
-  .navbar-menu {
-    width: 100%;
-    justify-content: space-around;
-    border-top: 1px solid rgba(0, 184, 148, 0.1);
-    padding: 8px 0 10px;
-    gap: 0;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-  }
 
-  .navbar-item {
-    flex: 1;
-    flex-direction: column;
-    gap: 4px;
-    padding: 6px 0;
-    font-size: 10px;
-  }
+/* ===========================================================
+   CELULAR (Ajustes específicos sobre la base anterior)
+=========================================================== */
+@media (max-width: 480px) {
+    .dashboard-navbar {
+        padding: 0 14px;
+    }
 
-  /* En móvil el texto SIEMPRE se ve debajo del icono */
-  .navbar-item span {
-    display: block !important;
-  }
+    .dashboard-navbar-logo img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .dashboard-navbar-logo-text h2 {
+        font-size: 22px;
+    }
+    
+    .dashboard-navbar-actions {
+        gap: 12px; /* Reducimos levemente el espacio en pantallas muy chicas */
+    }
 }

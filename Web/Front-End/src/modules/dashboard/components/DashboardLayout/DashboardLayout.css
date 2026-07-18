@@ -1,13 +1,12 @@
-.dashboard-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.dashboard-layout{
+    min-height:100vh;
+    background:#081321;
 }
 
-.dashboard-content {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
-  padding: 90px 30px 30px;
-  box-sizing: border-box;
+.dashboard-content{
+    padding-top:90px;
+    padding-inline:30px;
+    width:100%;
+    max-width:1700px;
+    margin:auto;
 }

@@ -1,51 +1,140 @@
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import {
   formatDate,
   getDateFormat,
 } from "../../../../shared/hooks/useDateFormat";
 
 function getActiveTimezone() {
-  const auto = JSON.parse(localStorage.getItem('autoTimezone')) ?? true
-  if (auto) return Intl.DateTimeFormat().resolvedOptions().timeZone
-  return localStorage.getItem('manualTimezone') || Intl.DateTimeFormat().resolvedOptions().timeZone
+
+  const auto =
+    JSON.parse(localStorage.getItem("autoTimezone")) ?? true;
+
+  if (auto) {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
+
+  return (
+    localStorage.getItem("manualTimezone") ||
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
+
 }
 
 function NavbarInfo({ role }) {
-  const [time, setTime]             = useState(new Date())
-  const [dateFormat, setDateFormat] = useState(getDateFormat)
-  const [timezone, setTimezone]     = useState(getActiveTimezone)
-  const { t } = useTranslation()
+
+  const { t } = useTranslation();
+
+  const [time, setTime] = useState(new Date());
+
+  const [dateFormat, setDateFormat] = useState(
+    getDateFormat()
+  );
+
+  const [timezone, setTimezone] = useState(
+    getActiveTimezone()
+  );
+
+  /* ===============================
+      RELOJ
+  =============================== */
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 1000)
-    return () => clearInterval(interval)
-  }, [])
+
+    const interval = setInterval(() => {
+
+      setTime(new Date());
+
+    }, 1000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+  /* ===============================
+      CAMBIOS DE CONFIGURACIÓN
+  =============================== */
 
   useEffect(() => {
-    const onFormat = (e) => setDateFormat(e.detail)
-    const onTz     = (e) => setTimezone(e.detail)
-    window.addEventListener('dateFormatChanged', onFormat)
-    window.addEventListener('timezoneChanged',   onTz)
+
+    const handleDate = (e) => {
+
+      setDateFormat(e.detail);
+
+    };
+
+    const handleTimezone = (e) => {
+
+      setTimezone(e.detail);
+
+    };
+
+    window.addEventListener(
+      "dateFormatChanged",
+      handleDate
+    );
+
+    window.addEventListener(
+      "timezoneChanged",
+      handleTimezone
+    );
+
     return () => {
-      window.removeEventListener('dateFormatChanged', onFormat)
-      window.removeEventListener('timezoneChanged',   onTz)
-    }
-  }, [])
 
-  const fecha = formatDate(time, dateFormat)
-  const hora  = time.toLocaleTimeString('default', { timeZone: timezone })
+      window.removeEventListener(
+        "dateFormatChanged",
+        handleDate
+      );
+
+      window.removeEventListener(
+        "timezoneChanged",
+        handleTimezone
+      );
+
+    };
+
+  }, []);
+
+  /* ===============================
+      FECHA Y HORA
+  =============================== */
+
+  const fecha = formatDate(
+    time,
+    dateFormat
+  );
+
+  const hora = time.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZone: timezone,
+  });
 
   return (
-    <div className="navbar-info">
-      <span className="navbar-info-greeting">
-        {t('nav.greeting')} {role === "admin" ? t('nav.admin') : t('nav.user')}
+
+    <div className="dashboard-navbar-info">
+
+      <span className="dashboard-navbar-info-greeting">
+
+        {t("nav.greeting")}{" "}
+        {role === "admin"
+          ? t("nav.admin")
+          : t("nav.user")}
+
       </span>
-      <span className="navbar-info-time">
-        {fecha} {hora}
+
+      <span className="dashboard-navbar-info-time">
+
+        {fecha} · {hora}
+
       </span>
+
     </div>
-  )
+
+  );
+
 }
 
-export default NavbarInfo
+export default NavbarInfo;

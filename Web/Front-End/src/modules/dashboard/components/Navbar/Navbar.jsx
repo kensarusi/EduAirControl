@@ -1,145 +1,223 @@
-import { useState, useRef, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-import { MdOutlineMeetingRoom } from 'react-icons/md'
-import { FaUser, FaHeart, FaChevronDown, FaBell } from 'react-icons/fa'
-import { IoStatsChart, IoSettings, IoLogOut } from 'react-icons/io5'
+import {
+  MdOutlineMeetingRoom,
+  MdMenu,
+  MdClose,
+} from "react-icons/md";
 
-import NavbarInfo from "../NavbarInfo/NavbarInfo";
+import {
+  FaUser,
+  FaHeart,
+  FaBell,
+  FaChevronDown,
+} from "react-icons/fa";
+
+import {
+  IoStatsChart,
+  IoSettings,
+  IoLogOut,
+} from "react-icons/io5";
+
+import NavbarInfo from "../../components/NavbarInfo/NavbarInfo";
 import NotificationPanel from "../../../notifications/components/NotificationPanel";
+
+import logo from "../../../../shared/assets/EduAirControlLogo.png";
+
 import "./Navbar.css";
 
 function Navbar() {
-  const navigate  = useNavigate()
-  const location  = useLocation()
-  const { t }     = useTranslation()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation();
 
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [notificationsOpen, setNotificationsOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const dropdownRef = useRef(null)
+  const dropdownRef = useRef(null);
 
-  // cerrar dropdown al hacer click fuera
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false)
+        setDropdownOpen(false);
       }
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [])
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const menuItems = [
-    { icon: <IoStatsChart />, label: t('nav.environments'), path: '/dashboard' },
-    { icon: <MdOutlineMeetingRoom />,         label: t('nav.activity'),     path: '/all-environments' },
-    { icon: <FaHeart />,              label: t('nav.favorites'),    path: '/favorites' },
-    { icon: <FaUser />,               label: t('nav.management'),   path: '/management' },
-  ]
+    {
+      icon: <IoStatsChart />,
+      label: t("nav.environments"),
+      path: "/dashboard",
+    },
+    {
+      icon: <MdOutlineMeetingRoom />,
+      label: t("nav.activity"),
+      path: "/all-environments",
+    },
+    {
+      icon: <FaHeart />,
+      label: t("nav.favorites"),
+      path: "/favorites",
+    },
+    {
+      icon: <FaUser />,
+      label: t("nav.management"),
+      path: "/management",
+    },
+  ];
 
   const isProfileActive =
-    location.pathname === '/profile' || location.pathname === '/settings'
+    location.pathname === "/profile" || location.pathname === "/settings";
+
+  const go = (path) => {
+    navigate(path);
+    setDropdownOpen(false);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
-      <nav className="navbar">
-
-        {/* LOGO */}
-        <div className="navbar-logo" onClick={() => navigate('/dashboard')}>
-          <h2>EduAirControl</h2>
+      <nav className="dashboard-navbar">
+        {/* IZQUIERDA */}
+        <div className="dashboard-navbar-left">
+          <div
+            className="dashboard-navbar-logo"
+            onClick={() => go("/dashboard")}
+          >
+            <img src={logo} alt="EduAirControl" />
+            <div className="dashboard-navbar-logo-text">
+              <h2>EduAirControl</h2>
+              <span>Smart Air Monitoring</span>
+            </div>
+          </div>
+          <NavbarInfo role="admin" />
         </div>
 
-        {/* INFO (saludo + hora) */}
-        <NavbarInfo role="admin" />
-
-        {/* MENU */}
-        <div className="navbar-menu">
-
+        {/* MENÚ DESKTOP */}
+        <div className="dashboard-navbar-menu">
           {menuItems.map((item) => (
             <div
               key={item.path}
-              className={`navbar-item ${location.pathname === item.path ? 'active' : ''}`}
-              onClick={() => navigate(item.path)}
+              className={`dashboard-navbar-item ${
+                location.pathname === item.path ? "active" : ""
+              }`}
+              onClick={() => go(item.path)}
             >
               {item.icon}
               <span>{item.label}</span>
             </div>
           ))}
+        </div>
 
-          {/*NOTIFICACIONES */}
+        {/* DERECHA (ACCIONES) */}
+        <div className="dashboard-navbar-actions">
+          {/* 1. NOTIFICACIONES */}
           <div
-            className="navbar-item notification-bell"
+            className="dashboard-navbar-item dashboard-notification-bell"
             onClick={() => setNotificationsOpen(true)}
           >
             <FaBell />
           </div>
 
-          {/*PROFILE DROPDOWN */}
-          <div
-            className={`navbar-item navbar-profile ${isProfileActive ? 'active' : ''}`}
-            onClick={() => setDropdownOpen((v) => !v)}
-            ref={dropdownRef}
-          >
-            <FaUser />
-            <span>{t('nav.profile')}</span>
-            <FaChevronDown className={`profile-chevron ${dropdownOpen ? 'open' : ''}`} />
+          {/* 2. PERFIL (dropdown) */}
+          <div ref={dropdownRef} className="dashboard-navbar-profile">
+            <div
+              className={`dashboard-navbar-item ${isProfileActive ? "active" : ""}`}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <FaUser />
+              <span>{t("nav.profile")}</span>
+              <FaChevronDown
+                className={`dashboard-profile-chevron ${dropdownOpen ? "open" : ""}`}
+              />
+            </div>
 
             {dropdownOpen && (
-              <div className="profile-dropdown">
-
+              <div className="dashboard-profile-dropdown">
                 <div
-                  className="profile-dropdown-item"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    navigate('/profile')
-                    setDropdownOpen(false)
-                  }}
+                  className="dashboard-profile-dropdown-item"
+                  onClick={() => go("/profile")}
                 >
                   <FaUser />
-                  <span>{t('nav.profile')}</span>
+                  <span>{t("nav.profile")}</span>
                 </div>
 
                 <div
-                  className="profile-dropdown-item"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    navigate('/settings')
-                    setDropdownOpen(false)
-                  }}
+                  className="dashboard-profile-dropdown-item"
+                  onClick={() => go("/settings")}
                 >
                   <IoSettings />
-                  <span>{t('nav.settings')}</span>
+                  <span>{t("nav.settings")}</span>
                 </div>
 
-                <div className="profile-dropdown-divider" />
+                <div className="dashboard-profile-dropdown-divider" />
 
                 <div
-                  className="profile-dropdown-item logout"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    navigate('/')
-                    setDropdownOpen(false)
-                  }}
+                  className="dashboard-profile-dropdown-item logout"
+                  onClick={() => go("/")}
                 >
                   <IoLogOut />
-                  <span>{t('nav.logout')}</span>
+                  <span>{t("nav.logout")}</span>
                 </div>
-
               </div>
             )}
-          </div>
+          </div> {/* CORREGIDO: Cierre correcto del perfil */}
 
+          {/* 3. BOTÓN HAMBURGUESA */}
+          <button
+            className="dashboard-mobile-button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <MdClose /> : <MdMenu />}
+          </button>
         </div>
       </nav>
 
-      {/* PANEL DE NOTIFICACIONES */}
+      {/* MENÚ MÓVIL (SIDEBAR LATERAL) */}
+      <div className={`dashboard-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
+            <div className="dashboard-mobile-header">Menú</div>
+
+        {menuItems.map((item) => (
+          <div
+            key={item.path}
+            className="dashboard-mobile-item"
+            onClick={() => go(item.path)}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </div>
+        ))}
+
+        <div className="dashboard-mobile-divider" />
+
+        <div className="dashboard-mobile-item" onClick={() => go("/profile")}>
+          <FaUser />
+          <span>{t("nav.profile")}</span>
+        </div>
+
+        <div className="dashboard-mobile-item" onClick={() => go("/settings")}>
+          <IoSettings />
+          <span>{t("nav.settings")}</span>
+        </div>
+
+        <div className="dashboard-mobile-item logout" onClick={() => go("/")}>
+          <IoLogOut />
+          <span>{t("nav.logout")}</span>
+        </div>
+      </div>
+
       <NotificationPanel
         isOpen={notificationsOpen}
         onClose={() => setNotificationsOpen(false)}
       />
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
