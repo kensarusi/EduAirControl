@@ -1,0 +1,488 @@
+/* ===========================================================
+   TOP 3 PODIUM
+=========================================================== */
+
+.ranking-top-three{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:28px;
+
+    margin:40px 0;
+
+}
+
+/* ===========================================================
+   CARD
+=========================================================== */
+
+.ranking-podium-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding:30px;
+
+    border-radius:26px;
+
+    background:rgba(16,27,43,.82);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(39,245,210,.10);
+
+    box-shadow:
+
+        0 12px 35px rgba(0,0,0,.30);
+
+    transition:
+
+        transform .35s,
+
+        box-shadow .35s,
+
+        border-color .35s;
+
+}
+
+body:not(.dark-mode)
+.ranking-podium-card{
+
+    background:white;
+
+    border:1px solid rgba(0,184,148,.12);
+
+}
+
+.ranking-podium-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+        0 18px 45px rgba(39,245,210,.18);
+
+}
+
+/* ===========================================================
+   MEDALLA
+=========================================================== */
+
+.ranking-medal{
+
+    font-size:52px;
+
+    margin-bottom:18px;
+
+}
+
+/* ===========================================================
+   TITULO
+=========================================================== */
+
+.ranking-podium-card h3{
+
+    margin:0;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    text-align:center;
+
+}
+
+body:not(.dark-mode)
+.ranking-podium-card h3{
+
+    color:#17222D;
+
+}
+
+.ranking-score{
+
+    margin-top:14px;
+
+    font-size:52px;
+
+    font-weight:800;
+
+    color:#27F5D2;
+
+}
+
+body:not(.dark-mode)
+.ranking-score{
+
+    color:#00B894;
+
+}
+
+.ranking-podium-card p{
+
+    margin-top:10px;
+
+    color:#9DB2C5;
+
+    text-align:center;
+
+}
+
+/* ===========================================================
+   DIVISOR
+=========================================================== */
+
+.ranking-divider{
+
+    width:100%;
+
+    height:1px;
+
+    margin:22px 0;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+body:not(.dark-mode)
+.ranking-divider{
+
+    background:#E5E7EB;
+
+}
+
+/* ===========================================================
+   VALORES
+=========================================================== */
+
+.ranking-values{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+}
+
+.ranking-values span{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#DCE8F2;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+body:not(.dark-mode)
+.ranking-values span{
+
+    color:#334155;
+
+}
+
+.ranking-values svg{
+
+    color:#27F5D2;
+
+    font-size:15px;
+
+}
+
+body:not(.dark-mode)
+.ranking-values svg{
+
+    color:#00B894;
+
+}
+
+/* ===========================================================
+   BOTÓN
+=========================================================== */
+
+.ranking-podium-card button{
+
+    width:100%;
+
+    margin-top:24px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#27F5D2,#00B894);
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.ranking-podium-card button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 25px rgba(39,245,210,.35);
+
+}
+
+/* ===========================================================
+   COLORES DEL PODIO
+=========================================================== */
+
+.ranking-podium-card.gold{
+
+    border-top:4px solid #FFD54A;
+
+}
+
+.ranking-podium-card.silver{
+
+    border-top:4px solid #C8CED8;
+
+}
+
+.ranking-podium-card.bronze{
+
+    border-top:4px solid #C97A37;
+
+}
+
+.ranking-podium-card.gold .ranking-medal{
+
+    filter:drop-shadow(0 0 10px rgba(255,213,74,.5));
+
+}
+
+.ranking-podium-card.silver .ranking-medal{
+
+    filter:drop-shadow(0 0 10px rgba(200,206,216,.5));
+
+}
+
+.ranking-podium-card.bronze .ranking-medal{
+
+    filter:drop-shadow(0 0 10px rgba(201,122,55,.5));
+
+}
+
+/* ===========================================================
+   PODIO REAL
+=========================================================== */
+
+.podium-1{
+
+
+    min-height:560px;
+
+}
+
+.podium-2{
+
+    min-height:500px;
+
+}
+
+.podium-3{
+
+    min-height:470px;
+
+}
+
+.podium-1:hover{
+
+    transform:translateY(-45px);
+
+}
+
+.podium-2:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.podium-3:hover{
+
+    transform:translateY(-10px);
+
+}
+
+/* ===========================================================
+   EFECTO GLOW
+=========================================================== */
+
+.podium-1{
+
+    background:
+
+        radial-gradient(circle at top,
+        rgba(255,215,0,.08),
+        transparent 55%),
+
+        rgba(16,27,43,.85);
+
+}
+
+.podium-2{
+
+    background:
+
+        radial-gradient(circle at top,
+        rgba(210,210,210,.08),
+        transparent 55%),
+
+        rgba(16,27,43,.85);
+
+}
+
+.podium-3{
+
+    background:
+
+        radial-gradient(circle at top,
+        rgba(205,127,50,.08),
+        transparent 55%),
+
+        rgba(16,27,43,.85);
+
+}
+
+body:not(.dark-mode)
+.podium-1,
+
+body:not(.dark-mode)
+.podium-2,
+
+body:not(.dark-mode)
+.podium-3{
+
+    background:white;
+
+}
+
+/* ===========================================================
+   MEDALLA
+=========================================================== */
+
+.podium-1 .ranking-medal{
+
+    font-size:50px;
+
+}
+
+.podium-2 .ranking-medal,
+
+.podium-3 .ranking-medal{
+
+    font-size:50px;
+
+}
+
+.podium-1 .ranking-score{
+
+    font-size:50px;
+
+}
+
+.podium-2 .ranking-score,
+
+.podium-3 .ranking-score{
+
+    font-size:50px;
+
+}
+
+/* ===========================================================
+   RESPONSIVE
+=========================================================== */
+
+@media(max-width:992px){
+
+    .ranking-top-three{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .podium-1,
+
+    .podium-2,
+
+    .podium-3{
+
+        min-height:auto;
+
+        transform:none;
+
+    }
+
+    .podium-1:hover,
+
+    .podium-2:hover,
+
+    .podium-3:hover{
+
+        transform:translateY(-8px);
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .ranking-podium-card{
+
+        padding:20px;
+
+        border-radius:20px;
+
+    }
+
+    .ranking-medal{
+
+        font-size:42px;
+
+    }
+
+    .ranking-score{
+
+        font-size:42px;
+
+    }
+
+    .ranking-values{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+

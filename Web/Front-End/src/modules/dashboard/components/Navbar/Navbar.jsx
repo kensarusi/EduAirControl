@@ -13,6 +13,7 @@ import {
   FaHeart,
   FaBell,
   FaChevronDown,
+  FaTrophy,
 } from "react-icons/fa";
 
 import {
@@ -51,9 +52,9 @@ function Navbar() {
 
   const menuItems = [
     {
-      icon: <IoStatsChart />,
-      label: t("nav.environments"),
-      path: "/dashboard",
+      icon: <FaTrophy />,
+      label: "Ranking",
+      path: "/ranking",
     },
     {
       icon: <MdOutlineMeetingRoom />,

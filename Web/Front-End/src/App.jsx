@@ -24,6 +24,11 @@ import Landing from "./modules/landing/pages/Landing";
 import DashboardScreen from "./modules/dashboard/pages/DashboardScreen";
 
 // ======================
+// RANKING
+// ======================
+import RankingScreen from "./modules/ranking/pages/RankingScreen";
+
+// ======================
 // ENVIRONMENTS
 // ======================
 import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsScreen";
@@ -66,6 +71,9 @@ function App() {
 
       {/* ---------- Dashboard ---------- */}
       <Route path="/dashboard" element={<DashboardScreen />} />
+
+      {/* ---------- Ranking ---------- */}
+      <Route path="/ranking" element={<RankingScreen />} />
 
       {/* ---------- Environments ---------- */}
       <Route path="/all-environments" element={<AllEnvironmentsScreen />} />

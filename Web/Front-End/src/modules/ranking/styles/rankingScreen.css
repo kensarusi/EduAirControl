@@ -1,0 +1,197 @@
+/* ===========================================================
+   RANKING SCREEN
+=========================================================== */
+
+.ranking-screen{
+
+    width:100%;
+
+    min-height:100vh;
+
+    padding:35px;
+
+    animation:rankingFade .45s ease;
+
+}
+
+/* ===========================================================
+   CONTENEDOR
+=========================================================== */
+
+.ranking-screen>*{
+
+    width:100%;
+
+    max-width:1600px;
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+}
+
+/* ===========================================================
+   ESPACIADOS
+=========================================================== */
+
+.ranking-header{
+
+    margin-bottom:40px;
+
+}
+
+.ranking-stats{
+
+    margin-bottom:35px;
+
+}
+
+.ranking-filters{
+
+    margin-bottom:35px;
+
+}
+
+.ranking-top-three{
+
+    margin-bottom:45px;
+
+}
+
+/* ===========================================================
+   EMPTY STATE
+=========================================================== */
+
+.ranking-empty{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:18px;
+
+    padding:80px 30px;
+
+    border-radius:26px;
+
+    background:rgba(15,24,40,.80);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(39,245,210,.10);
+
+    text-align:center;
+
+}
+
+body:not(.dark-mode)
+.ranking-empty{
+
+    background:white;
+
+    border:1px solid #E5E7EB;
+
+}
+
+.ranking-empty h2{
+
+    margin:0;
+
+    color:#27F5D2;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+body:not(.dark-mode)
+.ranking-empty h2{
+
+    color:#00B894;
+
+}
+
+.ranking-empty p{
+
+    margin:0;
+
+    max-width:500px;
+
+    color:#94A3B8;
+
+    line-height:1.7;
+
+}
+
+/* ===========================================================
+   ANIMACIÓN
+=========================================================== */
+
+@keyframes rankingFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================================================
+   RESPONSIVE
+=========================================================== */
+
+@media(max-width:1200px){
+
+    .ranking-screen{
+
+        padding:28px;
+
+    }
+
+}
+
+@media(max-width:992px){
+
+    .ranking-screen{
+
+        padding:22px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .ranking-screen{
+
+        padding:18px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .ranking-screen{
+
+        padding:15px;
+
+    }
+
+}
