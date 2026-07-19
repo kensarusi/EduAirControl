@@ -2,7 +2,6 @@ import { IoSearchOutline, IoAddOutline, IoSwapVerticalOutline } from 'react-icon
 import { MdOutlineGridView } from 'react-icons/md'
 import { TbBuildingCommunity } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
-import DashboardLayout from "../../dashboard/components/DashboardLayout/DashboardLayout";
 import ManagementCard from "../components/ManagementCard/ManagementCard";
 import AddEnvironmentModal from "../components/AddEnvironmentModal/AddEnvironmentModal";
 import EditEnvironmentModal from "../components/EditEnvironmentModal/EditEnvironmentModal";

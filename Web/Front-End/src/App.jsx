@@ -18,10 +18,6 @@ import OAuth2SuccessScreen from "./modules/auth/pages/OAuth2SuccessScreen";
 // ======================
 import Landing from "./modules/landing/pages/Landing";
 
-// ======================
-// DASHBOARD
-// ======================
-import DashboardScreen from "./modules/dashboard/pages/DashboardScreen";
 
 // ======================
 // RANKING
@@ -68,9 +64,6 @@ function App() {
       <Route path="/google-signup" element={<GoogleSignUpScreen />} />
       <Route path="/facebook-signup" element={<FacebookSignUpScreen />} />
       <Route path="/oauth2/success" element={<OAuth2SuccessScreen />} />
-
-      {/* ---------- Dashboard ---------- */}
-      <Route path="/dashboard" element={<DashboardScreen />} />
 
       {/* ---------- Ranking ---------- */}
       <Route path="/ranking" element={<RankingScreen />} />
