@@ -564,3 +564,27 @@ body:not(.dark-mode)
         grid-template-columns:1fr;
     }
 }
+
+/*======================================
+BOTÓN DE INFORMACIÓN (InfoTooltip)
+======================================*/
+
+.info-section{
+    position:relative;
+}
+
+.sensor-card-wrap{
+    position:relative;
+}
+
+.sensor-card-wrap .sensor-card{
+    padding-right:44px;
+}
+
+.environment-score.info-section{
+    padding-right:44px;
+}
+
+.recommendations-wrap{
+    padding-right:44px;
+}

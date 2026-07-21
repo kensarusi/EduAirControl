@@ -630,6 +630,32 @@
       "termsLink": "Termos e Condições",
       "copyright": "\u00a9 2026 EduAirControl. Todos os direitos reservados."
     }
+  },
+
+  "tooltips": {
+    "close": "Fecha esta janela e volta à lista de ambientes.",
+    "status": "Indica o estado geral do ambiente: Normal, Aviso ou Alerta, calculado a partir dos sensores.",
+    "score": "Pontuação de 0 a 100 que resume a qualidade do ambiente combinando temperatura, umidade, CO₂ e ruído. Quanto mais alto, melhor.",
+    "temperature": "Temperatura atual do ambiente. Ajuda a saber se convém ligar o ar-condicionado ou aquecimento.",
+    "humidity": "Nível de umidade no ar. Um nível fora da faixa pode afetar o conforto e a saúde respiratória.",
+    "co2": "Concentração de CO₂ em partes por milhão (ppm). Valores altos indicam pouca ventilação; considere abrir janelas.",
+    "noise": "Nível de ruído ambiental em decibéis (dB). Ajuda a detectar excesso de ruído que pode afetar a concentração.",
+    "recommendations": "Sugestões automáticas geradas com base nas condições atuais, para ajudar a melhorar este ambiente.",
+    "favoriteAdd": "Marque este ambiente como favorito para encontrá-lo mais rápido.",
+    "favoriteRemove": "Remova este ambiente dos seus favoritos.",
+    "closeBtn": "Fecha esta janela.",
+    "rating": "Avalie este ambiente com base na sua experiência pessoal nele."
+  },
+  "environmentRating": {
+    "title": "Avalie este ambiente",
+    "description": "Como você avaliaria as condições deste ambiente?",
+    "yourRating": "Sua avaliação",
+    "thankYou": "Obrigado pelo seu feedback!",
+    "star1": "Muito ruim",
+    "star2": "Ruim",
+    "star3": "Regular",
+    "star4": "Bom",
+    "star5": "Excelente"
   }
 }
 

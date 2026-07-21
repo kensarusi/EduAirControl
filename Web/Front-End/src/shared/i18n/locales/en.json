@@ -632,5 +632,31 @@
       "termsLink": "Terms and Conditions",
       "copyright": "© 2026 EduAirControl. All rights reserved."
     }
+  },
+
+  "tooltips": {
+    "close": "Close this window and return to the environment list.",
+    "status": "Shows the environment's overall status: Normal, Warning or Alert, calculated from the sensors.",
+    "score": "Score from 0 to 100 that summarizes the environment quality combining temperature, humidity, CO₂ and noise. The higher, the better.",
+    "temperature": "Current temperature of the environment. Helps you know if you should turn on the AC or heating.",
+    "humidity": "Humidity level in the air. Levels outside the recommended range can affect comfort and respiratory health.",
+    "co2": "CO₂ concentration in parts per million (ppm). High values indicate poor ventilation; consider opening windows.",
+    "noise": "Ambient noise level in decibels (dB). Helps detect excess noise that can affect concentration.",
+    "recommendations": "Automatic suggestions generated based on the current conditions, to help you improve this environment.",
+    "favoriteAdd": "Mark this environment as a favorite to find it faster on your panel.",
+    "favoriteRemove": "Remove this environment from your favorites.",
+    "closeBtn": "Close this window.",
+    "rating": "Rate this environment based on your personal experience in it."
+  },
+  "environmentRating": {
+    "title": "Rate this environment",
+    "description": "How would you rate the conditions of this environment?",
+    "yourRating": "Your rating",
+    "thankYou": "Thanks for your feedback!",
+    "star1": "Very bad",
+    "star2": "Bad",
+    "star3": "Regular",
+    "star4": "Good",
+    "star5": "Excellent"
   }
 }
