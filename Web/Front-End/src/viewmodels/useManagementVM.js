@@ -6,11 +6,15 @@
 
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+<<<<<<< Updated upstream
 
+=======
+import { useEnvironment } from '../context/EnvironmentContext'
+>>>>>>> Stashed changes
 export function useManagementVM() {
   const { t } = useTranslation()
   const { environments, addEnvironment, editEnvironment, deleteEnvironment } =
-    useEnvironments()
+    useEnvironment()
 
   const [search,       setSearch]       = useState('')
   const [minCapacity,  setMinCapacity]  = useState('')
@@ -124,5 +128,7 @@ const stats = useMemo(() => ({
     handleDelete,
     setActiveFilter,
     setSortBy,
+    setMinCapacity,
+    setMaxCapacity,
   }
 }

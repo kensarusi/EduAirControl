@@ -47,7 +47,6 @@ function ManagementCard({ environment, onEdit, onDelete }) {
     <div
       className="mgmt-card"
       data-status={statusAttr}
-      onClick={() => navigate(`/environment/${environment.id}`)}
     >
       {/* Header */}
       <div className="mgmt-card__header">

@@ -28,7 +28,11 @@ import RankingScreen from "./modules/ranking/pages/RankingScreen";
 // ENVIRONMENTS
 // ======================
 import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsScreen";
+<<<<<<< Updated upstream
 import EnvironmentDetailScreen from "./modules/environment/pages/EnvironmentDetailScreen";
+=======
+import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
+>>>>>>> Stashed changes
 
 // ======================
 // PROFILE
@@ -69,7 +73,11 @@ function App() {
 
       {/* ---------- Environments ---------- */}
       <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
+<<<<<<< Updated upstream
       <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
+=======
+      <Route path="/management" element={<EnvironmentManagement />} />
+>>>>>>> Stashed changes
 
       {/* ---------- User ---------- */}
       <Route path="/favorites" element={<FavoritesScreen />} />
