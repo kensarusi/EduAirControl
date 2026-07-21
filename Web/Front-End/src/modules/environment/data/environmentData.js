@@ -17,7 +17,7 @@ const environmentData = [
     id: 2,
     name: "Ambiente 209-2",
     building: "Bloque A",
-    floor: 3,
+    floor: 2,
     capacity: 28,
     statusKey: "dashboard.statusWarning",
     temp: 27,
@@ -30,7 +30,7 @@ const environmentData = [
   {
     id: 3,
     name: "Ambiente 209-3",
-    building: "Bloque B",
+    building: "Bloque A",
     floor: 2,
     capacity: 40,
     statusKey: "dashboard.statusAlert",
