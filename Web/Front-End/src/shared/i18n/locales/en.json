@@ -372,21 +372,22 @@
   },
 
      "notifications": {
-  "title": "Notifications",
-  "empty": "No notifications",
+    "title": "Notifications",
+    "empty": "No notifications",
+    "markAllRead": "Mark all as read",
 
-  "co2High": "High CO₂",
-  "co2Message": "Environment {{name}} has {{value}} ppm CO₂",
+    "co2High": "High CO₂",
+    "co2Message": "Environment {{name}} has {{value}} ppm CO₂",
 
-  "tempHigh": "High temperature",
-  "tempMessage": "Environment {{name}} is at {{value}}°C",
+    "tempHigh": "High temperature",
+    "tempMessage": "Environment {{name}} is at {{value}}°C",
 
-  "warning": "Warning",
-  "warningMessage": "Environment {{name}} has irregular conditions",
+    "warning": "Warning",
+    "warningMessage": "Environment {{name}} has irregular conditions",
 
-  "dailySummary": "Daily summary",
-  "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings"
-},
+    "dailySummary": "Daily summary",
+    "summaryMessage": "{{alerts}} environments in alert and {{warnings}} with warnings"
+  },
 
   "leaderboard": {
     "title": "Environment Ranking",

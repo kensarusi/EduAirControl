@@ -31,8 +31,6 @@ import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsSc
 import EnvironmentDetailScreen from "./modules/environment/pages/EnvironmentDetailScreen";
 import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
 
-import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
-
 // ======================
 // PROFILE
 // ======================

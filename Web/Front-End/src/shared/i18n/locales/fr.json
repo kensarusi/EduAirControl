@@ -372,6 +372,7 @@
     "notifications": {
     "title": "Notifications",
     "empty": "Aucune notification",
+    "markAllRead": "Tout marquer comme lu",
     
     "co2High": "CO₂ élevé",
     "co2Message": "L'environnement {{name}} a {{value}} ppm de CO₂",
