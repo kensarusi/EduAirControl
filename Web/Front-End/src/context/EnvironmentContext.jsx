@@ -4,11 +4,12 @@ import environmentData from "../modules/environment/data/environmentData";
 const EnvironmentContext = createContext();
 
 export function EnvironmentProvider({ children }) {
+
   const [environments, setEnvironments] = useState(environmentData);
 
   const toggleFavorite = (id, favorite) => {
-    setEnvironments((prev) =>
-      prev.map((env) =>
+    setEnvironments(prev =>
+      prev.map(env =>
         env.id === id
           ? {
               ...env,
@@ -21,7 +22,9 @@ export function EnvironmentProvider({ children }) {
 
   const addEnvironment = (data) => {
     setEnvironments((prev) => {
-      const nextId = prev.length ? Math.max(...prev.map((env) => Number(env.id) || 0)) + 1 : 1;
+      const nextId = prev.length
+        ? Math.max(...prev.map((env) => Number(env.id) || 0)) + 1
+        : 1;
 
       return [
         ...prev,
@@ -44,8 +47,8 @@ export function EnvironmentProvider({ children }) {
   };
 
   const editEnvironment = (id, data) => {
-    setEnvironments((prev) =>
-      prev.map((env) =>
+    setEnvironments(prev =>
+      prev.map(env =>
         env.id === id
           ? {
               ...env,
@@ -57,7 +60,9 @@ export function EnvironmentProvider({ children }) {
   };
 
   const deleteEnvironment = (id) => {
-    setEnvironments((prev) => prev.filter((env) => env.id !== id));
+    setEnvironments(prev =>
+      prev.filter(env => env.id !== id)
+    );
   };
 
   return (

@@ -31,6 +31,8 @@ import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsSc
 import EnvironmentDetailScreen from "./modules/environment/pages/EnvironmentDetailScreen";
 import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
 
+import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
+
 // ======================
 // PROFILE
 // ======================
@@ -71,8 +73,13 @@ function App() {
       {/* ---------- Environments ---------- */}
       <Route path="/dashboard" element={<Navigate to="/all-environments" replace />} />
       <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
+
       <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
+
       <Route path="/management" element={<EnvironmentManagement />} />
+
+      <Route path="/management" element={<EnvironmentManagement />} />
+
 
       {/* ---------- User ---------- */}
       <Route path="/favorites" element={<FavoritesScreen />} />
