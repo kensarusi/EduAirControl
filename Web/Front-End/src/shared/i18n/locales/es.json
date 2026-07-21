@@ -200,7 +200,19 @@
 
     "viewDetails": "Ver detalles",
 
-    "noResults": "No se encontraron ambientes con los filtros seleccionados."
+    "noResults": "No se encontraron ambientes con los filtros seleccionados.",
+
+    "environmentIndex": "Índice ambiental",
+    "environmentIndexDescription": "Evalúa la calidad del ambiente",
+    "excellent": "Excelente",
+    "good": "Bueno",
+    "regular": "Regular",
+    "bad": "Malo"
+  },
+
+    "common": {
+    "addFavorites": "Agregar a favoritos",
+    "close": "Cerrar"
   },
 
   "favorites": {

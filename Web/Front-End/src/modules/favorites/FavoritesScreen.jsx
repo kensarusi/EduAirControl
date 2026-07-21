@@ -2,11 +2,12 @@ import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaHeart } from 'react-icons/fa'
 import Navbar from "../dashboard/components/Navbar/Navbar";
+import { useEnvironment } from "../../context/EnvironmentContext";
 import "./Favorites.css";
 
 function FavoritesScreen() {
   const { t } = useTranslation()
-  const { environments, toggleFavorite } = useEnvironments()
+  const { environments, toggleFavorite } = useEnvironment();
 
   // favoritos memoizados (más limpio y eficiente)
   const favorites = useMemo(

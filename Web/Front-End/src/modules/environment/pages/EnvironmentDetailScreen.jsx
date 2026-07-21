@@ -8,6 +8,7 @@ import { FaHeart, FaRegHeart, FaUser, FaMapMarkerAlt } from 'react-icons/fa'
 import { IoCheckmarkCircle, IoWarning, IoAlertCircle } from 'react-icons/io5'
 import Navbar from "../../dashboard/components/Navbar/Navbar";
 import { BackButton } from "../../../shared/components";
+import { useEnvironment } from "../../../context/EnvironmentContext";
 import {
   STATUS_COLORS,
   QUALITY_COLORS,
@@ -93,7 +94,7 @@ function EnvironmentDetailScreen() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { environments, toggleFavorite } = useEnvironments()
+  const { environments, toggleFavorite } = useEnvironment();
 
   const [rating, setRating] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -124,7 +125,7 @@ function EnvironmentDetailScreen() {
       label: t('dashboard.temperature'),
       value: `${env.temp}°C`,
       rawValue: env.temp,
-      ideal: IDEAL_RANGES.temperature,
+      ideal: IDEAL_RANGES.temp,
       min: 0, max: 50,
       key: 'temp',
     },

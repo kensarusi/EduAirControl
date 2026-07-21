@@ -24,24 +24,16 @@ function EnvironmentSummaryCard({
 
   const [showModal, setShowModal] = useState(false);
 
-  const [isFavorite, setIsFavorite] = useState(
-    environment.isFavorite || false
-  );
+  const isFavorite = environment.isFavorite ?? false;
 
-  const handleFavorite = (e) => {
+    const handleFavorite = (e) => {
+        e.stopPropagation();
 
-    e.stopPropagation();
-
-    const value = !isFavorite;
-
-    setIsFavorite(value);
-
-    onToggleFavorite?.(
-      environment.id,
-      value
-    );
-
-  };
+        onToggleFavorite?.(
+            environment.id,
+            !isFavorite
+        );
+    };
 
   const status = getEnvironmentStatus(
     environment.statusKey,
@@ -189,11 +181,15 @@ function EnvironmentSummaryCard({
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         environment={{
-          ...environment,
-          score,
-          isFavorite,
+            ...environment,
+            score,
+            isFavorite
         }}
-      />
+        isFavorite={isFavorite}
+        onToggleFavorite={() => {
+          onToggleFavorite?.(environment.id, !isFavorite);
+        }}
+    />
 
     </>
 

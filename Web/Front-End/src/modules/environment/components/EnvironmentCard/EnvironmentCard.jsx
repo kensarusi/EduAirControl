@@ -37,7 +37,7 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
             </span>
           </div>
 
-          <button className="favorite-btn" onClick={handleFavorite}>
+          <button className="card-favorite-btn" onClick={handleFavorite}>
             {favorite ? <FaHeart /> : <FaRegHeart />}
           </button>
         </div>
@@ -59,14 +59,20 @@ function EnvironmentCard({ environment, onToggleFavorite }) {
       </article>
 
       <EnvironmentModal
-        open={open}
-        onClose={() => setOpen(false)}
-        environment={{
-          ...environment,
-          score,
-          favorite
-        }}
-      />
+      isOpen={open}
+      onClose={() => setOpen(false)}
+      environment={{
+        ...environment,
+        score,
+        favorite
+      }}
+      isFavorite={favorite}
+      onToggleFavorite={() => {
+        const value = !favorite;
+        setFavorite(value);
+        onToggleFavorite?.(environment.id, value);
+      }}
+    />
     </>
   );
 }

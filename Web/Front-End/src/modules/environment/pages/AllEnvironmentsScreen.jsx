@@ -3,11 +3,14 @@ import Navbar from "../../dashboard/components/Navbar/Navbar";
 import EnvironmentFilters from "../components/EnvironmentFilters/EnvironmentFilters";
 import EnvironmentSummaryCard from "../components/EnvironmentSummaryCard/EnvironmentSummaryCard";
 import { useAllEnvironmentsVM } from "../../../viewmodels/useAllEnvironmentsVM";
+import { useEnvironment } from "../../../context/EnvironmentContext";
 import "./AllEnvironments.css";
 
 function AllEnvironmentsScreen() {
 
   const { t } = useTranslation();
+
+  const { environments, toggleFavorite } = useEnvironment();
 
   const {
   filtered,
@@ -15,7 +18,7 @@ function AllEnvironmentsScreen() {
   setFilters,
   counts,
   suggestions,
-  toggleFavorite
+  toggleFavorite: toggleFavoriteVM
 } = useAllEnvironmentsVM();
 
 console.log(filtered);

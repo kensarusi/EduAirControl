@@ -52,14 +52,14 @@ function Navbar() {
 
   const menuItems = [
     {
-      icon: <FaTrophy />,
-      label: "Ranking",
-      path: "/ranking",
-    },
-    {
       icon: <MdOutlineMeetingRoom />,
       label: t("nav.activity"),
       path: "/all-environments",
+    },
+    {
+      icon: <FaTrophy />,
+      label: "Ranking",
+      path: "/ranking",
     },
     {
       icon: <FaHeart />,

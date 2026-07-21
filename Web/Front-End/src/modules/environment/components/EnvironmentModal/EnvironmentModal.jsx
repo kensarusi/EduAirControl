@@ -1,4 +1,4 @@
-import { FaTimes, FaHeart, FaTemperatureHigh } from "react-icons/fa";
+import { FaTimes, FaHeart, FaRegHeart, FaTemperatureHigh } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import { MdCo2 } from "react-icons/md";
 import { HiSpeakerWave } from "react-icons/hi2";
@@ -17,6 +17,8 @@ function EnvironmentModal({
   isOpen,
   onClose,
   environment,
+  isFavorite,
+  onToggleFavorite
 }) {
 
   const { t } = useTranslation();
@@ -118,12 +120,12 @@ function EnvironmentModal({
 
         <div className="modal-actions">
 
-          <button className="favorite-btn">
-
-            <FaHeart />
-
-            {t("common.addFavorites")}
-
+          <button
+            className={`modal-favorite-btn ${isFavorite ? "active" : ""}`}
+            onClick={onToggleFavorite}
+          >
+            {isFavorite ? <FaHeart /> : <FaRegHeart />}
+            {isFavorite ? t("allEnvironments.removeFavorite") : t("allEnvironments.favorite")}
           </button>
 
           <button
