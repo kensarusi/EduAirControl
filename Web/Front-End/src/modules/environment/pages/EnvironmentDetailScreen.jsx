@@ -8,7 +8,6 @@ import { FaHeart, FaRegHeart, FaUser, FaMapMarkerAlt } from 'react-icons/fa'
 import { IoCheckmarkCircle, IoWarning, IoAlertCircle } from 'react-icons/io5'
 import Navbar from "../../dashboard/components/Navbar/Navbar";
 import { BackButton } from "../../../shared/components";
-import { useEnvironments } from "../context/EnvironmentsContext";
 import {
   STATUS_COLORS,
   QUALITY_COLORS,

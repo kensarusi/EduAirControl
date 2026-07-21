@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import "./shared/styles/design-system.css";import './shared/i18n/i18n.js'
-import { EnvironmentsProvider } from "./modules/environment/context/EnvironmentsContext";
 
 // Restaurar tema daltónico + dark mode al cargar
 const savedTheme = localStorage.getItem('theme') || ''
@@ -15,9 +14,7 @@ if (classes) document.body.className = classes
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <EnvironmentsProvider>
         <App />
-      </EnvironmentsProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

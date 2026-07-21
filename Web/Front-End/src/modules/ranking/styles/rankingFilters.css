@@ -36,7 +36,7 @@
 
     border-radius:18px;
     background:rgba(15,25,40,.75);
-    border:1px solid rgba(255,255,255,.06);
+    border:2px solid rgba(255,255,255,.06);
 
     transition: 
         .30s,
@@ -196,6 +196,7 @@ body:not(.dark-mode)
     padding:13px 18px;
 
     border-radius:16px;
+    border: 2px solid rgb(255 255 255 / 6%);
     background:rgba(15,25,40,.75);
     color:white;
 

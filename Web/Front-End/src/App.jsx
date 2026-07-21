@@ -28,7 +28,6 @@ import RankingScreen from "./modules/ranking/pages/RankingScreen";
 // ENVIRONMENTS
 // ======================
 import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsScreen";
-import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
 import EnvironmentDetailScreen from "./modules/environment/pages/EnvironmentDetailScreen";
 
 // ======================
@@ -70,7 +69,6 @@ function App() {
 
       {/* ---------- Environments ---------- */}
       <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
-      <Route path="/management" element={<EnvironmentManagement />} />
       <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
 
       {/* ---------- User ---------- */}

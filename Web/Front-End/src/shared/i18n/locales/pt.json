@@ -107,20 +107,52 @@
     "warnings": "Avisos",
     "alerts": "Alertas"
   },
-  "allEnvironments": {
-    "title": "Todos os ambientes",
-    "ambiente": "Ambiente",
-    "statusNormal": "Estado normal",
-    "statusWarning": "Avisos",
-    "statusAlert": "Alertas",
-    "airQuality": "Qualidade do ar:",
+    "allEnvironments": {
+    "title": "Ambientes",
+    "subtitle": "Consulte o estado ambiental de cada espaço em tempo real.",
+    "qualityTitle": "Índice Ambiental",
+    "qualityDesc": "Calculado com base na temperatura, umidade, CO₂ e ruído.",
+
+    "co2": "CO₂",
+
+    "tempDescription": "A temperatura ideal está entre 20°C e 26°C.",
+    "humidityDescription": "A umidade recomendada está entre 40% e 60%.",
+    "co2Description": "O nível de CO₂ reflete a qualidade do ar.",
+    "noiseDescription": "Níveis mais baixos de ruído melhoram a concentração.",
+
+    "recTemp": "A temperatura está alta. Recomenda-se ventilar o ambiente.",
+    "recHumidity": "A umidade está fora da faixa recomendada.",
+    "recCo2": "O nível de CO₂ está alto. Abra portas e janelas.",
+    "recNoise": "O nível de ruído está elevado. Reduza as fontes de som.",
+    "recPerfect": "O ambiente apresenta condições ideais.",
+
+    "statusIdeal": "Ideal",
+    "statusHigh": "Alta",
+    "statusOutOfRange": "Fora da faixa",
+
+    "co2Good": "Boa",
+    "co2Regular": "Regular",
+    "co2Bad": "Ruim",
+
+    "noiseLow": "Baixo",
+    "noiseModerate": "Moderado",
+    "noiseHigh": "Alto",
+
+    "temperature": "Temperatura",
     "humidity": "Umidade",
-    "temp": "Temp",
-    "db": "dB",
-    "co2": "CO2",
-    "filters": "Filtros",
-    "hideFilters": "Ocultar filtros",
-    "noResults": "Não foram encontrados ambientes com os filtros selecionados."
+    "noise": "Ruído",
+
+    "capacity": "Capacidade",
+    "building": "Bloco",
+    "floor": "Andar",
+    "lastUpdate": "Última atualização",
+
+    "favorite": "Adicionar aos favoritos",
+    "removeFavorite": "Remover dos favoritos",
+
+    "viewDetails": "Ver detalhes",
+
+    "noResults": "Nenhum ambiente encontrado com os filtros selecionados."
   },
   "favorites": {
     "title": "Favoritos",
@@ -397,6 +429,15 @@
     "roomB": "Sala B",
     "roomC": "Sala C"
     }
+  },
+
+    "filters": {
+    "all": "Todos",
+    "name": "Nome",
+    "searchEnvironment": "Pesquisar ambiente...",
+    "building": "Bloco",
+    "floor": "Andar",
+    "favorites": "Somente favoritos"
   },
 
   "landing": {

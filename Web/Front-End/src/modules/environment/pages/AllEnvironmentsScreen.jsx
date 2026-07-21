@@ -1,106 +1,130 @@
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { IoTrendingUp, IoTrendingDown, IoOptionsOutline } from 'react-icons/io5'
-import { TiWarning } from 'react-icons/ti'
-import { HiOutlineViewGrid } from 'react-icons/hi'
+import { useTranslation } from "react-i18next";
 import Navbar from "../../dashboard/components/Navbar/Navbar";
-import EnvironmentSummaryCard from "../components/EnvironmentSummaryCard/EnvironmentSummaryCard";
 import EnvironmentFilters from "../components/EnvironmentFilters/EnvironmentFilters";
+import EnvironmentSummaryCard from "../components/EnvironmentSummaryCard/EnvironmentSummaryCard";
 import { useAllEnvironmentsVM } from "../../../viewmodels/useAllEnvironmentsVM";
 import "./AllEnvironments.css";
 
-const STATUS_NORMAL  = 'dashboard.statusNormal'
-const STATUS_WARNING = 'dashboard.statusWarning'
-const STATUS_ALERT   = 'dashboard.statusAlert'
-
 function AllEnvironmentsScreen() {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
-  const {
-    filtered, counts, filters, setFilters,
-    activeStatus, toggleStatus, showFilters, setShowFilters, nameSuggestions,
-  } = useAllEnvironmentsVM()
 
-  const statusButtons = [
-    { key: STATUS_NORMAL,  label: t('dashboard.statusNormal'),  count: counts.normal,  color: '#238636', icon: <IoTrendingUp /> },
-    { key: STATUS_WARNING, label: t('dashboard.statusWarning'), count: counts.warning, color: '#d29922', icon: <TiWarning /> },
-    { key: STATUS_ALERT,   label: t('dashboard.statusAlert'),   count: counts.alert,   color: '#da3633', icon: <IoTrendingDown /> },
-  ]
+  const { t } = useTranslation();
+
+  const {
+  filtered,
+  filters,
+  setFilters,
+  counts,
+  suggestions,
+  toggleFavorite
+} = useAllEnvironmentsVM();
+
+console.log(filtered);
 
   return (
-    <div className='all-env-page'>
+    <div className="all-env-page">
+
       <Navbar />
-      <div className='app-page-container'>
 
-        <div className='all-env-header'>
-          <div className='all-env-header-top'>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <HiOutlineViewGrid size={28} color="#3fb950" />
-              <h1>{t('allEnvironments.title')}</h1>
-            </div>
-            <div className='top-status-row'>
-              {statusButtons.map((btn) => (
-                <div
-                  key={btn.key}
-                  className='top-status-badge'
-                  style={{ borderColor: btn.color, color: btn.color, cursor: 'pointer', opacity: activeStatus === btn.key ? 1 : 0.7 }}
-                  onClick={() => toggleStatus(btn.key)}
-                >
-                  {btn.icon}
-                  <span>{btn.count} {btn.label}</span>
-                </div>
-              ))}
-            </div>
+      <div className="app-page-container">
+
+        <header className="all-env-header">
+
+          <div>
+
+            <h1>
+              {t("allEnvironments.title")}
+            </h1>
+
+            <p>
+              {t("allEnvironments.subtitle")}
+            </p>
+
           </div>
 
-          <div className='all-env-header-bottom'>
-            <div className='status-chips'>
-              <button className={!activeStatus ? 'active' : ''} onClick={() => toggleStatus('')}>{t('filters.all')}</button>
-              <button className={activeStatus === STATUS_NORMAL  ? 'active' : ''} onClick={() => toggleStatus(STATUS_NORMAL)}>{t('dashboard.statusNormal')}</button>
-              <button className={activeStatus === STATUS_WARNING ? 'active' : ''} onClick={() => toggleStatus(STATUS_WARNING)}>{t('dashboard.statusWarning')}</button>
-              <button className={activeStatus === STATUS_ALERT   ? 'active' : ''} onClick={() => toggleStatus(STATUS_ALERT)}>{t('dashboard.statusAlert')}</button>
-            </div>
-            <button
-              className='filter-btn'
-              onClick={() => setShowFilters(!showFilters)}
-              style={{ fontWeight: showFilters ? '600' : '500', color: showFilters ? '#3fb950' : '#8b949e' }}
-            >
-              <IoOptionsOutline />
-              {showFilters ? t('allEnvironments.hideFilters') : t('allEnvironments.filters')}
-            </button>
-          </div>
-        </div>
+          <div className="all-env-stats">
 
-        {showFilters && (
-          <div className='filters-section'>
-            <EnvironmentFilters filters={filters} setFilters={setFilters} suggestions={nameSuggestions} />
+            <div className="stat-card">
+
+              <span>{counts.total}</span>
+
+              <small>{t("filters.all")}</small>
+
+            </div>
+
+            <div className="stat-card normal">
+
+              <span>{counts.normal}</span>
+
+              <small>{t("dashboard.statusNormal")}</small>
+
+            </div>
+
+            <div className="stat-card warning">
+
+              <span>{counts.warning}</span>
+
+              <small>{t("dashboard.statusWarning")}</small>
+
+            </div>
+
+            <div className="stat-card danger">
+
+              <span>{counts.alert}</span>
+
+              <small>{t("dashboard.statusAlert")}</small>
+
+            </div>
+
+            <div className="stat-card favorite">
+
+              <span>{counts.favorites}</span>
+
+              <small>{t("favorites.title")}</small>
+
+            </div>
+
           </div>
-        )}
+
+        </header>
+
+        <EnvironmentFilters
+          filters={filters}
+          setFilters={setFilters}
+          suggestions={suggestions}
+        />
 
         {filtered.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#8b949e', fontSize: '16px' }}>
-            <p>{t('allEnvironments.noResults')}</p>
+
+          <div className="empty-state">
+
+            <h2>
+              {t("allEnvironments.noResults")}
+            </h2>
+
           </div>
+
         ) : (
-          <div className='all-env-cards'>
-            {filtered.map((env) => (
+
+          <div className="all-env-grid">
+
+            {filtered.map((environment) => (
+
               <EnvironmentSummaryCard
-                key={env.id}
-                nameKey={env.nameKey}
-                name={env.name}
-                statusKey={env.statusKey}
-                co2={env.co2 || 0}
-                db={env.noise || 0}
-                temp={env.temp || 0}
-                humidity={env.humidity || 0}
-                onClick={() => navigate('/environment/' + env.id)}
+                key={environment.id}
+                environment={environment}
+                onToggleFavorite={toggleFavorite}
               />
+
             ))}
+
           </div>
+
         )}
+
       </div>
+
     </div>
-  )
+  );
 }
 
-export default AllEnvironmentsScreen
+export default AllEnvironmentsScreen;

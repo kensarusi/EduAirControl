@@ -5,7 +5,6 @@
 
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useEnvironments } from '../context/EnvironmentsContext'
 import { getStatusColor, getDisplayName } from './environmentHelpers'
 
 export function useFavoritesVM() {

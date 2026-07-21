@@ -1,90 +1,77 @@
-import { useEffect, useState } from "react";
-
+import { useTranslation } from "react-i18next";
 import Navbar from "../../dashboard/components/Navbar/Navbar";
-import RankingHeader from "../components/RankingHeader";
-import RankingStats from "../components/RankingStats";
+import RankingCard from "../components/RankingCard";
 import RankingFilters from "../components/RankingFilters";
-import RankingTopThree from "../components/RankingTopThree";
-import RankingList from "../components/RankingList";
+import { useRankingVM } from "../../../viewmodels/useRankingVM";
 
-import { getRanking } from "../services/rankingService";
-
-import "../styles/rankingScreen.css";
+import "../../ranking/styles/RankingScreen.css";
 
 function RankingScreen() {
 
-    const [environments, setEnvironments] = useState([]);
+  const { t } = useTranslation();
 
-    const [loading, setLoading] = useState(true);
+  const {
+    ranking,
+    filters,
+    setFilters,
+    statistics
+  } = useRankingVM();
 
-    const [search, setSearch] = useState("");
+  return (
+    <div className="ranking-page">
 
-    const [filter, setFilter] = useState("Todos");
+      <Navbar />
 
-    const [order, setOrder] = useState("desc");
+      <div className="app-page-container">
 
-    useEffect(() => {
+        <header className="ranking-header">
 
-        getRanking().then((data) => {
+          <div>
 
-            setEnvironments(data);
+            <h1>{t("ranking.title")}</h1>
 
-            setLoading(false);
+            <p>{t("ranking.subtitle")}</p>
 
-        });
+          </div>
 
-    }, []);
+          <div className="ranking-summary">
 
-     const filteredEnvironments = environments.filter((environment)=>{
+            <div className="summary-card">
+              <span>{statistics.total}</span>
+              <small>{t("ranking.totalEnvironments")}</small>
+            </div>
 
-        const matchesSearch = environment.name
-            .toLowerCase()
-            .includes(search.toLowerCase());
+            <div className="summary-card">
+              <span>{statistics.average}</span>
+              <small>{t("ranking.averageScore")}</small>
+            </div>
 
-        const matchesFilter =
-            filter === "Todos" ||
-            environment.status === filter;
+          </div>
 
-        return matchesSearch && matchesFilter;
+        </header>
 
-    });
+        <RankingFilters
+          filters={filters}
+          setFilters={setFilters}
+        />
 
-return (
-    <>
-        <Navbar />
+        <div className="ranking-grid">
 
-        <main className="ranking-screen">
+          {ranking.map(environment => (
 
-            <RankingHeader />
-
-            <RankingStats
-                environments={filteredEnvironments}
+            <RankingCard
+              key={environment.id}
+              environment={environment}
             />
 
-            <RankingFilters
-                search={search}
-                setSearch={setSearch}
-                filter={filter}
-                setFilter={setFilter}
-                order={order}
-                setOrder={setOrder}
-            />
+          ))}
 
-            <RankingTopThree
-                environments={filteredEnvironments}
-            />
+        </div>
 
-            <RankingList
-                environments={filteredEnvironments}
-                loading={loading}
-                search={search}
-                filter={filter}
-                order={order}
-            />
+      </div>
 
-        </main>
-    </>
-);
+    </div>
+  );
 
 }
 

@@ -1,101 +1,74 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { FaHeart, FaRegHeart } from 'react-icons/fa'
-import { WiThermometer, WiHumidity } from 'react-icons/wi'
-import { MdCo2 } from 'react-icons/md'
-import { HiSpeakerWave } from 'react-icons/hi2'
-import { STATUS_COLORS, IDEAL_RANGES } from '../../constants/environments'
-import './EnvironmentCard.css'
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import ScoreCircle from "../ScoreCircle/ScoreCircle";
+import MetricCard from "../MetricCard/MetricCard";
+import EnvironmentModal from "../EnvironmentModal/EnvironmentModal";
+import { calculateEnvironmentScore } from "../../utils/calculateEnvironmentScore";
+import { getEnvironmentStatus } from "../../utils/getEnvironmentStatus";
+import "./EnvironmentCard.css";
 
 function EnvironmentCard({ environment, onToggleFavorite }) {
-  const [isFavorite, setIsFavorite] = useState(environment.isFavorite || false)
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+
+  const [favorite, setFavorite] = useState(environment.isFavorite ?? false);
+  const [open, setOpen] = useState(false);
+
+  const score = calculateEnvironmentScore(environment);
+  const status = getEnvironmentStatus(score);
 
   const handleFavorite = (e) => {
-    e.stopPropagation()
-    setIsFavorite(!isFavorite)
-    if (onToggleFavorite) onToggleFavorite(environment.id, !isFavorite)
-  }
+    e.stopPropagation();
+    const value = !favorite;
+    setFavorite(value);
+    onToggleFavorite?.(environment.id, value);
+  };
 
   return (
-    <div className="env-card" onClick={() => navigate(`/environment/${environment.id}`)}>
-      <div className="env-card-header">
-        <div className="env-card-title">
-          <h3>{environment.nameKey ? t(environment.nameKey) : environment.name}</h3>
-          <p className="click-text">{t('dashboard.clickDetails')}</p>
-          <span
-            className="env-status"
-            style={{ color: STATUS_COLORS[environment.statusKey] }}
-          >
-            {t(environment.statusKey)}
-          </span>
-        </div>
-        <button
-          className={`btn-favorite ${isFavorite ? 'active' : ''}`}
-          onClick={handleFavorite}
-        >
-          {isFavorite ? <FaHeart /> : <FaRegHeart />}
-        </button>
-      </div>
+    <>
+      <article className="environment-card" onClick={() => setOpen(true)}>
+        <div className={`environment-status ${status.class}`} />
 
-      <div className="env-card-body">
-        <div className="env-metric">
-          <WiThermometer className="metric-icon temp" />
+        <div className="environment-card-header">
           <div>
-            <strong>{t('dashboard.temperature')}</strong>
-            <p>{environment.temp}°C</p>
+            <h3>{environment.name}</h3>
+            <span className={`status-badge ${status.class}`}>
+              {t(status.label)}
+            </span>
           </div>
-          <div className="metric-ideal">
-            <span>{t('dashboard.idealRange')}</span>
-            <p>{IDEAL_RANGES.temperature}</p>
-          </div>
+
+          <button className="favorite-btn" onClick={handleFavorite}>
+            {favorite ? <FaHeart /> : <FaRegHeart />}
+          </button>
         </div>
 
-        <div className="env-metric">
-          <WiHumidity className="metric-icon humidity" />
+        <div className="environment-score">
+          <ScoreCircle score={score} />
           <div>
-            <strong>{t('dashboard.humidity')}</strong>
-            <p>{environment.humidity}%</p>
-          </div>
-          <div className="metric-ideal">
-            <span>{t('dashboard.idealRange')}</span>
-            <p>{IDEAL_RANGES.humidity}</p>
+            <h4>{t("allEnvironments.qualityTitle")}</h4>
+            <p>{t("allEnvironments.qualityDesc")}</p>
           </div>
         </div>
 
-        <div className="env-metric">
-          <MdCo2 className="metric-icon co2" />
-          <div>
-            <strong>CO₂</strong>
-            <p>{environment.co2} ppm</p>
-          </div>
-          <div className="metric-ideal">
-            <span>{t('dashboard.idealRange')}</span>
-            <p>{IDEAL_RANGES.co2}</p>
-          </div>
+        <div className="environment-metrics">
+          <MetricCard type="temperature" value={environment.temp} />
+          <MetricCard type="humidity" value={environment.humidity} />
+          <MetricCard type="co2" value={environment.co2} />
+          <MetricCard type="noise" value={environment.noise} />
         </div>
+      </article>
 
-        <div className="env-metric">
-          <HiSpeakerWave className="metric-icon noise" />
-          <div>
-            <strong>{t('dashboard.noise')}</strong>
-            <p>{environment.noise} dB</p>
-          </div>
-          <div className="metric-ideal">
-            <span>{t('dashboard.idealRange')}</span>
-            <p>{IDEAL_RANGES.noise}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="env-card-footer">
-        <span>{t('dashboard.airQuality')}</span>
-        <strong>{t(environment.qualityKey)}</strong>
-      </div>
-    </div>
-  )
+      <EnvironmentModal
+        open={open}
+        onClose={() => setOpen(false)}
+        environment={{
+          ...environment,
+          score,
+          favorite
+        }}
+      />
+    </>
+  );
 }
 
-export default EnvironmentCard
+export default EnvironmentCard;

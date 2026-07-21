@@ -1,19 +1,19 @@
 import { useMemo } from "react";
-import { useEnvironments } from "../../environment/context/EnvironmentsContext";
+import { useAllEnvironmentsVM } from "../../../viewmodels/useAllEnvironmentsVM";
 
 export const useNotifications = () => {
-  const { environments } = useEnvironments();
+
+  const { environments } = useAllEnvironmentsVM();
 
   const notifications = useMemo(() => {
     let list = [];
 
-    // ✅ VARIABLES QUE TE FALTABAN
     let alerts = 0;
     let warnings = 0;
 
     environments.forEach(env => {
 
-      // 🚨 CO2
+      
       if (env.co2 > 1000) {
         alerts++;
 
@@ -30,7 +30,7 @@ export const useNotifications = () => {
         });
       }
 
-      // 🌡️ TEMP
+      
       if (env.temp > 28) {
         alerts++;
 
@@ -47,7 +47,7 @@ export const useNotifications = () => {
         });
       }
 
-      // 🔊 NOISE
+      
       if (env.noise > 70) {
         warnings++;
 
@@ -65,7 +65,7 @@ export const useNotifications = () => {
 
     });
 
-    // 📊 RESUMEN (YA NO CRASHEA)
+    
     list.push({
       id: "summary",
       type: "info",

@@ -5,7 +5,6 @@
  */
 
 import { useState, useMemo } from 'react'
-import { useEnvironments } from '../context/EnvironmentsContext'
 import { useTranslation } from 'react-i18next'
 
 export function useManagementVM() {

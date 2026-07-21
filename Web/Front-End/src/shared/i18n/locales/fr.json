@@ -107,20 +107,52 @@
     "warnings": "Avertissements",
     "alerts": "Alertes"
   },
-  "allEnvironments": {
-    "title": "Tous les environnements",
-    "ambiente": "Environnement",
-    "statusNormal": "État normal",
-    "statusWarning": "Avertissements",
-    "statusAlert": "Alertes",
-    "airQuality": "Qualité de l'air :",
-    "humidity": "Humidité",
-    "temp": "Température",
-    "db": "dB",
+    "allEnvironments": {
+    "title": "Environnements",
+    "subtitle": "Consultez l'état environnemental de chaque espace en temps réel.",
+    "qualityTitle": "Indice Environnemental",
+    "qualityDesc": "Calculé à partir de la température, de l'humidité, du CO₂ et du bruit.",
+
     "co2": "CO₂",
-    "filters": "filtres",
-    "hideFilters": "masquer les filtres",
-    "noResults": "Aucun environnement n'a été trouvé avec les filtres sélectionnés."
+
+    "tempDescription": "La température idéale se situe entre 20°C et 26°C.",
+    "humidityDescription": "L'humidité recommandée se situe entre 40 % et 60 %.",
+    "co2Description": "Le niveau de CO₂ reflète la qualité de l'air.",
+    "noiseDescription": "Un niveau de bruit plus faible améliore la concentration.",
+
+    "recTemp": "La température est élevée. Il est recommandé d'aérer la pièce.",
+    "recHumidity": "L'humidité est en dehors de la plage recommandée.",
+    "recCo2": "Le niveau de CO₂ est élevé. Ouvrez les portes et les fenêtres.",
+    "recNoise": "Le niveau de bruit est élevé. Réduisez les sources de bruit.",
+    "recPerfect": "L'environnement présente des conditions optimales.",
+
+    "statusIdeal": "Idéal",
+    "statusHigh": "Élevée",
+    "statusOutOfRange": "Hors plage",
+
+    "co2Good": "Bonne",
+    "co2Regular": "Moyenne",
+    "co2Bad": "Mauvaise",
+
+    "noiseLow": "Faible",
+    "noiseModerate": "Modéré",
+    "noiseHigh": "Élevé",
+
+    "temperature": "Température",
+    "humidity": "Humidité",
+    "noise": "Bruit",
+
+    "capacity": "Capacité",
+    "building": "Bâtiment",
+    "floor": "Étage",
+    "lastUpdate": "Dernière mise à jour",
+
+    "favorite": "Ajouter aux favoris",
+    "removeFavorite": "Retirer des favoris",
+
+    "viewDetails": "Voir les détails",
+
+    "noResults": "Aucun environnement ne correspond aux filtres sélectionnés."
   },
   "favorites": {
     "title": "Favoris",
@@ -399,6 +431,15 @@
     "roomB": "Salle B",
     "roomC": "Salle C"
     }
+  },
+
+    "filters": {
+    "all": "Tous",
+    "name": "Nom",
+    "searchEnvironment": "Rechercher un environnement...",
+    "building": "Bâtiment",
+    "floor": "Étage",
+    "favorites": "Favoris uniquement"
   },
 
   "landing": {
