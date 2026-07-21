@@ -106,7 +106,7 @@ function EnvironmentDetailScreen() {
       <div className="detail-page">
         <Navbar />
         <div className="detail-container">
-          <BackButton onClick={() => navigate('/dashboard')} />
+          <BackButton onClick={() => navigate('/all-environments')} />
           <div className="detail-not-found">
             <p>{t('detail.notFound') || 'Ambiente no encontrado'}</p>
           </div>
@@ -117,7 +117,14 @@ function EnvironmentDetailScreen() {
 
   const name = env.nameKey ? t(env.nameKey) : env.name
   const statusColor = STATUS_COLORS[env.statusKey]
-  const qualityColor = QUALITY_COLORS[env.qualityKey]
+  const qualityKey =
+    env.qualityKey ||
+    (env.statusKey === 'dashboard.statusAlert'
+      ? 'dashboard.qualityBad'
+      : env.statusKey === 'dashboard.statusWarning'
+      ? 'dashboard.qualityRegular'
+      : 'dashboard.qualityGood')
+  const qualityColor = QUALITY_COLORS[qualityKey]
 
   const metrics = [
     {
@@ -170,7 +177,7 @@ function EnvironmentDetailScreen() {
     <div className="detail-page">
       <Navbar />
       <div className="detail-container">
-        <BackButton onClick={() => navigate('/dashboard')} />
+        <BackButton onClick={() => navigate('/all-environments')} />
 
         {/* Hero */}
         <div className="detail-hero">
@@ -217,7 +224,7 @@ function EnvironmentDetailScreen() {
           <div>
             <p className="detail-quality-label">{t('dashboard.airQuality')}</p>
             <p className="detail-quality-value" style={{ color: qualityColor }}>
-              {t(env.qualityKey)}
+              {t(qualityKey)}
             </p>
           </div>
 

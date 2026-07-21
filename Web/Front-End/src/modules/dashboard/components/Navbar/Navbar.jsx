@@ -89,7 +89,7 @@ function Navbar() {
         <div className="dashboard-navbar-left">
           <div
             className="dashboard-navbar-logo"
-            onClick={() => go("/dashboard")}
+            onClick={() => go("/all-environments")}
           >
             <img src={logo} alt="EduAirControl" />
             <div className="dashboard-navbar-logo-text">
@@ -161,7 +161,7 @@ function Navbar() {
 
                 <div
                   className="dashboard-profile-dropdown-item logout"
-                  onClick={() => go("/")}
+                  onClick={() => go("/landing")}
                 >
                   <IoLogOut />
                   <span>{t("nav.logout")}</span>
@@ -207,7 +207,7 @@ function Navbar() {
           <span>{t("nav.settings")}</span>
         </div>
 
-        <div className="dashboard-mobile-item logout" onClick={() => go("/")}>
+        <div className="dashboard-mobile-item logout" onClick={() => go("/landing")}>
           <IoLogOut />
           <span>{t("nav.logout")}</span>
         </div>

@@ -8,6 +8,7 @@ import ScoreCircle from "../ScoreCircle/ScoreCircle";
 import SensorInfo from "../SensorInfo/SensorInfo";
 import RecommendationBox from "../RecommendationBox/RecommendationBox";
 import EnvironmentExplanation from "../EnvironmentExplanation/EnvironmentExplanation";
+import Tooltip from "../Tooltip/Tooltip";
 
 import { getRecommendations } from "../../utils/getRecommendations";
 
@@ -42,12 +43,17 @@ function EnvironmentModal({
 
       <div className="environment-modal">
 
-        <button
-          className="modal-close"
-          onClick={onClose}
+        <Tooltip
+          text={t("tooltips.close", "Cierra esta ventana y vuelve al listado de ambientes.")}
+          position="bottom"
         >
-          <FaTimes />
-        </button>
+          <button
+            className="modal-close"
+            onClick={onClose}
+          >
+            <FaTimes />
+          </button>
+        </Tooltip>
 
         <header className="modal-header">
 
@@ -57,18 +63,32 @@ function EnvironmentModal({
               : environment.name}
           </h2>
 
-          <span className={`modal-status ${statusClass}`}>
-            {statusText}
-          </span>
+          <Tooltip
+            text={t(
+              "tooltips.status",
+              "Indica el estado general del ambiente: Normal, Advertencia o Alerta, calculado a partir de los sensores."
+            )}
+          >
+            <span className={`modal-status ${statusClass}`}>
+              {statusText}
+            </span>
+          </Tooltip>
 
         </header>
 
         <div className="environment-score">
 
-          <ScoreCircle
-            score={environment.score}
-            size={130}
-          />
+          <Tooltip
+            text={t(
+              "tooltips.score",
+              "Puntaje de 0 a 100 que resume la calidad del ambiente combinando temperatura, humedad, CO₂ y ruido. Mientras más alto, mejor."
+            )}
+          >
+            <ScoreCircle
+              score={environment.score}
+              size={130}
+            />
+          </Tooltip>
 
           <div className="environment-score-info">
 
@@ -82,58 +102,113 @@ function EnvironmentModal({
 
         <div className="modal-sensors">
 
-          <SensorInfo
-            icon={<FaTemperatureHigh />}
-            title={t("dashboard.temperature")}
-            value={`${environment.temp} °C`}
-            description={t("allEnvironments.tempDescription")}
-          />
+          <Tooltip
+            block
+            text={t(
+              "tooltips.temperature",
+              "Temperatura actual del ambiente. Te ayuda a saber si conviene encender aire acondicionado o calefacción."
+            )}
+          >
+            <SensorInfo
+              icon={<FaTemperatureHigh />}
+              title={t("dashboard.temperature")}
+              value={`${environment.temp} °C`}
+              description={t("allEnvironments.tempDescription")}
+            />
+          </Tooltip>
 
-          <SensorInfo
-            icon={<WiHumidity />}
-            title={t("dashboard.humidity")}
-            value={`${environment.humidity}%`}
-            description={t("allEnvironments.humidityDescription")}
-          />
+          <Tooltip
+            block
+            text={t(
+              "tooltips.humidity",
+              "Nivel de humedad en el aire. Una humedad fuera de rango puede afectar el confort y la salud respiratoria."
+            )}
+          >
+            <SensorInfo
+              icon={<WiHumidity />}
+              title={t("dashboard.humidity")}
+              value={`${environment.humidity}%`}
+              description={t("allEnvironments.humidityDescription")}
+            />
+          </Tooltip>
 
-          <SensorInfo
-            icon={<MdCo2 />}
-            title={t("allEnvironments.co2")}
-            value={`${environment.co2} ppm`}
-            description={t("allEnvironments.co2Description")}
-          />
+          <Tooltip
+            block
+            text={t(
+              "tooltips.co2",
+              "Concentración de CO₂ en partes por millón (ppm). Valores altos indican poca ventilación; considera abrir ventanas."
+            )}
+          >
+            <SensorInfo
+              icon={<MdCo2 />}
+              title={t("allEnvironments.co2")}
+              value={`${environment.co2} ppm`}
+              description={t("allEnvironments.co2Description")}
+            />
+          </Tooltip>
 
-          <SensorInfo
-            icon={<HiSpeakerWave />}
-            title={t("dashboard.noise")}
-            value={`${environment.noise} dB`}
-            description={t("allEnvironments.noiseDescription")}
-          />
+          <Tooltip
+            block
+            text={t(
+              "tooltips.noise",
+              "Nivel de ruido ambiental en decibeles (dB). Ayuda a detectar exceso de ruido que puede afectar la concentración."
+            )}
+          >
+            <SensorInfo
+              icon={<HiSpeakerWave />}
+              title={t("dashboard.noise")}
+              value={`${environment.noise} dB`}
+              description={t("allEnvironments.noiseDescription")}
+            />
+          </Tooltip>
 
         </div>
 
-        <RecommendationBox
-          recommendations={getRecommendations(environment, t)}
-        />
+        <Tooltip
+          block
+          text={t(
+            "tooltips.recommendations",
+            "Sugerencias automáticas generadas según las condiciones actuales, para ayudarte a mejorar este ambiente."
+          )}
+        >
+          <RecommendationBox
+            recommendations={getRecommendations(environment, t)}
+          />
+        </Tooltip>
 
         <EnvironmentExplanation />
 
         <div className="modal-actions">
 
-          <button
-            className={`modal-favorite-btn ${isFavorite ? "active" : ""}`}
-            onClick={onToggleFavorite}
+          <Tooltip
+            text={t(
+              "tooltips.favorite",
+              isFavorite
+                ? "Quita este ambiente de tus favoritos."
+                : "Marca este ambiente como favorito para encontrarlo más rápido en tu panel."
+            )}
+            block
           >
-            {isFavorite ? <FaHeart /> : <FaRegHeart />}
-            {isFavorite ? t("allEnvironments.removeFavorite") : t("allEnvironments.favorite")}
-          </button>
+            <button
+              className={`modal-favorite-btn ${isFavorite ? "active" : ""}`}
+              onClick={onToggleFavorite}
+            >
+              {isFavorite ? <FaHeart /> : <FaRegHeart />}
+              {isFavorite ? t("allEnvironments.removeFavorite") : t("allEnvironments.favorite")}
+            </button>
+          </Tooltip>
 
-          <button
-            className="close-btn"
-            onClick={onClose}
+          <Tooltip
+            text={t("tooltips.closeBtn", "Cierra esta ventana.")}
+            block
           >
-            {t("common.close")}
-          </button>
+            <button
+              className="close-btn"
+              onClick={onClose}
+            >
+              {t("common.close")}
+            </button>
+          </Tooltip>
 
         </div>
 

@@ -4,10 +4,13 @@
     left:0;
     width:100%;
     height: 75px;
-    display:flex;
-    justify-content:space-between;
+    display:grid;
+    grid-template-columns:auto minmax(0, 1fr) auto;
+    gap:clamp(14px, 1.8vw, 36px);
+    justify-content:normal;
     align-items:center;
-    padding:0 70px;
+    box-sizing:border-box;
+    padding:0 clamp(22px, 2.6vw, 48px);
     z-index:1000;
     position:fixed;
     backdrop-filter: blur(18px);
@@ -33,14 +36,16 @@
 .logo{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:clamp(8px, .8vw, 12px);
     height:100%;
+    min-width:0;
+    flex-shrink:0;
     cursor:pointer;
 }
 
 .logo img{
-    width: 52px;
-    height:90px;
+    width: 48px;
+    height:48px;
     object-fit:contain;
     display:block;
     margin-top: 3px;
@@ -49,9 +54,10 @@
 }
 
 .logo span{
-    font-size:2rem;
+    font-size:clamp(1.35rem, 1.55vw, 1.85rem);
     font-weight:700;
     color:white;
+    white-space:nowrap;
 
     transition: color .35s ease;
 }
@@ -63,14 +69,16 @@
 .navbar-links{
     display:flex;
     align-items:center;
-    gap:30px;
+    justify-content:center;
+    gap:clamp(10px, 1.05vw, 22px);
+    min-width:0;
 }
 
 .navbar-links a{
     
     color:#d7dde8;
     text-decoration:none;
-    font-size: 1rem;
+    font-size:clamp(.82rem, .82vw, .98rem);
     font-weight:600;
     transition:.3s;
     white-space:nowrap;
@@ -100,6 +108,7 @@
 .navbar-actions{
     display:flex;
     align-items:center;
+    flex-shrink:0;
 }
 
 .mobile-login{
@@ -193,11 +202,13 @@
     background:rgba(44,246,208,.06);
     border:1px solid rgba(44,246,208,.35);
     color:white;
-    padding:14px 28px;
+    min-width:96px;
+    padding:11px 18px;
     border-radius:14px;
     cursor:pointer;
     transition:.3s;
     font-weight:600;
+    font-size:.9rem;
     transition: .35s ease;
 }
 
@@ -289,21 +300,21 @@
 /* DESKTOP */
 /* ====================================== */
 
-@media (min-width:1281px){
+@media (min-width:769px){
 
     .navbar{
-        padding:0 60px;
+        padding:0 clamp(22px, 2.6vw, 48px);
     }
 
     .navbar-links{
         display:flex;
         align-items:center;
-        gap:30px;
+        gap:clamp(10px, 1.05vw, 22px);
     }
 
     .navbar-links a{
         white-space:nowrap;
-        font-size:1rem;
+        font-size:clamp(.82rem, .82vw, .98rem);
     }
 
     .navbar-actions{
@@ -320,13 +331,58 @@
 
 }
 
+@media (max-width: 1450px) and (min-width: 769px){
+    .navbar-links a:nth-child(7){
+        display:none;
+    }
+
+    .lang-btn-premium{
+        padding:9px 12px;
+    }
+
+    .lang-label-text{
+        font-size:13px;
+    }
+
+    .login-btn{
+        min-width:92px;
+        padding:10px 16px;
+    }
+}
+
+@media (max-width: 1180px) and (min-width: 769px){
+    .navbar{
+        gap:12px;
+        padding:0 18px;
+    }
+
+    .logo img{
+        width:42px;
+        height:42px;
+    }
+
+    .navbar-links{
+        gap:9px;
+    }
+
+    .navbar-links a{
+        font-size:.78rem;
+    }
+
+    .login-btn{
+        min-width:86px;
+        padding:9px 14px;
+        font-size:.82rem;
+    }
+}
+
 
 /* ====================================== */
 /* 1280px hacia abajo */
 /* Desde aquí aparece hamburguesa */
 /* ====================================== */
 
-@media (max-width:1280px){
+@media (max-width:768px){
 
     .navbar{
         padding:0 24px;

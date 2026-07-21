@@ -5,7 +5,8 @@
 
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getStatusColor, getDisplayName } from './environmentHelpers'
+import { getStatusColor, getDisplayName } from '../modules/environment/utils/environmentHelpers'
+import { useEnvironments } from '../context/EnvironmentContext'
 
 export function useFavoritesVM() {
   const { t } = useTranslation()

@@ -1,7 +1,10 @@
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../../dashboard/components/Navbar/Navbar";
 import EnvironmentFilters from "../components/EnvironmentFilters/EnvironmentFilters";
 import EnvironmentSummaryCard from "../components/EnvironmentSummaryCard/EnvironmentSummaryCard";
+import EnvironmentModal from "../components/EnvironmentModal/EnvironmentModal";
+import calculateEnvironmentScore from "../utils/calculateEnvironmentScore";
 import { useAllEnvironmentsVM } from "../../../viewmodels/useAllEnvironmentsVM";
 import { useEnvironment } from "../../../context/EnvironmentContext";
 import "./AllEnvironments.css";
@@ -9,6 +12,7 @@ import "./AllEnvironments.css";
 function AllEnvironmentsScreen() {
 
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { environments, toggleFavorite } = useEnvironment();
 
@@ -17,11 +21,19 @@ function AllEnvironmentsScreen() {
   filters,
   setFilters,
   counts,
-  suggestions,
-  toggleFavorite: toggleFavoriteVM
-} = useAllEnvironmentsVM();
+  suggestions
+} = useAllEnvironmentsVM(environments);
 
-console.log(filtered);
+  const selectedEnvironmentId = searchParams.get("environment");
+  const selectedEnvironment = environments.find(
+    (environment) => String(environment.id) === String(selectedEnvironmentId)
+  );
+
+  const closeSelectedEnvironment = () => {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("environment");
+    setSearchParams(nextParams, { replace: true });
+  };
 
   return (
     <div className="all-env-page">
@@ -125,6 +137,24 @@ console.log(filtered);
         )}
 
       </div>
+
+      <EnvironmentModal
+        isOpen={Boolean(selectedEnvironment)}
+        onClose={closeSelectedEnvironment}
+        environment={
+          selectedEnvironment
+            ? {
+                ...selectedEnvironment,
+                score: calculateEnvironmentScore(selectedEnvironment),
+              }
+            : null
+        }
+        isFavorite={selectedEnvironment?.isFavorite ?? false}
+        onToggleFavorite={() => {
+          if (!selectedEnvironment) return;
+          toggleFavorite(selectedEnvironment.id, !selectedEnvironment.isFavorite);
+        }}
+      />
 
     </div>
   );

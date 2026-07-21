@@ -533,3 +533,12 @@
   .env-management-controls__filters { flex-wrap: wrap; }
   .env-management-summary-card__value { font-size: 26px; }
 }
+
+.env-management-page {
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+.env-management {
+  margin: 0 auto;
+}

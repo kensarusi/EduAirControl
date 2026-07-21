@@ -9,7 +9,7 @@ import {
   getMetricColor,
   getDisplayName,
   getDisplayLocation
-} from '../../hooks/environmentHelpers'
+} from '../../../utils/environmentHelpers'
 import './ManagementCard.css'
 
 const STATUS_DATA_ATTR = {

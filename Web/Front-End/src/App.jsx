@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 
 // ======================
 // AUTH
@@ -29,6 +29,7 @@ import RankingScreen from "./modules/ranking/pages/RankingScreen";
 // ======================
 import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsScreen";
 import EnvironmentDetailScreen from "./modules/environment/pages/EnvironmentDetailScreen";
+import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
 
 // ======================
 // PROFILE
@@ -53,7 +54,7 @@ function App() {
       <Route path="/landing" element={<Landing />} />
 
       {/* ---------- Authentication ---------- */}
-      <Route path="/" element={<LoginScreen />} />
+      <Route path="/" element={<Navigate to="/landing" replace />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/signup" element={<SignUpScreen />} />
       <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
@@ -68,8 +69,10 @@ function App() {
       <Route path="/ranking" element={<RankingScreen />} />
 
       {/* ---------- Environments ---------- */}
+      <Route path="/dashboard" element={<Navigate to="/all-environments" replace />} />
       <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
       <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
+      <Route path="/management" element={<EnvironmentManagement />} />
 
       {/* ---------- User ---------- */}
       <Route path="/favorites" element={<FavoritesScreen />} />

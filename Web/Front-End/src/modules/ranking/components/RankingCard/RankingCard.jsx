@@ -6,6 +6,7 @@ import {
   FaArrowRight
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import getRankingStatus from "../../utils/getRankingStatus";
 
@@ -14,6 +15,7 @@ import "./RankingCard.css";
 function RankingCard({ environment }) {
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const status = getRankingStatus(environment.score);
 
@@ -90,7 +92,10 @@ function RankingCard({ environment }) {
 
       </div>
 
-      <button className="ranking-button">
+      <button
+        className="ranking-button"
+        onClick={() => navigate(`/all-environments?environment=${environment.id}`)}
+      >
 
         {t("ranking.viewEnvironment")}
 

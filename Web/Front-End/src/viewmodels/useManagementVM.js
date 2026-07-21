@@ -6,6 +6,7 @@
 
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useEnvironments } from '../context/EnvironmentContext'
 
 export function useManagementVM() {
   const { t } = useTranslation()
@@ -108,6 +109,8 @@ const stats = useMemo(() => ({
     filtered,
     stats,
     search,
+    minCapacity,
+    maxCapacity,
     showAdd,
     editEnv,
     deleteEnv,

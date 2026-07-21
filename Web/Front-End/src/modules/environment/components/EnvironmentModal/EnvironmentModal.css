@@ -208,11 +208,20 @@ body:not(.dark-mode) .sensor-card small{
     line-height:1.2;
 }
 
-.favorite-btn{
+.favorite-btn,
+.modal-favorite-btn{
 
     background:#27F5D2;
 
     color:#08111E;
+
+}
+
+.modal-favorite-btn.active{
+
+    background:#ff6b6b;
+
+    color:white;
 
 }
 
@@ -505,4 +514,53 @@ body:not(.dark-mode)
 
 }
 
+}
+
+.environment-modal .modal-actions{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(150px, 220px);
+    align-items:stretch;
+}
+
+.environment-modal .modal-actions button{
+    width:100%;
+    min-width:0;
+    max-width:none;
+    writing-mode:horizontal-tb;
+    text-orientation:mixed;
+    transform:none;
+}
+
+.environment-modal .close-btn{
+    min-width:150px;
+    background:#263447;
+    color:white;
+}
+
+.environment-modal .close-btn:hover{
+    background:#334155;
+    color:white;
+    transform:translateY(-1px);
+}
+
+.environment-modal .modal-close{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .2s ease, color .2s ease;
+}
+
+.environment-modal .modal-close:hover{
+    background:rgba(255, 107, 107, .16);
+    color:#ff6b6b;
+    transform:none;
+}
+
+@media(max-width:640px){
+    .environment-modal .modal-actions{
+        grid-template-columns:1fr;
+    }
 }

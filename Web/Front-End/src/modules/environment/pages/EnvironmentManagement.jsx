@@ -2,11 +2,12 @@ import { IoSearchOutline, IoAddOutline, IoSwapVerticalOutline } from 'react-icon
 import { MdOutlineGridView } from 'react-icons/md'
 import { TbBuildingCommunity } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
-import ManagementCard from "../components/ManagementCard/ManagementCard";
-import AddEnvironmentModal from "../components/AddEnvironmentModal/AddEnvironmentModal";
-import EditEnvironmentModal from "../components/EditEnvironmentModal/EditEnvironmentModal";
-import DeleteEnvironmentModal from "../components/DeleteEnvironmentModal/DeleteEnvironmentModal";
-import { useManagementVM } from "../hooks/useManagementVM";
+import Navbar from "../../dashboard/components/Navbar/Navbar";
+import ManagementCard from "../components/management/ManagementCard/ManagementCard";
+import AddEnvironmentModal from "../components/management/AddEnvironmentModal/AddEnvironmentModal";
+import EditEnvironmentModal from "../components/management/EditEnvironmentModal/EditEnvironmentModal";
+import DeleteEnvironmentModal from "../components/management/DeleteEnvironmentModal/DeleteEnvironmentModal";
+import { useManagementVM } from "../../../viewmodels/useManagementVM";
 import "./EnvironmentManagement.css";
 
 function EnvironmentManagement() {
@@ -20,7 +21,8 @@ function EnvironmentManagement() {
   } = useManagementVM()
 
   return (
-    <DashboardLayout>
+    <div className="env-management-page">
+      <Navbar />
       <div className="env-management">
 
         {/* ── Top bar ── */}
@@ -208,7 +210,7 @@ function EnvironmentManagement() {
       {showAdd   && <AddEnvironmentModal    onClose={() => setShowAdd(false)}          onAdd={handleAdd}       />}
       {editEnv   && <EditEnvironmentModal   environment={editEnv}  onClose={() => setEditEnv(null)}   onSave={handleEdit}  />}
       {deleteEnv && <DeleteEnvironmentModal environment={deleteEnv} onClose={() => setDeleteEnv(null)} onConfirm={handleDelete} />}
-    </DashboardLayout>
+    </div>
   )
 }
 

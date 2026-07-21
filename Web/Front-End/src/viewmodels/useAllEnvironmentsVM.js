@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import environmentData from "../modules/environment/data/environmentData";
 
-export function useAllEnvironmentsVM() {
+export function useAllEnvironmentsVM(sourceEnvironments = environmentData) {
 
-  const [environments, setEnvironments] = useState(environmentData);
+  const environments = sourceEnvironments;
 
   const [filters, setFilters] = useState({
     name: "",
@@ -65,21 +65,6 @@ export function useAllEnvironmentsVM() {
 
   }), [environments]);
 
-  const toggleFavorite = (id, favorite) => {
-
-    setEnvironments((prev) =>
-      prev.map((env) =>
-        env.id === id
-          ? {
-              ...env,
-              isFavorite: favorite
-            }
-          : env
-      )
-    );
-
-  };
-
   const suggestions = useMemo(() => ({
 
     buildings: [...new Set(
@@ -104,9 +89,7 @@ export function useAllEnvironmentsVM() {
 
     counts,
 
-    suggestions,
-
-    toggleFavorite
+    suggestions
 
   };
 
