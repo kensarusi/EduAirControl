@@ -1,4 +1,4 @@
-import rankingData from "../data/rankingData";
+import rankingData from "../data/RankingData";
 
 const rankingService = {
 

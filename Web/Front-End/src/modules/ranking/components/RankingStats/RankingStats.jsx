@@ -1,97 +1,45 @@
-import {
-  FaLeaf,
-  FaExclamationTriangle,
-  FaRadiation,
-  FaChartLine,
-} from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import "./RankingStats.css";
 
-import "../styles/rankingStats.css";
+function RankingStats({ statistics }) {
 
-function RankingStats({ environments = [] }) {
-  
-  const normal = environments.filter(
-    (environment) => environment.status === "Normal"
-  ).length;
-
-  const warning = environments.filter(
-    (environment) => environment.status === "Advertencia"
-  ).length;
-
-  const danger = environments.filter(
-    (environment) =>
-      environment.status === "Crítico" ||
-      environment.status === "Critico"
-  ).length;
-
-  const average = environments.length
-    ? (
-        environments.reduce(
-          (total, environment) => total + environment.score,
-          0
-        ) / environments.length
-      ).toFixed(0)
-    : 0;
-
-  const stats = [
-
-    {
-      icon: <FaLeaf />,
-      title: "Normales",
-      value: normal,
-      color: "success",
-    },
-
-    {
-      icon: <FaExclamationTriangle />,
-      title: "Advertencia",
-      value: warning,
-      color: "warning",
-    },
-
-    {
-      icon: <FaRadiation />,
-      title: "Alertas",
-      value: danger,
-      color: "danger",
-    },
-
-    {
-      icon: <FaChartLine />,
-      title: "Promedio",
-      value: average,
-      color: "primary",
-    },
-
-  ];
+  const { t } = useTranslation();
 
   return (
 
     <section className="ranking-stats">
 
-      {stats.map((item, index) => (
+      <div className="ranking-stat-card total">
 
-        <div
-          key={index}
-          className={`ranking-stat-card ${item.color}`}
-        >
+        <span>{statistics.total}</span>
 
-          <div className="ranking-stat-icon">
+        <small>{t("ranking.totalEnvironments")}</small>
 
-            {item.icon}
+      </div>
 
-          </div>
+      <div className="ranking-stat-card average">
 
-          <div className="ranking-stat-content">
+        <span>{statistics.average}</span>
 
-            <span>{item.title}</span>
+        <small>{t("ranking.averageScore")}</small>
 
-            <h2>{item.value}</h2>
+      </div>
 
-          </div>
+      <div className="ranking-stat-card success">
 
-        </div>
+        <span>{statistics.best?.score ?? "--"}</span>
 
-      ))}
+        <small>{t("ranking.bestEnvironment")}</small>
+
+      </div>
+
+      <div className="ranking-stat-card danger">
+
+        <span>{statistics.worst?.score ?? "--"}</span>
+
+        <small>{t("ranking.worstEnvironment")}</small>
+
+      </div>
 
     </section>
 

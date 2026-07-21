@@ -127,6 +127,32 @@
     "warnings": "Advertencias",
     "alerts": "Alertas"
   },
+
+    "ranking": {
+    "title": "Ranking de Ambientes",
+    "subtitle": "Consulta los ambientes mejor calificados según sus condiciones ambientales.",
+    "totalEnvironments": "Ambientes",
+    "averageScore": "Promedio",
+    "bestEnvironment": "Mejor ambiente",
+    "worstEnvironment": "Peor ambiente",
+    "environmentScore": "Puntaje ambiental",
+    "viewEnvironment": "Ver ambiente",
+    "status": "Estado",
+
+    "statusExcellent": "Excelente",
+    "statusGood": "Bueno",
+    "statusRegular": "Regular",
+    "statusCritical": "Crítico",
+
+    "emptyTitle": "No hay ambientes",
+    "emptyDescription": "No se encontraron ambientes con los filtros seleccionados."
+  },
+
+    "blocks": {
+    "a": "Bloque A",
+    "b": "Bloque B",
+    "c": "Bloque C"
+  },
  
   
   "allEnvironments": {

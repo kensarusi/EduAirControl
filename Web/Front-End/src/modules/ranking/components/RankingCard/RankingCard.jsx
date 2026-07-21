@@ -5,105 +5,101 @@ import {
   FaVolumeUp,
   FaArrowRight
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
-import "../styles/rankingCard.css";
+import getRankingStatus from "../../utils/getRankingStatus";
+
+import "./RankingCard.css";
 
 function RankingCard({ environment }) {
 
-    return (
+  const { t } = useTranslation();
 
-        <article className="ranking-card">
+  const status = getRankingStatus(environment.score);
 
-            <div className="ranking-card-header">
+  return (
+    <article className="ranking-card">
 
-                <div>
+      <div className="ranking-card-header">
 
-                    <span className="ranking-position">
+        <div>
 
-                        #{environment.position}
+          <span className="ranking-position">
+            #{environment.position}
+          </span>
 
-                    </span>
+          <h3>{environment.name}</h3>
 
-                    <h3>{environment.name}</h3>
+          <small>{t(environment.locationKey)}</small>
 
-                    <small>{environment.location}</small>
+        </div>
 
-                </div>
+        <div className="ranking-score">
+          {environment.score}
+        </div>
 
-                <div className="ranking-score">
+      </div>
 
-                    {environment.score}
+      <div className="ranking-progress">
 
-                </div>
+        <div
+          className="ranking-progress-fill"
+          style={{
+            width: `${environment.score}%`,
+            background: status.color
+          }}
+        />
 
-            </div>
+      </div>
 
-            <div className="ranking-progress">
+      <div className="ranking-status">
 
-                <div
-                    className="ranking-progress-fill"
-                    style={{ width: `${environment.score}%` }}
-                />
+        <span
+          className="badge"
+          style={{
+            background: status.background,
+            color: status.color
+          }}
+        >
+          {t(status.label)}
+        </span>
 
-            </div>
+      </div>
 
-            <div className="ranking-status">
+      <div className="ranking-values">
 
-                <span className={`badge ${environment.status.toLowerCase()}`}>
+        <span>
+          <FaTemperatureHigh />
+          {environment.temperature}°C
+        </span>
 
-                    {environment.status}
+        <span>
+          <FaTint />
+          {environment.humidity}%
+        </span>
 
-                </span>
+        <span>
+          <FaWind />
+          {environment.co2} ppm
+        </span>
 
-            </div>
+        <span>
+          <FaVolumeUp />
+          {environment.noise} dB
+        </span>
 
-            <div className="ranking-values">
+      </div>
 
-                <span>
+      <button className="ranking-button">
 
-                    <FaTemperatureHigh />
+        {t("ranking.viewEnvironment")}
 
-                    {environment.temperature}
+        <FaArrowRight />
 
-                </span>
+      </button>
 
-                <span>
-
-                    <FaTint />
-
-                    {environment.humidity}
-
-                </span>
-
-                <span>
-
-                    <FaWind />
-
-                    {environment.co2}
-
-                </span>
-
-                <span>
-
-                    <FaVolumeUp />
-
-                    {environment.noise}
-
-                </span>
-
-            </div>
-
-            <button className="ranking-button">
-
-                Ver ambiente
-
-                <FaArrowRight />
-
-            </button>
-
-        </article>
-
-    );
+    </article>
+  );
 
 }
 

@@ -1,31 +1,29 @@
-import "../styles/rankingHeader.css";
+import { useTranslation } from "react-i18next";
+import "./RankingHeader.css";
 
 function RankingHeader() {
 
-    return (
+  const { t } = useTranslation();
 
-        <div className="ranking-header">
+  return (
 
-            <div className="ranking-header-info">
+    <header className="ranking-header">
 
-                <h1> Ranking de Ambientes</h1>
+      <div>
 
-                <p>
-                    Índice de Salud Ambiental calculado según
-                    temperatura, CO₂, humedad y nivel de ruido.
-                </p>
+        <h1>
+          {t("ranking.title")}
+        </h1>
 
-            </div>
+        <p>
+          {t("ranking.subtitle")}
+        </p>
 
-            <button className="ranking-refresh-btn">
+      </div>
 
-                Actualizar
+    </header>
 
-            </button>
-
-        </div>
-
-    );
+  );
 
 }
 

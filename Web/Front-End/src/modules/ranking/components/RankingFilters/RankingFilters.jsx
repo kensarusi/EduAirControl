@@ -1,116 +1,103 @@
-import { FaSearch } from "react-icons/fa";
-
-import "../styles/rankingFilters.css";
+import { useTranslation } from "react-i18next";
+import "./RankingFilters.css";
 
 function RankingFilters({
+  filters,
+  setFilters,
+  suggestions,
+}) {
 
-    search,
-    setSearch,
-    filter,
-    setFilter,
-    order,
-    setOrder
+  const { t } = useTranslation();
 
-}){
+  const update = (field, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
 
-    return(
+  return (
 
-        <section className="ranking-filters">
+    <section className="ranking-filters">
 
-            <div className="ranking-search">
+      <div className="filter-group">
 
-                <FaSearch/>
+        <label>{t("filters.name")}</label>
 
-                <input
+        <input
+          type="text"
+          value={filters.name}
+          placeholder={t("filters.searchEnvironment")}
+          onChange={(e) =>
+            update("name", e.target.value)
+          }
+        />
 
-                    type="text"
+      </div>
 
-                    placeholder="Buscar ambiente..."
+      <div className="filter-group">
 
-                    value={search}
+        <label>{t("filters.building")}</label>
 
-                    onChange={(e)=>setSearch(e.target.value)}
+        <select
+          value={filters.building}
+          onChange={(e) =>
+            update("building", e.target.value)
+          }
+        >
 
-                />
+          <option value="">
+            {t("filters.all")}
+          </option>
 
-            </div>
+          {suggestions.buildings.map((building) => (
 
-            <div className="ranking-filter-buttons">
-
-                <button
-
-                    className={filter==="Todos"?"active":""}
-
-                    onClick={()=>setFilter("Todos")}
-
-                >
-
-                    Todos
-
-                </button>
-
-                <button
-
-                    className={filter==="Normal"?"active":""}
-
-                    onClick={()=>setFilter("Normal")}
-
-                >
-
-                    🟢 Normales
-
-                </button>
-
-                <button
-
-                    className={filter==="Advertencia"?"active":""}
-
-                    onClick={()=>setFilter("Advertencia")}
-
-                >
-
-                    🟡 Advertencia
-
-                </button>
-
-                <button
-
-                    className={filter==="Crítico"?"active":""}
-
-                    onClick={()=>setFilter("Crítico")}
-
-                >
-
-                    🔴 Crítico
-
-                </button>
-
-            </div>
-
-            <select
-
-                value={order}
-
-                onChange={(e)=>setOrder(e.target.value)}
-
+            <option
+              key={building}
+              value={building}
             >
+              {t(building)}
+            </option>
 
-                <option value="desc">
+          ))}
 
-                    Mayor Puntaje
-                </option>
+        </select>
 
-                <option value="asc">
+      </div>
 
-                    Menor Puntaje
+      <div className="filter-group">
 
-                </option>
+        <label>{t("ranking.status")}</label>
 
-            </select>
+        <select
+          value={filters.status}
+          onChange={(e) =>
+            update("status", e.target.value)
+          }
+        >
 
-        </section>
+          <option value="">
+            {t("filters.all")}
+          </option>
 
-    );
+          {suggestions.status.map((status) => (
+
+            <option
+              key={status}
+              value={status}
+            >
+              {status}
+            </option>
+
+          ))}
+
+        </select>
+
+      </div>
+
+    </section>
+
+  );
 
 }
 

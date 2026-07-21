@@ -1,76 +1,86 @@
-import { useTranslation } from "react-i18next";
 import Navbar from "../../dashboard/components/Navbar/Navbar";
-import RankingCard from "../components/RankingCard";
-import RankingFilters from "../components/RankingFilters";
-import { useRankingVM } from "../../../viewmodels/useRankingVM";
 
-import "../../ranking/styles/RankingScreen.css";
+import RankingHeader from "../components/RankingHeader/RankingHeader";
+import RankingStats from "../components/RankingStats/RankingStats";
+import RankingFilters from "../components/RankingFilters/RankingFilters";
+import RankingPodium from "../components/RankingPodium/RankingPodium";
+import RankingCard from "../components/RankingCard/RankingCard";
+
+import useRankingVM from "../../../viewmodels/useRankingVM";
+
+import "./RankingScreen.css";
 
 function RankingScreen() {
-
-  const { t } = useTranslation();
 
   const {
     ranking,
     filters,
     setFilters,
+    suggestions,
     statistics
   } = useRankingVM();
 
   return (
-    <div className="ranking-page">
+
+    <div className="ranking-screen">
 
       <Navbar />
 
       <div className="app-page-container">
 
-        <header className="ranking-header">
+        <div className="ranking-content">
 
-          <div>
+        <RankingHeader />
 
-            <h1>{t("ranking.title")}</h1>
-
-            <p>{t("ranking.subtitle")}</p>
-
-          </div>
-
-          <div className="ranking-summary">
-
-            <div className="summary-card">
-              <span>{statistics.total}</span>
-              <small>{t("ranking.totalEnvironments")}</small>
-            </div>
-
-            <div className="summary-card">
-              <span>{statistics.average}</span>
-              <small>{t("ranking.averageScore")}</small>
-            </div>
-
-          </div>
-
-        </header>
+        <RankingStats
+          statistics={statistics}
+        />
 
         <RankingFilters
           filters={filters}
           setFilters={setFilters}
+          suggestions={suggestions}
         />
 
-        <div className="ranking-grid">
+        <RankingPodium
+          ranking={ranking}
+        />
 
-          {ranking.map(environment => (
+        {ranking.length === 0 ? (
 
-            <RankingCard
-              key={environment.id}
-              environment={environment}
-            />
+          <section className="ranking-empty">
 
-          ))}
+            <h2>No hay ambientes</h2>
 
-        </div>
+            <p>
+              No se encontraron ambientes con los filtros seleccionados.
+            </p>
+
+          </section>
+
+        ) : (
+
+          <section className="ranking-list">
+
+            {ranking.map((environment) => (
+
+              <RankingCard
+                key={environment.id}
+                environment={environment}
+              />
+
+            ))}
+
+          </section>
+
+        )}
+
+      </div>
 
       </div>
 
     </div>
+
   );
 
 }

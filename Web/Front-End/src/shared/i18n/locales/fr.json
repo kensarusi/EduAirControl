@@ -107,6 +107,30 @@
     "warnings": "Avertissements",
     "alerts": "Alertes"
   },
+    "ranking": {
+    "title": "Classement des Environnements",
+    "subtitle": "Consultez les environnements les mieux classés selon leurs conditions environnementales.",
+    "totalEnvironments": "Environnements",
+    "averageScore": "Moyenne",
+    "bestEnvironment": "Meilleur Environnement",
+    "worstEnvironment": "Pire Environnement",
+    "environmentScore": "Score Environnemental",
+    "viewEnvironment": "Voir l'Environnement",
+    "status": "Statut",
+
+    "statusExcellent": "Excellent",
+    "statusGood": "Bon",
+    "statusRegular": "Moyen",
+    "statusCritical": "Critique",
+
+    "emptyTitle": "Aucun Environnement",
+    "emptyDescription": "Aucun environnement ne correspond aux filtres sélectionnés."
+  },
+    "blocks": {
+    "a": "Bloc A",
+    "b": "Bloc B",
+    "c": "Bloc C"
+  },
     "allEnvironments": {
     "title": "Environnements",
     "subtitle": "Consultez l'état environnemental de chaque espace en temps réel.",

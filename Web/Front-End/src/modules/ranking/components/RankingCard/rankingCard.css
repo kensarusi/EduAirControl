@@ -2,18 +2,6 @@
    RANKING CARD
 =========================================================== */
 
-.ranking-list{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-
-    gap:25px;
-
-    margin-top:35px;
-
-}
-
 .ranking-card{
 
     background:rgba(15,24,40,.78);
@@ -98,9 +86,11 @@ body:not(.dark-mode)
 
     justify-content:space-between;
 
-    align-items:flex-start;
+    align-items:center;
 
-    margin-bottom:18px;
+    gap:20px;
+
+    margin-bottom:20px;
 
 }
 
@@ -161,35 +151,30 @@ body:not(.dark-mode)
 
 .ranking-score{
 
-    width:72px;
+    min-width:72px;
     height:72px;
 
     border-radius:50%;
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
-    
     background:linear-gradient(
-
         135deg,
-
         #27F5D2,
-
         #00B894
-
     );
-
-    box-shadow:
-
-        0 10px 25px rgba(39,245,210,.30);
-
 
     color:#08111E;
 
     font-size:26px;
     font-weight:800;
+
+    box-shadow:
+        0 10px 25px rgba(39,245,210,.30);
+
+    flex-shrink:0;
 
 }
 
@@ -321,16 +306,32 @@ body:not(.dark-mode)
 
     gap:10px;
 
+    padding:12px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.04);
+
     color:#DCE8F2;
 
     font-size:14px;
+
+    transition:.25s;
+
+}
+
+.ranking-values span:hover{
+
+    transform:translateY(-2px);
+
+    background:rgba(39,245,210,.08);
 
 }
 
 body:not(.dark-mode)
 .ranking-values span{
 
-    color:#334155;
+    background: #F8FAFC;
 
 }
 
@@ -377,9 +378,8 @@ body:not(.dark-mode)
 
 .ranking-button:hover{
 
-    transform:translateY(-4px);
-    letter-spacing: .4px;
-    box-shadow:0 12px 25px rgba(39,245,210,.35);
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(39,245,210,.35);
 
 }
 
@@ -406,68 +406,10 @@ body:not(.dark-mode)
 
 }
 
-@media(max-width:700px){
+.ranking-values span:hover{
 
-.ranking-list{
+    transform:translateY(-2px);
 
-    grid-template-columns:1fr;
-
-}
-
-.ranking-card{
-
-    padding:20px;
-
-}
-
-.ranking-card-header{
-
-    flex-direction:column;
-
-    gap:18px;
-
-}
-
-.ranking-score{
-
-    width:64px;
-
-    height:64px;
-
-    font-size:22px;
-
-}
-
-.ranking-values{
-
-    grid-template-columns:1fr;
-
-}
-
-}
-
-@keyframes rankingFade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(30px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-.ranking-card{
-
-    animation:rankingFade .5s ease;
+    background:rgba(39,245,210,.08);
 
 }

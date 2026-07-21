@@ -107,6 +107,33 @@
     "warnings": "Warnings",
     "alerts": "Alerts"
   },
+
+    "ranking": {
+    "title": "Environment Ranking",
+    "subtitle": "View the highest-rated environments based on their environmental conditions.",
+    "totalEnvironments": "Environments",
+    "averageScore": "Average",
+    "bestEnvironment": "Best Environment",
+    "worstEnvironment": "Worst Environment",
+    "block":"Block",
+    "environmentScore": "Environmental Score",
+    "viewEnvironment": "View Environment",
+    "status": "Status",
+
+    "statusExcellent": "Excellent",
+    "statusGood": "Good",
+    "statusRegular": "Fair",
+    "statusCritical": "Critical",
+
+    "emptyTitle": "No Environments",
+    "emptyDescription": "No environments match the selected filters."
+  },
+
+    "blocks": {
+    "a": "Block A",
+    "b": "Block B",
+    "c": "Block C"
+  },
     "allEnvironments": {
     "title": "Environments",
     "subtitle": "Check the environmental status of each space in real time.",

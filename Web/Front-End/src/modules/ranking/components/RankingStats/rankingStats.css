@@ -1,0 +1,182 @@
+/* ===========================================================
+   RANKING STATS
+=========================================================== */
+
+.ranking-stats{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:22px;
+    margin:35px 0;
+}
+
+/* ===========================================================
+   CARD
+=========================================================== */
+
+.ranking-stat-card{
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+
+    min-height:135px;
+    padding:24px;
+
+    border-radius:22px;
+
+    background:rgba(15,24,40,.82);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(39,245,210,.10);
+
+    transition:.30s;
+    overflow:hidden;
+}
+
+.ranking-stat-card::before{
+    content:"";
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:4px;
+
+    background:#27F5D2;
+}
+
+.ranking-stat-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(39,245,210,.35);
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+/* ===========================================================
+   VALORES
+=========================================================== */
+
+.ranking-stat-card span{
+    font-size:2.4rem;
+    font-weight:800;
+    line-height:1;
+    color:#FFFFFF;
+}
+
+.ranking-stat-card small{
+    text-align:center;
+    color:#94A3B8;
+    font-size:.95rem;
+    line-height:1.5;
+}
+
+/* ===========================================================
+   COLORES
+=========================================================== */
+
+.ranking-stat-card.success::before{
+    background:#22C55E;
+}
+
+.ranking-stat-card.success span{
+    color:#22C55E;
+}
+
+.ranking-stat-card.danger::before{
+    background:#EF4444;
+}
+
+.ranking-stat-card.danger span{
+    color:#EF4444;
+}
+
+/* ===========================================================
+   LIGHT MODE
+=========================================================== */
+
+body:not(.dark-mode) .ranking-stat-card{
+
+    background:#FFFFFF;
+
+    border:1px solid #E5E7EB;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+}
+
+body:not(.dark-mode) .ranking-stat-card span{
+    color:#1E293B;
+}
+
+body:not(.dark-mode) .ranking-stat-card small{
+    color:#64748B;
+}
+
+body:not(.dark-mode) .ranking-stat-card.success span{
+    color:#16A34A;
+}
+
+body:not(.dark-mode) .ranking-stat-card.danger span{
+    color:#DC2626;
+}
+
+/* ===========================================================
+   TABLET
+=========================================================== */
+
+@media (max-width:992px){
+
+    .ranking-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+/* ===========================================================
+   MOBILE
+=========================================================== */
+
+@media (max-width:768px){
+
+    .ranking-stats{
+        gap:16px;
+    }
+
+    .ranking-stat-card{
+        min-height:120px;
+        padding:20px;
+    }
+
+    .ranking-stat-card span{
+        font-size:2rem;
+    }
+
+}
+
+/* ===========================================================
+   SMALL MOBILE
+=========================================================== */
+
+@media (max-width:480px){
+
+    .ranking-stats{
+        grid-template-columns:1fr;
+    }
+
+    .ranking-stat-card{
+        min-height:110px;
+        padding:18px;
+    }
+
+    .ranking-stat-card span{
+        font-size:1.8rem;
+    }
+
+    .ranking-stat-card small{
+        font-size:.9rem;
+    }
+
+}
