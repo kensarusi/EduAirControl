@@ -12,7 +12,7 @@
 .settings-content {
   max-width: 820px;
   margin: 0 auto;
-  padding: 88px 28px 48px;
+  padding: 60px 28px 48px;
 }
 
 .settings-content h1 {
@@ -75,7 +75,7 @@
 /* ── Theme Picker ── */
 .theme-field {
   border-bottom: none !important;
-  padding-bottom: 6px !important;
+  padding-bottom: 15px !important;
 }
 
 .theme-picker {
@@ -148,7 +148,41 @@
 
 .preview-line.short { width: 55%; opacity: 0.35; }
 
-.theme-label { font-size: 10px; font-weight: 700; text-align: center; color: var(--text-secondary); }
+.theme-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+}
+
+.theme-card--active .theme-label,
+.theme-card:has(+ .theme-check) .theme-label {
+  color: #000000;
+}
+
+/* ── Bandera junto al idioma actual ── */
+.field-value--lang { display: inline-flex; align-items: center; gap: 8px; }
+.field-lang-flag {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px var(--lb-glass-border);
+  flex-shrink: 0;
+}
+
+/* ── Banderas en el modal de idioma ── */
+.lang-modal-flag {
+  width: 26px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+.lang-modal-btn--active { border-color: var(--accent) !important; background: var(--lb-surface) !important; }
+.lang-modal-check { margin-left: auto; color: var(--accent); font-weight: 800; }
 
 .theme-check {
   position: absolute;
@@ -299,6 +333,34 @@
 
 .help-modal-scroll p  { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
 .help-modal-scroll ul { padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 1.8; }
+
+/* ── Secciones de Términos / Privacidad ── */
+.policy-section { margin-top: 14px; }
+.policy-section h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.policy-section h4::before {
+  content: '';
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.policy-section ul { margin-top: 2px; }
+.policy-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--lb-glass-border);
+  font-size: 13px !important;
+  color: var(--text-muted) !important;
+}
 
 .faq-item {
   padding: 14px;

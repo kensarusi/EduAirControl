@@ -24,7 +24,6 @@
     "orWith": "Inicia sesión con",
     "or": "O"
   },
-
   "signup": {
     "title": "Crear cuenta",
     "Name": "Nombre completo",
@@ -48,9 +47,8 @@
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones"
   },
   "common": {
-    "close": "Cerrar",
-    "unknown": "Desconocido",
-    "noName": "Sin nombre"
+    "addFavorites": "Agregar a favoritos",
+    "close": "Cerrar"
   },
   "forgotPassword": {
     "title": "Olvidé mi contraseña",
@@ -73,36 +71,22 @@
     "confirmBtn": "Confirmar cambio",
     "mismatch": "¡Las contraseñas no coinciden!"
   },
-
   "terms": {
     "title": "Términos y Condiciones",
-    "subtitle":"Protección de datos • Seguridad • Uso responsable",
+    "subtitle": "Protección de datos • Seguridad • Uso responsable",
     "intro": "Bienvenido a EduAirControl. Antes de utilizar nuestra plataforma, por favor lee cuidadosamente los siguientes términos y condiciones. Al crear una cuenta y utilizar nuestros servicios aceptas cumplir con estas disposiciones.",
-
     "item1": "La información suministrada durante el registro debe ser veraz, actualizada y completa.",
-
     "item2": "Cada usuario es responsable de proteger sus credenciales de acceso y de todas las actividades realizadas desde su cuenta.",
-
     "item3": "La plataforma debe utilizarse únicamente con fines educativos, administrativos y de monitoreo ambiental autorizados por la institución.",
-
     "item4": "Está prohibido manipular, alterar o intentar acceder sin autorización a la información, dispositivos IoT o servicios de EduAirControl.",
-
     "item5": "Los datos ambientales mostrados por la plataforma corresponden a información recopilada por sensores IoT y tienen fines de monitoreo, análisis y apoyo en la toma de decisiones. No sustituyen inspecciones técnicas especializadas.",
-
     "item6": "EduAirControl implementa medidas de seguridad para proteger la información almacenada; sin embargo, ningún sistema puede garantizar seguridad absoluta frente a incidentes externos.",
-
     "item7": "La plataforma podrá recibir actualizaciones, mejoras o modificaciones sin previo aviso cuando sean necesarias para optimizar su funcionamiento.",
-
     "item8": "Al aceptar estos términos, autorizas el tratamiento de los datos necesarios para el funcionamiento de la plataforma conforme a la normativa de protección de datos aplicable.",
-
     "footer1": "EduAirControl podrá modificar estos Términos y Condiciones cuando sea necesario. Las modificaciones serán publicadas en la plataforma.",
-
     "footer2": "Al hacer clic en \"Aceptar\" confirmas que has leído, comprendido y aceptado estos Términos y Condiciones.",
-
     "acceptBtn": "Aceptar"
-    
-    },
-
+  },
   "dashboard": {
     "clickDetails": "Click Para Ver Detalles",
     "idealRange": "Rango ideal",
@@ -127,8 +111,7 @@
     "warnings": "Advertencias",
     "alerts": "Alertas"
   },
-
-    "ranking": {
+  "ranking": {
     "title": "Ranking de Ambientes",
     "subtitle": "Consulta los ambientes mejor calificados según sus condiciones ambientales.",
     "totalEnvironments": "Ambientes",
@@ -138,70 +121,53 @@
     "environmentScore": "Puntaje ambiental",
     "viewEnvironment": "Ver ambiente",
     "status": "Estado",
-
     "statusExcellent": "Excelente",
     "statusGood": "Bueno",
     "statusRegular": "Regular",
     "statusCritical": "Crítico",
-
     "emptyTitle": "No hay ambientes",
     "emptyDescription": "No se encontraron ambientes con los filtros seleccionados."
   },
-
-    "blocks": {
+  "blocks": {
     "a": "Bloque A",
     "b": "Bloque B",
     "c": "Bloque C"
   },
- 
-  
   "allEnvironments": {
     "title": "Ambientes",
     "subtitle": "Consulta el estado ambiental de cada espacio en tiempo real.",
     "qualityTitle": "Índice Ambiental",
     "qualityDesc": "Calculado a partir de temperatura, humedad, CO₂ y ruido.",
-
     "co2": "CO₂",
-
     "tempDescription": "La temperatura ideal está entre 20°C y 26°C.",
     "humidityDescription": "La humedad recomendada está entre 40% y 60%.",
     "co2Description": "El nivel de CO₂ refleja la calidad del aire.",
     "noiseDescription": "Un menor nivel de ruido mejora la concentración.",
-
     "recTemp": "La temperatura es elevada. Se recomienda ventilar el ambiente.",
     "recHumidity": "La humedad está fuera del rango recomendado.",
     "recCo2": "El nivel de CO₂ es alto. Abra puertas y ventanas.",
     "recNoise": "El nivel de ruido es elevado. Reduzca las fuentes de sonido.",
     "recPerfect": "El ambiente presenta condiciones óptimas.",
-
     "statusIdeal": "Ideal",
     "statusHigh": "Alta",
     "statusOutOfRange": "Fuera de rango",
-
     "co2Good": "Buena",
     "co2Regular": "Regular",
     "co2Bad": "Mala",
-
     "noiseLow": "Bajo",
     "noiseModerate": "Moderado",
     "noiseHigh": "Alto",
-
     "temperature": "Temperatura",
     "humidity": "Humedad",
     "noise": "Ruido",
-
     "capacity": "Capacidad",
     "building": "Bloque",
     "floor": "Piso",
     "lastUpdate": "Última actualización",
-
     "favorite": "Agregar a favoritos",
     "removeFavorite": "Quitar de favoritos",
-
     "viewDetails": "Ver detalles",
-
     "noResults": "No se encontraron ambientes con los filtros seleccionados.",
-
     "environmentIndex": "Índice ambiental",
     "environmentIndexDescription": "Evalúa la calidad del ambiente",
     "excellent": "Excelente",
@@ -209,12 +175,6 @@
     "regular": "Regular",
     "bad": "Malo"
   },
-
-    "common": {
-    "addFavorites": "Agregar a favoritos",
-    "close": "Cerrar"
-  },
-
   "favorites": {
     "title": "Favoritos",
     "description": "Notificaciones de tus ambientes favoritos",
@@ -227,20 +187,17 @@
     "ago15": "Hace 15 min",
     "ago10": "Hace 10 min"
   },
-    "profile": {
+  "profile": {
     "title": "Mi perfil",
     "description": "Administra tu información personal y mantén tus datos actualizados.",
-
     "fullName": "Nombre completo",
     "email": "Correo electrónico",
     "titleLabel": "Cargo",
     "phone": "Teléfono",
     "location": "Ubicación",
-
     "update": "Editar perfil",
     "save": "Guardar",
     "cancel": "Cancelar",
-
     "logoutBtn": "Cerrar sesión",
     "logoutTitle": "Cerrar sesión",
     "logoutMessage": "¿Estás seguro de que deseas cerrar sesión? Tendrás que iniciar sesión nuevamente para acceder a tu cuenta."
@@ -327,20 +284,115 @@
       "responseDesc": "Respondemos en menos de 24 horas hábiles."
     },
     "terms": {
-      "intro": "Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos:",
-      "li1": "Proporcionarás información precisa y completa.",
-      "li2": "Eres responsable de mantener la confidencialidad de tus credenciales.",
-      "li3": "La plataforma debe usarse solo para propósitos autorizados y legales.",
-      "li4": "Los datos ambientales son solo para monitoreo e informes.",
-      "footer": "EduAirControl se reserva el derecho de actualizar estos términos en cualquier momento."
+      "intro": "Al acceder y usar EduAirControl, aceptas cumplir con los siguientes términos y condiciones de uso:",
+      "sections": [
+        {
+          "title": "Aceptación de los términos",
+          "items": [
+            "Al crear una cuenta o usar la plataforma, confirmas que aceptas estos términos en su totalidad.",
+            "Si no estás de acuerdo con alguna parte, debes abstenerte de usar EduAirControl."
+          ]
+        },
+        {
+          "title": "Tu cuenta",
+          "items": [
+            "Debes proporcionar información precisa, completa y actualizada al registrarte.",
+            "Eres responsable de mantener la confidencialidad de tu contraseña y de toda la actividad realizada desde tu cuenta.",
+            "Notifícanos de inmediato si sospechas un uso no autorizado de tu cuenta."
+          ]
+        },
+        {
+          "title": "Uso permitido de la plataforma",
+          "items": [
+            "La plataforma debe usarse solo para propósitos autorizados, educativos y legales.",
+            "No está permitido intentar vulnerar, sobrecargar o interferir con los sensores, servidores o el funcionamiento del sistema.",
+            "No está permitido copiar, revender o redistribuir el servicio sin autorización previa."
+          ]
+        },
+        {
+          "title": "Datos ambientales y reportes",
+          "items": [
+            "Los datos ambientales (calidad del aire, temperatura, humedad, etc.) se ofrecen únicamente con fines de monitoreo e información.",
+            "No deben usarse como única fuente para decisiones críticas de seguridad; ante una emergencia sigue siempre los protocolos oficiales de tu institución."
+          ]
+        },
+        {
+          "title": "Propiedad intelectual",
+          "items": [
+            "El nombre, el logotipo, el diseño y el software de EduAirControl son propiedad de sus creadores y están protegidos por derechos de autor.",
+            "No se otorga ningún derecho de uso de estas marcas fuera de la plataforma sin autorización expresa."
+          ]
+        },
+        {
+          "title": "Suspensión y cancelación",
+          "items": [
+            "Podemos suspender o cancelar cuentas que incumplan estos términos o que representen un riesgo para la plataforma u otros usuarios.",
+            "Puedes solicitar la eliminación de tu cuenta en cualquier momento desde la sección de Privacidad."
+          ]
+        },
+        {
+          "title": "Cambios en los términos",
+          "items": [
+            "Podemos actualizar estos términos periódicamente para reflejar mejoras o cambios legales.",
+            "El uso continuado de la plataforma después de una actualización implica la aceptación de los cambios."
+          ]
+        }
+      ],
+      "footer": "¿Tienes dudas sobre estos términos? Escríbenos a soporte@eduaircontrol.com."
     },
     "privacyModal": {
-      "intro": "En EduAirControl nos comprometemos a proteger tu información personal:",
-      "li1": "No vendemos ni compartimos tus datos con terceros sin tu consentimiento.",
-      "li2": "Tus datos se almacenan de forma segura con cifrado.",
-      "li3": "Puedes solicitar la eliminación de tu cuenta y datos en cualquier momento.",
-      "li4": "Solo recopilamos datos necesarios para el funcionamiento de la plataforma.",
-      "footer": "Para más información escríbenos a soporte@eduaircontrol.com."
+      "intro": "En EduAirControl nos tomamos en serio la protección de tu información personal. Esta política explica qué datos recopilamos y cómo los cuidamos:",
+      "sections": [
+        {
+          "title": "Qué información recopilamos",
+          "items": [
+            "Datos de cuenta: nombre, correo electrónico y credenciales de acceso.",
+            "Datos ambientales generados por los sensores de tu institución (calidad del aire, temperatura, humedad, etc.).",
+            "Datos de uso: preferencias, idioma, zona horaria y configuración de la aplicación."
+          ]
+        },
+        {
+          "title": "Cómo usamos tu información",
+          "items": [
+            "Para brindarte acceso al panel, los rankings y las notificaciones de la plataforma.",
+            "Para generar reportes e informes ambientales de tu institución.",
+            "Para mejorar el servicio y comunicarnos contigo sobre actualizaciones importantes."
+          ]
+        },
+        {
+          "title": "Cómo protegemos tus datos",
+          "items": [
+            "Tus datos se transmiten y almacenan de forma cifrada.",
+            "Las contraseñas nunca se guardan en texto plano; se protegen mediante algoritmos de cifrado seguros.",
+            "El acceso a la información está restringido solo al personal autorizado que lo necesita para operar la plataforma.",
+            "Revisamos periódicamente nuestras prácticas de seguridad para prevenir accesos no autorizados."
+          ]
+        },
+        {
+          "title": "Con quién compartimos tu información",
+          "items": [
+            "No vendemos ni alquilamos tus datos personales a terceros.",
+            "Solo compartimos información con los administradores de tu propia institución, o con proveedores estrictamente necesarios para operar el servicio (por ejemplo, hosting).",
+            "Podemos divulgar información si así lo exige la ley."
+          ]
+        },
+        {
+          "title": "Tus derechos",
+          "items": [
+            "Puedes acceder, corregir o actualizar tus datos personales desde tu perfil.",
+            "Puedes solicitar la eliminación de tu cuenta y de tus datos en cualquier momento desde esta sección de Configuración.",
+            "Puedes solicitar una copia de la información que tenemos sobre ti escribiéndonos a soporte."
+          ]
+        },
+        {
+          "title": "Retención de datos",
+          "items": [
+            "Conservamos tu información mientras tu cuenta esté activa.",
+            "Al solicitar la eliminación de tu cuenta, tus datos personales se eliminan o anonimizan dentro de un plazo razonable, salvo que la ley exija conservarlos."
+          ]
+        }
+      ],
+      "footer": "¿Tienes preguntas sobre cómo tratamos tus datos? Escríbenos a soporte@eduaircontrol.com."
     }
   },
   "google": {
@@ -403,8 +455,6 @@
     "cancel": "Cancelar",
     "save": "Guardar"
   },
-
-    
   "errors": {
     "required_email": "El correo electrónico es obligatorio",
     "invalid_email": "Dirección de correo electrónico no válida",
@@ -414,25 +464,19 @@
     "required_company_code": "El código de empresa es obligatorio",
     "invalid_company_code": "El código de empresa debe seguir el formato ABC-1234"
   },
-  
   "notifications": {
     "title": "Notificaciones",
     "empty": "No tienes notificaciones",
-    "markAllRead":"Marcar todas como leídas",
-
+    "markAllRead": "Marcar todas como leídas",
     "co2High": "CO₂ alto",
     "co2Message": "El ambiente {{name}} tiene {{value}} ppm de CO₂",
-
     "tempHigh": "Temperatura alta",
     "tempMessage": "El ambiente {{name}} tiene {{value}}°C",
-
     "warning": "Advertencia",
     "warningMessage": "El ambiente {{name}} presenta condiciones irregulares",
-
     "dailySummary": "Resumen diario",
     "summaryMessage": "Hoy {{alerts}} ambientes en alerta y {{warnings}} con advertencias"
   },
-
   "leaderboard": {
     "title": "Ranking de Ambientes",
     "subtitle": "Puntaje calculado por temperatura, humedad, CO₂ y ruido · Toca un ambiente para ver detalles",
@@ -446,8 +490,7 @@
     "tempIdeal": "Temp ideal: 18–24 °C",
     "humidityIdeal": "Humedad ideal: 40–60 %",
     "co2Ideal": "CO₂ ideal: < 1000 ppm",
-    "noiseIdeal": "Ruido ideal: < 50 dB", 
-
+    "noiseIdeal": "Ruido ideal: < 50 dB",
     "filters": {
       "all": "Todos",
       "normal": "✅ Normales",
@@ -455,22 +498,19 @@
       "alert": "🔴 Alertas"
     }
   },
-
   "locations": {
     "roomA": "Sala A",
     "roomB": "Sala B",
     "roomC": "Sala C"
   },
-
-"filters": {
-  "all": "Todos",
-  "name": "Nombre",
-  "searchEnvironment": "Buscar ambiente...",
-  "building": "Bloque",
-  "floor": "Piso",
-  "favorites": "Solo favoritos"
-},
-
+  "filters": {
+    "all": "Todos",
+    "name": "Nombre",
+    "searchEnvironment": "Buscar ambiente...",
+    "building": "Bloque",
+    "floor": "Piso",
+    "favorites": "Solo favoritos"
+  },
   "landing": {
     "navbar": {
       "home": "Inicio",
@@ -637,7 +677,6 @@
       "copyright": "© 2026 EduAirControl. Todos los derechos reservados."
     }
   },
-
   "tooltips": {
     "close": "Cierra esta ventana y vuelve al listado de ambientes.",
     "status": "Indica el estado general del ambiente: Normal, Advertencia o Alerta, calculado a partir de los sensores.",
@@ -664,7 +703,3 @@
     "star5": "Excelente"
   }
 }
-
-
-
- 

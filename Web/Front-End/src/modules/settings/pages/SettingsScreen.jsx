@@ -37,8 +37,8 @@ function applyBodyClasses(theme, dark) {
 const THEMES = [
   { key: '',                   dot: { light: '#5de6c8', dark: '#3ab8a0' } },
   { key: 'theme-protanopia',   dot: { light: '#0072b2', dark: '#4aa8d8' } },
-  { key: 'theme-deuteranopia', dot: { light: '#E69F00', dark: '#c8880a' } },
-  { key: 'theme-tritanopia',   dot: { light: '#D55E00', dark: '#e8743a' } },
+  { key: 'theme-deuteranopia', dot: { light: '#8a5f00', dark: '#c8880a' } },
+  { key: 'theme-tritanopia',   dot: { light: '#a34600', dark: '#e8743a' } },
 ]
 
 function SettingsScreen() {
@@ -57,6 +57,12 @@ function SettingsScreen() {
     }
   )
   const LANG_NAMES = { es: 'Español', en: 'English', fr: 'Français', pt: 'Português' }
+  const LANGUAGES = [
+    { code: 'es', label: 'Español',   flag: 'https://flagcdn.com/w40/co.png', flagAlt: 'Bandera de Colombia' },
+    { code: 'en', label: 'English',   flag: 'https://flagcdn.com/w40/us.png', flagAlt: 'US flag' },
+    { code: 'fr', label: 'Français',  flag: 'https://flagcdn.com/w40/fr.png', flagAlt: 'Drapeau français' },
+    { code: 'pt', label: 'Português', flag: 'https://flagcdn.com/w40/br.png', flagAlt: 'Bandeira do Brasil' },
+  ]
   const [settings, setSettings] = useState(() => {
     const saved = JSON.parse(localStorage.getItem('settings')) || { language: 'English', dateFormat: 'DD-MM-YYYY' }
     const activeLang = localStorage.getItem('language') || i18n.language || 'es'
@@ -213,7 +219,14 @@ function SettingsScreen() {
             <div className="field-icon"><FaGlobe /></div>
             <div className="field-info">
               <span className="field-label">{t('settings.language')}</span>
-              <span className="field-value">{settings.language}</span>
+              <span className="field-value field-value--lang">
+                <img
+                  src={LANGUAGES.find(l => l.label === settings.language)?.flag}
+                  alt=""
+                  className="field-lang-flag"
+                />
+                {settings.language}
+              </span>
             </div>
             <button className="btn-update" onClick={() => setShowLangModal(true)}>
               <MdEdit /> {t('settings.updateBtn')}
@@ -413,10 +426,17 @@ function SettingsScreen() {
         <div className="lang-modal-overlay" onClick={() => setShowLangModal(false)}>
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
             <h3>{t('settings.language')}</h3>
-            <button onClick={() => handleChangeLanguage('es')}>🇨🇴 Español</button>
-            <button onClick={() => handleChangeLanguage('en')}>🇺🇸 English</button>
-            <button onClick={() => handleChangeLanguage('fr')}>🇫🇷 Français</button>
-            <button onClick={() => handleChangeLanguage('pt')}>🇧🇷 Português</button>
+            {LANGUAGES.map(({ code, label, flag, flagAlt }) => (
+              <button
+                key={code}
+                className={i18n.language === code ? 'lang-modal-btn--active' : ''}
+                onClick={() => handleChangeLanguage(code)}
+              >
+                <img src={flag} alt={flagAlt} className="lang-modal-flag" loading="lazy" />
+                <span>{label}</span>
+                {i18n.language === code && <span className="lang-modal-check">✓</span>}
+              </button>
+            ))}
           </div>
         </div>
       )}
@@ -498,16 +518,18 @@ function SettingsScreen() {
 
             {helpModal.type === 'terms' && (
               <>
-                <h3>📋 {t('settings.helpTerms')}</h3>
+                <h3> {t('settings.helpTerms')}</h3>
                 <div className="help-modal-body help-modal-scroll">
                   <p>{t('settings.terms.intro')}</p>
-                  <ul>
-                    <li>{t('settings.terms.li1')}</li>
-                    <li>{t('settings.terms.li2')}</li>
-                    <li>{t('settings.terms.li3')}</li>
-                    <li>{t('settings.terms.li4')}</li>
-                  </ul>
-                  <p>{t('settings.terms.footer')}</p>
+                  {t('settings.terms.sections', { returnObjects: true }).map((section, i) => (
+                    <div className="policy-section" key={i}>
+                      <h4>{section.title}</h4>
+                      <ul>
+                        {section.items.map((item, j) => <li key={j}>{item}</li>)}
+                      </ul>
+                    </div>
+                  ))}
+                  <p className="policy-footer">{t('settings.terms.footer')}</p>
                 </div>
               </>
             )}
@@ -517,13 +539,15 @@ function SettingsScreen() {
                 <h3>🔒 {t('settings.helpPrivacy')}</h3>
                 <div className="help-modal-body help-modal-scroll">
                   <p>{t('settings.privacyModal.intro')}</p>
-                  <ul>
-                    <li>{t('settings.privacyModal.li1')}</li>
-                    <li>{t('settings.privacyModal.li2')}</li>
-                    <li>{t('settings.privacyModal.li3')}</li>
-                    <li>{t('settings.privacyModal.li4')}</li>
-                  </ul>
-                  <p>{t('settings.privacyModal.footer')}</p>
+                  {t('settings.privacyModal.sections', { returnObjects: true }).map((section, i) => (
+                    <div className="policy-section" key={i}>
+                      <h4>{section.title}</h4>
+                      <ul>
+                        {section.items.map((item, j) => <li key={j}>{item}</li>)}
+                      </ul>
+                    </div>
+                  ))}
+                  <p className="policy-footer">{t('settings.privacyModal.footer')}</p>
                 </div>
               </>
             )}
