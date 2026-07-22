@@ -227,14 +227,23 @@
     "ago15": "Hace 15 min",
     "ago10": "Hace 10 min"
   },
-  "profile": {
-    "title": "Información Personal",
-    "description": "Esta información será pública, ten cuidado con lo que compartes.",
+    "profile": {
+    "title": "Mi perfil",
+    "description": "Administra tu información personal y mantén tus datos actualizados.",
+
     "fullName": "Nombre completo",
     "email": "Correo electrónico",
     "titleLabel": "Cargo",
-    "updateBtn": "Actualizar",
-    "logoutBtn": "Cerrar sesión"
+    "phone": "Teléfono",
+    "location": "Ubicación",
+
+    "update": "Editar perfil",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+
+    "logoutBtn": "Cerrar sesión",
+    "logoutTitle": "Cerrar sesión",
+    "logoutMessage": "¿Estás seguro de que deseas cerrar sesión? Tendrás que iniciar sesión nuevamente para acceder a tu cuenta."
   },
   "settings": {
     "title": "Configuración",

@@ -190,14 +190,23 @@
     "ago15": "Il y a 15 minutes",
     "ago10": "Il y a 10 minutes"
   },
-  "profile": {
-    "title": "Informations personnelles",
-    "description": "Ces informations seront publiques, faites attention à ce que vous partagez.",
+    "profile": {
+    "title": "Mon profil",
+    "description": "Gérez vos informations personnelles et gardez vos données à jour.",
+
     "fullName": "Nom complet",
-    "email": "Adresse e-mail",
+    "email": "E-mail",
     "titleLabel": "Poste",
-    "updateBtn": "Mettre à jour",
-    "logoutBtn": "Se déconnecter"
+    "phone": "Téléphone",
+    "location": "Emplacement",
+
+    "update": "Modifier le profil",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+
+    "logoutBtn": "Se déconnecter",
+    "logoutTitle": "Se déconnecter",
+    "logoutMessage": "Êtes-vous sûr de vouloir vous déconnecter ? Vous devrez vous reconnecter pour accéder à votre compte."
   },
   "settings": {
     "title": "Paramètres",

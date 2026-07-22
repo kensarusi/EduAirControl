@@ -193,14 +193,23 @@
     "ago15": "15 min ago",
     "ago10": "10 min ago"
   },
-  "profile": {
-    "title": "Personal Information",
-    "description": "This information will be displayed publicly so be careful what you share.",
+    "profile": {
+    "title": "My Profile",
+    "description": "Manage your personal information and keep your details up to date.",
+
     "fullName": "Full name",
-    "email": "Email address",
-    "titleLabel": "Title",
-    "updateBtn": "Update",
-    "logoutBtn": "Log Out"
+    "email": "Email",
+    "titleLabel": "Job Title",
+    "phone": "Phone",
+    "location": "Location",
+
+    "update": "Edit profile",
+    "save": "Save",
+    "cancel": "Cancel",
+
+    "logoutBtn": "Log out",
+    "logoutTitle": "Log out",
+    "logoutMessage": "Are you sure you want to log out? You will need to sign in again to access your account."
   },
   "settings": {
     "title": "Settings",

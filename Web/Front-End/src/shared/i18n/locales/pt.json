@@ -191,14 +191,23 @@
     "ago15": "Há 15 min",
     "ago10": "Há 10 min"
   },
-  "profile": {
-    "title": "Informações do perfil",
-    "description": "Essas informações serão públicas, tenha cuidado com o que compartilha.",
+    "profile": {
+    "title": "Meu perfil",
+    "description": "Gerencie suas informações pessoais e mantenha seus dados atualizados.",
+
     "fullName": "Nome completo",
     "email": "E-mail",
     "titleLabel": "Cargo",
-    "updateBtn": "Atualizar",
-    "logoutBtn": "Sair"
+    "phone": "Telefone",
+    "location": "Localização",
+
+    "update": "Editar perfil",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+
+    "logoutBtn": "Sair",
+    "logoutTitle": "Sair da conta",
+    "logoutMessage": "Tem certeza de que deseja sair? Será necessário fazer login novamente para acessar sua conta."
   },
   "settings": {
     "title": "Configurações",
