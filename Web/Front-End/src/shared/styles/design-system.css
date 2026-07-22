@@ -665,3 +665,48 @@ body.dark-mode .ds-btn--primary:hover {
   overflow:      hidden;
   text-overflow: ellipsis;
 }
+/* ============================================================
+   CORRECCIONES DE CONTRASTE — DESIGN SYSTEM
+   ============================================================ */
+
+/* Forzar el uso de variables lb-glass en todos los componentes ds-card */
+.ds-card, .ds-card--section, .ds-card--hero, .ds-card--stat, .ds-modal, .ds-panel {
+  background: var(--lb-glass-bg) !important;
+  border-color: var(--lb-glass-border) !important;
+  color: var(--text-primary) !important;
+}
+
+.ds-card:hover, .ds-card--hoverable:hover, .ds-card--stat:hover {
+  background: var(--lb-glass-bg-hover) !important;
+  border-color: var(--lb-glass-border-hover) !important;
+}
+
+/* Asegurar que los textos muted tengan contraste en modo claro */
+.ds-text-muted, .ds-field__label, .ds-page-header__subtitle {
+  color: var(--text-muted) !important;
+}
+
+body:not(.dark-mode) .ds-text-muted, 
+body:not(.dark-mode) .ds-field__label {
+  color: #555555 !important; /* Gris oscuro para modo claro */
+}
+
+/* Botones con variables de acento */
+.ds-btn--primary {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+}
+
+.ds-btn--primary:hover {
+  background: var(--accent-hover) !important;
+}
+
+.ds-btn--outline {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+
+.ds-btn--outline:hover {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+}

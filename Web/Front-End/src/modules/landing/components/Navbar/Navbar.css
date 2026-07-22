@@ -1,33 +1,29 @@
-.navbar{
-
-    top:0;
-    left:0;
-    width:100%;
+.navbar {
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 75px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 70px;
-    z-index:1000;
-    position:fixed;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(14px, 1.8vw, 36px);
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 clamp(22px, 2.6vw, 48px);
+    z-index: 1000;
+    position: fixed;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(40,244,214,.12);
-
-    box-shadow:
-        0 10px 40px rgba(0,0,0,.18);
-
-    transition: all .35s ease;
+    border-bottom: 1px solid rgba(40, 244, 214, 0.12);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+    transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-.navbar.scrolled{
-
-    background: rgba(8,15,25,.88);
-    -webkit-backdrop-filter: blur(18px);
+.navbar.scrolled {
+    background: rgba(8, 15, 25, 0.92);
     backdrop-filter: blur(24px);
-    box-shadow: 0 10px 40px rgba(0,0,0,.25);
-    border-bottom:1px solid rgba(40,244,214,.15);
-
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.32);
+    border-bottom: 1px solid rgba(40, 244, 214, 0.18);
 }
 
 .logo{

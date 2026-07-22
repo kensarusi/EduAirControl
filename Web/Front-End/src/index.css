@@ -65,40 +65,67 @@
   --a11y-font-size: 16px;
 }
 
-/* ── Protanopia ── */
+/* ── Protanopia (Daltonismo Rojo) ── */
 body.theme-protanopia {
   --accent:                #0072b2;
   --accent-hover:          #005a8e;
   --accent-light:          #e6f2fa;
   --accent-dark:           #4aa8d8;
   --border-nav:            #0072b2;
-  --lb-glass-border:       rgba(0, 114, 178, 0.22);
-  --lb-glass-border-hover: rgba(0, 114, 178, 0.52);
-  --lb-surface:            rgba(0, 114, 178, 0.08);
+  --lb-glass-border:       rgba(0, 114, 178, 0.28);
+  --lb-glass-border-hover: rgba(0, 114, 178, 0.58);
+  --lb-surface:            rgba(0, 114, 178, 0.12);
+  --text-primary:          #0f172a;
+  --text-secondary:        #333333;
+  --text-muted:            #666666;
 }
 
-/* ── Deuteranopia ── */
+body.dark-mode.theme-protanopia {
+  --text-primary:          #e2e8f0;
+  --text-secondary:        #cbd5e1;
+  --text-muted:            #94a3b8;
+}
+
+/* ── Deuteranopia (Daltonismo Verde) ── */
 body.theme-deuteranopia {
   --accent:                #E69F00;
   --accent-hover:          #c8880a;
   --accent-light:          #fdf3dc;
   --accent-dark:           #c8880a;
   --border-nav:            #E69F00;
-  --lb-glass-border:       rgba(230, 159, 0, 0.22);
-  --lb-glass-border-hover: rgba(230, 159, 0, 0.52);
-  --lb-surface:            rgba(230, 159, 0, 0.08);
+  --lb-glass-border:       rgba(230, 159, 0, 0.28);
+  --lb-glass-border-hover: rgba(230, 159, 0, 0.58);
+  --lb-surface:            rgba(230, 159, 0, 0.12);
+  --text-primary:          #0f172a;
+  --text-secondary:        #333333;
+  --text-muted:            #666666;
 }
 
-/* ── Tritanopia ── */
+body.dark-mode.theme-deuteranopia {
+  --text-primary:          #e2e8f0;
+  --text-secondary:        #cbd5e1;
+  --text-muted:            #94a3b8;
+}
+
+/* ── Tritanopia (Daltonismo Azul-Amarillo) ── */
 body.theme-tritanopia {
   --accent:                #D55E00;
   --accent-hover:          #b34e00;
   --accent-light:          #fce8dc;
   --accent-dark:           #e8743a;
   --border-nav:            #D55E00;
-  --lb-glass-border:       rgba(213, 94, 0, 0.22);
-  --lb-glass-border-hover: rgba(213, 94, 0, 0.52);
-  --lb-surface:            rgba(213, 94, 0, 0.08);
+  --lb-glass-border:       rgba(213, 94, 0, 0.28);
+  --lb-glass-border-hover: rgba(213, 94, 0, 0.58);
+  --lb-surface:            rgba(213, 94, 0, 0.12);
+  --text-primary:          #0f172a;
+  --text-secondary:        #333333;
+  --text-muted:            #666666;
+}
+
+body.dark-mode.theme-tritanopia {
+  --text-primary:          #e2e8f0;
+  --text-secondary:        #cbd5e1;
+  --text-muted:            #94a3b8;
 }
 
 /* ── Dark Mode ── */
@@ -180,6 +207,8 @@ body.dark-mode .forgot-link { color: var(--accent); font-weight: 500; }
 }
 
 body {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-body) !important;
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
@@ -196,7 +225,7 @@ body {
       rgba(4, 10, 25, 0.78) 50%,
       rgba(4, 10, 25, 0.88) 100%
     ),
-    url('/Web/Front-End/src/assets/dashboard-bg.png');
+    url('./shared/assets/bg.png');
 
   background-size: cover;
   background-position: center;
@@ -217,7 +246,7 @@ body:not(.dark-mode) {
       rgba(220, 240, 235, 0.88) 50%,
       rgba(232, 244, 240, 0.92) 100%
     ),
-    url('/Web/Front-End/src/assets/dashboard-bg.png');
+    url('./shared/assets/bg.png');
   color: var(--text-primary);
 }
 
@@ -1251,13 +1280,15 @@ button:active { transform: scale(0.97); }
    ============================================================ */
 
 body {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-body) !important;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   /* Enlace directo a tu imagen personalizada */
   background-image: 
     linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.85)), 
-    url('../src/assets/bg.png' );
+    url('./shared/assets/bg.png');
   
   background-size: cover;
   background-position: center;
@@ -1270,7 +1301,7 @@ body {
 body:not(.dark-mode) {
   background-image: 
     linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7)), 
-    url('../src/assets/bg.png' );
+    url('./shared/assets/bg.png');
 }
 
 /* Aseguramos que todas las páginas sean transparentes para ver el fondo */

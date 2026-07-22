@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar/Navbar";
-import AccessibilityWidget from "../components/AccessibilityWidget/AccessibilityWidget";
+import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 import Hero from "../components/Hero/Hero/Hero";
 import WhyChoose from "../components/WhyChoose/WhyChoose";
 import SystemModules from "../components/SystemModules/SystemModules";
@@ -46,7 +46,7 @@ function Landing() {
       <DesignedFor />
       <CTA />
       <Footer />
-      <AccessibilityWidget />
+      <ScrollToTop />
     </div>
   );
 }

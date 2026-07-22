@@ -2,9 +2,9 @@
     width:100%;
     min-height:100vh;
 
-    background-color:#020817;
+    background-color:transparent;
 
-    color:white;
+    color:inherit;
 
     overflow-x:hidden;
 }

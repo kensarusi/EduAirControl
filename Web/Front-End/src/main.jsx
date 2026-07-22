@@ -6,6 +6,7 @@ import './index.css'
 import "./shared/styles/design-system.css";
 import './shared/i18n/i18n.js'
 import { EnvironmentProvider } from "./context/EnvironmentContext";
+import GlobalAccessibilityProvider from "./shared/components/GlobalAccessibilityProvider/GlobalAccessibilityProvider";
 
 
 // Restaurar tema daltónico + dark mode al cargar
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <EnvironmentProvider>
-        <App />
+        <GlobalAccessibilityProvider>
+          <App />
+        </GlobalAccessibilityProvider>
       </EnvironmentProvider>
     </BrowserRouter>
   </React.StrictMode>
