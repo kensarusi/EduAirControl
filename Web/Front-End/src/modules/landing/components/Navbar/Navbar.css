@@ -4,13 +4,10 @@
     left:0;
     width:100%;
     height: 75px;
-    display:grid;
-    grid-template-columns:auto minmax(0, 1fr) auto;
-    gap:clamp(14px, 1.8vw, 36px);
-    justify-content:normal;
+    display:flex;
+    justify-content:space-between;
     align-items:center;
-    box-sizing:border-box;
-    padding:0 clamp(22px, 2.6vw, 48px);
+    padding:0 70px;
     z-index:1000;
     position:fixed;
     backdrop-filter: blur(18px);
@@ -36,28 +33,25 @@
 .logo{
     display:flex;
     align-items:center;
-    gap:clamp(8px, .8vw, 12px);
+    gap:12px;
     height:100%;
-    min-width:0;
-    flex-shrink:0;
     cursor:pointer;
 }
 
 .logo img{
-    width: 48px;
-    height:48px;
+    width: 52px;
+    height:90px;
     object-fit:contain;
     display:block;
-    margin-top: 3px;
+    margin-top: 10px;
 
     transition:.35s;
 }
 
 .logo span{
-    font-size:clamp(1.35rem, 1.55vw, 1.85rem);
+    font-size:2rem;
     font-weight:700;
     color:white;
-    white-space:nowrap;
 
     transition: color .35s ease;
 }
@@ -69,16 +63,14 @@
 .navbar-links{
     display:flex;
     align-items:center;
-    justify-content:center;
     gap:30px;
-    min-width:0;
 }
 
 .navbar-links a{
     
     color:#d7dde8;
     text-decoration:none;
-    font-size:clamp(.82rem, .82vw, .98rem);
+    font-size: 1rem;
     font-weight:600;
     transition:.3s;
     white-space:nowrap;
@@ -108,7 +100,6 @@
 .navbar-actions{
     display:flex;
     align-items:center;
-    flex-shrink:0;
 }
 
 .mobile-login{
@@ -195,18 +186,18 @@
 }
 
 .login-btn{
+
+    display:flex;
     align-items:center;
     gap:10px;
     background:rgba(44,246,208,.06);
     border:1px solid rgba(44,246,208,.35);
     color:white;
-    min-width:96px;
-    padding:11px 18px;
+    padding:10px 14px;
     border-radius:14px;
     cursor:pointer;
     transition:.3s;
     font-weight:600;
-    font-size:.9rem;
     transition: .35s ease;
 }
 
@@ -298,21 +289,21 @@
 /* DESKTOP */
 /* ====================================== */
 
-@media (min-width:769px){
+@media (min-width:1281px){
 
     .navbar{
-        padding:0 clamp(22px, 2.6vw, 48px);
+        padding:0 60px;
     }
 
     .navbar-links{
         display:flex;
         align-items:center;
-        gap:clamp(10px, 1.05vw, 22px);
+        gap:30px;
     }
 
     .navbar-links a{
         white-space:nowrap;
-        font-size:clamp(.82rem, .82vw, .98rem);
+        font-size:1rem;
     }
 
     .navbar-actions{
@@ -329,58 +320,13 @@
 
 }
 
-@media (max-width: 1450px) and (min-width: 769px){
-    .navbar-links a:nth-child(7){
-        display:none;
-    }
-
-    .lang-btn-premium{
-        padding:9px 12px;
-    }
-
-    .lang-label-text{
-        font-size:13px;
-    }
-
-    .login-btn{
-        min-width:92px;
-        padding:10px 16px;
-    }
-}
-
-@media (max-width: 1180px) and (min-width: 769px){
-    .navbar{
-        gap:12px;
-        padding:0 18px;
-    }
-
-    .logo img{
-        width:42px;
-        height:42px;
-    }
-
-    .navbar-links{
-        gap:9px;
-    }
-
-    .navbar-links a{
-        font-size:.78rem;
-    }
-
-    .login-btn{
-        min-width:86px;
-        padding:9px 14px;
-        font-size:.82rem;
-    }
-}
-
 
 /* ====================================== */
 /* 1280px hacia abajo */
 /* Desde aquí aparece hamburguesa */
 /* ====================================== */
 
-@media (max-width:768px){
+@media (max-width:1280px){
 
     .navbar{
         padding:0 24px;
@@ -570,161 +516,3 @@
     height: calc(100vh - 70px);
     }
  }
-
-
-/* ====================================== */
-/* LANGUAGE SELECTOR PREMIUM (NAVBAR)     */
-/* ====================================== */
-
-.language-selector-premium {
-    position: relative;
-}
-
-.lang-btn-premium {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 10px 14px;
-
-    background: rgba(10, 20, 40, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.lang-btn-premium:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(44, 246, 208, 0.4);
-}
-
-.lang-flag-img {
-    width: 22px;
-    height: 15px;
-    border-radius: 2px;
-    object-fit: cover;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.lang-label-text {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.lang-arrow {
-    font-size: 12px;
-    transition: transform 0.25s ease;
-    opacity: 0.7;
-}
-
-.lang-arrow.open {
-    transform: rotate(180deg);
-}
-
-.lang-dropdown-premium {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    min-width: 180px;
-    background: rgba(10, 20, 40, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    animation: slideDown 0.2s ease-out;
-    z-index: 9999;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.lang-option-premium {
-    width: 100%;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: left;
-}
-
-.lang-option-premium:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #28F4D6;
-}
-
-.lang-option-premium.active {
-    background: rgba(44, 246, 208, 0.15);
-    color: #28F4D6;
-    font-weight: 700;
-}
-
-.lang-flag-img-dropdown {
-    width: 24px;
-    height: 16px;
-    border-radius: 2px;
-    object-fit: cover;
-}
-
-.lang-check {
-    margin-left: auto;
-    color: #28F4D6;
-    font-size: 0.85rem;
-}
-
-/* Selector de idioma en menú mobile */
-
-.mobile-lang-selector {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 10px;
-}
-
-.mobile-lang-selector .language-selector-premium {
-    width: 100%;
-}
-
-.mobile-lang-selector .lang-btn-premium {
-    width: 100%;
-    justify-content: flex-start;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 14px 18px;
-}
-
-.mobile-lang-selector .lang-arrow {
-    margin-left: auto;
-}
-
-.mobile-lang-selector .lang-dropdown-premium {
-    position: relative;
-    top: 6px;
-    width: 100%;
-    right: auto;
-    left: 0;
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: none;
-}
-
-@media (max-width: 768px) {
-    .lang-label-text {
-        display: none; /* En el trigger del navbar desktop (cuando colapsa a tablet) */
-    }
-    
-    .mobile-lang-selector .lang-label-text {
-        display: inline; /* Pero en el menú lateral sí queremos el texto */
-    }
-}

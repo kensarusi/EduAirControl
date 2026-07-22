@@ -60,6 +60,9 @@
   --space-md:  20px;
   --space-lg:  32px;
   --space-xl:  48px;
+
+  /* ── Accesibilidad: tamaño de fuente ── */
+  --a11y-font-size: 16px;
 }
 
 /* ── Protanopia ── */
@@ -182,6 +185,7 @@ body {
   overflow-x: hidden;
 
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: var(--a11y-font-size, 16px);
 
   /* Fondo base oscuro con imagen ambiental */
   background-color: #060d1f;
