@@ -101,12 +101,12 @@
 
   padding: 0 16px 0 46px;
 
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-input, rgba(255, 255, 255, 0.05));
 
-  border: 2.5px solid rgba(51, 176, 179, 0.12);
+  border: 2.5px solid var(--lb-glass-border, rgba(51, 176, 179, 0.12));
   border-radius: 14px;
 
-  color: #5de6c8;
+  color: var(--text-primary, #5de6c8);
   font-size: 15px;
 
   transition: all 0.3s ease;
@@ -114,7 +114,7 @@
 
 .input-wrapper input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-input, rgba(255, 255, 255, 0.08));
   border-color: var(--accent);
   box-shadow: 0 0 15px rgba(93, 230, 200, 0.2);
 }
@@ -348,8 +348,9 @@
     display:flex;
     flex-direction:column;
 
-    background:rgba(15,23,42,.95);
+    background:var(--lb-glass-bg, rgba(15,23,42,.95));
     backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
     border:1px solid rgba(39,245,210,.18);
     border-radius:28px;
 
@@ -363,6 +364,10 @@
         0 0 40px rgba(39,245,210,.08);
 
     animation:modalIn .35s ease;
+}
+
+body:not(.dark-mode) .modal-content-modern{
+    border-color: rgba(0, 184, 148, 0.25);
 }
 
 .modal-content-modern::before{
@@ -492,7 +497,7 @@
 
 .modal-header h2{
 
-    color:white;
+    color:var(--text-primary, white);
 
     font-size:2rem;
 
@@ -501,7 +506,7 @@
 
 .modal-header p{
 
-    color:#7ea6b8;
+    color:var(--text-muted, #7ea6b8);
 
     font-size:.95rem;
 
@@ -522,7 +527,7 @@
 
     margin:25px 0;
 
-    color:#b6c3d2;
+    color:var(--text-secondary, #b6c3d2);
 
     line-height:1.8;
 
@@ -579,7 +584,7 @@
 
 .term-modal-item span{
 
-    color:#c6d4df;
+    color:var(--text-secondary, #c6d4df);
 }
 
 /* BOTÓN */

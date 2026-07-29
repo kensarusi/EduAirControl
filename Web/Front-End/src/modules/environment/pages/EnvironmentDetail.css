@@ -105,6 +105,22 @@
   background: rgba(255, 107, 107, 0.08);
 }
 
+/* Daltonismo: reemplazar el rosa por el acento del tema */
+body.theme-protanopia .detail-fav-btn:hover,
+body.theme-deuteranopia .detail-fav-btn:hover,
+body.theme-tritanopia .detail-fav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+body.theme-protanopia .detail-fav-btn.active,
+body.theme-deuteranopia .detail-fav-btn.active,
+body.theme-tritanopia .detail-fav-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--lb-surface);
+}
+
 /* Quality Banner */
 .detail-quality-banner {
   background: var(--lb-glass-bg);
@@ -189,6 +205,13 @@
 .detail-metric-icon.humidity { color: #4FC3F7; }
 .detail-metric-icon.co2      { color: #78909C; }
 .detail-metric-icon.noise    { color: #FFB74D; }
+
+/* Daltonismo: usar el acento del tema para los iconos de métricas */
+body.theme-protanopia .detail-metric-icon,
+body.theme-deuteranopia .detail-metric-icon,
+body.theme-tritanopia .detail-metric-icon {
+  color: var(--accent);
+}
 
 .detail-metric-label {
   font-size: 12px;

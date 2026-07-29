@@ -197,18 +197,29 @@ body.dark-mode .forgot-link { color: var(--accent); font-weight: 500; }
   box-sizing: border-box;
 }
 
-* {
+button,
+input,
+textarea,
+select,
+a,
+.env-card,
+.summary-card,
+.settings-card,
+.profile-header-card,
+.profile-section-card,
+.fav-card,
+.auth-card,
+.navbar,
+.modal-content {
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.2s ease;
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
 }
 
 body {
-  color: var(--text-primary) !important;
-  background-color: var(--bg-body) !important;
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
@@ -232,8 +243,9 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 
-  color: white;
+  color: var(--text-primary);
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Modo claro: fondo suave con imagen más tenue */
@@ -1271,39 +1283,6 @@ button:active { transform: scale(0.97); }
   }
 }
 
-/* ── Bloque duplicado eliminado ──
-   El fondo global ya está definido en el selector body
-   principal más arriba. Este bloque causaba conflicto. */
-
-   /* ============================================================
-   FONDO MAESTRO — EduAirControl (Eco-Futuristic Vision)
-   ============================================================ */
-
-body {
-  color: var(--text-primary) !important;
-  background-color: var(--bg-body) !important;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  /* Enlace directo a tu imagen personalizada */
-  background-image: 
-    linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.85)), 
-    url('./shared/assets/bg.png');
-  
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  transition: all 0.5s ease;
-}
-
-/* Ajuste para Modo Claro */
-body:not(.dark-mode) {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7)), 
-    url('./shared/assets/bg.png');
-}
-
 /* Aseguramos que todas las páginas sean transparentes para ver el fondo */
 .favorites-page, 
 .profile-page-final, 
@@ -1312,16 +1291,6 @@ body:not(.dark-mode) {
 .profile-container-final,
 .favorites-content {
   background: transparent !important;
-}
-
-/* Efecto de profundidad opcional */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(3px); 
-  pointer-events: none;
-  z-index: -1;
 }
 
 /* ==========================================================
@@ -1336,19 +1305,13 @@ body::after {
 }
 
 .app-content-card {
-  background: rgba(17, 34, 64, 0.55);
-
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-
-  border: 1px solid rgba(255,255,255,.08);
-
-  border-radius: 24px;
-
-  min-height: 450px;
-
-  padding: 40px;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.25);
+  background:              var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter:         var(--lb-glass-blur);
+  border:                  1px solid var(--lb-glass-border);
+  border-radius:           24px;
+  min-height:              450px;
+  padding:                 40px;
+  box-shadow:              var(--lb-glass-shadow);
+  transition:              background 0.3s ease, border-color 0.3s ease;
 }

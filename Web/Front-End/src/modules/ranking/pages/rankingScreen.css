@@ -44,18 +44,18 @@
     justify-content:center;
     padding:80px;
     border-radius:22px;
-    background:rgba(21,29,46,.85);
-    border:1px solid rgba(255,255,255,.06);
+    background:var(--lb-glass-bg, rgba(21,29,46,.85));
+    border:1px solid var(--lb-glass-border, rgba(255,255,255,.06));
     text-align:center;
 }
 
 .ranking-empty h2{
-    color:#27F5D2;
+    color:var(--accent, #27F5D2);
     margin-bottom:12px;
 }
 
 .ranking-empty p{
-    color:#94A3B8;
+    color:var(--text-muted, #94A3B8);
 }
 
 @keyframes rankingFade{

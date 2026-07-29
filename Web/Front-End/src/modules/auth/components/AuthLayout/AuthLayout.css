@@ -1,57 +1,79 @@
-/* ================================
-   🌿 AUTH CONTAINER
-=============================== */
+/* ============================================================
+   AUTH LAYOUT — EduAirControl
+   Usa variables CSS del sistema de temas para modo claro,
+   modo oscuro y temas de daltonismo.
+   ============================================================ */
 
+/* ── Contenedor principal ── */
 .auth-container {
   min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 40px 20px;
   position: relative;
   overflow: hidden;
-
-  background-image: url('/background\ principal.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: transparent;
 }
 
+/* ── Overlay ── */
 .auth-overlay {
   position: absolute;
   inset: 0;
-
   background: linear-gradient(
-    rgba(4, 15, 35, 0.70),
-    rgba(4, 15, 35, 0.85)
+    rgba(4, 15, 35, 0.60),
+    rgba(4, 15, 35, 0.78)
+  );
+  pointer-events: none;
+}
+
+body:not(.dark-mode) .auth-overlay {
+  background: linear-gradient(
+    rgba(232, 244, 240, 0.55),
+    rgba(220, 240, 235, 0.65)
   );
 }
 
+/* ── Tarjeta ── */
 .auth-card {
   position: relative;
   z-index: 2;
-
   width: 100%;
-  max-width: 500px;
-
-  padding: 40px;
-
+  max-width: 470px;
+  overflow: hidden;
+  padding: 40px 35px;
   border-radius: 28px;
-
-  background: rgba(10, 20, 40, 0.80);
-
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  box-shadow:
-    0 25px 60px rgba(0,0,0,.45),
-    0 0 30px rgba(0,255,180,.08);
+  background: var(--lb-glass-bg);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
+  box-shadow: var(--lb-glass-shadow);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* ── Efecto brillo ── */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+/* ── Selector de idioma (fijo) ── */
 .language-selector-fixed {
   position: fixed;
   top: 24px;
@@ -63,342 +85,121 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
   padding: 10px 14px;
-
-  background: rgba(10, 20, 40, 0.85);
-  backdrop-filter: blur(12px);
-
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--lb-glass-bg);
+  backdrop-filter: var(--lb-glass-blur);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
   border-radius: 12px;
-
-  color: white;
+  color: var(--text-primary);
   cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.lang-btn-premium:hover {
+  background: var(--lb-glass-bg-hover);
+  border-color: var(--lb-glass-border-hover);
 }
 
 .lang-dropdown-premium {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-
   min-width: 180px;
-
-  background: rgba(10,20,40,.95);
+  background: var(--bg-card);
   backdrop-filter: blur(12px);
-
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 12px;
   overflow: hidden;
+  border: 1px solid var(--lb-glass-border);
+  box-shadow: var(--shadow-lg);
+  animation: slideDown 0.2s ease-out;
+}
 
-  border: 1px solid rgba(255,255,255,.1);
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .lang-option-premium {
   width: 100%;
-  padding: 12px 14px;
-
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
-
+  gap: 12px;
   background: transparent;
   border: none;
-
-  color: white;
+  color: var(--text-primary);
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-align: left;
+  font-size: 14px;
 }
 
 .lang-option-premium:hover {
-  background: rgba(255,255,255,.08);
+  background: var(--lb-surface);
+  color: var(--accent);
 }
 
 .lang-option-premium.active {
-  background: rgba(0,255,180,.15);
+  background: var(--lb-surface);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.lang-flag-img {
+  width: 22px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.lang-flag-img-dropdown {
+  width: 24px;
+  height: 16px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.lang-label-text {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .lang-arrow {
-  transition: transform .25s ease;
+  font-size: 12px;
+  transition: transform 0.25s ease;
+  opacity: 0.7;
 }
 
 .lang-arrow.open {
   transform: rotate(180deg);
 }
 
-.auth-container {
-  min-height: 100vh;
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 40px 20px;
-
-  background:
-  linear-gradient(
-    rgba(4, 15, 35, 0.70),
-    rgba(4, 15, 35, 0.82)
-  ),
-  url('/background-principal.png');
-
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-background-attachment: fixed;
-
-}
-
-/* ================================
-   GLASS CARD
-=============================== */
-
-.auth-card {
-  width: 100%;
-  max-width: 470px;
-  overflow: hidden;
-  padding: 40px 35px;
-  border-radius: 28px;
-  background: rgba(10, 18, 35, 0.55);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.35),
-    inset 0 1px 1px rgba(255,255,255,0.08);
-  position: relative;
-}
-
-/* ================================
-   🌿 EFECTO BRILLO
-=============================== */
-
-.auth-card::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: -60%;
-
-  width: 200%;
-  height: 100%;
-
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.06),
-    transparent
-  );
-
-  transform: rotate(8deg);
-
-  pointer-events: none;
-}
-
-/* ================================
-   🌿 RESPONSIVE
-=============================== */
-
+/* ── Responsive ── */
 @media (max-width: 768px) {
-
   .auth-card {
     padding: 30px 22px;
     border-radius: 24px;
   }
 
+  .language-selector-fixed {
+    top: 16px;
+    right: 16px;
+  }
+
+  .lang-btn-premium {
+    padding: 8px 12px;
+  }
+
+  .lang-label-text {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
-
   .auth-card {
     padding: 25px 18px;
   }
-
-
-}
-
-
-
-/* Responsive */
-@media (max-width: 768px) {
-  .language-selector-fixed {
-    top: 16px;
-    right: 16px;
-  }
-  
-  .lang-btn-premium {
-    padding: 8px 12px;
-  }
-  
-  .lang-label-text {
-    display: none; /* En móvil solo mostramos la bandera y la flecha */
-  }
-}
-
-
-/* Banderas como Imágenes */
-.lang-flag-img {
-  width: 22px;
-  height: 15px;
-  border-radius: 2px;
-  object-fit: cover;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-}
-
-.lang-label-text {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.lang-dropdown-premium {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  min-width: 180px;
-  background: rgba(10, 20, 40, 0.95);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  animation: slideDown 0.2s ease-out;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.lang-option-premium {
-  width: 100%;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: left;
-}
-
-.lang-option-premium:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #00ffb4;
-}
-
-.lang-option-premium.active {
-  background: rgba(0, 255, 180, 0.15);
-  color: #00ffb4;
-  font-weight: 700;
-}
-
-.lang-flag-img-dropdown {
-  width: 24px;
-  height: 16px;
-  border-radius: 2px;
-  object-fit: cover;
-}
-
-.lang-arrow {
-  font-size: 12px;
-  transition: transform 0.25s ease;
-  opacity: 0.7;
-}
-
-.lang-arrow.open {
-  transform: rotate(180deg);
-}
-
-
-/* Responsive */
-@media (max-width: 768px) {
-  .language-selector-fixed {
-    top: 16px;
-    right: 16px;
-  }
-  
-  .lang-btn-premium {
-    padding: 8px 12px;
-  }
-  
-  .lang-label-text {
-    display: none; /* En móvil solo mostramos la bandera y la flecha */
-  }
-}
-
-
-/* Banderas como Imágenes */
-.lang-flag-img {
-  width: 22px;
-  height: 15px;
-  border-radius: 2px;
-  object-fit: cover;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-}
-
-.lang-label-text {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.lang-dropdown-premium {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  min-width: 180px;
-  background: rgba(10, 20, 40, 0.95);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  animation: slideDown 0.2s ease-out;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.lang-option-premium {
-  width: 100%;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: left;
-}
-
-.lang-option-premium:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #00ffb4;
-}
-
-.lang-option-premium.active {
-  background: rgba(0, 255, 180, 0.15);
-  color: #00ffb4;
-  font-weight: 700;
-}
-
-.lang-flag-img-dropdown {
-  width: 24px;
-  height: 16px;
-  border-radius: 2px;
-  object-fit: cover;
-}
-
-.lang-arrow {
-  font-size: 12px;
-  transition: transform 0.25s ease;
-  opacity: 0.7;
-}
-
-.lang-arrow.open {
-  transform: rotate(180deg);
 }

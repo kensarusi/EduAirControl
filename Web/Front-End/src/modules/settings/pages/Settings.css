@@ -152,12 +152,12 @@
   font-size: 13px;
   font-weight: 700;
   text-align: center;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .theme-card--active .theme-label,
 .theme-card:has(+ .theme-check) .theme-label {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 /* ── Bandera junto al idioma actual ── */

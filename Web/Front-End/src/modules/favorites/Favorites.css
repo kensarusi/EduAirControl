@@ -229,8 +229,8 @@ body.dark-mode .fav-metric-box:hover {
 
 /* ── Heart Button Impact ── */
 .fav-heart-btn-impact {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
-  border: 1px solid rgba(255, 107, 107, 0.2);
+  background: var(--lb-surface);
+  border: 1px solid var(--lb-glass-border);
   color: #ff6b6b;
   cursor: pointer;
   padding: 10px;
@@ -244,13 +244,28 @@ body.dark-mode .fav-metric-box:hover {
 
 .fav-heart-btn-impact:hover {
   transform: scale(1.1);
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 107, 107, 0.08) 100%);
+  background: rgba(255, 107, 107, 0.12);
   border-color: rgba(255, 107, 107, 0.4);
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
 }
 
 .fav-heart-btn-impact:active {
   transform: scale(0.95);
+}
+
+/* Daltonismo: usar el acento del tema para el botón de corazón */
+body.theme-protanopia .fav-heart-btn-impact,
+body.theme-deuteranopia .fav-heart-btn-impact,
+body.theme-tritanopia .fav-heart-btn-impact {
+  color: var(--accent);
+}
+
+body.theme-protanopia .fav-heart-btn-impact:hover,
+body.theme-deuteranopia .fav-heart-btn-impact:hover,
+body.theme-tritanopia .fav-heart-btn-impact:hover {
+  background: var(--lb-surface);
+  border-color: var(--lb-glass-border-hover);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -265,23 +280,19 @@ body.dark-mode .fav-metric-box:hover {
   padding: 100px 24px;
   text-align: center;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--lb-glass-bg);
+  backdrop-filter: var(--lb-glass-blur);
+  -webkit-backdrop-filter: var(--lb-glass-blur);
+  border: 1px solid var(--lb-glass-border);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-}
-
-body.dark-mode .favorites-empty {
-  background: rgba(22, 33, 62, 0.6);
-  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: var(--lb-glass-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .empty-icon-wrapper {
   font-size: 64px;
-  color: #ff6b6b;
-  opacity: 0.25;
+  color: var(--accent);
+  opacity: 0.35;
   animation: float 3s ease-in-out infinite;
 }
 

@@ -18,8 +18,8 @@
 
 /* ─── Modal box ─────────────────────────────────────────────── */
 .env-modal {
-  background: var(--card-bg, #1c2128);
-  border: 1px solid var(--border, #30363d);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
   padding: 28px;
   width: 100%;
@@ -36,7 +36,7 @@
 }
 
 .env-modal__title {
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 4px 0;
@@ -44,17 +44,17 @@
 
 /* ─── Form fields ───────────────────────────────────────────── */
 .env-modal__label {
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 600;
   margin-bottom: -6px;
 }
 
 .env-modal__input {
-  background: var(--bg, #0d1117);
-  border: 1px solid var(--border, #30363d);
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
   font-size: 14px;
   padding: 10px 14px;
   outline: none;
@@ -64,11 +64,11 @@
 }
 
 .env-modal__input:focus {
-  border-color: var(--accent, #3fb950);
+  border-color: var(--accent);
 }
 
 .env-modal__input::placeholder {
-  color: var(--text-muted, #6e7681);
+  color: var(--text-muted);
 }
 
 /* ─── Select ────────────────────────────────────────────────── */
@@ -91,9 +91,9 @@
 
 .env-modal__btn-cancel {
   background: transparent;
-  border: 1px solid var(--border, #30363d);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 600;
   padding: 9px 18px;
@@ -103,7 +103,7 @@
 
 .env-modal__btn-cancel:hover {
   border-color: #8b949e;
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
 }
 
 .env-modal__btn-save {
@@ -143,14 +143,14 @@
 }
 
 .env-modal__delete-desc {
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.6;
   margin: 0;
 }
 
 .env-modal__delete-desc strong {
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
   font-weight: 600;
 }
 

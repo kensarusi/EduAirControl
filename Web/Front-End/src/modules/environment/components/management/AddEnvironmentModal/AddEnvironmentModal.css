@@ -18,8 +18,8 @@
 
 /* ─── Modal box ─────────────────────────────────────────────── */
 .add-env-modal {
-  background: var(--card-bg, #1c2128);
-  border: 1px solid var(--border, #30363d);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
   padding: 28px;
   width: 100%;
@@ -40,7 +40,7 @@
 }
 
 .add-env-modal__title {
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
   font-size: 18px;
   font-weight: 700;
   margin: 0;
@@ -66,7 +66,7 @@
 
 /* ─── Labels ────────────────────────────────────────────────── */
 .add-env-modal__label {
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -77,17 +77,17 @@
   font-size: 13px;
   text-transform: none;
   letter-spacing: 0;
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
 }
 
 .add-env-modal__required { color: #f85149; margin-left: 2px; }
 
 /* ─── Inputs ────────────────────────────────────────────────── */
 .add-env-modal__input {
-  background: var(--bg, #0d1117);
-  border: 1px solid var(--border, #30363d);
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
   font-size: 14px;
   padding: 9px 12px;
   outline: none;
@@ -96,8 +96,8 @@
   transition: border-color 0.2s;
 }
 
-.add-env-modal__input:focus { border-color: var(--accent, #3fb950); }
-.add-env-modal__input::placeholder { color: var(--text-muted, #6e7681); }
+.add-env-modal__input:focus { border-color: var(--accent); }
+.add-env-modal__input::placeholder { color: var(--text-muted); }
 .add-env-modal__input:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .add-env-modal__select {
@@ -115,7 +115,7 @@
   flex-direction: column;
   gap: 10px;
   background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border, #30363d);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 14px;
 }
@@ -129,9 +129,9 @@
 
 .add-env-modal__profile-btn {
   background: transparent;
-  border: 1px solid var(--border, #30363d);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 500;
   padding: 6px 14px;
@@ -140,14 +140,14 @@
 }
 
 .add-env-modal__profile-btn:hover {
-  border-color: var(--accent, #3fb950);
-  color: var(--text-primary, #e6edf3);
+  border-color: var(--accent);
+  color: var(--text-primary);
 }
 
 .add-env-modal__profile-btn.active {
   background: rgba(63, 185, 80, 0.12);
-  border-color: var(--accent, #3fb950);
-  color: var(--accent, #3fb950);
+  border-color: var(--accent);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -161,9 +161,9 @@
 
 .add-env-modal__btn-cancel {
   background: transparent;
-  border: 1px solid var(--border, #30363d);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 600;
   padding: 9px 18px;
@@ -173,7 +173,7 @@
 
 .add-env-modal__btn-cancel:hover {
   border-color: #8b949e;
-  color: var(--text-primary, #e6edf3);
+  color: var(--text-primary);
 }
 
 .add-env-modal__btn-save {
@@ -207,7 +207,7 @@
 }
 
 .add-env-modal__delete-desc {
-  color: var(--text-muted, #8b949e);
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.5;
   margin: 0;

@@ -1,5 +1,7 @@
 /* ============================================================
-   SCROLL TO TOP — Landing Exclusive
+   SCROLL TO TOP — Exclusivo del Landing
+   Se posiciona en la esquina inferior derecha, debajo del
+   widget de accesibilidad (que en el landing está elevado).
    ============================================================ */
 
 .scroll-to-top {
@@ -60,12 +62,34 @@ body:not(.dark-mode) .scroll-to-top {
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(0, 184, 148, 0.5);
     color: #00b894;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
 }
 
 body:not(.dark-mode) .scroll-to-top:hover {
     box-shadow:
         0 8px 28px rgba(0, 0, 0, 0.15),
         0 0 0 6px rgba(0, 184, 148, 0.1);
+}
+
+/* ── Temas de daltonismo ── */
+body.theme-protanopia .scroll-to-top {
+    border-color: rgba(0, 114, 178, 0.5);
+    color: #0072b2;
+}
+
+body.theme-protanopia.dark-mode .scroll-to-top {
+    color: #4aa8d8;
+    border-color: rgba(74, 168, 216, 0.5);
+}
+
+body.theme-deuteranopia .scroll-to-top {
+    border-color: rgba(230, 159, 0, 0.5);
+    color: #E69F00;
+}
+
+body.theme-tritanopia .scroll-to-top {
+    border-color: rgba(213, 94, 0, 0.5);
+    color: #D55E00;
 }
 
 /* ── Responsive ── */
