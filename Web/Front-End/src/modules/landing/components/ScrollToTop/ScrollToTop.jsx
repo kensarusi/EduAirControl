@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
 import "./ScrollToTop.css";
 
-/**
- * ScrollToTop
- * Botón flotante exclusivo para la Landing que lleva al usuario al inicio.
- * Se posiciona debajo del widget de accesibilidad.
- */
 function ScrollToTop() {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            // Mostrar el botón si el usuario ha bajado más de 300px
             setVisible(window.scrollY > 300);
         };
 
         window.addEventListener("scroll", handleScroll);
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -26,11 +21,9 @@ function ScrollToTop() {
         });
     };
 
-    if (!visible) return null;
-
     return (
         <button
-            className="scroll-to-top"
+            className={`scroll-to-top ${visible ? "show" : ""}`}
             onClick={scrollToTop}
             aria-label="Volver arriba"
             title="Volver arriba"
