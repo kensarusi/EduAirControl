@@ -554,7 +554,7 @@ function SettingsScreen() {
 
             {helpModal.type === 'version' && (
               <>
-                <h3>📱 {t('settings.helpVersion')}</h3>
+                <h3> {t('settings.helpVersion')}</h3>
                 <div className="help-modal-body">
                   <div className="version-info">
                     <div className="version-badge">v1.0.0</div>

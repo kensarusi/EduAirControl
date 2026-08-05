@@ -1,9 +1,9 @@
-/* ============================================================
+/* ==
    DESIGN SYSTEM — EduAirControl
    Sistema visual global reutilizable.
    Importar en main.jsx DESPUES de index.css.
    NO contiene logica de negocio ni rutas.
-   ============================================================
+   ==
 
    INDICE
    1. Tokens de glass / superficie
@@ -18,12 +18,12 @@
    10. Animaciones de entrada
    11. Scrollbar personalizado
    12. Utilidades de espaciado
-   ============================================================ */
+   == */
 
 
-/* ============================================================
+/* ==
    2. CARDS REUTILIZABLES
-   ============================================================ */
+   == */
 
 /* Card base — glass limpio */
 .ds-card {
@@ -114,9 +114,9 @@ body.dark-mode .ds-card--stat:hover {
 }
 
 
-/* ============================================================
+/* ==
    3. OVERLAYS Y BACKDROPS
-   ============================================================ */
+   == */
 
 /* Overlay oscuro para modales */
 .ds-overlay {
@@ -197,9 +197,9 @@ body.dark-mode .ds-modal {
 }
 
 
-/* ============================================================
+/* ==
    4. PANELES LATERALES
-   ============================================================ */
+   == */
 
 /* Panel lateral derecho (notificaciones, filtros) */
 .ds-panel {
@@ -257,9 +257,9 @@ body.dark-mode .ds-panel {
 }
 
 
-/* ============================================================
+/* ==
    5. PAGE WRAPPERS
-   ============================================================ */
+   == */
 
 /* Wrapper de pagina app (con navbar fija de 78px) */
 .ds-page {
@@ -317,9 +317,9 @@ body.theme-tritanopia .ds-page-bg {
 }
 
 
-/* ============================================================
+/* ==
    6. SECCIONES Y TITULOS
-   ============================================================ */
+   == */
 
 /* Titulo de seccion con linea accent */
 .ds-section-title {
@@ -394,9 +394,9 @@ body.theme-tritanopia .ds-page-bg {
 }
 
 
-/* ============================================================
+/* ==
    7. BADGES Y PILLS DE ESTADO
-   ============================================================ */
+   == */
 
 .ds-badge {
   display:       inline-flex;
@@ -422,9 +422,9 @@ body.theme-tritanopia .ds-page-bg {
 .ds-dot--accent  { background: var(--accent); }
 
 
-/* ============================================================
+/* ==
    8. BOTONES DE ACCION GLOBALES
-   ============================================================ */
+   == */
 
 .ds-btn {
   display:         inline-flex;
@@ -506,9 +506,9 @@ body.dark-mode .ds-btn--primary:hover {
 }
 
 
-/* ============================================================
+/* ==
    9. INPUTS GLOBALES MEJORADOS
-   ============================================================ */
+   == */
 
 .ds-input {
   width:           100%;
@@ -557,9 +557,9 @@ body.dark-mode .ds-btn--primary:hover {
 }
 
 
-/* ============================================================
+/* ==
    10. ANIMACIONES DE ENTRADA
-   ============================================================ */
+   == */
 
 @keyframes ds-fade-in {
   from { opacity: 0; }
@@ -595,9 +595,9 @@ body.dark-mode .ds-btn--primary:hover {
 .ds-anim-rise-4 { animation: ds-rise 0.4s 0.20s ease both; }
 
 
-/* ============================================================
+/* ==
    11. SCROLLBAR PERSONALIZADO (webkit)
-   ============================================================ */
+   == */
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -608,9 +608,9 @@ body.dark-mode .ds-btn--primary:hover {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 
-/* ============================================================
+/* ==
    12. UTILIDADES DE ESPACIADO Y LAYOUT
-   ============================================================ */
+   == */
 
 .ds-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .ds-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -665,9 +665,9 @@ body.dark-mode .ds-btn--primary:hover {
   overflow:      hidden;
   text-overflow: ellipsis;
 }
-/* ============================================================
+/* ==
    CORRECCIONES DE CONTRASTE — DESIGN SYSTEM
-   ============================================================ */
+   == */
 
 /* Forzar el uso de variables lb-glass en todos los componentes ds-card */
 .ds-card, .ds-card--section, .ds-card--hero, .ds-card--stat, .ds-modal, .ds-panel {

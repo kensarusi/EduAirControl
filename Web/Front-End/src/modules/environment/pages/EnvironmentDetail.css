@@ -302,9 +302,9 @@ body.theme-tritanopia .detail-metric-icon {
 body.dark-mode .detail-page { background-color: transparent; }
 
 
-/* ============================================================
+/* ==
    RATING SECTION
-   ============================================================ */
+   == */
 
 .detail-rating-card {
   background: var(--lb-glass-bg);

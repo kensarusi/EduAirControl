@@ -30,9 +30,9 @@ body:not(.dark-mode) .ranking-header p{
     color:#64748B;
 }
 
-/* ==========================
+/* ============
    TABLET
-========================== */
+============ */
 
 @media (max-width:1200px){
 
@@ -46,9 +46,9 @@ body:not(.dark-mode) .ranking-header p{
 
 }
 
-/* ==========================
+/* ============
    MOBILE
-========================== */
+============ */
 
 @media (max-width:768px){
 
@@ -70,9 +70,9 @@ body:not(.dark-mode) .ranking-header p{
 
 }
 
-/* ==========================
+/* ============
    TELÉFONOS PEQUEÑOS
-========================== */
+============ */
 
 @media (max-width:480px){
 

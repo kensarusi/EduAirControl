@@ -1,8 +1,8 @@
 import { Navigate, Routes, Route } from "react-router-dom";
 
-// ======================
+
 // AUTH
-// ======================
+
 import LoginScreen from "./modules/auth/pages/login/LoginScreen";
 import SignUpScreen from "./modules/auth/pages/signUp/SignUpScreen";
 import ForgotPasswordScreen from "./modules/auth/pages/forgotPassword/ForgotPasswordScreen";
@@ -13,37 +13,37 @@ import GoogleSignUpScreen from "./modules/auth/pages/GoogleSignUp/GoogleSignUpSc
 import FacebookSignUpScreen from "./modules/auth/pages/FacebookSignUp/FacebookSignUpScreen";
 import OAuth2SuccessScreen from "./modules/auth/pages/OAuth2SuccessScreen";
 
-// ======================
+
 // LANDING
-// ======================
+
 import Landing from "./modules/landing/pages/Landing";
 
 
-// ======================
+
 // RANKING
-// ======================
+
 import RankingScreen from "./modules/ranking/pages/RankingScreen";
 
-// ======================
+
 // ENVIRONMENTS
-// ======================
+
 import AllEnvironmentsScreen from "./modules/environment/pages/AllEnvironmentsScreen";
 import EnvironmentDetailScreen from "./modules/environment/pages/EnvironmentDetailScreen";
 import EnvironmentManagement from "./modules/environment/pages/EnvironmentManagement";
 
-// ======================
+
 // PROFILE
-// ======================
+
 import ProfileScreen from "./modules/profile/pages/ProfileScreen";
 
-// ======================
+
 // SETTINGS
-// ======================
+
 import SettingsScreen from "./modules/settings/pages/SettingsScreen";
 
-// ======================
+
 // FAVORITES
-// ======================
+
 import FavoritesScreen from "./modules/favorites/FavoritesScreen";
 
 function App() {

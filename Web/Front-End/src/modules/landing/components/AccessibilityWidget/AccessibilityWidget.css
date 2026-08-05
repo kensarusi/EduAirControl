@@ -1,6 +1,6 @@
-/* ============================================================
+/* ==
    ACCESSIBILITY WIDGET — EduAirControl
-   ============================================================ */
+   == */
 
 /* ── Contenedor raíz (posición fija) ── */
 .a11y-widget {
@@ -326,9 +326,9 @@
     }
 }
 
-/* ============================================================
+/* ==
    MODO CLARO — Panel y botón trigger
-   ============================================================ */
+   == */
 
 body:not(.dark-mode) .a11y-trigger {
     background: rgba(255, 255, 255, 0.95);
@@ -418,9 +418,9 @@ body:not(.dark-mode) .a11y-reset-btn:hover {
     color: #e53935;
 }
 
-/* ============================================================
+/* ==
    TEMAS DE DALTONISMO — Ajustes del widget
-   ============================================================ */
+   == */
 
 /* Protanopia */
 body.theme-protanopia .a11y-trigger {

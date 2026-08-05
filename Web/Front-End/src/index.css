@@ -1,6 +1,6 @@
-/* ============================================ */
+
 /* SISTEMA DE TEMAS — VARIABLES GLOBALES        */
-/* ============================================ */
+
 
 :root {
   --accent:          #00b894;
@@ -187,9 +187,9 @@ body.dark-mode .btn-login:hover { filter: brightness(1.1); }
 body.dark-mode .forgot-password,
 body.dark-mode .forgot-link { color: var(--accent); font-weight: 500; }
 
-/* ============================================ */
+
 /* RESET Y BASE                                 */
-/* ============================================ */
+
 
 * {
   margin: 0;
@@ -334,9 +334,9 @@ body.theme-tritanopia::before {
 img { max-width: 100%; height: auto; }
 input, button { max-width: 100%; }
 
-/* ============================================ */
+
 /* AUTH                                         */
-/* ============================================ */
+
 
 .auth-container {
   display: flex;
@@ -375,9 +375,9 @@ body.dark-mode .auth-card:hover {
   text-shadow: 0 0 10px rgba(0, 184, 148, 0.4);
 }
 
-/* ============================================ */
+
 /* NAVBAR                                       */
-/* ============================================ */
+
 
 .navbar {
   display: flex;
@@ -496,9 +496,9 @@ body.dark-mode .auth-card:hover {
   margin: 4px 6px;
 }
 
-/* ============================================ */
+
 /* TOGGLE                                       */
-/* ============================================ */
+
 
 .toggle {
   width: 50px;
@@ -526,9 +526,9 @@ body.dark-mode .auth-card:hover {
 
 .toggle.active .toggle-circle { transform: translateX(24px); }
 
-/* ============================================ */
+
 /* BOTONES GLOBALES                             */
-/* ============================================ */
+
 
 button { transition: all 0.2s ease; }
 button:hover { transform: translateY(-2px); filter: brightness(1.08); }
@@ -564,9 +564,9 @@ button:active { transform: scale(0.97); }
 
 .back-button:hover { color: var(--accent); }
 
-/* ============================================ */
+
 /* FIELDS COMPARTIDOS                           */
-/* ============================================ */
+
 
 .field-icon {
   width: 40px;
@@ -586,9 +586,9 @@ button:active { transform: scale(0.97); }
 .field-value { font-size: 15px; color: var(--text-primary); font-weight: 500; }
 .section-description { color: var(--text-muted); font-size: 14px; margin-bottom: 15px; }
 
-/* ============================================ */
+
 /* MODALES                                      */
-/* ============================================ */
+
 
 .modal-overlay {
   position: fixed;
@@ -638,17 +638,17 @@ button:active { transform: scale(0.97); }
 
 .btn-cancel:hover { border-color: var(--accent); color: var(--text-primary); }
 
-/* ============================================ */
+
 /* DIVIDER                                      */
-/* ============================================ */
+
 
 .divider { display: flex; align-items: center; margin: 20px 0; }
 .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border-color); }
 .divider span { padding: 0 10px; color: #000000; background-color: var(--bg-card); }
 
-/* ============================================ */
+
 /* INPUT GROUPS                                 */
-/* ============================================ */
+
 
 .input-group { text-align: left; margin-bottom: 20px; }
 
@@ -681,9 +681,9 @@ button:active { transform: scale(0.97); }
 
 .input-group input::placeholder { color: var(--text-muted); }
 
-/* ============================================ */
+
 /* BOTONES AUTH                                 */
-/* ============================================ */
+
 
 .btn-login {
   width: 100%;
@@ -747,17 +747,15 @@ button:active { transform: scale(0.97); }
 .social-text { color: var(--text-secondary); font-size: 14px; margin-bottom: 10px; }
 .social-buttons { display: flex; justify-content: center; gap: 15px; }
 
-/* ============================================ */
+
 /* TERMS                                        */
-/* ============================================ */
 
 .terms-page { background-color: var(--bg-body); min-height: 100vh; }
 .terms-container { background: var(--bg-card); border: 2px solid var(--accent); color: var(--text-primary); }
 .terms-content p, .terms-content li { color: var(--text-secondary); }
 
-/* ============================================ */
+
 /* GOOGLE / FACEBOOK SIGNUP                     */
-/* ============================================ */
 
 .google-signup-container { background-color: var(--bg-body); }
 .google-signup-card { background-color: var(--bg-card); border-color: var(--accent); }
@@ -765,9 +763,7 @@ button:active { transform: scale(0.97); }
 .google-account-item:hover { background-color: var(--bg-input); }
 
 
-/* ============================================ */
 /* FILTER BAR                                   */
-/* ============================================ */
 
 .filter-btn {
   display: flex;
@@ -793,9 +789,8 @@ button:active { transform: scale(0.97); }
 .filter-sublabel { font-size: 11px; color: var(--text-muted); }
 .filter-count { font-size: 18px; font-weight: bold; color: var(--text-primary); }
 
-/* ============================================ */
+
 /* ENVIRONMENT CARD                             */
-/* ============================================ */
 
 .env-card, .summary-card, .filter-card { width: 100%; }
 
@@ -845,9 +840,8 @@ button:active { transform: scale(0.97); }
 .env-card-footer span { color: var(--text-muted); font-size: 14px; }
 .env-card-footer strong { color: var(--text-primary); font-size: 14px; }
 
-/* ============================================ */
+
 /* ALL ENVIRONMENTS                             */
-/* ============================================ */
 
 .all-env-page { min-height: 100vh; background-color: transparent; }
 .all-env-title { text-align: center; font-size: 28px; color: var(--text-primary); margin-bottom: 20px; }
@@ -977,9 +971,8 @@ button:active { transform: scale(0.97); }
 
 .no-results-clear:hover { background: var(--accent-hover); }
 
-/* ============================================ */
+
 /* FAVORITES                                    */
-/* ============================================ */
 
 .favorites-page { min-height: 100vh; background-color: transparent; }
 .favorites-content h1 { color: var(--text-primary); }
@@ -1025,9 +1018,8 @@ button:active { transform: scale(0.97); }
 .favorites-empty h2 { color: var(--text-muted); }
 .favorites-empty p { color: var(--border-color); }
 
-/* ============================================ */
+
 /* PROFILE                                      */
-/* ============================================ */
 
 .profile-page { min-height: 100vh; background-color: transparent; width: 100%; }
 
@@ -1055,9 +1047,8 @@ button:active { transform: scale(0.97); }
 .btn-modal-save { background: var(--accent); color: white; border: none; }
 .btn-modal-save:hover { background: var(--accent-hover); }
 
-/* ============================================ */
+
 /* SETTINGS                                     */
-/* ============================================ */
 
 .settings-page { min-height: 100vh; background-color: transparent; }
 .settings-content h1 { color: var(--text-primary); }
@@ -1127,9 +1118,8 @@ button:active { transform: scale(0.97); }
 
 .lang-modal button:hover { border-color: var(--accent); background: var(--accent-light); }
 
-/* ============================================ */
+
 /* STATUS BADGES                                */
-/* ============================================ */
 
 .status-normal { color: #4caf50; }
 .status-alert  { color: #f44336; }
@@ -1145,13 +1135,11 @@ button:active { transform: scale(0.97); }
 .trend-down    { color: #f44336; }
 .trend-warning { color: #ff9800; }
 
-/* ============================================ */
-/* ██████████ RESPONSIVE ██████████            */
-/* ============================================ */
 
-/* ============================================
-   📱 MÓVIL PEQUEÑO (<480px)
-============================================ */
+/* ██████████ RESPONSIVE ██████████            */
+
+
+/*  MÓVIL PEQUEÑO (<480px) */
 @media (max-width: 480px) {
 
   .navbar-logo h2 { font-size: 14px; }
@@ -1177,9 +1165,9 @@ button:active { transform: scale(0.97); }
 }
 
 
-/* ============================================
-   📱 MÓVIL (<768px)
-============================================ */
+/* 
+    MÓVIL (<768px)
+ */
 @media (max-width: 768px) {
 
   /* Navbar */
@@ -1222,9 +1210,9 @@ button:active { transform: scale(0.97); }
 }
 
 
-/* ============================================
-   📲 TABLET (768px – 1199px)
-============================================ */
+/* 
+    TABLET (768px – 1199px)
+ */
 @media (min-width: 769px) and (max-width: 1199px) {
 
   /* 🔥 también oculto en tablet */
@@ -1250,9 +1238,9 @@ button:active { transform: scale(0.97); }
 }
 
 
-/* ============================================
-   💻 COMPUTADOR (≥1200px)
-============================================ */
+/* 
+    COMPUTADOR (≥1200px)
+ */
 @media (min-width: 1200px) {
 
   /* 🔥 mostrar texto SOLO en PC */
@@ -1293,9 +1281,9 @@ button:active { transform: scale(0.97); }
   background: transparent !important;
 }
 
-/* ==========================================================
+/* 
    APP CONTAINER GLOBAL
-========================================================== */
+ */
 
 .app-page-container {
   max-width: 1200px;

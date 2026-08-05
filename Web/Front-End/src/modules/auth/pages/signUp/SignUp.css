@@ -1,6 +1,6 @@
-/* ============================================================
+/* ==
    SIGNUP MODERN DESIGN — EduAirControl (hay lo dejo limpio y funcionando )
-   ============================================================ */
+   == */
 
 .signup-container-premium {
   padding: 20px;
@@ -317,9 +317,9 @@
 }
 
 
-/* ============================================================
+/* ==
    MODAL TÉRMINOS - MISMO ESTILO QUE TermsScreen
-============================================================ */
+== */
 
 .modal-overlay-modern{
     position:fixed;

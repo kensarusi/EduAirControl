@@ -22,11 +22,11 @@ export default function HeroDashboard() {
 
         <div className="dashboard-mockup">
 
-            {/* ================= Header ================= */}
+            {/* === Header === */}
 
             <Header />
 
-            {/* ================= Métricas superiores ================= */}
+            {/* === Métricas superiores === */}
 
             <div className="dashboard-metrics">
 
@@ -164,11 +164,11 @@ export default function HeroDashboard() {
 
             </div>
 
-            {/* ================= Gráfico Principal ================= */}
+            {/* === Gráfico Principal === */}
 
             <MainChart />
 
-            {/* ================= Widgets inferiores ================= */}
+            {/* === Widgets inferiores === */}
 
             <div className="dashboard-grid">
 

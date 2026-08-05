@@ -36,9 +36,9 @@ function NavbarInfo({ role }) {
     getActiveTimezone()
   );
 
-  /* ===============================
+  /* ===
       RELOJ
-  =============================== */
+  === */
 
   useEffect(() => {
 
@@ -52,9 +52,9 @@ function NavbarInfo({ role }) {
 
   }, []);
 
-  /* ===============================
+  /* ===
       CAMBIOS DE CONFIGURACIÓN
-  =============================== */
+  === */
 
   useEffect(() => {
 
@@ -96,9 +96,9 @@ function NavbarInfo({ role }) {
 
   }, []);
 
-  /* ===============================
+  /* ===
       FECHA Y HORA
-  =============================== */
+  === */
 
   const fecha = formatDate(
     time,

@@ -13,7 +13,7 @@ function VerifyCodeScreen() {
     <AuthLayout>
       <BackButton onClick={() => navigate('/forgot-password')} />
       <div className="verify-code-content">
-        <div className="verify-icon">📱</div>
+        <div className="verify-icon"></div>
         <h1>{t('verifyCode.title')}</h1>
         <p className="verify-description">{t('verifyCode.description')}</p>
         <VerifyCodeForm />

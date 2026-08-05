@@ -1,8 +1,8 @@
-/* ============================================================
+/* ==
    SCROLL TO TOP — Exclusivo del Landing
    Se posiciona en la esquina inferior derecha, debajo del
    widget de accesibilidad (que en el landing está elevado).
-   ============================================================ */
+   == */
 
 .scroll-to-top {
     position: fixed;

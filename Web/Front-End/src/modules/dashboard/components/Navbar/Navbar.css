@@ -1,7 +1,7 @@
-/* ===========================================================
+/* =
    DASHBOARD NAVBAR
    PARTE 1
-=========================================================== */
+= */
 
 /* ========= CONTENEDOR ========= */
 
@@ -259,9 +259,9 @@ body:not(.dark-mode) .dashboard-navbar{
     background: var(--lb-surface);
 }
 
-/* ===========================================================
+/* =
    DROPDOWN PERFIL
-=========================================================== */
+= */
 
 .dashboard-profile-dropdown{
 
@@ -352,9 +352,9 @@ body:not(.dark-mode) .dashboard-navbar{
 
 }
 
-/* ===========================================================
+/* =
    CAMPANA
-=========================================================== */
+= */
 
 .dashboard-notification-bell{
 
@@ -392,9 +392,9 @@ body:not(.dark-mode) .dashboard-navbar{
 
 
 
-/* ===========================================================
+/* =
    RESPONSIVE
-=========================================================== */
+= */
 @media (max-width:1360px){
 
     .dashboard-navbar-info{
@@ -446,9 +446,9 @@ body:not(.dark-mode) .dashboard-navbar{
 
 }
 
-/* ===========================================================
+/* =
    TABLET & MOBILE BASE (Se aplica desde 768px hacia abajo)
-=========================================================== */
+= */
 @media (max-width: 768px) {
     .dashboard-navbar {
         height: 78px;
@@ -576,9 +576,9 @@ body:not(.dark-mode) .dashboard-navbar{
     }
 
 
-/* ===========================================================
+/* =
    CELULAR (Ajustes específicos sobre la base anterior)
-=========================================================== */
+= */
 @media (max-width: 480px) {
     .dashboard-navbar {
         padding: 0 14px;
