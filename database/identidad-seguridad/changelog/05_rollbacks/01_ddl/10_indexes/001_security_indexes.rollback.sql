@@ -1,0 +1,9 @@
+DROP INDEX IF EXISTS seguridad.idx_auditoria_evento_modulo_fecha;
+DROP INDEX IF EXISTS seguridad.idx_auditoria_evento_usuario_fecha;
+DROP INDEX IF EXISTS seguridad.idx_recuperacion_password_usuario_estado;
+DROP INDEX IF EXISTS seguridad.idx_verificacion_2fa_usuario_estado;
+DROP INDEX IF EXISTS seguridad.idx_token_sesion_expiracion;
+DROP INDEX IF EXISTS seguridad.idx_token_sesion_usuario_estado;
+DROP INDEX IF EXISTS seguridad.idx_rol_permiso_permiso_id;
+DROP INDEX IF EXISTS seguridad.idx_usuario_rol_rol_id;
+DROP INDEX IF EXISTS seguridad.idx_credencial_usuario_id;

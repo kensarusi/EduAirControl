@@ -1,0 +1,9 @@
+ALTER TABLE seguridad.auditoria_evento DROP CONSTRAINT IF EXISTS fk_auditoria_evento_usuario;
+ALTER TABLE seguridad.recuperacion_password DROP CONSTRAINT IF EXISTS fk_recuperacion_password_usuario;
+ALTER TABLE seguridad.verificacion_2fa DROP CONSTRAINT IF EXISTS fk_verificacion_2fa_usuario;
+ALTER TABLE seguridad.token_sesion DROP CONSTRAINT IF EXISTS fk_token_sesion_usuario;
+ALTER TABLE seguridad.rol_permiso DROP CONSTRAINT IF EXISTS fk_rol_permiso_permiso;
+ALTER TABLE seguridad.rol_permiso DROP CONSTRAINT IF EXISTS fk_rol_permiso_rol;
+ALTER TABLE seguridad.usuario_rol DROP CONSTRAINT IF EXISTS fk_usuario_rol_rol;
+ALTER TABLE seguridad.usuario_rol DROP CONSTRAINT IF EXISTS fk_usuario_rol_usuario;
+ALTER TABLE seguridad.credencial DROP CONSTRAINT IF EXISTS fk_credencial_usuario;

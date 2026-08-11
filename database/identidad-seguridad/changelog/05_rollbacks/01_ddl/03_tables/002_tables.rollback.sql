@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS seguridad.auditoria_evento;
+DROP TABLE IF EXISTS seguridad.recuperacion_password;
+DROP TABLE IF EXISTS seguridad.verificacion_2fa;
+DROP TABLE IF EXISTS seguridad.token_sesion;
+DROP TABLE IF EXISTS seguridad.rol_permiso;
+DROP TABLE IF EXISTS seguridad.usuario_rol;
+DROP TABLE IF EXISTS seguridad.permiso;
+DROP TABLE IF EXISTS seguridad.rol;
+DROP TABLE IF EXISTS seguridad.credencial;
+DROP TABLE IF EXISTS seguridad.usuario;

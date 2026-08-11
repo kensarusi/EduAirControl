@@ -1,0 +1,92 @@
+databaseChangeLog:
+  - changeSet:
+      id: eduair-iam-001-schema
+      author: eduaircontrol
+      comment: Crea el esquema del dominio de identidad y seguridad.
+      changes:
+        - sqlFile:
+            path: 01_ddl/01_schemas/001_seguridad_schema.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/01_schemas/001_seguridad_schema.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-iam-002-tables
+      author: eduaircontrol
+      comment: Crea las tablas del dominio sin llaves foráneas.
+      changes:
+        - sqlFile:
+            path: 01_ddl/03_tables/001_usuario.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/002_credencial.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/003_rol.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/004_permiso.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/005_usuario_rol.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/006_rol_permiso.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/007_token_sesion.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/008_verificacion_2fa.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/009_recuperacion_password.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: 01_ddl/03_tables/010_auditoria_evento.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/03_tables/002_tables.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-iam-003-foreign-keys
+      author: eduaircontrol
+      comment: Agrega las llaves foráneas del dominio.
+      changes:
+        - sqlFile:
+            path: 01_ddl/04_alter/001_foreign_keys.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/04_alter/001_foreign_keys.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-iam-004-indexes
+      author: eduaircontrol
+      comment: Crea índices para consultas de autenticación y auditoría.
+      changes:
+        - sqlFile:
+            path: 01_ddl/10_indexes/001_security_indexes.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/01_ddl/10_indexes/001_security_indexes.rollback.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: eduair-iam-005-rbac-seed
+      author: eduaircontrol
+      comment: Inserta los roles y permisos base del sistema.
+      changes:
+        - sqlFile:
+            path: 02_dml/00_inserts/001_roles_permisos_base.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 05_rollbacks/02_dml/00_inserts/001_roles_permisos_base.rollback.sql
+            relativeToChangelogFile: true
