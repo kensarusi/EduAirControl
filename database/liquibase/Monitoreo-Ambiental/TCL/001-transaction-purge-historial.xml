@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!--
+        TCL: función transaccional que primero agrega a estadistica_ambiental
+        los datos que va a eliminar (para no perder información histórica) y
+        luego purga historial_variable antiguo, todo de forma atómica: si el
+        paso de agregación falla, la eliminación NUNCA se ejecuta (ROLLBACK).
+    -->
+    <changeSet id="monitoreo-tcl-001-fn-purgar-historial" author="persona2" runOnChange="true">
+        <comment>Función transaccional de archivado + purga de historial_variable antiguo</comment>
+
+        <sql splitStatements="false" endDelimiter="$$">
+            CREATE OR REPLACE FUNCTION fn_purgar_historial_antiguo(p_dias_antiguedad INT DEFAULT 90)
+            RETURNS INT AS $$
+            DECLARE
+                v_filas_eliminadas INT;
+            BEGIN
+                -- Paso 1: archivar en estadistica_ambiental (periodo 'mensual')
+                -- antes de borrar el detalle. Si esto falla, no se borra nada.
+                INSERT INTO estadistica_ambiental
+                    (id_aula, id_variable, periodo, valor_promedio, valor_minimo, valor_maximo,
+                     fecha_inicio, fecha_fin, fecha_calculo)
+                SELECT s.id_aula,
+                       cv.id_variable,
+                       'mensual',
+                       AVG(hv.valor),
+                       MIN(hv.valor),
+                       MAX(hv.valor),
+                       date_trunc('month', hv.fecha_hora_lectura),
+                       date_trunc('month', hv.fecha_hora_lectura) + INTERVAL '1 month' - INTERVAL '1 second',
+                       now()
+                  FROM historial_variable hv
+                  JOIN configuracion_variable cv ON cv.id_configuracion = hv.id_configuracion
+                  JOIN sensor s ON s.id_sensor = cv.id_sensor
+                 WHERE hv.fecha_hora_lectura < now() - (p_dias_antiguedad || ' days')::INTERVAL
+                 GROUP BY s.id_aula, cv.id_variable, date_trunc('month', hv.fecha_hora_lectura);
+
+                -- Paso 2: eliminar el detalle ya archivado.
+                DELETE FROM historial_variable
+                 WHERE fecha_hora_lectura < now() - (p_dias_antiguedad || ' days')::INTERVAL;
+
+                GET DIAGNOSTICS v_filas_eliminadas = ROW_COUNT;
+
+                -- COMMIT implícito: ambos pasos quedan confirmados juntos.
+                RETURN v_filas_eliminadas;
+            EXCEPTION
+                WHEN OTHERS THEN
+                    -- ROLLBACK automático: ni se archiva ni se borra nada.
+                    RAISE;
+            END;
+            $$ LANGUAGE plpgsql;
+        </sql>
+
+        <rollback>
+            <sql>DROP FUNCTION IF EXISTS fn_purgar_historial_antiguo(INT);</sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="sensores-dml-002-insert-sensor-seed" author="persona2" context="dev,test">
+        <comment>Sensores de prueba asociados a las aulas sembradas en Gestión-Aulas</comment>
+
+        <insert tableName="sensor">
+            <column name="id_aula" valueComputed="(SELECT id_aula FROM aula WHERE codigo_aula = 'A-101')"/>
+            <column name="codigo_sensor" value="SEN-A101-TEMP"/>
+            <column name="tipo_sensor" value="temperatura"/>
+            <column name="marca" value="DHT"/>
+            <column name="modelo" value="DHT22"/>
+            <column name="fecha_instalacion" valueDate="2025-01-15"/>
+            <column name="estado" value="activo"/>
+        </insert>
+
+        <insert tableName="sensor">
+            <column name="id_aula" valueComputed="(SELECT id_aula FROM aula WHERE codigo_aula = 'A-101')"/>
+            <column name="codigo_sensor" value="SEN-A101-CO2"/>
+            <column name="tipo_sensor" value="co2"/>
+            <column name="marca" value="Sensirion"/>
+            <column name="modelo" value="SCD41"/>
+            <column name="fecha_instalacion" valueDate="2025-01-15"/>
+            <column name="estado" value="activo"/>
+        </insert>
+
+        <insert tableName="sensor">
+            <column name="id_aula" valueComputed="(SELECT id_aula FROM aula WHERE codigo_aula = 'LAB-201')"/>
+            <column name="codigo_sensor" value="SEN-LAB201-TEMP"/>
+            <column name="tipo_sensor" value="temperatura"/>
+            <column name="marca" value="DHT"/>
+            <column name="modelo" value="DHT22"/>
+            <column name="fecha_instalacion" valueDate="2025-02-01"/>
+            <column name="estado" value="activo"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="sensor">
+                <where>codigo_sensor IN ('SEN-A101-TEMP','SEN-A101-CO2','SEN-LAB201-TEMP')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

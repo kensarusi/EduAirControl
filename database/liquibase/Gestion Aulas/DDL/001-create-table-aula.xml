@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="aulas-ddl-001-create-table-aula" author="persona2">
+        <comment>Creación de la tabla aula (Dominio: Gestión de Aulas)</comment>
+
+        <createTable tableName="aula">
+            <column name="id_aula" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="codigo_aula" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq_aula_codigo"/>
+            </column>
+            <column name="nombre" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ubicacion" type="VARCHAR(150)"/>
+            <column name="capacidad" type="INT"/>
+            <column name="tipo_aula" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estado" type="VARCHAR(20)" defaultValue="activa">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_creacion" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_actualizacion" type="TIMESTAMP"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="aula"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="aulas-ddl-002-check-tipo-estado" author="persona2">
+        <comment>Restricciones de dominio para tipo_aula y estado</comment>
+
+        <sql>
+            ALTER TABLE aula
+                ADD CONSTRAINT ck_aula_tipo
+                CHECK (tipo_aula IN ('salon', 'laboratorio', 'auditorio', 'sala_computo', 'biblioteca'));
+
+            ALTER TABLE aula
+                ADD CONSTRAINT ck_aula_estado
+                CHECK (estado IN ('activa', 'inactiva', 'mantenimiento'));
+        </sql>
+
+        <rollback>
+            <sql>
+                ALTER TABLE aula DROP CONSTRAINT ck_aula_tipo;
+                ALTER TABLE aula DROP CONSTRAINT ck_aula_estado;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="aulas-ddl-003-index-estado" author="persona2">
+        <comment>Índice sobre estado para acelerar filtros de aulas activas</comment>
+        <createIndex tableName="aula" indexName="idx_aula_estado">
+            <column name="estado"/>
+        </createIndex>
+        <rollback>
+            <dropIndex tableName="aula" indexName="idx_aula_estado"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

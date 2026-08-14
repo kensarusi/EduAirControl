@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="sensores-dml-003-insert-configuracion-variable-seed" author="persona2" context="dev,test">
+        <comment>Configuración de umbrales para los sensores de prueba</comment>
+
+        <insert tableName="configuracion_variable">
+            <column name="id_sensor" valueComputed="(SELECT id_sensor FROM sensor WHERE codigo_sensor = 'SEN-A101-TEMP')"/>
+            <column name="id_variable" valueComputed="(SELECT id_variable FROM variable WHERE nombre = 'temperatura')"/>
+            <column name="umbral_minimo" valueNumeric="18.0"/>
+            <column name="umbral_maximo" valueNumeric="26.0"/>
+            <column name="frecuencia_lectura_segundos" valueNumeric="60"/>
+            <column name="activo" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="configuracion_variable">
+            <column name="id_sensor" valueComputed="(SELECT id_sensor FROM sensor WHERE codigo_sensor = 'SEN-A101-CO2')"/>
+            <column name="id_variable" valueComputed="(SELECT id_variable FROM variable WHERE nombre = 'co2')"/>
+            <column name="umbral_minimo" valueNumeric="400.0"/>
+            <column name="umbral_maximo" valueNumeric="1000.0"/>
+            <column name="frecuencia_lectura_segundos" valueNumeric="120"/>
+            <column name="activo" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="configuracion_variable">
+            <column name="id_sensor" valueComputed="(SELECT id_sensor FROM sensor WHERE codigo_sensor = 'SEN-LAB201-TEMP')"/>
+            <column name="id_variable" valueComputed="(SELECT id_variable FROM variable WHERE nombre = 'temperatura')"/>
+            <column name="umbral_minimo" valueNumeric="18.0"/>
+            <column name="umbral_maximo" valueNumeric="26.0"/>
+            <column name="frecuencia_lectura_segundos" valueNumeric="60"/>
+            <column name="activo" valueBoolean="true"/>
+        </insert>
+
+        <rollback>
+            <sql>
+                DELETE FROM configuracion_variable
+                 WHERE id_sensor IN (
+                    SELECT id_sensor FROM sensor
+                     WHERE codigo_sensor IN ('SEN-A101-TEMP','SEN-A101-CO2','SEN-LAB201-TEMP')
+                 );
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

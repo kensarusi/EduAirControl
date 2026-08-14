@@ -1,11 +1,12 @@
 import Navbar from "../components/Navbar/Navbar";
+import AccessibilityWidget from "../components/AccessibilityWidget/AccessibilityWidget";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 import Hero from "../components/Hero/Hero/Hero";
 import WhyChoose from "../components/WhyChoose/WhyChoose";
 import SystemModules from "../components/SystemModules/SystemModules";
 import HowItWorks from "../components/HowItWorks/HowItWorks";
 import Technologies from "../components/Technologies/Technologies";
-import DesignedFor from "../components/DesignedFor/DesignedFor"
+import DesignedFor from "../components/DesignedFor/DesignedFor";
 import CTA from "../components/CTA/CTA";
 import Footer from "../components/Footer/Footer";
 
@@ -14,41 +15,36 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function Landing() {
-
-      const location = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
-
         if (location.state?.scrollTo) {
-
             const id = location.state.scrollTo;
 
             setTimeout(() => {
-
                 document.getElementById(id)?.scrollIntoView({
-                    behavior: "smooth"
+                    behavior: "smooth",
                 });
-
             }, 100);
-
         }
-
     }, [location]);
-    
-  return (
-    <div className="landing">
-      <Navbar />
-      <Hero />
-      <WhyChoose />
-      <SystemModules />
-      <HowItWorks />
-      <Technologies />
-      <DesignedFor />
-      <CTA />
-      <Footer />
-      <ScrollToTop />
-    </div>
-  );
+
+    return (
+        <div className="landing">
+            <Navbar />
+            <Hero />
+            <WhyChoose />
+            <SystemModules />
+            <HowItWorks />
+            <Technologies />
+            <DesignedFor />
+            <CTA />
+            <Footer />
+
+            <AccessibilityWidget raised />
+            <ScrollToTop />
+        </div>
+    );
 }
 
 export default Landing;

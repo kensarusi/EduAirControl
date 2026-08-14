@@ -1,0 +1,61 @@
+databaseChangeLog:
+
+
+  - include:
+      file: Gestión-Aulas/DDL/001-create-table-aula.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Aulas/DCL/001-grants-aula.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Aulas/DML/001-insert-aula-seed.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Aulas/TCL/001-transaction-desactivar-aula.xml
+      relativeToChangelogFile: true
+
+
+  - include:
+      file: Gestión-Sensores/DDL/001-create-table-variable.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/DDL/002-create-table-sensor.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/DDL/003-create-table-configuracion-variable.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/DCL/001-grants-sensores.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/DML/001-insert-variable-seed.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/DML/002-insert-sensor-seed.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/DML/003-insert-configuracion-variable-seed.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Gestión-Sensores/TCL/001-transaction-actualizar-configuracion.xml
+      relativeToChangelogFile: true
+
+
+  - include:
+      file: Monitoreo-Ambiental/DDL/001-create-table-historial-variable.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Monitoreo-Ambiental/DDL/002-create-table-estado-ambiental.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Monitoreo-Ambiental/DDL/003-create-table-estadistica-ambiental.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Monitoreo-Ambiental/DCL/001-grants-monitoreo.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Monitoreo-Ambiental/DML/001-insert-monitoreo-seed.xml
+      relativeToChangelogFile: true
+  - include:
+      file: Monitoreo-Ambiental/TCL/001-transaction-purge-historial.xml
+      relativeToChangelogFile: true

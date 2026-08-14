@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="aulas-dcl-001-grants-aula" author="persona2" runOnChange="true">
+        <comment>
+            Permisos sobre la tabla aula:
+            - app_backend: rol de la aplicación (CRUD completo, sin DELETE directo salvo soft-delete vía estado)
+            - app_readonly: rol de solo lectura para reportes/analítica (Persona 3)
+        </comment>
+
+        <sql>
+            GRANT SELECT, INSERT, UPDATE ON aula TO app_backend;
+            GRANT USAGE, SELECT ON SEQUENCE aula_id_aula_seq TO app_backend;
+            GRANT SELECT ON aula TO app_readonly;
+        </sql>
+
+        <rollback>
+            <sql>
+                REVOKE SELECT, INSERT, UPDATE ON aula FROM app_backend;
+                REVOKE USAGE, SELECT ON SEQUENCE aula_id_aula_seq FROM app_backend;
+                REVOKE SELECT ON aula FROM app_readonly;
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

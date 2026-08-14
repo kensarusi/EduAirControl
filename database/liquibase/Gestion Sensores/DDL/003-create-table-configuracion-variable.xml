@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="sensores-ddl-005-create-table-configuracion-variable" author="persona2">
+        <comment>
+            Tabla puente que define qué variables mide cada sensor y con
+            qué umbrales/frecuencia (configuración operativa del sensor).
+        </comment>
+
+        <createTable tableName="configuracion_variable">
+            <column name="id_configuracion" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_sensor" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_variable" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="umbral_minimo" type="NUMERIC(10,2)"/>
+            <column name="umbral_maximo" type="NUMERIC(10,2)"/>
+            <column name="frecuencia_lectura_segundos" type="INT" defaultValueNumeric="60">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activo" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_creacion" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_actualizacion" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="configuracion_variable" baseColumnNames="id_sensor"
+            referencedTableName="sensor" referencedColumnNames="id_sensor"
+            constraintName="fk_configvar_sensor"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+            baseTableName="configuracion_variable" baseColumnNames="id_variable"
+            referencedTableName="variable" referencedColumnNames="id_variable"
+            constraintName="fk_configvar_variable"
+            onDelete="RESTRICT" onUpdate="CASCADE"/>
+
+        <addUniqueConstraint
+            tableName="configuracion_variable"
+            columnNames="id_sensor, id_variable"
+            constraintName="uq_configvar_sensor_variable"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="configuracion_variable" constraintName="fk_configvar_sensor"/>
+            <dropForeignKeyConstraint baseTableName="configuracion_variable" constraintName="fk_configvar_variable"/>
+            <dropTable tableName="configuracion_variable"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

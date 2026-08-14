@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="monitoreo-dml-001-insert-historial-seed" author="persona2" context="dev,test">
+        <comment>Lecturas de prueba para el sensor de temperatura del aula A-101</comment>
+
+        <insert tableName="historial_variable">
+            <column name="id_configuracion" valueComputed="
+                (SELECT cv.id_configuracion FROM configuracion_variable cv
+                   JOIN sensor s ON s.id_sensor = cv.id_sensor
+                  WHERE s.codigo_sensor = 'SEN-A101-TEMP')"/>
+            <column name="valor" valueNumeric="22.5"/>
+            <column name="fecha_hora_lectura" valueDate="2026-08-10T08:00:00"/>
+        </insert>
+
+        <insert tableName="historial_variable">
+            <column name="id_configuracion" valueComputed="
+                (SELECT cv.id_configuracion FROM configuracion_variable cv
+                   JOIN sensor s ON s.id_sensor = cv.id_sensor
+                  WHERE s.codigo_sensor = 'SEN-A101-TEMP')"/>
+            <column name="valor" valueNumeric="23.1"/>
+            <column name="fecha_hora_lectura" valueDate="2026-08-10T09:00:00"/>
+        </insert>
+
+        <insert tableName="historial_variable">
+            <column name="id_configuracion" valueComputed="
+                (SELECT cv.id_configuracion FROM configuracion_variable cv
+                   JOIN sensor s ON s.id_sensor = cv.id_sensor
+                  WHERE s.codigo_sensor = 'SEN-A101-TEMP')"/>
+            <column name="valor" valueNumeric="27.8"/>
+            <column name="fecha_hora_lectura" valueDate="2026-08-10T10:00:00"/>
+        </insert>
+
+        <rollback>
+            <sql>
+                DELETE FROM historial_variable
+                 WHERE id_configuracion IN (
+                    SELECT cv.id_configuracion FROM configuracion_variable cv
+                      JOIN sensor s ON s.id_sensor = cv.id_sensor
+                     WHERE s.codigo_sensor = 'SEN-A101-TEMP'
+                 );
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="monitoreo-dml-002-insert-estado-ambiental-seed" author="persona2" context="dev,test">
+        <comment>Estado ambiental calculado de prueba para el aula A-101</comment>
+
+        <insert tableName="estado_ambiental">
+            <column name="id_aula" valueComputed="(SELECT id_aula FROM aula WHERE codigo_aula = 'A-101')"/>
+            <column name="nivel" value="moderado"/>
+            <column name="descripcion" value="Temperatura por encima del umbral recomendado"/>
+            <column name="fecha_calculo" valueDate="2026-08-10T10:05:00"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="estado_ambiental">
+                <where>descripcion = 'Temperatura por encima del umbral recomendado'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

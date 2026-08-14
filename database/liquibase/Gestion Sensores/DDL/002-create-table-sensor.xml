@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="sensores-ddl-002-create-table-sensor" author="persona2">
+        <comment>Creación de la tabla sensor, asociada a un aula del Dominio Gestión-Aulas</comment>
+
+        <createTable tableName="sensor">
+            <column name="id_sensor" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_aula" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="codigo_sensor" type="VARCHAR(30)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq_sensor_codigo"/>
+            </column>
+            <column name="tipo_sensor" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="marca" type="VARCHAR(50)"/>
+            <column name="modelo" type="VARCHAR(50)"/>
+            <column name="fecha_instalacion" type="DATE"/>
+            <column name="estado" type="VARCHAR(20)" defaultValue="activo">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_creacion" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_actualizacion" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="sensor" baseColumnNames="id_aula"
+            referencedTableName="aula" referencedColumnNames="id_aula"
+            constraintName="fk_sensor_aula"
+            onDelete="RESTRICT" onUpdate="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="sensor" constraintName="fk_sensor_aula"/>
+            <dropTable tableName="sensor"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="sensores-ddl-003-check-sensor" author="persona2">
+        <comment>Restricciones de dominio para tipo_sensor y estado</comment>
+        <sql>
+            ALTER TABLE sensor
+                ADD CONSTRAINT ck_sensor_tipo
+                CHECK (tipo_sensor IN ('temperatura', 'humedad', 'co2', 'pm2_5', 'ruido', 'luminosidad'));
+
+            ALTER TABLE sensor
+                ADD CONSTRAINT ck_sensor_estado
+                CHECK (estado IN ('activo', 'inactivo', 'mantenimiento'));
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE sensor DROP CONSTRAINT ck_sensor_tipo;
+                ALTER TABLE sensor DROP CONSTRAINT ck_sensor_estado;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="sensores-ddl-004-index-sensor-aula" author="persona2">
+        <comment>Índice para acelerar la búsqueda de sensores por aula</comment>
+        <createIndex tableName="sensor" indexName="idx_sensor_id_aula">
+            <column name="id_aula"/>
+        </createIndex>
+        <rollback>
+            <dropIndex tableName="sensor" indexName="idx_sensor_id_aula"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="monitoreo-ddl-001-create-table-historial-variable" author="persona2">
+        <comment>
+            Tabla de series de tiempo: cada lectura individual reportada
+            por un sensor para una configuracion_variable dada. Es la tabla
+            con mayor volumen de escritura del sistema.
+        </comment>
+
+        <createTable tableName="historial_variable">
+            <column name="id_historial" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_configuracion" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valor" type="NUMERIC(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_hora_lectura" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="historial_variable" baseColumnNames="id_configuracion"
+            referencedTableName="configuracion_variable" referencedColumnNames="id_configuracion"
+            constraintName="fk_historial_configvar"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="historial_variable" constraintName="fk_historial_configvar"/>
+            <dropTable tableName="historial_variable"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="monitoreo-ddl-002-index-historial" author="persona2">
+        <comment>Índice compuesto para consultas de series de tiempo por configuración</comment>
+        <createIndex tableName="historial_variable" indexName="idx_historial_config_fecha">
+            <column name="id_configuracion"/>
+            <column name="fecha_hora_lectura"/>
+        </createIndex>
+        <rollback>
+            <dropIndex tableName="historial_variable" indexName="idx_historial_config_fecha"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

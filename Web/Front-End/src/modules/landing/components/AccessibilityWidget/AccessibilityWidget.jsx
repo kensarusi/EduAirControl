@@ -18,7 +18,7 @@ const COLOR_THEMES = [
 const STORAGE_KEYS = {
     fontSize: "a11y-font-size",
     darkMode: "darkMode",
-    theme:    "theme",
+    colorTheme: "a11y-color-theme",
 };
 
 /* ── Helpers ── */
@@ -50,7 +50,7 @@ function AccessibilityWidget({ raised = false }) {
         () => JSON.parse(localStorage.getItem(STORAGE_KEYS.darkMode)) || false
     );
     const [colorTheme, setColorTheme] = useState(
-        () => localStorage.getItem(STORAGE_KEYS.theme) || ""
+        () => localStorage.getItem(STORAGE_KEYS.colorTheme) || ""
     );
 
     /* Aplicar al montar */
@@ -94,7 +94,7 @@ function AccessibilityWidget({ raised = false }) {
 
     const handleColorTheme = (key) => {
         setColorTheme(key);
-        localStorage.setItem(STORAGE_KEYS.theme, key);
+        localStorage.setItem(STORAGE_KEYS.colorTheme, key);
         applyBodyClasses(key, darkMode);
     };
 

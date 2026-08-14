@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="monitoreo-ddl-003-create-table-estado-ambiental" author="persona2">
+        <comment>
+            Snapshot calculado periódicamente del estado ambiental general
+            de un aula (agregando sus variables monitoreadas).
+        </comment>
+
+        <createTable tableName="estado_ambiental">
+            <column name="id_estado" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_aula" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nivel" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descripcion" type="VARCHAR(255)"/>
+            <column name="fecha_calculo" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="estado_ambiental" baseColumnNames="id_aula"
+            referencedTableName="aula" referencedColumnNames="id_aula"
+            constraintName="fk_estadoambiental_aula"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="estado_ambiental" constraintName="fk_estadoambiental_aula"/>
+            <dropTable tableName="estado_ambiental"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="monitoreo-ddl-004-check-nivel" author="persona2">
+        <comment>Restricción de dominio para el nivel de estado ambiental</comment>
+        <sql>
+            ALTER TABLE estado_ambiental
+                ADD CONSTRAINT ck_estado_ambiental_nivel
+                CHECK (nivel IN ('bueno', 'moderado', 'malo', 'peligroso'));
+        </sql>
+        <rollback>
+            <sql>ALTER TABLE estado_ambiental DROP CONSTRAINT ck_estado_ambiental_nivel;</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="monitoreo-ddl-005-index-estado-aula-fecha" author="persona2">
+        <comment>Índice para obtener el último estado ambiental calculado por aula</comment>
+        <createIndex tableName="estado_ambiental" indexName="idx_estado_ambiental_aula_fecha">
+            <column name="id_aula"/>
+            <column name="fecha_calculo"/>
+        </createIndex>
+        <rollback>
+            <dropIndex tableName="estado_ambiental" indexName="idx_estado_ambiental_aula_fecha"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="aulas-dml-001-insert-aula-seed" author="persona2" context="dev,test">
+        <comment>Datos de prueba iniciales para la tabla aula</comment>
+
+        <insert tableName="aula">
+            <column name="codigo_aula" value="A-101"/>
+            <column name="nombre" value="Aula 101"/>
+            <column name="ubicacion" value="Bloque A - Piso 1"/>
+            <column name="capacidad" valueNumeric="35"/>
+            <column name="tipo_aula" value="salon"/>
+            <column name="estado" value="activa"/>
+        </insert>
+
+        <insert tableName="aula">
+            <column name="codigo_aula" value="LAB-201"/>
+            <column name="nombre" value="Laboratorio de Redes"/>
+            <column name="ubicacion" value="Bloque B - Piso 2"/>
+            <column name="capacidad" valueNumeric="25"/>
+            <column name="tipo_aula" value="laboratorio"/>
+            <column name="estado" value="activa"/>
+        </insert>
+
+        <insert tableName="aula">
+            <column name="codigo_aula" value="AUD-01"/>
+            <column name="nombre" value="Auditorio Principal"/>
+            <column name="ubicacion" value="Bloque Central"/>
+            <column name="capacidad" valueNumeric="150"/>
+            <column name="tipo_aula" value="auditorio"/>
+            <column name="estado" value="mantenimiento"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="aula">
+                <where>codigo_aula IN ('A-101','LAB-201','AUD-01')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
