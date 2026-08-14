@@ -18,7 +18,8 @@ function GlobalAccessibilityProvider({ children }) {
     const applyA11ySettings = () => {
         const savedFontSize = localStorage.getItem("a11y-font-size") || "base";
         const savedDarkMode = JSON.parse(localStorage.getItem("darkMode")) || false;
-        const savedTheme = localStorage.getItem("theme") || "";
+        const savedTheme =
+        localStorage.getItem("a11y-color-theme") || "";
 
         // Aplicar tamaño de fuente
         const fontSizes = { base: "16px", lg: "18px", xl: "20px" };

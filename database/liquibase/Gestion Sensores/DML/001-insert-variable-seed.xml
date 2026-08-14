@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="sensores-dml-001-insert-variable-seed" author="persona2" context="dev,test,prod">
+        <comment>Catálogo base de variables ambientales (necesario incluso en producción)</comment>
+
+        <insert tableName="variable">
+            <column name="nombre" value="temperatura"/>
+            <column name="unidad_medida" value="°C"/>
+            <column name="descripcion" value="Temperatura ambiente del aula"/>
+            <column name="valor_minimo_aceptable" valueNumeric="18.0"/>
+            <column name="valor_maximo_aceptable" valueNumeric="26.0"/>
+        </insert>
+
+        <insert tableName="variable">
+            <column name="nombre" value="humedad"/>
+            <column name="unidad_medida" value="%"/>
+            <column name="descripcion" value="Humedad relativa del aire"/>
+            <column name="valor_minimo_aceptable" valueNumeric="30.0"/>
+            <column name="valor_maximo_aceptable" valueNumeric="60.0"/>
+        </insert>
+
+        <insert tableName="variable">
+            <column name="nombre" value="co2"/>
+            <column name="unidad_medida" value="ppm"/>
+            <column name="descripcion" value="Concentración de dióxido de carbono"/>
+            <column name="valor_minimo_aceptable" valueNumeric="400.0"/>
+            <column name="valor_maximo_aceptable" valueNumeric="1000.0"/>
+        </insert>
+
+        <insert tableName="variable">
+            <column name="nombre" value="pm2_5"/>
+            <column name="unidad_medida" value="µg/m³"/>
+            <column name="descripcion" value="Material particulado fino (PM2.5)"/>
+            <column name="valor_minimo_aceptable" valueNumeric="0.0"/>
+            <column name="valor_maximo_aceptable" valueNumeric="35.0"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="variable">
+                <where>nombre IN ('temperatura','humedad','co2','pm2_5')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

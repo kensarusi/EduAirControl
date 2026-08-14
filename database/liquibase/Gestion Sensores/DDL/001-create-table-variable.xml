@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="sensores-ddl-001-create-table-variable" author="persona2">
+        <comment>
+            Creación de la tabla variable: catálogo de variables ambientales
+            medibles (temperatura, humedad, CO2, PM2.5, etc).
+        </comment>
+
+        <createTable tableName="variable">
+            <column name="id_variable" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nombre" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq_variable_nombre"/>
+            </column>
+            <column name="unidad_medida" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descripcion" type="VARCHAR(200)"/>
+            <column name="valor_minimo_aceptable" type="NUMERIC(10,2)"/>
+            <column name="valor_maximo_aceptable" type="NUMERIC(10,2)"/>
+            <column name="fecha_creacion" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="variable"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

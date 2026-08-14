@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!--
+        TCL: función transaccional que actualiza umbrales de configuracion_variable
+        y desactiva temporalmente el sensor si los nuevos umbrales son inválidos,
+        todo en una única transacción atómica (COMMIT/ROLLBACK gestionados por la función).
+    -->
+    <changeSet id="sensores-tcl-001-fn-actualizar-configuracion" author="persona2" runOnChange="true">
+        <comment>Función transaccional para actualizar umbrales de una configuracion_variable</comment>
+
+        <sql splitStatements="false" endDelimiter="$$">
+            CREATE OR REPLACE FUNCTION fn_actualizar_umbral_configuracion(
+                p_id_configuracion BIGINT,
+                p_umbral_minimo NUMERIC,
+                p_umbral_maximo NUMERIC
+            )
+            RETURNS VOID AS $$
+            BEGIN
+                IF p_umbral_minimo >= p_umbral_maximo THEN
+                    RAISE EXCEPTION 'umbral_minimo (%) debe ser menor que umbral_maximo (%)',
+                        p_umbral_minimo, p_umbral_maximo;
+                END IF;
+
+                UPDATE configuracion_variable
+                   SET umbral_minimo = p_umbral_minimo,
+                       umbral_maximo = p_umbral_maximo,
+                       fecha_actualizacion = now()
+                 WHERE id_configuracion = p_id_configuracion;
+
+                IF NOT FOUND THEN
+                    RAISE EXCEPTION 'configuracion_variable % no existe', p_id_configuracion;
+                END IF;
+
+                -- COMMIT implícito si todo fue exitoso.
+            EXCEPTION
+                WHEN OTHERS THEN
+                    -- ROLLBACK automático de todos los cambios de esta función.
+                    RAISE;
+            END;
+            $$ LANGUAGE plpgsql;
+        </sql>
+
+        <rollback>
+            <sql>DROP FUNCTION IF EXISTS fn_actualizar_umbral_configuracion(BIGINT, NUMERIC, NUMERIC);</sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

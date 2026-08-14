@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="monitoreo-dcl-001-grants-monitoreo" author="persona2" runOnChange="true">
+        <comment>
+            Permisos sobre historial_variable, estado_ambiental y estadistica_ambiental.
+            - app_backend: INSERT masivo de lecturas + cálculo de estados/estadísticas, sin DELETE
+              (la purga de históricos se hace vía la función transaccional de TCL)
+            - app_readonly: solo lectura, usado por Persona 3 (rankings, reportes, analítica)
+        </comment>
+
+        <sql>
+            GRANT SELECT, INSERT ON historial_variable TO app_backend;
+            GRANT USAGE, SELECT ON SEQUENCE historial_variable_id_historial_seq TO app_backend;
+
+            GRANT SELECT, INSERT ON estado_ambiental TO app_backend;
+            GRANT USAGE, SELECT ON SEQUENCE estado_ambiental_id_estado_seq TO app_backend;
+
+            GRANT SELECT, INSERT ON estadistica_ambiental TO app_backend;
+            GRANT USAGE, SELECT ON SEQUENCE estadistica_ambiental_id_estadistica_seq TO app_backend;
+
+            GRANT SELECT ON historial_variable TO app_readonly;
+            GRANT SELECT ON estado_ambiental TO app_readonly;
+            GRANT SELECT ON estadistica_ambiental TO app_readonly;
+        </sql>
+
+        <rollback>
+            <sql>
+                REVOKE SELECT, INSERT ON historial_variable FROM app_backend;
+                REVOKE USAGE, SELECT ON SEQUENCE historial_variable_id_historial_seq FROM app_backend;
+
+                REVOKE SELECT, INSERT ON estado_ambiental FROM app_backend;
+                REVOKE USAGE, SELECT ON SEQUENCE estado_ambiental_id_estado_seq FROM app_backend;
+
+                REVOKE SELECT, INSERT ON estadistica_ambiental FROM app_backend;
+                REVOKE USAGE, SELECT ON SEQUENCE estadistica_ambiental_id_estadistica_seq FROM app_backend;
+
+                REVOKE SELECT ON historial_variable FROM app_readonly;
+                REVOKE SELECT ON estado_ambiental FROM app_readonly;
+                REVOKE SELECT ON estadistica_ambiental FROM app_readonly;
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

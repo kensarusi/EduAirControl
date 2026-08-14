@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="monitoreo-ddl-006-create-table-estadistica-ambiental" author="persona2">
+        <comment>
+            Agregados históricos (promedio/mínimo/máximo) por aula, variable
+            y periodo, usados por Persona 3 para reportes y rankings.
+        </comment>
+
+        <createTable tableName="estadistica_ambiental">
+            <column name="id_estadistica" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_aula" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_variable" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="periodo" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valor_promedio" type="NUMERIC(10,2)"/>
+            <column name="valor_minimo" type="NUMERIC(10,2)"/>
+            <column name="valor_maximo" type="NUMERIC(10,2)"/>
+            <column name="fecha_inicio" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_fin" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fecha_calculo" type="TIMESTAMP" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="estadistica_ambiental" baseColumnNames="id_aula"
+            referencedTableName="aula" referencedColumnNames="id_aula"
+            constraintName="fk_estadistica_aula"
+            onDelete="CASCADE" onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+            baseTableName="estadistica_ambiental" baseColumnNames="id_variable"
+            referencedTableName="variable" referencedColumnNames="id_variable"
+            constraintName="fk_estadistica_variable"
+            onDelete="RESTRICT" onUpdate="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="estadistica_ambiental" constraintName="fk_estadistica_aula"/>
+            <dropForeignKeyConstraint baseTableName="estadistica_ambiental" constraintName="fk_estadistica_variable"/>
+            <dropTable tableName="estadistica_ambiental"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="monitoreo-ddl-007-check-periodo" author="persona2">
+        <comment>Restricción de dominio para el periodo estadístico</comment>
+        <sql>
+            ALTER TABLE estadistica_ambiental
+                ADD CONSTRAINT ck_estadistica_periodo
+                CHECK (periodo IN ('diario', 'semanal', 'mensual'));
+        </sql>
+        <rollback>
+            <sql>ALTER TABLE estadistica_ambiental DROP CONSTRAINT ck_estadistica_periodo;</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="monitoreo-ddl-008-index-estadistica" author="persona2">
+        <comment>Índice para consultas de estadísticas por aula, variable y periodo</comment>
+        <createIndex tableName="estadistica_ambiental" indexName="idx_estadistica_aula_var_periodo">
+            <column name="id_aula"/>
+            <column name="id_variable"/>
+            <column name="periodo"/>
+        </createIndex>
+        <rollback>
+            <dropIndex tableName="estadistica_ambiental" indexName="idx_estadistica_aula_var_periodo"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
