@@ -29,10 +29,32 @@ function Navbar() {
 
     }, []);
 
+    useEffect(() => {
+        const closeOnDesktop = () => {
+            if (window.innerWidth > 1120) setMenuOpen(false);
+        };
+
+        window.addEventListener("resize", closeOnDesktop);
+
+        return () => window.removeEventListener("resize", closeOnDesktop);
+    }, []);
+
+    useEffect(() => {
+        if (!menuOpen) return undefined;
+
+        const closeOnEscape = (event) => {
+            if (event.key === "Escape") setMenuOpen(false);
+        };
+
+        window.addEventListener("keydown", closeOnEscape);
+
+        return () => window.removeEventListener("keydown", closeOnEscape);
+    }, [menuOpen]);
+
     const closeMenu = () => setMenuOpen(false);
 
     return (
-
+        <>
         <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
 
             {/* Logo */}
@@ -81,6 +103,7 @@ function Navbar() {
                 <LanguageSelector />
 
                 <button
+                    type="button"
                     className="login-btn"
                     onClick={() => navigate("/login")}
                 >
@@ -94,8 +117,12 @@ function Navbar() {
             {/* Hamburguesa */}
 
             <button
+                type="button"
                 className="menu-toggle"
                 onClick={() => setMenuOpen(!menuOpen)}
+                aria-label={menuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+                aria-expanded={menuOpen}
+                aria-controls="landing-navigation"
             >
 
                 {menuOpen ? <X size={28}/> : <Menu size={28}/>}
@@ -104,8 +131,40 @@ function Navbar() {
 
             {/* Menú Mobile */}
 
-            <nav className={`navbar-menu ${menuOpen ? "active" : ""}`}>
+        </header>
 
+            <button
+                type="button"
+                className={`navbar-menu-backdrop ${menuOpen ? "active" : ""}`}
+                onClick={closeMenu}
+                aria-hidden="true"
+                tabIndex={-1}
+            />
+
+            <nav
+                id="landing-navigation"
+                aria-label="Navegación principal"
+                aria-hidden={!menuOpen}
+                className={`navbar-menu ${menuOpen ? "active" : ""}`}
+            >
+
+                <div className="navbar-menu-header">
+                    <div className="navbar-menu-brand">
+                        <img src={logo} alt="" />
+                        <span>EduAirControl</span>
+                    </div>
+
+                    <button
+                        type="button"
+                        className="navbar-menu-close"
+                        onClick={closeMenu}
+                        aria-label="Cerrar menú de navegación"
+                    >
+                        <X size={22} />
+                    </button>
+                </div>
+
+                <div className="navbar-menu-links">
                 <ScrollLink to="hero" onClick={closeMenu}>{t("landing.navbar.home")}</ScrollLink>
 
                 <ScrollLink to="why" onClick={closeMenu}>{t("landing.navbar.why")}</ScrollLink>
@@ -120,11 +179,15 @@ function Navbar() {
 
                 <ScrollLink to="cta" onClick={closeMenu}>{t("landing.navbar.cta")}</ScrollLink>
 
+                </div>
+
+                <div className="navbar-menu-footer">
                 <div className="mobile-lang-selector">
                     <LanguageSelector />
                 </div>
 
                 <button
+                    type="button"
                     className="mobile-login"
                     onClick={() => {
 
@@ -139,10 +202,11 @@ function Navbar() {
 
                 </button>
 
+                </div>
+
             </nav>
 
-        </header>
-
+        </>
     );
 
 }
