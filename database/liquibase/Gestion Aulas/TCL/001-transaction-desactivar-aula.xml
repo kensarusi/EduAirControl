@@ -5,13 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <!--
-        TCL (Transaction Control Language):
-        Función almacenada que agrupa en una única transacción el cambio de
-        estado de un aula y la desactivación en cascada de sus sensores
-        asociados, garantizando atomicidad (BEGIN/COMMIT/ROLLBACK implícito
-        en la función y explícito en el bloque EXCEPTION).
-    -->
+
     <changeSet id="aulas-tcl-001-fn-desactivar-aula" author="persona2" runOnChange="true">
         <comment>Función transaccional para desactivar un aula y sus sensores</comment>
 

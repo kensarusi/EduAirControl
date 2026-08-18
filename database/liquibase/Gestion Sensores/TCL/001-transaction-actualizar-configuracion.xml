@@ -5,11 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <!--
-        TCL: función transaccional que actualiza umbrales de configuracion_variable
-        y desactiva temporalmente el sensor si los nuevos umbrales son inválidos,
-        todo en una única transacción atómica (COMMIT/ROLLBACK gestionados por la función).
-    -->
+
     <changeSet id="sensores-tcl-001-fn-actualizar-configuracion" author="persona2" runOnChange="true">
         <comment>Función transaccional para actualizar umbrales de una configuracion_variable</comment>
 

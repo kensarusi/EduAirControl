@@ -5,12 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <!--
-        TCL: función transaccional que primero agrega a estadistica_ambiental
-        los datos que va a eliminar (para no perder información histórica) y
-        luego purga historial_variable antiguo, todo de forma atómica: si el
-        paso de agregación falla, la eliminación NUNCA se ejecuta (ROLLBACK).
-    -->
+
     <changeSet id="monitoreo-tcl-001-fn-purgar-historial" author="persona2" runOnChange="true">
         <comment>Función transaccional de archivado + purga de historial_variable antiguo</comment>
 
