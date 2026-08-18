@@ -45,6 +45,7 @@
     "signUpBtn": "Sign Up",
     "passwordMismatch": "Passwords do not match!",
     "mustAgreeTerms": "You must agree to the Terms and Conditions",
+<<<<<<< HEAD
     "termsModal": {
       "acceptPrefix": "I have read and accept the",
       "link": "Terms and Security Policies",
@@ -56,6 +57,13 @@
       ,"fullDocumentPrefix": "Would you like to review all the information?",
       "fullDocumentLink": "Read the complete document",
       "readRequired": "You must read and accept the complete document before signing up."
+=======
+    "passwordStrength": {
+      "weak": "Weak password",
+      "medium": "Medium password",
+      "good": "Good password",
+      "strong": "Strong password"
+>>>>>>> 562f315 (feat:password validation messages)
     }
   },
   "common": {

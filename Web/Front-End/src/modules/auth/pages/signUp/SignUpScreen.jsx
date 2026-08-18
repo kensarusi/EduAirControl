@@ -40,6 +40,17 @@ function SignUpScreen() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+const passwordRequirements = {
+  minLength: formData.password.length >= 8,
+  hasUppercase: /[A-Z]/.test(formData.password),
+  hasLowercase: /[a-z]/.test(formData.password),
+  hasNumber: /[0-9]/.test(formData.password),
+  hasSpecialChar: /[^A-Za-z0-9]/.test(formData.password),
+}
+const passwordStrength = Object.values(passwordRequirements).filter(Boolean).length
+
+const handleSubmit = (e) => {
+  e.preventDefault()
 
     if (!hasReadFullTerms) {
       setShowTerms(true)
@@ -150,6 +161,8 @@ function SignUpScreen() {
                 {t('signup.password')}
               </label>
 
+              <label>{t('signup.password')}</label>
+
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
 
@@ -162,8 +175,23 @@ function SignUpScreen() {
                   required
                 />
               </div>
-            </div>
+              {formData.password && (
+              <div className="password-strength">
+                <div className="password-strength-bar">
+                  <div
+                    className={`password-strength-fill strength-${passwordStrength}`}
+                  ></div>
+                </div>
+                <span>
+                  {passwordStrength <= 2 && t("signup.passwordStrength.weak")}
+                  {passwordStrength === 3 && t("signup.passwordStrength.medium")}
+                  {passwordStrength === 4 && t("signup.passwordStrength.good")}
+                  {passwordStrength === 5 && t("signup.passwordStrength.strong")}
+                </span>
+              </div>
+            )}
 
+            </div>
             <div className="input-group-modern">
               <label>
                 {t(

@@ -8,7 +8,7 @@ import RankingCard from "../components/RankingCard/RankingCard";
 
 import useRankingVM from "../../../viewmodels/useRankingVM";
 
-import "./RankingScreen.css";
+import "./rankingScreen.css";
 
 function RankingScreen() {
 

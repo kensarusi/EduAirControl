@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import "./RankingStats.css";
+import "./rankingStats.css";
 
 function RankingStats({ statistics }) {
 

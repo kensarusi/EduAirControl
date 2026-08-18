@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import getRankingStatus from "../../utils/getRankingStatus";
 
-import "./RankingCard.css";
+import "./rankingCard.css";
 
 function RankingCard({ environment }) {
 

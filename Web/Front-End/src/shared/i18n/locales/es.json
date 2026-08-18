@@ -45,6 +45,7 @@
     "signUpBtn": "Registrarse",
     "passwordMismatch": "¡Las contraseñas no coinciden!",
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones",
+<<<<<<< HEAD
     "termsModal": {
       "acceptPrefix": "He leído y acepto los",
       "link": "Términos y Políticas de Seguridad",
@@ -70,6 +71,15 @@
       "fullDocumentLink": "Leer el documento completo",
       "readRequired": "Debes leer y aceptar el documento completo antes de registrarte."
     }
+=======
+
+    "passwordStrength": {
+      "weak": "Contraseña débil",
+      "medium": "Contraseña media",
+      "good": "Contraseña buena",
+      "strong": "Contraseña segura"
+  }
+>>>>>>> 562f315 (feat:password validation messages)
   },
   "common": {
     "addFavorites": "Agregar a favoritos",
