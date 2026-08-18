@@ -2,8 +2,8 @@
     min-height:100vh;
     display:flex;
     justify-content:center;
-    align-items:center;
-    padding:40px 20px;
+    align-items:flex-start;
+    padding:110px 20px 56px;
 
     background-repeat:no-repeat;
     background-size:cover;
@@ -16,7 +16,7 @@
 .terms-container{
 
     width:100%;
-    max-width:850px;
+    max-width:980px;
 
     background:var(--lb-glass-bg, rgba(15,23,42,.92));
 
@@ -150,6 +150,14 @@ body:not(.dark-mode) .terms-container{
     letter-spacing:1px;
 }
 
+.terms-brand{
+    margin:-10px 0 0;
+    color:#27f5d2;
+    font-size:1.05rem;
+    font-weight:700;
+    letter-spacing:.08em;
+}
+
 .terms-content{
 
     position:relative;
@@ -157,7 +165,7 @@ body:not(.dark-mode) .terms-container{
 
     color:var(--text-secondary, #b6c3d2);
 
-    line-height:1.8;
+    line-height:1.75;
 
     font-size:.98rem;
 }
@@ -166,6 +174,62 @@ body:not(.dark-mode) .terms-container{
 
     margin-bottom:30px;
 }
+
+.legal-section{
+    padding:24px 0;
+    border-bottom:1px solid rgba(148, 163, 184, .15);
+}
+
+.legal-section:first-child{ padding-top:0; }
+
+.legal-section h2{
+    margin:0 0 14px;
+    color:var(--text-primary, #f8fafc);
+    font-size:1.12rem;
+    line-height:1.35;
+}
+
+.legal-section p{ margin:0 0 12px; }
+.legal-section p:last-child{ margin-bottom:0; }
+
+.legal-list{
+    display:grid;
+    gap:10px;
+    margin:16px 0;
+    padding:0;
+    list-style:none;
+}
+
+.legal-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.legal-list svg{
+    flex:0 0 auto;
+    margin-top:5px;
+    color:#27f5d2;
+    font-size:18px;
+}
+
+.legal-note{
+    padding:14px 16px;
+    border-left:3px solid #27f5d2;
+    border-radius:0 12px 12px 0;
+    background:rgba(39, 245, 210, .06);
+    color:var(--text-primary, #e2e8f0);
+}
+
+.terms-metadata{
+    margin-top:28px;
+    padding:18px 20px;
+    border:1px solid rgba(39, 245, 210, .18);
+    border-radius:14px;
+    background:rgba(15, 23, 42, .32);
+}
+
+.terms-metadata p{ margin:5px 0; }
 
 .terms-list{
 
@@ -248,6 +312,8 @@ body:not(.dark-mode) .terms-container{
 
 @media(max-width:768px){
 
+    .terms-page{ padding:88px 16px 36px; }
+
     .terms-container{
 
         padding:30px;
@@ -257,6 +323,8 @@ body:not(.dark-mode) .terms-container{
 
         font-size:1.7rem;
     }
+
+    .legal-section{ padding:20px 0; }
 
     .terms-icon{
 
@@ -284,6 +352,9 @@ body:not(.dark-mode) .terms-container{
 
         font-size:.92rem;
     }
+
+    .terms-subtitle{ line-height:1.5; }
+    .legal-section h2{ font-size:1.04rem; }
 
     .btn-accept{
 

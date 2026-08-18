@@ -18,11 +18,10 @@ function HeroContent() {
       </div>
 
       <h1 className="hero-title">
-        {t("landing.hero.title1")}
-        <br />
-        {t("landing.hero.title2")}
-        <br />
-        <span>{t("landing.hero.title3")}</span>
+        <span className="hero-title-main">
+          {t("landing.hero.title1")} {t("landing.hero.title2")}
+        </span>
+        <span className="hero-title-brand">{t("landing.hero.title3")}</span>
       </h1>
 
       <p className="hero-description">

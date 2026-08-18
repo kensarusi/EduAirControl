@@ -106,7 +106,7 @@ function Footer() {
 
           <div>
             <Mail size={18} />
-            <span>soporte@eduaircontrol.com</span>
+            <span>eduaricontrol@gmail.com</span>
           </div>
 
           <div>

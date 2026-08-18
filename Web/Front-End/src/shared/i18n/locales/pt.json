@@ -44,7 +44,16 @@
     "term4": "Que as informações fornecidas sejam precisas e atualizadas.",
     "signUpBtn": "Cadastrar-se",
     "passwordMismatch": "As senhas não coincidem!",
-    "mustAgreeTerms": "Você deve aceitar os Termos e Condições"
+    "mustAgreeTerms": "Você deve aceitar os Termos e Condições",
+    "termsModal": {
+      "acceptPrefix": "Li e aceito os",
+      "link": "Termos e Políticas de Segurança",
+      "title": "Termos e Condições",
+      "subtitle": "Uso responsável · Segurança · Proteção de dados",
+      "intro": "Ao se cadastrar, você confirma que leu, compreendeu e aceita as condições essenciais para o uso responsável do EduAirControl:",
+      "items": ["Fornecer informações verdadeiras, completas e atualizadas e proteger suas credenciais de acesso.", "Informar rapidamente acessos não autorizados, perda de credenciais ou situações que comprometam a segurança da conta.", "Usar a plataforma apenas para fins educacionais, administrativos e de monitoramento ambiental autorizados.", "Não acessar, alterar, excluir ou extrair informações, nem interferir em sistemas, bancos de dados ou sensores IoT sem autorização.", "As leituras dos sensores são informativas, podem variar e não substituem avaliações técnicas especializadas.", "O EduAirControl aplica medidas razoáveis de segurança, embora nenhum sistema garanta proteção absoluta contra todos os riscos.", "Autorizar o tratamento de dados pessoais quando necessário, conforme a legislação aplicável e a Política de Tratamento de Dados.", "Podem ocorrer manutenções, atualizações ou interrupções temporárias por motivos técnicos, de conectividade ou dos dispositivos IoT.", "Aceitar atualizações destes termos comunicadas pela plataforma; o descumprimento pode restringir ou suspender o acesso."],
+      "notice": "Este resumo não substitui o documento completo. O uso do EduAirControl está sujeito aos Termos e Condições completos, à Política de Tratamento de Dados Pessoais e à legislação aplicável."
+    }
   },
   "common": {
     "close": "Fechar",
@@ -549,9 +558,9 @@
     },
     "hero": {
       "badge": "Plataforma líder em monitoramento ambiental educacional",
-      "title1": "Respire Tranquilo.",
-      "title2": "Aprenda Mejor.",
-      "title3": "EduAirControl.",
+      "title1": "Respire Tranquilo",
+      "title2": "Aprenda Mejor",
+      "title3": "EduAirControl",
       "description": "Monitore em tempo real a calidad do ar em salas de aula, laboratórios e espacios educacionais por meio de sensores IoT, análises inteligentes e alertas automáticos.",
       "createAccount": "Criar conta",
       "viewDemo": "Ver demonstrações",

@@ -11,6 +11,7 @@ import "./SignUp.css";
 function SignUpScreen() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const termsSummary = t("signup.termsModal.items", { returnObjects: true })
   
   const [formData, setFormData] = useState({
     companyCode: '',
@@ -147,14 +148,14 @@ const handleSubmit = (e) => {
           </label>
 
           <p className="terms-text-modern">
-            He leído y acepto los{" "}
+            {t("signup.termsModal.acceptPrefix")}{" "}
 
             <button
               type="button"
               className="terms-link-btn"
               onClick={() => setShowTerms(true)}
             >
-              Términos y Políticas de Seguridad
+              {t("signup.termsModal.link")}
             </button>
           </p>
         </div>
@@ -184,9 +185,9 @@ const handleSubmit = (e) => {
               <HiOutlineDocumentText />
             </div>
 
-            <h2>{t("terms.title")}</h2>
+            <h2>{t("signup.termsModal.title")}</h2>
 
-            <p>{t("terms.subtitle")}</p>
+            <p>{t("signup.termsModal.subtitle")}</p>
 
           </div>
 
@@ -194,22 +195,20 @@ const handleSubmit = (e) => {
                 key={showTerms}
           >
 
-            <p>{t("terms.intro")}</p>
+            <p>{t("signup.termsModal.intro")}</p>
 
             <div className="terms-modal-list">
 
-              {[1,2,3,4,5,6,7,8].map((item)=>(
+              {termsSummary.map((item)=>(
                 <div className="term-modal-item" key={item}>
                   <HiCheckCircle />
-                  <span>{t(`terms.item${item}`)}</span>
+                  <span>{item}</span>
                 </div>
               ))}
 
             </div>
 
-            <p>{t("terms.footer1")}</p>
-
-            <p>{t("terms.footer2")}</p>
+            <p>{t("signup.termsModal.notice")}</p>
 
           </div>
 
