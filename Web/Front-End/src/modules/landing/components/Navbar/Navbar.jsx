@@ -55,12 +55,12 @@ function Navbar() {
 
     return (
         <>
-        <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+        <header className={`landing-navbar ${scrolled ? "landing-navbar--scrolled" : ""}`}>
 
             {/* Logo */}
 
             <div
-                className="logo"
+                className="landing-navbar__brand"
                 onClick={() => {
                     window.scrollTo({
                         top: 0,
@@ -78,7 +78,7 @@ function Navbar() {
 
             {/* Navegación Desktop */}
 
-            <div className="navbar-links">
+            <div className="landing-navbar__links">
 
                 <ScrollLink to="hero">{t("landing.navbar.home")}</ScrollLink>
 
@@ -98,13 +98,13 @@ function Navbar() {
 
             {/* Acciones Desktop */}
 
-            <div className="navbar-actions">
+            <div className="landing-navbar__actions">
 
                 <LanguageSelector />
 
                 <button
                     type="button"
-                    className="login-btn"
+                    className="landing-navbar__login"
                     onClick={() => navigate("/login")}
                 >
 
@@ -118,7 +118,7 @@ function Navbar() {
 
             <button
                 type="button"
-                className="menu-toggle"
+                className="landing-navbar__toggle"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label={menuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
                 aria-expanded={menuOpen}
@@ -135,7 +135,7 @@ function Navbar() {
 
             <button
                 type="button"
-                className={`navbar-menu-backdrop ${menuOpen ? "active" : ""}`}
+                className={`landing-navbar__backdrop ${menuOpen ? "landing-navbar__backdrop--active" : ""}`}
                 onClick={closeMenu}
                 aria-hidden="true"
                 tabIndex={-1}
@@ -145,18 +145,18 @@ function Navbar() {
                 id="landing-navigation"
                 aria-label="Navegación principal"
                 aria-hidden={!menuOpen}
-                className={`navbar-menu ${menuOpen ? "active" : ""}`}
+                className={`landing-navbar__menu ${menuOpen ? "landing-navbar__menu--active" : ""}`}
             >
 
-                <div className="navbar-menu-header">
-                    <div className="navbar-menu-brand">
+                <div className="landing-navbar__menu-header">
+                    <div className="landing-navbar__menu-brand">
                         <img src={logo} alt="" />
                         <span>EduAirControl</span>
                     </div>
 
                     <button
                         type="button"
-                        className="navbar-menu-close"
+                        className="landing-navbar__menu-close"
                         onClick={closeMenu}
                         aria-label="Cerrar menú de navegación"
                     >
@@ -164,7 +164,7 @@ function Navbar() {
                     </button>
                 </div>
 
-                <div className="navbar-menu-links">
+                <div className="landing-navbar__menu-links">
                 <ScrollLink to="hero" onClick={closeMenu}>{t("landing.navbar.home")}</ScrollLink>
 
                 <ScrollLink to="why" onClick={closeMenu}>{t("landing.navbar.why")}</ScrollLink>
@@ -181,14 +181,14 @@ function Navbar() {
 
                 </div>
 
-                <div className="navbar-menu-footer">
-                <div className="mobile-lang-selector">
+                <div className="landing-navbar__menu-footer">
+                <div className="landing-navbar__language">
                     <LanguageSelector />
                 </div>
 
                 <button
                     type="button"
-                    className="mobile-login"
+                    className="landing-navbar__mobile-login"
                     onClick={() => {
 
                         closeMenu();
