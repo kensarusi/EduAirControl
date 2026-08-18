@@ -44,7 +44,16 @@
     "term4": "Le fait que les informations fournies soient exactes et à jour.",
     "signUpBtn": "S'inscrire",
     "passwordMismatch": "Les mots de passe ne correspondent pas !",
-    "mustAgreeTerms": "Vous devez accepter les Conditions générales"
+    "mustAgreeTerms": "Vous devez accepter les Conditions générales",
+    "termsModal": {
+      "acceptPrefix": "J'ai lu et j'accepte les",
+      "link": "Conditions et politiques de sécurité",
+      "title": "Conditions générales",
+      "subtitle": "Utilisation responsable · Sécurité · Protection des données",
+      "intro": "En vous inscrivant, vous confirmez avoir lu, compris et accepté les conditions essentielles d'utilisation responsable d'EduAirControl :",
+      "items": ["Fournir des informations exactes, complètes et à jour et protéger vos identifiants.", "Signaler rapidement tout accès non autorisé, perte d'identifiants ou risque pour la sécurité du compte.", "Utiliser la plateforme uniquement à des fins éducatives, administratives et de surveillance environnementale autorisées.", "Ne pas accéder, modifier, supprimer ou extraire des informations, ni perturber les systèmes, bases de données ou capteurs IoT sans autorisation.", "Les mesures des capteurs sont informatives, peuvent varier et ne remplacent pas une évaluation technique spécialisée.", "EduAirControl applique des mesures de sécurité raisonnables, sans pouvoir garantir une protection absolue contre tous les risques.", "Autoriser le traitement des données personnelles lorsque nécessaire, conformément à la loi applicable et à la politique de confidentialité.", "Des maintenances, mises à jour ou interruptions temporaires peuvent survenir pour des raisons techniques ou de connectivité.", "Accepter les mises à jour de ces conditions communiquées par la plateforme ; un manquement peut limiter ou suspendre l'accès."],
+      "notice": "Ce résumé ne remplace pas le document complet. L'utilisation d'EduAirControl est soumise aux Conditions générales complètes, à la Politique de traitement des données personnelles et à la législation applicable."
+    }
   },
   "common": {
     "close": "Fermer",
@@ -548,9 +557,9 @@
     },
     "hero": {
       "badge": "Plateforme leader en surveillance environnementale éducative",
-      "title1": "Respirez Tranquille.",
-      "title2": "Apprenez Mieux.",
-      "title3": "EduAirControl.",
+      "title1": "Respirez Tranquille",
+      "title2": "Apprenez Mieux",
+      "title3": "EduAirControl",
       "description": "Surveillez en temps réel la qualité de l'air dans les salles de classe, laboratoires et espaces éducatifs grâce aux capteurs IoT, aux analyses intelligentes et aux alertes automatiques.",
       "createAccount": "Créer un compte",
       "viewDemo": "Voir les démos",
