@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+   
+    <changeSet id="aulas-tcl-001-fn-desactivar-aula" author="persona2" runOnChange="true">
+        <comment>Función transaccional para desactivar un aula y sus sensores</comment>
+
+        <sql splitStatements="false" endDelimiter="$$">
+            CREATE OR REPLACE FUNCTION fn_desactivar_aula(p_id_aula BIGINT)
+            RETURNS VOID AS $$
+            BEGIN
+                -- Toda la operación corre en la transacción implícita de la función.
+                -- Si cualquiera de los dos UPDATE falla, PostgreSQL revierte ambos.
+                UPDATE aula
+                   SET estado = 'inactiva',
+                       fecha_actualizacion = now()
+                 WHERE id_aula = p_id_aula;
+
+                IF NOT FOUND THEN
+                    RAISE EXCEPTION 'Aula % no existe', p_id_aula;
+                END IF;
+
+                UPDATE sensor
+                   SET estado = 'inactivo',
+                       fecha_actualizacion = now()
+                 WHERE id_aula = p_id_aula
+                   AND estado <> 'inactivo';
+
+                -- COMMIT es implícito al finalizar exitosamente la función.
+            EXCEPTION
+                WHEN OTHERS THEN
+                    -- ROLLBACK automático: se relanza el error para que el llamador se entere.
+                    RAISE;
+            END;
+            $$ LANGUAGE plpgsql;
+        </sql>
+
+        <rollback>
+            <sql>DROP FUNCTION IF EXISTS fn_desactivar_aula(BIGINT);</sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
