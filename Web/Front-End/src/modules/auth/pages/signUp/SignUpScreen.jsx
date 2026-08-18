@@ -31,19 +31,19 @@ function SignUpScreen() {
     }))
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!formData.acceptTerms) {
-      alert(t('signup.errorTerms', 'Debes aceptar los términos'))
-      return
-    }
-    if (formData.password !== formData.confirmPassword) {
-      alert(t('signup.errorPassword', 'Las contraseñas no coinciden'))
-      return
-    }
-    alert(`Registro exitoso para la empresa: ${formData.companyCode}`)
-    navigate('/dashboard')
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+  const result = signUpSchema.safeParse(formData)
+
+  if (!result.success) {
+    console.log(result.error.flatten().fieldErrors)
+    return
   }
+
+  alert(`Registro exitoso para la empresa: ${formData.companyCode}`)
+  navigate('/dashboard')
+}
 
   return (
     <AuthLayout>
