@@ -453,7 +453,8 @@
     "password_match": "Passwords do not match",
     "name_short": "Name is too short",
     "required_company_code": "Company code is required",
-    "invalid_company_code": "Company code must follow the format ABC-1234"
+    "invalid_company_code": "Company code must follow the format ABC-1234",
+    "uppercaseRequired:_password" : "It must contain at least one uppercase letter"
   },
   "notifications": {
     "title": "Notifications",
