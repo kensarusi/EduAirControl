@@ -45,7 +45,6 @@
     "signUpBtn": "Registrarse",
     "passwordMismatch": "¡Las contraseñas no coinciden!",
     "mustAgreeTerms": "Debes aceptar los Términos y Condiciones",
-<<<<<<< HEAD
     "termsModal": {
       "acceptPrefix": "He leído y acepto los",
       "link": "Términos y Políticas de Seguridad",
@@ -70,16 +69,13 @@
       ,"fullDocumentPrefix": "¿Deseas revisar toda la información?",
       "fullDocumentLink": "Leer el documento completo",
       "readRequired": "Debes leer y aceptar el documento completo antes de registrarte."
-    }
-=======
-
+    },
     "passwordStrength": {
       "weak": "Contraseña débil",
       "medium": "Contraseña media",
       "good": "Contraseña buena",
       "strong": "Contraseña segura"
   }
->>>>>>> 562f315 (feat:password validation messages)
   },
   "common": {
     "addFavorites": "Agregar a favoritos",
@@ -140,6 +136,22 @@
   "readToEnd": "Desplázate hasta el final del documento para habilitar la aceptación."
 },
 
+  "terms": {
+    "title": "Términos y Condiciones",
+    "subtitle": "Protección de datos • Seguridad • Uso responsable",
+    "intro": "Bienvenido a EduAirControl. Antes de utilizar nuestra plataforma, por favor lee cuidadosamente los siguientes términos y condiciones. Al crear una cuenta y utilizar nuestros servicios aceptas cumplir con estas disposiciones.",
+    "item1": "La información suministrada durante el registro debe ser veraz, actualizada y completa.",
+    "item2": "Cada usuario es responsable de proteger sus credenciales de acceso y de todas las actividades realizadas desde su cuenta.",
+    "item3": "La plataforma debe utilizarse únicamente con fines educativos, administrativos y de monitoreo ambiental autorizados por la institución.",
+    "item4": "Está prohibido manipular, alterar o intentar acceder sin autorización a la información, dispositivos IoT o servicios de EduAirControl.",
+    "item5": "Los datos ambientales mostrados por la plataforma corresponden a información recopilada por sensores IoT y tienen fines de monitoreo, análisis y apoyo en la toma de decisiones. No sustituyen inspecciones técnicas especializadas.",
+    "item6": "EduAirControl implementa medidas de seguridad para proteger la información almacenada; sin embargo, ningún sistema puede garantizar seguridad absoluta frente a incidentes externos.",
+    "item7": "La plataforma podrá recibir actualizaciones, mejoras o modificaciones sin previo aviso cuando sean necesarias para optimizar su funcionamiento.",
+    "item8": "Al aceptar estos términos, autorizas el tratamiento de los datos necesarios para el funcionamiento de la plataforma conforme a la normativa de protección de datos aplicable.",
+    "footer1": "EduAirControl podrá modificar estos Términos y Condiciones cuando sea necesario. Las modificaciones serán publicadas en la plataforma.",
+    "footer2": "Al hacer clic en \"Aceptar\" confirmas que has leído, comprendido y aceptado estos Términos y Condiciones.",
+    "acceptBtn": "Aceptar"
+  },
   "dashboard": {
     "clickDetails": "Click Para Ver Detalles",
     "idealRange": "Rango ideal",
@@ -578,9 +590,9 @@
     },
     "hero": {
       "badge": "Plataforma líder en monitoreo ambiental educativo",
-      "title1": "Respira Tranquilo",
-      "title2": "Aprende Mejor",
-      "title3": "EduAirControl",
+      "title1": "Respira Tranquilo.",
+      "title2": "Aprende Mejor.",
+      "title3": "EduAirControl.",
       "description": "Monitorea en tiempo real la calidad del aire de aulas, laboratorios y espacios educativos mediante sensores IoT, análisis inteligentes y alertas automáticas.",
       "createAccount": "Crear cuenta",
       "viewDemo": "Ver demostraciones",

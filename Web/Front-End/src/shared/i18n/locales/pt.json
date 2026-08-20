@@ -55,7 +55,7 @@
       "notice": "Este resumo não substitui o documento completo. O uso do EduAirControl está sujeito aos Termos e Condições completos, à Política de Tratamento de Dados Pessoais e à legislação aplicável."
       ,"fullDocumentPrefix": "Deseja revisar todas as informações?",
       "fullDocumentLink": "Ler o documento completo",
-      "readRequired": "Você deve ler e aceitar o documento completo antes de se cadastrar."
+      "readRequired": "Você deve ler e aceitar o documento completo antes de se cadastrar.",
       "notice": "Este resumo não substitui o documento completo. O uso do EduAirControl está sujeito aos Termos e Condições completos, à Política de Tratamento de Dados Pessoais e à legislação aplicável.",
     
     "mustAgreeTerms": "Você deve aceitar os Termos e Condições",
@@ -867,4 +867,5 @@
     "star4": "Bom",
     "star5": "Excelente"
   }
+}
 }

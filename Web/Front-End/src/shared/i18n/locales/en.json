@@ -45,7 +45,6 @@
     "signUpBtn": "Sign Up",
     "passwordMismatch": "Passwords do not match!",
     "mustAgreeTerms": "You must agree to the Terms and Conditions",
-<<<<<<< HEAD
     "termsModal": {
       "acceptPrefix": "I have read and accept the",
       "link": "Terms and Security Policies",
@@ -56,14 +55,12 @@
       "notice": "This summary does not replace the complete document. Use of EduAirControl is subject to the complete Terms and Conditions, the Personal Data Processing Policy, and applicable legislation."
       ,"fullDocumentPrefix": "Would you like to review all the information?",
       "fullDocumentLink": "Read the complete document",
-      "readRequired": "You must read and accept the complete document before signing up."
-=======
+      "readRequired": "You must read and accept the complete document before signing up.",
     "passwordStrength": {
       "weak": "Weak password",
       "medium": "Medium password",
       "good": "Good password",
       "strong": "Strong password"
->>>>>>> 562f315 (feat:password validation messages)
     }
   },
   "common": {
@@ -690,9 +687,9 @@
     },
     "hero": {
       "badge": "Leading platform in educational environmental monitoring",
-      "title1": "Breathe Easy",
-      "title2": "Learn Better",
-      "title3": "EduAirControl",
+      "title1": "Breathe Easy.",
+      "title2": "Learn Better.",
+      "title3": "EduAirControl.",
       "description": "Monitor air quality in classrooms, labs and educational spaces in real time using IoT sensors, intelligent analysis and automatic alerts.",
       "createAccount": "Create Account",
       "viewDemo": "View Demos",
@@ -868,4 +865,5 @@
     "star4": "Good",
     "star5": "Excellent"
   }
+}
 }
