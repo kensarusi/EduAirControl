@@ -17,9 +17,8 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  padding: 40px;
-  width: 100%;
-  max-width: 450px;
+  max-width: 680px;
+  padding: 44px 40px;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
   animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -277,6 +276,7 @@ body:not(.dark-mode) .input-wrapper input::placeholder {
 /* Responsividad */
 @media (max-width: 480px) {
   .auth-card-modern {
+    max-width: 95%;
     padding: 30px 20px;
   }
   
