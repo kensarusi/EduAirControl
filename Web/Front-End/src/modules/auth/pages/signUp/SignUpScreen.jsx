@@ -65,7 +65,7 @@ function SignUpScreen() {
       <div className="signup-container-premium">
         <button
           className="back-btn-minimal"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/login')}
         >
           <FaArrowLeft />
         </button>
