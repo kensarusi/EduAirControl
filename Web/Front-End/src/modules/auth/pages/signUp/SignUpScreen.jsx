@@ -12,6 +12,7 @@ function SignUpScreen() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const termsSummary = t("signup.termsModal.items", { returnObjects: true })
+  const [hasReadFullTerms] = useState(() => sessionStorage.getItem("eduaircontrol-terms-read") === "true")
   
   const [formData, setFormData] = useState({
     companyCode: '',
@@ -32,6 +33,7 @@ function SignUpScreen() {
     }))
   }
 
+<<<<<<< Updated upstream
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!formData.acceptTerms) {
@@ -44,6 +46,21 @@ function SignUpScreen() {
     }
     alert(`Registro exitoso para la empresa: ${formData.companyCode}`)
     navigate('/dashboard')
+=======
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+  if (!hasReadFullTerms) {
+    setShowTerms(true)
+    return
+  }
+
+  const result = signUpSchema.safeParse(formData)
+
+  if (!result.success) {
+    console.log(result.error.flatten().fieldErrors)
+    return
+>>>>>>> Stashed changes
   }
 
   return (
@@ -143,6 +160,7 @@ function SignUpScreen() {
               name="acceptTerms"
               checked={formData.acceptTerms}
               onChange={handleChange}
+              disabled={!hasReadFullTerms}
             />
             <span className="slider-modern"></span>
           </label>
@@ -158,6 +176,7 @@ function SignUpScreen() {
               {t("signup.termsModal.link")}
             </button>
           </p>
+          {!hasReadFullTerms && <p className="terms-read-required">{t("signup.termsModal.readRequired")}</p>}
         </div>
 
           <button type="submit" className="btn-signup-premium">
@@ -209,6 +228,13 @@ function SignUpScreen() {
             </div>
 
             <p>{t("signup.termsModal.notice")}</p>
+
+            <p className="terms-full-document">
+              {t("signup.termsModal.fullDocumentPrefix")} {" "}
+              <button type="button" className="terms-link-btn" onClick={() => navigate("/terms")}>
+                {t("signup.termsModal.fullDocumentLink")}
+              </button>
+            </p>
 
           </div>
 

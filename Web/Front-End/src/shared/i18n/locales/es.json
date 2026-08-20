@@ -66,6 +66,9 @@
         "Confirmar, al marcar la aceptación, que has leído y comprendido este resumen y los Términos y Condiciones completos disponibles en EduAirControl."
       ],
       "notice": "Este resumen no reemplaza el documento completo. El uso de EduAirControl está sujeto a los Términos y Condiciones completos, la Política de Tratamiento de Datos Personales y la legislación colombiana aplicable."
+      ,"fullDocumentPrefix": "¿Deseas revisar toda la información?",
+      "fullDocumentLink": "Leer el documento completo",
+      "readRequired": "Debes leer y aceptar el documento completo antes de registrarte."
     }
   },
   "common": {
@@ -123,7 +126,8 @@
   "item8": "El tratamiento de datos personales se realizará de acuerdo con la normativa colombiana aplicable, especialmente la Ley 1581 de 2012 y sus normas reglamentarias. Cuando sea necesario, se solicitará al titular una autorización previa, expresa e informada para el tratamiento de sus datos personales.",
   "footer1": "Los titulares de datos personales tienen derecho a conocer, actualizar y rectificar sus datos, solicitar información sobre su tratamiento y presentar consultas o reclamos de acuerdo con la normativa colombiana aplicable. Las condiciones específicas del tratamiento de datos se encuentran establecidas en la Política de Tratamiento de Datos Personales de EduAirControl.",
   "footer2": "EduAirControl podrá modificar estos Términos y Condiciones cuando sea necesario. Las modificaciones serán publicadas o comunicadas mediante los mecanismos disponibles en la plataforma. Al hacer clic en \"Aceptar\", confirmas que has leído, comprendido y aceptado estos Términos y Condiciones.",
-  "acceptBtn": "He leído y acepto"
+  "acceptBtn": "He leído y acepto",
+  "readToEnd": "Desplázate hasta el final del documento para habilitar la aceptación."
 },
 
   "dashboard": {

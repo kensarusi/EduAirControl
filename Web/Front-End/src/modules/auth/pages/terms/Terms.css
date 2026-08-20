@@ -310,6 +310,22 @@ body:not(.dark-mode) .terms-container{
     transform:scale(.98);
 }
 
+.btn-accept:disabled{
+    cursor:not-allowed;
+    opacity:.5;
+    transform:none;
+    box-shadow:none;
+}
+
+.terms-read-hint{
+    position:relative;
+    z-index:2;
+    margin:28px 0 -24px;
+    text-align:center;
+    color:var(--text-muted, #93a9bf);
+    font-size:.9rem;
+}
+
 @media(max-width:768px){
 
     .terms-page{ padding:88px 16px 36px; }
