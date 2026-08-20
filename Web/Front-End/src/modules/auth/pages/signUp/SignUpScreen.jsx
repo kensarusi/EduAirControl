@@ -2,17 +2,22 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaUser, FaEnvelope, FaLock, FaBuilding, FaArrowLeft } from 'react-icons/fa'
-import { HiOutlineDocumentText, HiCheckCircle } from "react-icons/hi2";
-import AuthLayout from "../../components/AuthLayout/AuthLayout";
+import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2'
+import AuthLayout from "../../components/AuthLayout/AuthLayout"
 import SocialLogin from '../../components/SocialLogin/SocialLogin'
-import { Divider } from "../../../../shared/components";
-import "./SignUp.css";
+import { Divider } from "../../../../shared/components"
+import "./SignUp.css"
 
 function SignUpScreen() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+
   const termsSummary = t("signup.termsModal.items", { returnObjects: true })
-  
+
+  const [hasReadFullTerms] = useState(
+    () => sessionStorage.getItem("eduaircontrol-terms-read") === "true"
+  )
+
   const [formData, setFormData] = useState({
     companyCode: '',
     name: '',
@@ -21,52 +26,79 @@ function SignUpScreen() {
     confirmPassword: '',
     acceptTerms: false
   })
-  
+
   const [showTerms, setShowTerms] = useState(false)
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
+
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
   }
 
-const handleSubmit = (e) => {
-  e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
-  const result = signUpSchema.safeParse(formData)
+    if (!hasReadFullTerms) {
+      setShowTerms(true)
+      return
+    }
 
-  if (!result.success) {
-    console.log(result.error.flatten().fieldErrors)
-    return
+    if (!formData.acceptTerms) {
+      alert(t('signup.errorTerms', 'Debes aceptar los términos'))
+      return
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert(t('signup.errorPassword', 'Las contraseñas no coinciden'))
+      return
+    }
+
+    alert(`Registro exitoso para la empresa: ${formData.companyCode}`)
+    navigate('/dashboard')
   }
-
-  alert(`Registro exitoso para la empresa: ${formData.companyCode}`)
-  navigate('/dashboard')
-}
 
   return (
     <AuthLayout>
       <div className="signup-container-premium">
-        <button className="back-btn-minimal" onClick={() => navigate('/')}>
+        <button
+          className="back-btn-minimal"
+          onClick={() => navigate('/')}
+        >
           <FaArrowLeft />
         </button>
 
         <div className="signup-header-centered">
           <h1>{t('signup.title')}</h1>
-          <p>{t('signup.subtitle', 'Únete a la red de monitoreo inteligente')}</p>
+          <p>
+            {t(
+              'signup.subtitle',
+              'Únete a la red de monitoreo inteligente'
+            )}
+          </p>
         </div>
 
-        <form className="signup-form-modern" onSubmit={handleSubmit}>
+        <form
+          className="signup-form-modern"
+          onSubmit={handleSubmit}
+        >
           <div className="input-group-modern">
-            <label>{t('signup.companyCode', 'Código de Empresa')}</label>
+            <label>
+              {t('signup.companyCode', 'Código de Empresa')}
+            </label>
+
             <div className="input-wrapper">
               <FaBuilding className="input-icon" />
+
               <input
                 type="text"
                 name="companyCode"
-                placeholder={t('signup.placeholderCompany', 'Ej: EDU-2024')}
+                placeholder={t(
+                  'signup.placeholderCompany',
+                  'Ej: EDU-2024'
+                )}
                 value={formData.companyCode}
                 onChange={handleChange}
                 required
@@ -75,9 +107,13 @@ const handleSubmit = (e) => {
           </div>
 
           <div className="input-group-modern">
-            <label>{t('signup.fullName', 'Nombre completo')}</label>
+            <label>
+              {t('signup.fullName', 'Nombre completo')}
+            </label>
+
             <div className="input-wrapper">
               <FaUser className="input-icon" />
+
               <input
                 type="text"
                 name="name"
@@ -90,9 +126,13 @@ const handleSubmit = (e) => {
           </div>
 
           <div className="input-group-modern">
-            <label>{t('signup.email')}</label>
+            <label>
+              {t('signup.email')}
+            </label>
+
             <div className="input-wrapper">
               <FaEnvelope className="input-icon" />
+
               <input
                 type="email"
                 name="email"
@@ -106,9 +146,13 @@ const handleSubmit = (e) => {
 
           <div className="form-row-modern">
             <div className="input-group-modern">
-              <label>{t('signup.password')}</label>
+              <label>
+                {t('signup.password')}
+              </label>
+
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
+
                 <input
                   type="password"
                   name="password"
@@ -121,9 +165,16 @@ const handleSubmit = (e) => {
             </div>
 
             <div className="input-group-modern">
-              <label>Confirmar contraseña</label>
+              <label>
+                {t(
+                  'signup.confirmPassword',
+                  'Confirmar contraseña'
+                )}
+              </label>
+
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
+
                 <input
                   type="password"
                   name="confirmPassword"
@@ -136,95 +187,125 @@ const handleSubmit = (e) => {
             </div>
           </div>
 
-        <div className="terms-container-modern">
-          <label className="custom-toggle-modern">
-            <input
-              type="checkbox"
-              name="acceptTerms"
-              checked={formData.acceptTerms}
-              onChange={handleChange}
-            />
-            <span className="slider-modern"></span>
-          </label>
+          <div className="terms-container-modern">
+            <label className="custom-toggle-modern">
+              <input
+                type="checkbox"
+                name="acceptTerms"
+                checked={formData.acceptTerms}
+                onChange={handleChange}
+                disabled={!hasReadFullTerms}
+              />
 
-          <p className="terms-text-modern">
-            {t("signup.termsModal.acceptPrefix")}{" "}
+              <span className="slider-modern"></span>
+            </label>
 
-            <button
-              type="button"
-              className="terms-link-btn"
-              onClick={() => setShowTerms(true)}
-            >
-              {t("signup.termsModal.link")}
-            </button>
-          </p>
-        </div>
+            <p className="terms-text-modern">
+              {t("signup.termsModal.acceptPrefix")}{" "}
 
-          <button type="submit" className="btn-signup-premium">
+              <button
+                type="button"
+                className="terms-link-btn"
+                onClick={() => setShowTerms(true)}
+              >
+                {t("signup.termsModal.link")}
+              </button>
+            </p>
+
+            {!hasReadFullTerms && (
+              <p className="terms-read-required">
+                {t("signup.termsModal.readRequired")}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="btn-signup-premium"
+          >
             {t('signup.signUpBtn')}
           </button>
         </form>
 
-        <Divider text="OR" className="divider-clean" />
+        <Divider
+          text="OR"
+          className="divider-clean"
+        />
+
         <SocialLogin />
       </div>
 
-    {showTerms && (
-      <div
-        className="modal-overlay-modern"
-        onClick={() => setShowTerms(false)}
-      >
+      {showTerms && (
         <div
-          className="modal-content-modern"
-          onClick={(e) => e.stopPropagation()}
+          className="modal-overlay-modern"
+          onClick={() => setShowTerms(false)}
         >
+          <div
+            className="modal-content-modern"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-header">
+              <div className="modal-icon">
+                <HiOutlineDocumentText />
+              </div>
 
-          <div className="modal-header">
+              <h2>
+                {t("signup.termsModal.title")}
+              </h2>
 
-            <div className="modal-icon">
-              <HiOutlineDocumentText />
+              <p>
+                {t("signup.termsModal.subtitle")}
+              </p>
             </div>
 
-            <h2>{t("signup.termsModal.title")}</h2>
+            <div
+              className="terms-scroll-area"
+              key={showTerms}
+            >
+              <p>
+                {t("signup.termsModal.intro")}
+              </p>
 
-            <p>{t("signup.termsModal.subtitle")}</p>
+              <div className="terms-modal-list">
+                {termsSummary.map((item) => (
+                  <div
+                    className="term-modal-item"
+                    key={item}
+                  >
+                    <HiCheckCircle />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
 
-          </div>
+              <p>
+                {t("signup.termsModal.notice")}
+              </p>
 
-          <div className="terms-scroll-area"
-                key={showTerms}
-          >
+              <p className="terms-full-document">
+                {t("signup.termsModal.fullDocumentPrefix")}{" "}
 
-            <p>{t("signup.termsModal.intro")}</p>
-
-            <div className="terms-modal-list">
-
-              {termsSummary.map((item)=>(
-                <div className="term-modal-item" key={item}>
-                  <HiCheckCircle />
-                  <span>{item}</span>
-                </div>
-              ))}
-
+                <button
+                  type="button"
+                  className="terms-link-btn"
+                  onClick={() => navigate("/terms")}
+                >
+                  {t("signup.termsModal.fullDocumentLink")}
+                </button>
+              </p>
             </div>
 
-            <p>{t("signup.termsModal.notice")}</p>
-
+            <button
+              className="btn-close-modal"
+              onClick={() => setShowTerms(false)}
+            >
+              {t("common.close")}
+            </button>
           </div>
-
-          <button
-            className="btn-close-modal"
-            onClick={() => setShowTerms(false)}
-          >
-            {t("common.close")}
-          </button>
-
         </div>
-      </div>
-    )}
-
+      )}
     </AuthLayout>
-  );
+  )
 }
 
-export default SignUpScreen;
+export default SignUpScreen

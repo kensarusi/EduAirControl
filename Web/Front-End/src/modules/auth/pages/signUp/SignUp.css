@@ -642,3 +642,17 @@ body:not(.dark-mode) .modal-content-modern{
   }
 
 }
+
+.terms-read-required{
+    width:100%;
+    margin:6px 0 0;
+    color:#f5c86a;
+    font-size:.78rem;
+    line-height:1.35;
+}
+
+.terms-full-document{
+    margin-top:22px;
+    text-align:center;
+    font-weight:600;
+}
