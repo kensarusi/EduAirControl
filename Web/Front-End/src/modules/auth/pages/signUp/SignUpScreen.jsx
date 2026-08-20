@@ -38,19 +38,17 @@ function SignUpScreen() {
     }))
   }
 
+  const passwordRequirements = {
+    minLength: formData.password.length >= 8,
+    hasUppercase: /[A-Z]/.test(formData.password),
+    hasLowercase: /[a-z]/.test(formData.password),
+    hasNumber: /[0-9]/.test(formData.password),
+    hasSpecialChar: /[^A-Za-z0-9]/.test(formData.password),
+  }
+  const passwordStrength = Object.values(passwordRequirements).filter(Boolean).length
+
   const handleSubmit = (e) => {
     e.preventDefault()
-const passwordRequirements = {
-  minLength: formData.password.length >= 8,
-  hasUppercase: /[A-Z]/.test(formData.password),
-  hasLowercase: /[a-z]/.test(formData.password),
-  hasNumber: /[0-9]/.test(formData.password),
-  hasSpecialChar: /[^A-Za-z0-9]/.test(formData.password),
-}
-const passwordStrength = Object.values(passwordRequirements).filter(Boolean).length
-
-const handleSubmit = (e) => {
-  e.preventDefault()
 
     if (!hasReadFullTerms) {
       setShowTerms(true)
@@ -160,8 +158,6 @@ const handleSubmit = (e) => {
               <label>
                 {t('signup.password')}
               </label>
-
-              <label>{t('signup.password')}</label>
 
               <div className="input-wrapper">
                 <FaLock className="input-icon" />
@@ -334,6 +330,5 @@ const handleSubmit = (e) => {
       )}
     </AuthLayout>
   )
-}
 }
 export default SignUpScreen
