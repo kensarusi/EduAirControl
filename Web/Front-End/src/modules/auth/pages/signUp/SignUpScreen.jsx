@@ -335,5 +335,5 @@ const handleSubmit = (e) => {
     </AuthLayout>
   )
 }
-
+}
 export default SignUpScreen
