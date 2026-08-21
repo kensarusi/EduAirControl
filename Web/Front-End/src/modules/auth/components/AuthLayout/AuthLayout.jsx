@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaChevronDown } from 'react-icons/fa'
 
-function AuthLayout({ children }) {
+function AuthLayout({ children, className = '' }) {
   const { i18n } = useTranslation()
   const [showLangs, setShowLangs] = useState(false)
 
@@ -40,7 +40,7 @@ function AuthLayout({ children }) {
   }
 
   return (
-    <div className="auth-container">
+    <div className={`auth-container ${className}`.trim()}>
       {/* Selector de Idiomas Fijo en la Esquina Superior Derecha */}
       <div className="language-selector-fixed">
         <button
