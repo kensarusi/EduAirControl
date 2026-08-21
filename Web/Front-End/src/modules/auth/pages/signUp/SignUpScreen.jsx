@@ -1,14 +1,7 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { FaUser, FaEnvelope, FaLock, FaBuilding, FaArrowLeft } from 'react-icons/fa'
-import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2'
-import AuthLayout from "../../components/AuthLayout/AuthLayout"
-import SocialLogin from '../../components/SocialLogin/SocialLogin'
-import { Divider } from "../../../../shared/components"
-import "./SignUp.css"
+import AuthLayout from '../../components/AuthLayout/AuthLayout'
 
 function SignUpScreen() {
+
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -331,4 +324,5 @@ function SignUpScreen() {
     </AuthLayout>
   )
 }
+
 export default SignUpScreen
