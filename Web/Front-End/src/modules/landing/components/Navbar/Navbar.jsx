@@ -84,11 +84,7 @@ function Navbar() {
 
                 <ScrollLink to="why">{t("landing.navbar.why")}</ScrollLink>
 
-                <ScrollLink to="modules">{t("landing.navbar.modules")}</ScrollLink>
-
                 <ScrollLink to="how">{t("landing.navbar.howItWorks")}</ScrollLink>
-
-                <ScrollLink to="technologies">{t("landing.navbar.technologies")}</ScrollLink>
 
                 <ScrollLink to="designed">{t("landing.navbar.designedFor")}</ScrollLink>
 
@@ -169,11 +165,7 @@ function Navbar() {
 
                 <ScrollLink to="why" onClick={closeMenu}>{t("landing.navbar.why")}</ScrollLink>
 
-                <ScrollLink to="modules" onClick={closeMenu}>{t("landing.navbar.modules")}</ScrollLink>
-
                 <ScrollLink to="how" onClick={closeMenu}>{t("landing.navbar.howItWorks")}</ScrollLink>
-
-                <ScrollLink to="technologies" onClick={closeMenu}>{t("landing.navbar.technologies")}</ScrollLink>
 
                 <ScrollLink to="designed" onClick={closeMenu}>{t("landing.navbar.designedFor")}</ScrollLink>
 

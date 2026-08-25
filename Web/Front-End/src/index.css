@@ -251,14 +251,7 @@ body {
 /* Modo claro: fondo suave con imagen más tenue */
 body:not(.dark-mode) {
   background-color: #e8f4f0;
-  background-image:
-    linear-gradient(
-      160deg,
-      rgba(232, 244, 240, 0.92) 0%,
-      rgba(220, 240, 235, 0.88) 50%,
-      rgba(232, 244, 240, 0.92) 100%
-    ),
-    url('./shared/assets/bg.png');
+ 
   color: var(--text-primary);
 }
 
@@ -333,47 +326,6 @@ body.theme-tritanopia::before {
 
 img { max-width: 100%; height: auto; }
 input, button { max-width: 100%; }
-
-/* ============================================ */
-/* AUTH                                         */
-/* ============================================ */
-
-.auth-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: var(--bg-body);
-  font-family: Arial, sans-serif;
-  position: relative;
-}
-
-.auth-card {
-  position: relative;
-  background: var(--bg-card);
-  border: 2px solid var(--accent);
-  border-radius: 15px;
-  padding: 40px;
-  width: 400px;
-  text-align: center;
-  color: var(--text-primary);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.auth-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-body.dark-mode .auth-card:hover {
-  box-shadow: 0 0 25px rgba(0, 184, 148, 0.25);
-}
-
-.auth-card h2 {
-  color: var(--accent) !important;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(0, 184, 148, 0.4);
-}
 
 /* ============================================ */
 /* NAVBAR                                       */
@@ -809,7 +761,6 @@ button:active { transform: scale(0.97); }
   transition: transform 0.3s, background-color 0.3s;
 }
 
-.auth-card,
 .env-card,
 .summary-card,
 .settings-card,
@@ -817,7 +768,6 @@ button:active { transform: scale(0.97); }
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.auth-card:hover,
 .env-card:hover,
 .summary-card:hover,
 .settings-card:hover,
@@ -1171,8 +1121,6 @@ button:active { transform: scale(0.97); }
   .env-card-title h3 { font-size: 14px; }
   .env-metric p { font-size: 12px; }
 
-  .auth-card { padding: 20px 15px; }
-
   .modal-content { padding: 20px 15px; }
 }
 
@@ -1216,9 +1164,6 @@ button:active { transform: scale(0.97); }
     grid-template-columns: 1fr !important;
   }
 
-  .auth-card {
-    width: 95%;
-  }
 }
 
 
@@ -1244,9 +1189,6 @@ button:active { transform: scale(0.97); }
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  .auth-card {
-    max-width: 400px;
-  }
 }
 
 
@@ -1278,9 +1220,6 @@ button:active { transform: scale(0.97); }
     margin: 0 auto;
   }
 
-  .auth-card {
-    width: 450px;
-  }
 }
 
 /* Aseguramos que todas las páginas sean transparentes para ver el fondo */

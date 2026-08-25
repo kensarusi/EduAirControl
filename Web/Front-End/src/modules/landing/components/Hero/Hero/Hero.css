@@ -1,11 +1,11 @@
 .hero{
     position: relative;
     width:100%;
-    min-height: 100vh;
+    min-height: min(100vh, 900px);
     display:flex;
     align-items:center;
     justify-content:center;
-    padding: clamp(110px, 10vw, 150px) clamp(24px, 5vw, 80px) clamp(64px, 7vw, 110px);
+    padding: clamp(105px, 8vw, 128px) clamp(24px, 5vw, 64px) clamp(52px, 5vw, 78px);
     overflow:hidden;
     background:
         radial-gradient(circle at top,#072540 0%,#020817 55%,#020817 100%);
@@ -77,13 +77,13 @@
 
 .hero-container{
     width:100%;
-    max-width:1240px;
+    max-width:980px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
-    gap:clamp(28px, 4vw, 52px);
+    gap:clamp(24px, 3vw, 36px);
     position:relative;
     z-index:1;
 }
@@ -95,7 +95,7 @@
     .hero{
 
         min-height:auto;
-        padding:120px 32px 72px;
+        padding:112px 32px 64px;
 
     }
 

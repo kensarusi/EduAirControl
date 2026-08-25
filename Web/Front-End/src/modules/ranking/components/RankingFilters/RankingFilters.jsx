@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import "./RankingFilters.css";
+import "./rankingFilters.css";
 
 function RankingFilters({
   filters,
@@ -8,7 +8,6 @@ function RankingFilters({
 }) {
 
   const { t } = useTranslation();
-
   const update = (field, value) => {
     setFilters(prev => ({
       ...prev,

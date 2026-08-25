@@ -7,24 +7,48 @@
 /* ── Contenedor principal ── */
 .auth-container {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
   position: relative;
-  overflow: hidden;
   background-color: transparent;
+}
+
+.auth-container.auth-login-background {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  min-height: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  overflow-x: hidden;
+  background-color: #162337;
+  background-image: linear-gradient(145deg, #162337, #152534);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+@media (max-width: 767px) {
+  .auth-container.auth-login-background {
+    overflow-y: auto;
+  }
+}
+
+.auth-container.auth-login-background .auth-overlay {
+  position: fixed;
 }
 
 /* ── Overlay ── */
 .auth-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    rgba(4, 15, 35, 0.60),
-    rgba(4, 15, 35, 0.78)
-  );
+  
   pointer-events: none;
 }
 
@@ -53,6 +77,17 @@ body:not(.dark-mode) .auth-overlay {
     background 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .auth-card {
+    max-width: 1080px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
 }
 
 /* ── Efecto brillo ── */
@@ -87,8 +122,8 @@ body:not(.dark-mode) .auth-overlay {
   gap: 8px;
   padding: 10px 14px;
   background: var(--lb-glass-bg);
-  backdrop-filter: var(--lb-glass-blur);
   -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
   border: 1px solid var(--lb-glass-border);
   border-radius: 12px;
   color: var(--text-primary);
@@ -107,8 +142,8 @@ body:not(.dark-mode) .auth-overlay {
   right: 0;
   min-width: 180px;
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--lb-glass-border);

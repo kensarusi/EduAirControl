@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import "./RankingHeader.css";
+import "./rankingHeader.css";
 
 function RankingHeader() {
 

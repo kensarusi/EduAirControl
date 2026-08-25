@@ -10,10 +10,11 @@ export const RegisterSchema = z.object({
         .email("errors.invalid_email"),
     password: z
         .string()
-        .min(6, "errors.minLength:_password"),
+        .min(8, "errors.minLength:_password")
+        .regex(/[A-Z]/, "errors.uppercaseRequired:_password"),
+
     confirmPassword: z
         .string()
-
 });
 refine(
     (data)=> data.password === data.confirmPassword, 

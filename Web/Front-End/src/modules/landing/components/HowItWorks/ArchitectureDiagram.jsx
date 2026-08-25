@@ -54,30 +54,6 @@ function ArchitectureDiagram() {
 
   </div>
 
-  <div className="chart">
-
-    <svg viewBox="0 0 600 180">
-
-        <polyline
-            fill="none"
-            stroke="#39F4D8"
-            strokeWidth="5"
-            points="
-            0,140
-            80,120
-            160,130
-            240,90
-            320,100
-            400,70
-            480,85
-            560,40
-            "
-        />
-
-    </svg>
-
-</div>
-
 <div className="system-flow">
 
   <div className="flow-step">
