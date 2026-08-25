@@ -60,25 +60,8 @@
 .users-grid{
 
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:24px;
-
-}
-
-/* Tarjeta superior*/
-
-.user-card:first-child{
-
-    grid-column:1 / span 2;
-
-}
-
-/* Tarjeta inferior */
-
-.user-card:last-child{
-
-    grid-column:1 / span 2;
-
 }
 
 
@@ -87,6 +70,11 @@
 
     position:relative;
     overflow:hidden;
+    min-height:320px;
+    height:100%;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
     background:#111827;
     border:1px solid rgba(255,255,255,.05);
     border-radius:24px;
@@ -148,37 +136,7 @@
 
     color:#94A3B8;
     line-height:1.8;
-    max-width:550px;
-
-}
-
-
-.user-card:first-child{
-
-    display:flex;
-    align-items:center;
-    gap:35px;
-
-}
-
-.user-card:first-child .user-icon{
-
-    margin-bottom:0;
-
-}
-
-.user-card:last-child{
-
-    display:flex;
-    align-items:center;
-    gap:35px;
-
-}
-
-.user-card:last-child .user-icon{
-
-    margin-bottom:0;
-
+    max-width:100%;
 }
 
 
@@ -249,29 +207,9 @@
 
     .users-grid{
 
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(2,minmax(0,1fr));
 
         gap:20px;
-
-    }
-
-    .user-card:first-child,
-    .user-card:last-child{
-
-        grid-column:auto;
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:20px;
-
-    }
-
-    .user-card:first-child .user-icon,
-    .user-card:last-child .user-icon{
-
-        margin-bottom:0;
 
     }
 
@@ -319,6 +257,7 @@
     .user-card{
 
         padding:24px;
+        min-height:280px;
 
     }
 
@@ -388,6 +327,7 @@
     .user-card{
 
         padding:20px;
+        min-height:260px;
 
         border-radius:18px;
 

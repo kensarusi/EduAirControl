@@ -74,12 +74,17 @@
 
 
 .architecture-container{
-    display:grid;
-    grid-template-columns:1.45fr .95fr;
-    gap:45px;
-    align-items:start;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:34px;
     width:100%;
     max-width:1440px;
+    margin:0 auto;
+}
+
+.architecture-container > .dashboard-demo{
+    max-width:1100px;
     margin:0 auto;
 }
 
@@ -204,40 +209,96 @@
 
 
 .architecture-info{
+    width:100%;
+    padding:24px;
+    border:1px solid rgba(39,245,210,.16);
+    border-radius:24px;
+    background:rgba(17,24,39,.82);
+    box-shadow:0 20px 50px rgba(0,0,0,.24);
+}
 
+.info-carousel{
+    overflow:hidden;
+    border-radius:18px;
+}
+
+.info-track{
     display:flex;
-    flex-direction:column;
-    gap:18px;
-
+    transition:transform .45s ease;
 }
 
 
 .info-card{
-
+    flex:0 0 100%;
     display:flex;
-
     gap:18px;
-
     padding:22px;
-
+    align-items:flex-start;
     border-radius:20px;
-
     background:#111827;
-
     border:1px solid rgba(255,255,255,.06);
-
-    transition:.35s;
-
 }
 
 .info-card:hover{
-
-    transform:translateX(8px);
-
     border-color:#27F5D2;
-
     box-shadow:0 15px 35px rgba(39,245,210,.12);
+}
 
+.carousel-controls{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:20px;
+}
+
+.carousel-arrow,
+.carousel-dot{
+    border:1px solid rgba(39,245,210,.25);
+    cursor:pointer;
+    color:#27F5D2;
+    background:rgba(39,245,210,.08);
+    transition:background .2s, border-color .2s, opacity .2s;
+}
+
+.carousel-arrow{
+    display:grid;
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    place-items:center;
+    border-radius:50%;
+}
+
+.carousel-arrow:hover:not(:disabled),
+.carousel-arrow:focus-visible,
+.carousel-dot:hover,
+.carousel-dot:focus-visible,
+.carousel-dot.is-active{
+    border-color:#27F5D2;
+    background:#27F5D2;
+    color:#061423;
+}
+
+.carousel-arrow:disabled{
+    cursor:not-allowed;
+    opacity:.3;
+}
+
+.carousel-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.carousel-dot{
+    min-width:34px;
+    height:34px;
+    padding:0 8px;
+    border-radius:999px;
+    font-size:.78rem;
+    font-weight:700;
 }
 
 

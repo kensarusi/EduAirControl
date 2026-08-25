@@ -30,6 +30,7 @@ function AuthSlider({ initialRegister = false }) {
         </section>
 
         <section className="auth-slider-form auth-slider-register" aria-hidden={!isRegister} inert={!isRegister}>
+    
           <div className="auth-slider-heading">
             <h1>{t('signup.title')}</h1>
             <p>{t('signup.subtitle', 'Únete a la red de monitoreo inteligente')}</p>
