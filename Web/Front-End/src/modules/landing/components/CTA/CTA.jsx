@@ -26,7 +26,7 @@ function CTA() {
 
         <div className="cta-buttons">
 
-          <Link to="/signup" className="btn-primary">
+          <Link to="/login?panel=register" className="btn-primary">
             <LogIn size={20}/>
             {t("landing.cta.registerBtn")}
           </Link>

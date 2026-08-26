@@ -94,7 +94,7 @@ function Footer() {
           <h3>{t("landing.footer.resourcesTitle")}</h3>
 
           <Link to="/login">{t("landing.footer.loginLink")}</Link>
-          <Link to="/signup">{t("landing.footer.signupLink")}</Link>
+          <Link to="/login">{t("landing.footer.signupLink")}</Link>
           <Link to="/terms">{t("landing.footer.termsLink")}</Link>
 
         </div>

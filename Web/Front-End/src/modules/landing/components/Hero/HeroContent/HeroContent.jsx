@@ -30,7 +30,7 @@ function HeroContent() {
 
       <div className="hero-actions">
 
-        <Link to="/signup" className="primary-btn">
+        <Link to="/login" className="primary-btn">
           {t("landing.hero.createAccount")}
           <span className="btn-arrow">→</span>
         </Link>

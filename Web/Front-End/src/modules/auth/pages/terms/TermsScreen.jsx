@@ -31,7 +31,7 @@ function TermsScreen() {
 
   const acceptTerms = () => {
     sessionStorage.setItem("eduaircontrol-terms-read", "true");
-    navigate("/signup");
+    navigate("/login");
   };
 
   return (

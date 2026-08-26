@@ -4,7 +4,6 @@ import { Navigate, Routes, Route } from "react-router-dom";
 // AUTH
 // ======================
 import LoginScreen from "./modules/auth/pages/login/LoginScreen";
-import SignUpScreen from "./modules/auth/pages/signUp/SignUpScreen";
 import ForgotPasswordScreen from "./modules/auth/pages/forgotPassword/ForgotPasswordScreen";
 import VerifyCodeScreen from "./modules/auth/pages/verifyCode/VerifyCodeScreen";
 import ChangePasswordScreen from "./modules/auth/pages/ChangePassword/ChangePasswordScreen";
@@ -56,7 +55,6 @@ function App() {
       {/* ---------- Authentication ---------- */}
       <Route path="/" element={<Navigate to="/landing" replace />} />
       <Route path="/login" element={<LoginScreen />} />
-      <Route path="/signup" element={<SignUpScreen />} />
       <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
       <Route path="/verify-code" element={<VerifyCodeScreen />} />
       <Route path="/change-password" element={<ChangePasswordScreen />} />
