@@ -1,3 +1,7 @@
+/* Hoja global compartida de EduAirControl. */
+/* El nuevo dashboard debe importar sus estilos desde dashboardScreen.css. */
+/* No borrar estos tokens: los usan autenticación, navegación, ambientes y accesibilidad. */
+
 /* ============================================ */
 /* SISTEMA DE TEMAS — VARIABLES GLOBALES        */
 /* ============================================ */

@@ -57,14 +57,14 @@ function Navbar() {
       path: "/all-environments",
     },
     {
-      icon: <FaTrophy />,
-      label: "Ranking",
-      path: "/ranking",
-    },
-    {
       icon: <FaHeart />,
       label: t("nav.favorites"),
       path: "/favorites",
+    },
+    {
+      icon: <FaTrophy />,
+      label: "Dashboard",
+      path: "/dashboard",
     },
     {
       icon: <FaUser />,
