@@ -23,6 +23,14 @@ function SignUpForm() {
   })
   const [showTerms, setShowTerms] = useState(false)
   const [openTerm, setOpenTerm] = useState(-1)
+  const passwordRequirements = {
+    minLength: formData.password.length >= 8,
+    hasUppercase: /[A-Z]/.test(formData.password),
+    hasLowercase: /[a-z]/.test(formData.password),
+    hasNumber: /[0-9]/.test(formData.password),
+    hasSpecialChar: /[^A-Za-z0-9]/.test(formData.password),
+  }
+  const passwordStrength = Object.values(passwordRequirements).filter(Boolean).length
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -69,6 +77,19 @@ function SignUpForm() {
               <FaLock className="input-icon" />
               <input id="signup-password" type="password" name="password" placeholder="••••••••" value={formData.password} onChange={handleChange} required />
             </div>
+            {formData.password && (
+              <div className="password-strength" aria-live="polite">
+                <div className="password-strength-bar" aria-hidden="true">
+                  <div className={`password-strength-fill strength-${passwordStrength}`} />
+                </div>
+                <span>
+                  {passwordStrength <= 2 && t('signup.passwordStrength.weak')}
+                  {passwordStrength === 3 && t('signup.passwordStrength.medium')}
+                  {passwordStrength === 4 && t('signup.passwordStrength.good')}
+                  {passwordStrength === 5 && t('signup.passwordStrength.strong')}
+                </span>
+              </div>
+            )}
           </div>
           <div className="input-group-modern">
             <label htmlFor="signup-confirm-password">{t('signup.confirmPassword', 'Confirmar contraseña')}</label>
