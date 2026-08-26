@@ -168,12 +168,6 @@
 
 @media (max-width:768px){
 
-    .footer{
-
-        margin-top:50px;
-
-    }
-
     .footer-container{
 
         width:100%;
@@ -236,12 +230,6 @@
 /* ========================================= */
 
 @media (max-width:480px){
-
-    .footer{
-
-        margin-top:40px;
-
-    }
 
     .footer-container{
 

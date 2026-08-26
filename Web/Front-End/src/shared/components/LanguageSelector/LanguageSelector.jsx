@@ -26,7 +26,7 @@ const LANGUAGES = [
   }
 ]
 
-function LanguageSelector() {
+function LanguageSelector({ openUp = false }) {
   const { i18n: i18nInstance } = useTranslation()
   const [showLangs, setShowLangs] = useState(false)
   const ref = useRef(null)
@@ -66,7 +66,7 @@ function LanguageSelector() {
       </button>
 
       {showLangs && (
-        <div className="lang-dropdown-premium">
+        <div className={`lang-dropdown-premium ${openUp ? 'lang-dropdown-premium--up' : ''}`}>
           {LANGUAGES.map(lang => (
             <button
               key={lang.code}

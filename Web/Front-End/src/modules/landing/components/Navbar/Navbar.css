@@ -447,6 +447,20 @@ body:not(.dark-mode) .landing-navbar__toggle:hover {
         padding: 10px 12px;
     }
 
+    .landing-navbar__menu .lang-dropdown-premium--up {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        top: auto;
+        right: 0;
+        left: auto;
+        animation: slideUp 0.2s ease-out;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
     .landing-navbar__mobile-login {
         display: block;
         width: 100%;

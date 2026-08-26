@@ -671,7 +671,7 @@
     .architecture-container{
 
         grid-template-columns:1fr;
-        gap:45px;
+        gap:28px;
 
     }
 
@@ -696,6 +696,10 @@
 
         justify-content:center;
 
+    }
+
+    .architecture-container{
+        gap:24px;
     }
 
 }
@@ -825,6 +829,10 @@
 
     }
 
+    .architecture-container{
+        gap:20px;
+    }
+
 }
 
 /* ========================================= */
@@ -872,6 +880,10 @@
         border-radius:22px;
     }
 
+    .architecture-container{
+        gap:20px;
+    }
+
     .diagram-card{
 
         max-width:220px;
@@ -910,6 +922,10 @@
     .status-card p{
         font-size:.88rem;
         line-height:1.55;
+    }
+
+    .architecture-container{
+        gap:18px;
     }
 
 }

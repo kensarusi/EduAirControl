@@ -175,7 +175,7 @@ function Navbar() {
 
                 <div className="landing-navbar__menu-footer">
                 <div className="landing-navbar__language">
-                    <LanguageSelector />
+                    <LanguageSelector openUp />
                 </div>
 
                 <button
