@@ -1,11 +1,21 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { FaUser, FaEnvelope, FaLock, FaBuilding, FaArrowLeft } from 'react-icons/fa'
+import { HiOutlineDocumentText, HiCheckCircle } from 'react-icons/hi2'
+import { ChevronDown } from 'lucide-react'
 import AuthLayout from '../../components/AuthLayout/AuthLayout'
+import { Divider } from '../../../../shared/components'
 
 function SignUpScreen() {
 
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const termsSummary = t("signup.termsModal.items", { returnObjects: true })
+  const localizedTerms = t('terms', { returnObjects: true })
+  const nestedTerms = t('signup.terms', { returnObjects: true })
+  const fullTerms = Array.isArray(localizedTerms?.sections) ? localizedTerms : nestedTerms
+  const termSections = Array.isArray(fullTerms?.sections) ? fullTerms.sections : []
 
   const [hasReadFullTerms] = useState(
     () => sessionStorage.getItem("eduaircontrol-terms-read") === "true"
@@ -21,6 +31,7 @@ function SignUpScreen() {
   })
 
   const [showTerms, setShowTerms] = useState(false)
+  const [openTerm, setOpenTerm] = useState(-1)
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -280,24 +291,29 @@ function SignUpScreen() {
               key={showTerms}
             >
               <p>
-                {t("signup.termsModal.intro")}
+                {fullTerms.intro || t("signup.termsModal.intro")}
               </p>
 
-              <div className="terms-modal-list">
-                {termsSummary.map((item) => (
-                  <div
-                    className="term-modal-item"
-                    key={item}
-                  >
-                    <HiCheckCircle />
-                    <span>{item}</span>
-                  </div>
-                ))}
+              <div className="terms-accordion">
+                {termSections.map((section, index) => {
+                  const isOpen = openTerm === index
+                  return (
+                    <section className={`term-module ${isOpen ? "is-open" : ""}`} key={section.title}>
+                      <button type="button" className="term-module-trigger" aria-expanded={isOpen} onClick={() => setOpenTerm(isOpen ? -1 : index)}>
+                        <span>{section.title}</span>
+                        <ChevronDown size={22} aria-hidden="true" />
+                      </button>
+                      {isOpen && (
+                        <div className="term-module-content">
+                          {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                          {section.list && <ul>{section.list.map((item) => <li key={item}><HiCheckCircle /><span>{item}</span></li>)}</ul>}
+                          {section.note && <p className="term-module-note">{section.note}</p>}
+                        </div>
+                      )}
+                    </section>
+                  )
+                })}
               </div>
-
-              <p>
-                {t("signup.termsModal.notice")}
-              </p>
 
               <p className="terms-full-document">
                 {t("signup.termsModal.fullDocumentPrefix")}{" "}
