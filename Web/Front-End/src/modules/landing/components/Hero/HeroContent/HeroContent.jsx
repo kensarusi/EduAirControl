@@ -31,7 +31,7 @@ function HeroContent() {
       <div className="hero-actions">
 
         <Link to="/signup" className="primary-btn">
-          {t("landing.hero.createAccount")}
+          {t("landing.hero.downloadApp")}
           <span className="btn-arrow">→</span>
         </Link>
 

@@ -136,7 +136,7 @@
   "readToEnd": "Desplázate hasta el final del documento para habilitar la aceptación."
 },
 
-  "terms": {
+  "termsSummary": {
     "title": "Términos y Condiciones",
     "subtitle": "Protección de datos • Seguridad • Uso responsable",
     "intro": "Bienvenido a EduAirControl. Antes de utilizar nuestra plataforma, por favor lee cuidadosamente los siguientes términos y condiciones. Al crear una cuenta y utilizar nuestros servicios aceptas cumplir con estas disposiciones.",
@@ -594,7 +594,7 @@
       "title2": "Aprende Mejor.",
       "title3": "EduAirControl.",
       "description": "Monitorea en tiempo real la calidad del aire de aulas, laboratorios y espacios educativos mediante sensores IoT, análisis inteligentes y alertas automáticas.",
-      "createAccount": "Crear cuenta",
+      "downloadApp": "Descargar app",
       "viewDemo": "Ver demostraciones",
       "stat1Value": "+120",
       "stat1Label": "Instituciones",
