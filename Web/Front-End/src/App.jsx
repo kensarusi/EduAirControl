@@ -17,11 +17,10 @@ import OAuth2SuccessScreen from "./modules/auth/pages/OAuth2SuccessScreen";
 // ======================
 import Landing from "./modules/landing/pages/Landing";
 
-
 // ======================
-// RANKING
+// DASHBOARD DE ANÁLISIS
 // ======================
-import RankingScreen from "./modules/ranking/pages/RankingScreen";
+import DashboardScreen from "./pages/DashboardScreen";
 
 // ======================
 // ENVIRONMENTS
@@ -48,7 +47,6 @@ import FavoritesScreen from "./modules/favorites/FavoritesScreen";
 function App() {
   return (
     <Routes>
-
       {/* ---------- Landing ---------- */}
       <Route path="/landing" element={<Landing />} />
 
@@ -63,25 +61,19 @@ function App() {
       <Route path="/facebook-signup" element={<FacebookSignUpScreen />} />
       <Route path="/oauth2/success" element={<OAuth2SuccessScreen />} />
 
-      {/* ---------- Ranking ---------- */}
-      <Route path="/ranking" element={<RankingScreen />} />
+      {/* ---------- Dashboard de análisis ---------- */}
+      <Route path="/dashboard" element={<DashboardScreen />} />
+      <Route path="/ranking" element={<Navigate to="/dashboard" replace />} />
 
       {/* ---------- Environments ---------- */}
-      <Route path="/dashboard" element={<Navigate to="/all-environments" replace />} />
       <Route path="/all-environments" element={<AllEnvironmentsScreen />} />
-
       <Route path="/environment/:id" element={<EnvironmentDetailScreen />} />
-
       <Route path="/management" element={<EnvironmentManagement />} />
-
-      <Route path="/management" element={<EnvironmentManagement />} />
-
 
       {/* ---------- User ---------- */}
       <Route path="/favorites" element={<FavoritesScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
-
     </Routes>
   );
 }
