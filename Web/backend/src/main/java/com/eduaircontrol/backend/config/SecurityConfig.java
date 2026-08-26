@@ -1,4 +1,4 @@
-package com.eduaircontrol.backend.shared.config;
+package com.eduaircontrol.backend.config;
 
 import com.eduaircontrol.backend.modules.security.JwtAuthFilter;
 import com.eduaircontrol.backend.modules.security.OAuth2AuthenticationSuccessHandler;

@@ -1,4 +1,4 @@
-package com.eduaircontrol.backend.shared.config;
+package com.eduaircontrol.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
