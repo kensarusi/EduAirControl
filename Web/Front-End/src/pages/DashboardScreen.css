@@ -28,6 +28,90 @@
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
+body:not(.dark-mode) .dashboard-analysis-screen {
+  --analysis-bg: #eef8f6;
+  --analysis-panel: rgba(255, 255, 255, .87);
+  --analysis-panel-soft: rgba(247, 252, 251, .94);
+  --analysis-panel-hover: rgba(237, 248, 246, .96);
+  --analysis-line: rgba(18, 55, 66, .13);
+  --analysis-line-soft: rgba(18, 55, 66, .09);
+  --analysis-text: #163244;
+  --analysis-muted: #5d7587;
+  --analysis-muted-strong: #36566d;
+  --analysis-accent: #00b894;
+  --analysis-green: #199f66;
+  --analysis-amber: #d58a08;
+  --analysis-red: #d75461;
+  --analysis-blue: #3e88d8;
+  background-color: var(--analysis-bg);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, .9) 0%, rgba(232, 244, 246, .88) 45%, rgba(238, 248, 249, .96) 100%), url("../../../shared/assets/bg.png");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-heading h1,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-heading p,
+body:not(.dark-mode) .dashboard-analysis-screen .hero-summary-card strong,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-panel-title h2,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-chart-header h2,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-environment-row strong,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-kpi-card > strong,
+body:not(.dark-mode) .dashboard-analysis-screen .main-analysis-chart,
+body:not(.dark-mode) .dashboard-analysis-screen .comparison-chart,
+body:not(.dark-mode) .dashboard-analysis-screen .network-status-chart,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-insight strong,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-tooltip strong,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-donut-center strong {
+  color: var(--analysis-text);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-controls,
+body:not(.dark-mode) .dashboard-analysis-screen .hero-summary-card,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-panel,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-kpi-card,
+body:not(.dark-mode) .dashboard-analysis-screen .main-analysis-chart,
+body:not(.dark-mode) .dashboard-analysis-screen .comparison-chart,
+body:not(.dark-mode) .dashboard-analysis-screen .network-status-chart,
+body:not(.dark-mode) .dashboard-analysis-screen .reading-panel,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-insight,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-tooltip,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-filter-select,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs {
+  background: var(--analysis-panel);
+  border-color: var(--analysis-line);
+  box-shadow: 0 12px 24px rgba(15, 35, 48, .08);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-tabs button,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-period-context,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-panel-description,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-environment-row small,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-tooltip p,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-chart-header p,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-hero-summary small,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-kpi-card > small,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-updated,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-chart-caption,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-network-legend > small {
+  color: var(--analysis-muted);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-tooltip,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-insight {
+  border-color: rgba(0, 184, 148, .18);
+}
+
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-panel-description,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-environment-row small,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-kpi-card > small,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-updated,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-chart-caption,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-network-legend > small,
+body:not(.dark-mode) .dashboard-analysis-screen .analysis-insight p {
+  color: var(--analysis-muted);
+}
+
 .dashboard-analysis-screen::before {
   content: '';
   position: absolute;
