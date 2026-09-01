@@ -165,6 +165,58 @@ function ChartTooltip({ active, payload, label, metric }) {
   );
 }
 
+function FilterSelect({ icon: Icon, value, options, onChange, isMetric = false, label }) {
+  const [open, setOpen] = useState(false);
+  const selected = options.find((option) => option.value === value) || options[0];
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleOutsideClick = (event) => {
+      if (!event.target.closest(".analysis-filter-select")) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [open]);
+
+  return (
+    <div className={`analysis-filter-select ${isMetric ? "metric-filter" : ""} ${open ? "is-open" : ""}`}>
+      <button
+        type="button"
+        className="analysis-filter-trigger"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-label={label}
+        aria-expanded={open}
+      >
+        <Icon size={15} />
+        <span className="analysis-filter-value">{selected.label}</span>
+        <FaChevronDown size={14} className="analysis-filter-chevron" />
+      </button>
+
+      {open && (
+        <div className="analysis-filter-menu" role="listbox" aria-label={label}>
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              className={`analysis-filter-option ${option.value === value ? "selected" : ""}`}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DashboardScreen() {
   const { environments = [] } = useEnvironment();
   const [period, setPeriod] = useState("day");
@@ -259,23 +311,24 @@ function DashboardScreen() {
           </div>
           <div className="analysis-period-context"><FaCalendarAlt size={15} /> {periodInfo.context}</div>
 
-          <label className="analysis-filter-select">
-            <FaSlidersH size={15} />
-            <span className="sr-only">Filtrar ambiente</span>
-            <select value={environmentId} onChange={(event) => setEnvironmentId(event.target.value)}>
-              <option value="all">Todos los ambientes</option>
-              {environments.map((environment) => <option key={environment.id} value={environment.id}>{environment.name}</option>)}
-            </select>
-            <FaChevronDown size={14} />
-          </label>
-          <label className="analysis-filter-select metric-filter">
-            <MetricIcon size={15} />
-            <span className="sr-only">Seleccionar métrica</span>
-            <select value={metric} onChange={(event) => setMetric(event.target.value)}>
-              {Object.entries(METRICS).map(([key, info]) => <option key={key} value={key}>{info.label}</option>)}
-            </select>
-            <FaChevronDown size={14} />
-          </label>
+          <FilterSelect
+            icon={FaSlidersH}
+            label="Filtrar ambiente"
+            value={environmentId}
+            onChange={setEnvironmentId}
+            options={[
+              { value: "all", label: "Todos los ambientes" },
+              ...environments.map((environment) => ({ value: String(environment.id), label: environment.name })),
+            ]}
+          />
+          <FilterSelect
+            icon={MetricIcon}
+            label="Seleccionar métrica"
+            value={metric}
+            onChange={setMetric}
+            isMetric
+            options={Object.entries(METRICS).map(([key, info]) => ({ value: key, label: info.label }))}
+          />
 
         </section>
 
@@ -320,17 +373,7 @@ function DashboardScreen() {
         </div>
 
 
-        <section className="analysis-insight"><span className="analysis-insight-icon"><FaChartBar size={17} /></span><p><strong>La tendencia general es {statusCounts.alert === 0 ? "favorable" : "para observar"}.</strong> El promedio de {metricInfo.label} se encuentra en <b>{formatMetric(average, metric)}</b> para {selectedLabel.toLowerCase()}.</p><button type="button" onClick={handleExport}><FaDownload size={14} /> Exportar CSV <FaArrowUp size={13} /></button></section>
-        <footer className="analysis-footer"><span>EduAirControl · Smart Air Monitoring</span><span>{environments.length} ambientes · Actualización automática cada 5 min</span><button type="button" onClick={handleExport}><FaDownload size={13} /> Exportar reporte</button></footer>
 
-        <section className="analysis-insight">
-            <span className="analysis-insight-icon"><FaChartBar size={17} />
-            </span>
-            <p><strong>La tendencia general es {statusCounts.alert === 0 ? "favorable" : "para observar"}.</strong>
-             El promedio de {metricInfo.label} se encuentra en 
-             <b>{formatMetric(average, metric)}</b> 
-             para {selectedLabel.toLowerCase()}.</p>
-        </section>
         <footer className="analysis-footer">
             <span>EduAirControl · Smart Air Monitoring</span>
             <span>{environments.length} ambientes · Actualización automática cada 5 min</span>
