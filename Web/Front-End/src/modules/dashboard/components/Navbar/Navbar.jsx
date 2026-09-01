@@ -67,11 +67,6 @@ function Navbar() {
       path: "/favorites",
     },
     {
-      icon: <FaTrophy />,
-      label: "Dashboard",
-      path: "/dashboard",
-    },
-    {
       icon: <FaUser />,
       label: t("nav.management"),
       path: "/management",
