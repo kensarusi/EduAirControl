@@ -11,6 +11,14 @@
         radial-gradient(circle at top,#072540 0%,#020817 55%,#020817 100%);
 }
 
+body:not(.dark-mode) .hero {
+    background: radial-gradient(circle at top, rgba(136, 214, 196, 0.88) 0%, rgba(233, 246, 249, 0.96) 28%, rgba(244, 249, 252, 1) 100%);
+}
+
+body:not(.dark-mode) .hero::before {
+    opacity: 0.32;
+}
+
 .hero::before{
 
     content:"";

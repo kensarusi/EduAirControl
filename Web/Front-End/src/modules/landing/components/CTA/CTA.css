@@ -16,6 +16,39 @@
 
 }
 
+body:not(.dark-mode) .cta {
+    background:
+        radial-gradient(circle at left, rgba(0, 184, 148, 0.08), transparent 30%),
+        radial-gradient(circle at right, rgba(59, 130, 246, 0.08), transparent 30%),
+        linear-gradient(180deg, #f8fbfc, #eef4ff);
+}
+
+body:not(.dark-mode) .cta-container {
+    background: linear-gradient(135deg, #ffffff, #eef7f8);
+    border-color: rgba(0, 184, 148, 0.14);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.05);
+}
+
+body:not(.dark-mode) .cta-badge,
+body:not(.dark-mode) .btn-primary {
+    color: #0f172a;
+}
+
+body:not(.dark-mode) .cta-badge {
+    background: rgba(0, 184, 148, 0.08);
+    border-color: rgba(0, 184, 148, 0.18);
+}
+
+body:not(.dark-mode) .cta h2,
+body:not(.dark-mode) .cta h2 span,
+body:not(.dark-mode) .cta p {
+    color: #0f172a;
+}
+
+body:not(.dark-mode) .cta p {
+    color: #53657a;
+}
+
 .cta-container{
 
     position:relative;

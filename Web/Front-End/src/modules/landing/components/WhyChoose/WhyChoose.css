@@ -20,6 +20,17 @@
         );
 }
 
+body:not(.dark-mode) .why {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0, 184, 148, 0.10), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.08), transparent 35%),
+        linear-gradient(180deg, #f3fbfa, #edf6ff);
+}
+
+body:not(.dark-mode) .why::before {
+    opacity: 0.18;
+}
+
 .why::before{
 
     content:"";
@@ -52,6 +63,34 @@
     margin-bottom:25px;
     font-size:.9rem;
 
+}
+
+body:not(.dark-mode) .why-badge {
+    background: rgba(0, 184, 148, 0.08);
+    border-color: rgba(0, 184, 148, 0.18);
+    color: #0f766e;
+}
+
+body:not(.dark-mode) .why h2,
+body:not(.dark-mode) .why-card h3,
+body:not(.dark-mode) .why-card svg {
+    color: #0f172a;
+}
+
+body:not(.dark-mode) .why h2 span,
+body:not(.dark-mode) .why-card svg {
+    color: #0a8b6f;
+}
+
+body:not(.dark-mode) .why-description,
+body:not(.dark-mode) .why-card p {
+    color: #53657a;
+}
+
+body:not(.dark-mode) .why-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 .why h2{

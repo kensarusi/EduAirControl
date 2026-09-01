@@ -19,6 +19,36 @@
 
 }
 
+body:not(.dark-mode) .designed-for {
+    background:
+        radial-gradient(circle at left, rgba(0, 184, 148, 0.08), transparent 30%),
+        radial-gradient(circle at right, rgba(59, 130, 246, 0.08), transparent 30%),
+        linear-gradient(180deg, #f4fbfa, #eef6ff);
+}
+
+body:not(.dark-mode) .section-badge {
+    background: rgba(0, 184, 148, 0.08);
+    border-color: rgba(0, 184, 148, 0.18);
+    color: #0f766e;
+}
+
+body:not(.dark-mode) .designed-for h2,
+body:not(.dark-mode) .user-card h3 {
+    color: #0f172a;
+}
+
+body:not(.dark-mode) .user-card,
+body:not(.dark-mode) .user-card p,
+body:not(.dark-mode) .designed-for > p {
+    color: #53657a;
+}
+
+body:not(.dark-mode) .user-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
 .section-badge{
 
     display:inline-block;

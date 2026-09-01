@@ -12,6 +12,32 @@
     );
 }
 
+body:not(.dark-mode) .footer {
+    background: linear-gradient(180deg, #f1f8f9, #eef6fb);
+}
+
+body:not(.dark-mode) .footer-logo,
+body:not(.dark-mode) .footer-links h3,
+body:not(.dark-mode) .footer-contact h3,
+body:not(.dark-mode) .footer-social a:hover,
+body:not(.dark-mode) .footer-links a:hover,
+body:not(.dark-mode) .footer-contact svg {
+    color: #0a8b6f;
+}
+
+body:not(.dark-mode) .footer-brand p,
+body:not(.dark-mode) .footer-links a,
+body:not(.dark-mode) .footer-contact div,
+body:not(.dark-mode) .footer-bottom {
+    color: #53657a;
+}
+
+body:not(.dark-mode) .footer-social a,
+body:not(.dark-mode) .footer-links a:hover,
+body:not(.dark-mode) .footer-contact div {
+    background: rgba(255, 255, 255, 0.7);
+}
+
 
 .footer-container{
     width:min(1400px,90%);

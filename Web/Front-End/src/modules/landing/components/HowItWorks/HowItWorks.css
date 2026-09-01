@@ -14,6 +14,10 @@
     );
 }
 
+body:not(.dark-mode) .how-it-works {
+    background: linear-gradient(135deg, #edf9f7, #eef5ff, #f8fafc);
+}
+
 .how-it-works::after{
 
     content:"";
@@ -53,6 +57,51 @@
     color:#27F5D2;
     font-size:.9rem;
     margin-bottom:24px;
+}
+
+body:not(.dark-mode) .how-badge {
+    background: rgba(0, 184, 148, 0.08);
+    border-color: rgba(0, 184, 148, 0.18);
+    color: #0f766e;
+}
+
+body:not(.dark-mode) .how-title,
+body:not(.dark-mode) .how-title span,
+body:not(.dark-mode) .diagram-card span,
+body:not(.dark-mode) .user-card h3,
+body:not(.dark-mode) .footer-links h3,
+body:not(.dark-mode) .footer-contact h3,
+body:not(.dark-mode) .footer-logo {
+    color: #0f172a;
+}
+
+body:not(.dark-mode) .how-title span,
+body:not(.dark-mode) .diagram-card svg,
+body:not(.dark-mode) .carousel-arrow,
+body:not(.dark-mode) .carousel-dot,
+body:not(.dark-mode) .footer-contact svg,
+body:not(.dark-mode) .footer-social a:hover,
+body:not(.dark-mode) .footer-links a:hover,
+body:not(.dark-mode) .footer-logo {
+    color: #0a8b6f;
+}
+
+body:not(.dark-mode) .how-description,
+body:not(.dark-mode) .footer-brand p,
+body:not(.dark-mode) .footer-links a,
+body:not(.dark-mode) .footer-contact div,
+body:not(.dark-mode) .footer-bottom {
+    color: #53657a;
+}
+
+body:not(.dark-mode) .architecture-diagram,
+body:not(.dark-mode) .info-card,
+body:not(.dark-mode) .diagram-card,
+body:not(.dark-mode) .architecture-info,
+body:not(.dark-mode) .user-card,
+body:not(.dark-mode) .footer-social a {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(15, 23, 42, 0.08);
 }
 
 .how-title{
@@ -347,6 +396,49 @@
     padding:30px;
     border:1px solid rgba(255,255,255,.06);
     box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+body:not(.dark-mode) .dashboard-demo {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+}
+
+body:not(.dark-mode) .dashboard-header h3,
+body:not(.dark-mode) .how-it-works .metric-card h2,
+body:not(.dark-mode) .how-it-works .metric-card strong,
+body:not(.dark-mode) .how-it-works .metric-card h3 {
+    color: #0f172a;
+}
+
+body:not(.dark-mode) .status,
+body:not(.dark-mode) .dashboard-header p,
+body:not(.dark-mode) .how-it-works .metric-card span,
+body:not(.dark-mode) .how-it-works .metric-card small,
+body:not(.dark-mode) .how-it-works .metric-status {
+    color: #53657a;
+}
+
+body:not(.dark-mode) .status-dot,
+body:not(.dark-mode) .how-it-works .metric-card svg,
+body:not(.dark-mode) .how-it-works .metric-status,
+body:not(.dark-mode) .alert-box,
+body:not(.dark-mode) .system-flow span {
+    color: #0a8b6f;
+}
+
+body:not(.dark-mode) .how-it-works .metric-card {
+    background: rgba(249, 252, 255, 0.95);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+body:not(.dark-mode) .chart {
+    background: rgba(235, 245, 255, 0.92);
+}
+
+body:not(.dark-mode) .alert-box {
+    background: rgba(0, 184, 148, 0.08);
+    border: 1px solid rgba(0, 184, 148, 0.14);
 }
 
 .dashboard-header{
