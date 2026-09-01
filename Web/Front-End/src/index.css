@@ -233,15 +233,6 @@ body {
 
   /* Fondo base oscuro con imagen ambiental */
   background-color: #060d1f;
-  background-image:
-    linear-gradient(
-      160deg,
-      rgba(4, 10, 25, 0.88) 0%,
-      rgba(4, 10, 25, 0.78) 50%,
-      rgba(4, 10, 25, 0.88) 100%
-    ),
-    url('./shared/assets/bg.png');
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
