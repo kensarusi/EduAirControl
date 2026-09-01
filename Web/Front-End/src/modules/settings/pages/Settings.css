@@ -102,6 +102,42 @@
   color: var(--text-secondary);
 }
 
+body:not(.dark-mode) .theme-card,
+body:not(.dark-mode) .theme-card .theme-label,
+body:not(.dark-mode) .theme-card .theme-check {
+  color: var(--text-primary);
+}
+
+body.theme-protanopia .theme-card,
+body.theme-deuteranopia .theme-card,
+body.theme-tritanopia .theme-card,
+body.theme-protanopia .theme-label,
+body.theme-deuteranopia .theme-label,
+body.theme-tritanopia .theme-label {
+  color: var(--text-primary);
+}
+
+body:not(.dark-mode) .theme-card .theme-label,
+body:not(.dark-mode) .theme-card .theme-check,
+body:not(.dark-mode) .theme-card {
+  color: #0f172a;
+}
+
+body.dark-mode .theme-card .theme-label,
+body.dark-mode .theme-card .theme-check,
+body.dark-mode .theme-card {
+  color: #e2e8f0;
+}
+
+body.dark-mode.theme-protanopia .theme-card,
+body.dark-mode.theme-deuteranopia .theme-card,
+body.dark-mode.theme-tritanopia .theme-card,
+body.dark-mode.theme-protanopia .theme-label,
+body.dark-mode.theme-deuteranopia .theme-label,
+body.dark-mode.theme-tritanopia .theme-label {
+  color: #e2e8f0;
+}
+
 .theme-card:hover {
   transform: translateY(-2px);
   border-color: var(--lb-glass-border-hover);

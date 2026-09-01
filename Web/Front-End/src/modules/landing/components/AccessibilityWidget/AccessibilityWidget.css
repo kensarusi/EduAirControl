@@ -407,6 +407,42 @@ body:not(.dark-mode) .a11y-theme-check {
     color: #00b894;
 }
 
+body:not(.dark-mode).theme-protanopia .a11y-font-btn,
+body:not(.dark-mode).theme-protanopia .a11y-mode-btn,
+body:not(.dark-mode).theme-protanopia .a11y-theme-btn,
+body:not(.dark-mode).theme-deuteranopia .a11y-font-btn,
+body:not(.dark-mode).theme-deuteranopia .a11y-mode-btn,
+body:not(.dark-mode).theme-deuteranopia .a11y-theme-btn,
+body:not(.dark-mode).theme-tritanopia .a11y-font-btn,
+body:not(.dark-mode).theme-tritanopia .a11y-mode-btn,
+body:not(.dark-mode).theme-tritanopia .a11y-theme-btn {
+    color: #0f172a;
+}
+
+body:not(.dark-mode).theme-protanopia .a11y-font-btn:hover,
+body:not(.dark-mode).theme-protanopia .a11y-mode-btn:hover,
+body:not(.dark-mode).theme-protanopia .a11y-theme-btn:hover,
+body:not(.dark-mode).theme-deuteranopia .a11y-font-btn:hover,
+body:not(.dark-mode).theme-deuteranopia .a11y-mode-btn:hover,
+body:not(.dark-mode).theme-deuteranopia .a11y-theme-btn:hover,
+body:not(.dark-mode).theme-tritanopia .a11y-font-btn:hover,
+body:not(.dark-mode).theme-tritanopia .a11y-mode-btn:hover,
+body:not(.dark-mode).theme-tritanopia .a11y-theme-btn:hover {
+    color: var(--accent);
+}
+
+body:not(.dark-mode).theme-protanopia .a11y-font-btn--active,
+body:not(.dark-mode).theme-protanopia .a11y-mode-btn--active,
+body:not(.dark-mode).theme-protanopia .a11y-theme-btn--active,
+body:not(.dark-mode).theme-deuteranopia .a11y-font-btn--active,
+body:not(.dark-mode).theme-deuteranopia .a11y-mode-btn--active,
+body:not(.dark-mode).theme-deuteranopia .a11y-theme-btn--active,
+body:not(.dark-mode).theme-tritanopia .a11y-font-btn--active,
+body:not(.dark-mode).theme-tritanopia .a11y-mode-btn--active,
+body:not(.dark-mode).theme-tritanopia .a11y-theme-btn--active {
+    color: #0f172a;
+}
+
 body:not(.dark-mode) .a11y-reset-btn {
     border-top-color: rgba(0, 0, 0, 0.07);
     color: rgba(0, 0, 0, 0.45);

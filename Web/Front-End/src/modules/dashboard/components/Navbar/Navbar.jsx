@@ -51,6 +51,11 @@ function Navbar() {
   }, []);
 
   const menuItems = [
+      {
+      icon: <FaTrophy />,
+      label: "Dashboard",
+      path: "/dashboard",
+    },
     {
       icon: <MdOutlineMeetingRoom />,
       label: t("nav.activity"),

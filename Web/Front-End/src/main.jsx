@@ -8,6 +8,11 @@ import './shared/i18n/i18n.js'
 import { EnvironmentProvider } from "./context/EnvironmentContext";
 import GlobalAccessibilityProvider from "./shared/components/GlobalAccessibilityProvider/GlobalAccessibilityProvider";
 
+<<<<<<< Updated upstream
+=======
+// Restaurar tema daltónico y modo oscuro al cargar la aplicación.
+const savedTheme = localStorage.getItem("a11y-color-theme") || localStorage.getItem("theme") || "";
+>>>>>>> Stashed changes
 
 // Restaurar tema daltónico + dark mode al cargar
 const savedTheme = localStorage.getItem('theme') || ''

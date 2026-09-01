@@ -68,7 +68,7 @@ function SettingsScreen() {
     const activeLang = localStorage.getItem('language') || i18n.language || 'es'
     return { ...saved, language: LANG_NAMES[activeLang] || saved.language }
   })
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || '')
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || localStorage.getItem('a11y-color-theme') || '')
   const [modalOpen, setModalOpen] = useState(false)
   const [editField, setEditField] = useState('')
   const [editValue, setEditValue] = useState('')
@@ -98,6 +98,7 @@ function SettingsScreen() {
   }
   const changeTheme = (newTheme) => {
     localStorage.setItem('theme', newTheme)
+    localStorage.setItem('a11y-color-theme', newTheme)
     applyBodyClasses(newTheme, darkMode)
     setTheme(newTheme)
   }
@@ -167,6 +168,8 @@ function SettingsScreen() {
     return t('settings.themeTritanopia')
   }
   const toggleReminder = (key) => setReminders(prev => ({ ...prev, [key]: !prev[key] }))
+  const themeTextColor = darkMode ? '#e2e8f0' : '#0f172a'
+  const themePreviewLineColor = darkMode ? '#e2e8f0' : '#0f172a'
 
   return (
     <div className={`settings-page ${darkMode ? 'dark' : ''}`}>
@@ -196,16 +199,25 @@ function SettingsScreen() {
           </div>
           <div className="theme-picker">
             {THEMES.map(({ key, dot }) => (
-              <button key={key} className={`theme-card ${theme === key ? 'theme-card--active' : ''}`} onClick={() => changeTheme(key)}>
+              <button
+                key={key}
+                className={`theme-card ${theme === key ? 'theme-card--active' : ''}`}
+                onClick={() => changeTheme(key)}
+                style={{
+                  color: themeTextColor,
+                  borderColor: theme === key ? (darkMode ? '#7dd3fc' : '#00b894') : undefined,
+                  background: theme === key ? (darkMode ? 'rgba(14, 116, 144, 0.18)' : 'rgba(0, 184, 148, 0.12)') : undefined,
+                }}
+              >
                 <div className="theme-preview">
                   <div className="preview-bar" style={{ background: darkMode ? dot.dark : dot.light }} />
                   <div className="preview-text">
-                    <span className="preview-line" />
-                    <span className="preview-line short" />
+                    <span className="preview-line" style={{ background: themePreviewLineColor }} />
+                    <span className="preview-line short" style={{ background: themePreviewLineColor }} />
                   </div>
                 </div>
-                <span className="theme-label">{themeLabel(key)}</span>
-                {theme === key && <span className="theme-check">✓</span>}
+                <span className="theme-label" style={{ color: themeTextColor }}>{themeLabel(key)}</span>
+                {theme === key && <span className="theme-check" style={{ color: darkMode ? '#7dd3fc' : '#00b894' }}>✓</span>}
               </button>
             ))}
           </div>
@@ -342,7 +354,6 @@ function SettingsScreen() {
             { type: 'faq',     label: t('settings.helpFaq'),    sub: t('settings.helpFaqSub') },
             { type: 'contact', label: t('settings.helpContact'), sub: t('settings.helpContactSub') },
             { type: 'terms',   label: t('settings.helpTerms'),   sub: t('settings.helpTermsSub') },
-            { type: 'privacy', label: t('settings.helpPrivacy'), sub: t('settings.helpPrivacySub') },
             { type: 'version', label: t('settings.helpVersion'), sub: 'v1.0.0' },
           ].map(({ type, label, sub }) => (
             <div key={type} className="settings-field settings-field--link" onClick={() => setHelpModal({ open: true, type })}>

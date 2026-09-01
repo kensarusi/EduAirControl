@@ -222,12 +222,12 @@
 .env-management-summary-card__icon--total   { background: var(--lb-surface); color: var(--accent); }
 .env-management-summary-card__icon--alert   { background: rgba(229, 62, 62, 0.13); color: #e53e3e; }
 .env-management-summary-card__icon--warning { background: rgba(214, 158, 46, 0.13); color: #d69e2e; }
-.env-management-summary-card__icon--normal  { background: rgba(63, 185, 80, 0.13); color: #3fb950; }
+.env-management-summary-card__icon--normal  { background: rgba(63, 185, 80, 0.13); color: #25e77c; }
 
-.env-management-summary-card--normal::after  { background: #3fb950; }
-.env-management-summary-card--normal::before { background: #3fb950; }
-.env-management-summary-card--normal:hover   { border-color: rgba(63, 185, 80, 0.5); }
-.env-management-summary-card__value--normal  { color: #3fb950; }
+.env-management-summary-card--normal::after  { background: #25e77c; }
+.env-management-summary-card--normal::before { background: #25e77c; }
+.env-management-summary-card--normal:hover   { border-color: rgba(37, 231, 124, 0.5); }
+.env-management-summary-card__value--normal  { color: #25e77c; }
 
 .env-management-summary-card__info {
   display: flex;
