@@ -258,6 +258,7 @@ function DashboardScreen() {
             ))}
           </div>
           <div className="analysis-period-context"><FaCalendarAlt size={15} /> {periodInfo.context}</div>
+
           <label className="analysis-filter-select">
             <FaSlidersH size={15} />
             <span className="sr-only">Filtrar ambiente</span>
@@ -275,6 +276,7 @@ function DashboardScreen() {
             </select>
             <FaChevronDown size={14} />
           </label>
+
         </section>
 
         <section className="analysis-kpi-grid" aria-label="Indicadores del periodo">
@@ -317,8 +319,23 @@ function DashboardScreen() {
           </section>
         </div>
 
+
         <section className="analysis-insight"><span className="analysis-insight-icon"><FaChartBar size={17} /></span><p><strong>La tendencia general es {statusCounts.alert === 0 ? "favorable" : "para observar"}.</strong> El promedio de {metricInfo.label} se encuentra en <b>{formatMetric(average, metric)}</b> para {selectedLabel.toLowerCase()}.</p><button type="button" onClick={handleExport}><FaDownload size={14} /> Exportar CSV <FaArrowUp size={13} /></button></section>
         <footer className="analysis-footer"><span>EduAirControl · Smart Air Monitoring</span><span>{environments.length} ambientes · Actualización automática cada 5 min</span><button type="button" onClick={handleExport}><FaDownload size={13} /> Exportar reporte</button></footer>
+
+        <section className="analysis-insight">
+            <span className="analysis-insight-icon"><FaChartBar size={17} />
+            </span>
+            <p><strong>La tendencia general es {statusCounts.alert === 0 ? "favorable" : "para observar"}.</strong>
+             El promedio de {metricInfo.label} se encuentra en 
+             <b>{formatMetric(average, metric)}</b> 
+             para {selectedLabel.toLowerCase()}.</p>
+        </section>
+        <footer className="analysis-footer">
+            <span>EduAirControl · Smart Air Monitoring</span>
+            <span>{environments.length} ambientes · Actualización automática cada 5 min</span>
+            </footer>
+
       </main>
     </div>
   );

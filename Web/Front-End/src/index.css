@@ -1043,6 +1043,42 @@ button:active { transform: scale(0.97); }
 .theme-label { color: var(--text-secondary); }
 .theme-check { color: var(--accent); }
 
+body.theme-protanopia .theme-card,
+body.theme-deuteranopia .theme-card,
+body.theme-tritanopia .theme-card,
+body.theme-protanopia .theme-card .theme-label,
+body.theme-deuteranopia .theme-card .theme-label,
+body.theme-tritanopia .theme-card .theme-label,
+body.theme-protanopia .theme-card .theme-check,
+body.theme-deuteranopia .theme-card .theme-check,
+body.theme-tritanopia .theme-card .theme-check {
+  color: #0f172a !important;
+}
+
+body.dark-mode.theme-protanopia .theme-card,
+body.dark-mode.theme-deuteranopia .theme-card,
+body.dark-mode.theme-tritanopia .theme-card,
+body.dark-mode.theme-protanopia .theme-card .theme-label,
+body.dark-mode.theme-deuteranopia .theme-card .theme-label,
+body.dark-mode.theme-tritanopia .theme-card .theme-label,
+body.dark-mode.theme-protanopia .theme-card .theme-check,
+body.dark-mode.theme-deuteranopia .theme-card .theme-check,
+body.dark-mode.theme-tritanopia .theme-card .theme-check {
+  color: #e2e8f0 !important;
+}
+
+body.theme-protanopia .preview-line,
+body.theme-deuteranopia .preview-line,
+body.theme-tritanopia .preview-line {
+  background: #0f172a !important;
+}
+
+body.dark-mode.theme-protanopia .preview-line,
+body.dark-mode.theme-deuteranopia .preview-line,
+body.dark-mode.theme-tritanopia .preview-line {
+  background: #e2e8f0 !important;
+}
+
 .lang-modal {
   background: var(--bg-card);
   border-radius: 16px;

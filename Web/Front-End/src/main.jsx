@@ -8,8 +8,10 @@ import "./shared/i18n/i18n.js";
 import { EnvironmentProvider } from "./context/EnvironmentContext";
 import GlobalAccessibilityProvider from "./shared/components/GlobalAccessibilityProvider/GlobalAccessibilityProvider";
 
+
 // Restaurar tema daltónico y modo oscuro al cargar la aplicación.
-const savedTheme = localStorage.getItem("theme") || "";
+const savedTheme = localStorage.getItem("a11y-color-theme") || localStorage.getItem("theme") || "";
+
 
 let darkMode = false;
 try {
