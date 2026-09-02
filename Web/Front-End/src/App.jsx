@@ -16,6 +16,7 @@ import OAuth2SuccessScreen from "./modules/auth/pages/OAuth2SuccessScreen";
 // LANDING
 // ======================
 import Landing from "./modules/landing/pages/Landing";
+import GuideScreen from "./modules/landing/pages/GuideScreen";
 
 // ======================
 // DASHBOARD DE ANÁLISIS
@@ -49,6 +50,7 @@ function App() {
     <Routes>
       {/* ---------- Landing ---------- */}
       <Route path="/landing" element={<Landing />} />
+      <Route path="/guide" element={<GuideScreen />} />
 
       {/* ---------- Authentication ---------- */}
       <Route path="/" element={<Navigate to="/landing" replace />} />

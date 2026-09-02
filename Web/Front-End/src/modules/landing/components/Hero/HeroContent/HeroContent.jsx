@@ -37,7 +37,7 @@ function HeroContent() {
           <span className="btn-arrow">→</span>
         </Link>
 
-        <Link to="/login" className="secondary-btn">
+        <Link to="/guide" className="secondary-btn">
           {t("landing.hero.viewDemo")}
         </Link>
 

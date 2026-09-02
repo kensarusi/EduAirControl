@@ -85,13 +85,13 @@ body:not(.dark-mode) .landing-navbar__brand span {
     min-width: 0;
     align-items: center;
     justify-content: center;
-    gap: clamp(12px, 1.2vw, 26px);
+    gap: clamp(12px, 1.15vw, 24px);
 }
 
 .landing-navbar__links a {
     position: relative;
     color: var(--text-nav);
-    font-size: clamp(0.86rem, 0.92vw, 1rem);
+    font-size: clamp(0.92rem, 0.98vw, 1.06rem);
     font-weight: 600;
     line-height: 1.2;
     text-decoration: none;
@@ -219,11 +219,11 @@ body:not(.dark-mode) .landing-navbar__toggle:hover {
     }
 
     .landing-navbar__links {
-        gap: clamp(8px, 0.85vw, 13px);
+        gap: clamp(7px, 0.75vw, 12px);
     }
 
     .landing-navbar__links a {
-        font-size: clamp(0.76rem, 0.84vw, 0.9rem);
+        font-size: clamp(0.84rem, 0.9vw, 0.96rem);
     }
 
     .landing-navbar__actions {
