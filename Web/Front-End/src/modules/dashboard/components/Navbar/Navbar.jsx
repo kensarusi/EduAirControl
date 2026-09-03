@@ -1,211 +1,224 @@
-import "./Navbar.css";
-import logo from "../../../../shared/assets/EduAirControlLogo.png";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import ScrollLink from "../../../../shared/components/ScrollLink/ScrollLink";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "../../../../shared/components/LanguageSelector/LanguageSelector";
+
+import {
+  MdOutlineMeetingRoom,
+  MdMenu,
+  MdClose,
+} from "react-icons/md";
+
+import {
+  FaUser,
+  FaHeart,
+  FaBell,
+  FaChevronDown,
+  FaTrophy,
+} from "react-icons/fa";
+
+import {
+  IoStatsChart,
+  IoSettings,
+  IoLogOut,
+} from "react-icons/io5";
+
+import NavbarInfo from "../../components/NavbarInfo/NavbarInfo";
+import NotificationPanel from "../../../notifications/components/NotificationPanel";
+
+import logo from "../../../../shared/assets/EduAirControlLogo.png";
+
+import "./Navbar.css";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation();
 
-    const { t } = useTranslation();
-    const [scrolled, setScrolled] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
-    useEffect(() => {
+  useEffect(() => {
+    const handler = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
-        const handleScroll = () => {
+  const menuItems = [
+      {
+      icon: <FaTrophy />,
+      label: "Dashboard",
+      path: "/dashboard",
+    },
+    {
+      icon: <MdOutlineMeetingRoom />,
+      label: t("nav.activity"),
+      path: "/all-environments",
+    },
+    {
+      icon: <FaHeart />,
+      label: t("nav.favorites"),
+      path: "/favorites",
+    },
+    {
+      icon: <FaUser />,
+      label: t("nav.management"),
+      path: "/management",
+    },
+  ];
 
-            setScrolled(window.scrollY > 40);
+  const isProfileActive =
+    location.pathname === "/profile" || location.pathname === "/settings";
 
-        };
+  const go = (path) => {
+    navigate(path);
+    setDropdownOpen(false);
+    setMobileMenuOpen(false);
+  };
 
-        window.addEventListener("scroll", handleScroll);
+  return (
+    <>
+      <nav className="dashboard-navbar">
+        {/* IZQUIERDA */}
+        <div className="dashboard-navbar-left">
+          <div
+            className="dashboard-navbar-logo"
+            onClick={() => go("/all-environments")}
+          >
+            <img src={logo} alt="EduAirControl" />
+            <div className="dashboard-navbar-logo-text">
+              <h2>EduAirControl</h2>
+              <span>Smart Air Monitoring</span>
+            </div>
+          </div>
+          <NavbarInfo role="admin" />
+        </div>
 
-        return () => window.removeEventListener("scroll", handleScroll);
-
-    }, []);
-
-    useEffect(() => {
-        const closeOnDesktop = () => {
-            if (window.innerWidth > 1120) setMenuOpen(false);
-        };
-
-        window.addEventListener("resize", closeOnDesktop);
-
-        return () => window.removeEventListener("resize", closeOnDesktop);
-    }, []);
-
-    useEffect(() => {
-        if (!menuOpen) return undefined;
-
-        const closeOnEscape = (event) => {
-            if (event.key === "Escape") setMenuOpen(false);
-        };
-
-        window.addEventListener("keydown", closeOnEscape);
-
-        return () => window.removeEventListener("keydown", closeOnEscape);
-    }, [menuOpen]);
-
-    const closeMenu = () => setMenuOpen(false);
-
-    return (
-        <>
-        <header className={`landing-navbar ${scrolled ? "landing-navbar--scrolled" : ""}`}>
-
-            {/* Logo */}
-
+        {/* MENÚ DESKTOP */}
+        <div className="dashboard-navbar-menu">
+          {menuItems.map((item) => (
             <div
-                className="landing-navbar__brand"
-                onClick={() => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth",
-                    });
-                    closeMenu();
-                }}
+              key={item.path}
+              className={`dashboard-navbar-item ${
+                location.pathname === item.path ? "active" : ""
+              }`}
+              onClick={() => go(item.path)}
             >
+              {item.icon}
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
 
-                <img src={logo} alt="EduAirControl" />
+        {/* DERECHA (ACCIONES) */}
+        <div className="dashboard-navbar-actions">
+          {/* 1. NOTIFICACIONES */}
+          <div
+            className="dashboard-navbar-item dashboard-notification-bell"
+            onClick={() => setNotificationsOpen(true)}
+          >
+            <FaBell />
+          </div>
 
-                <span>EduAirControl</span>
-
+          {/* 2. PERFIL (dropdown) */}
+          <div ref={dropdownRef} className="dashboard-navbar-profile">
+            <div
+              className={`dashboard-navbar-item ${isProfileActive ? "active" : ""}`}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <FaUser />
+              <span>{t("nav.profile")}</span>
+              <FaChevronDown
+                className={`dashboard-profile-chevron ${dropdownOpen ? "open" : ""}`}
+              />
             </div>
 
-            {/* Navegación Desktop */}
-
-            <div className="landing-navbar__links">
-
-                <ScrollLink to="hero">{t("landing.navbar.home")}</ScrollLink>
-
-                <ScrollLink to="why">{t("landing.navbar.why")}</ScrollLink>
-
-                <ScrollLink to="how">{t("landing.navbar.howItWorks")}</ScrollLink>
-
-                <Link to="/guide" className="landing-navbar__guide-link">Guía</Link>
-
-                <ScrollLink to="designed">{t("landing.navbar.designedFor")}</ScrollLink>
-
-                <ScrollLink to="cta">{t("landing.navbar.cta")}</ScrollLink>
-
-            </div>
-
-            {/* Acciones Desktop */}
-
-            <div className="landing-navbar__actions">
-
-                <LanguageSelector />
-
-                <button
-                    type="button"
-                    className="landing-navbar__login"
-                    onClick={() => navigate("/login")}
+            {dropdownOpen && (
+              <div className="dashboard-profile-dropdown">
+                <div
+                  className="dashboard-profile-dropdown-item"
+                  onClick={() => go("/profile")}
                 >
-
-                    {t("landing.navbar.login")}
-
-                </button>
-
-            </div>
-
-            {/* Hamburguesa */}
-
-            <button
-                type="button"
-                className="landing-navbar__toggle"
-                onClick={() => setMenuOpen(!menuOpen)}
-                aria-label={menuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
-                aria-expanded={menuOpen}
-                aria-controls="landing-navigation"
-            >
-
-                {menuOpen ? <X size={28}/> : <Menu size={28}/>}
-
-            </button>
-
-            {/* Menú Mobile */}
-
-        </header>
-
-            <button
-                type="button"
-                className={`landing-navbar__backdrop ${menuOpen ? "landing-navbar__backdrop--active" : ""}`}
-                onClick={closeMenu}
-                aria-hidden="true"
-                tabIndex={-1}
-            />
-
-            <nav
-                id="landing-navigation"
-                aria-label="Navegación principal"
-                aria-hidden={!menuOpen}
-                className={`landing-navbar__menu ${menuOpen ? "landing-navbar__menu--active" : ""}`}
-            >
-
-                <div className="landing-navbar__menu-header">
-                    <div className="landing-navbar__menu-brand">
-                        <img src={logo} alt="" />
-                        <span>EduAirControl</span>
-                    </div>
-
-                    <button
-                        type="button"
-                        className="landing-navbar__menu-close"
-                        onClick={closeMenu}
-                        aria-label="Cerrar menú de navegación"
-                    >
-                        <X size={22} />
-                    </button>
+                  <FaUser />
+                  <span>{t("nav.profile")}</span>
                 </div>
 
-                <div className="landing-navbar__menu-links">
-                <ScrollLink to="hero" onClick={closeMenu}>{t("landing.navbar.home")}</ScrollLink>
-
-                <ScrollLink to="why" onClick={closeMenu}>{t("landing.navbar.why")}</ScrollLink>
-
-                <ScrollLink to="how" onClick={closeMenu}>{t("landing.navbar.howItWorks")}</ScrollLink>
-
-                <Link to="/guide" className="landing-navbar__guide-link" onClick={closeMenu}>Guía</Link>
-
-                <ScrollLink to="designed" onClick={closeMenu}>{t("landing.navbar.designedFor")}</ScrollLink>
-
-                <ScrollLink to="cta" onClick={closeMenu}>{t("landing.navbar.cta")}</ScrollLink>
-
-                </div>
-
-                <div className="landing-navbar__menu-footer">
-                <div className="landing-navbar__language">
-                    <LanguageSelector openUp />
-                </div>
-
-                <button
-                    type="button"
-                    className="landing-navbar__mobile-login"
-                    onClick={() => {
-
-                        closeMenu();
-
-                        navigate("/login");
-
-                    }}
+                <div
+                  className="dashboard-profile-dropdown-item"
+                  onClick={() => go("/settings")}
                 >
-
-                    {t("landing.navbar.login")}
-
-                </button>
-
+                  <IoSettings />
+                  <span>{t("nav.settings")}</span>
                 </div>
 
-            </nav>
+                <div className="dashboard-profile-dropdown-divider" />
 
-        </>
-    );
+                <div
+                  className="dashboard-profile-dropdown-item logout"
+                  onClick={() => go("/landing")}
+                >
+                  <IoLogOut />
+                  <span>{t("nav.logout")}</span>
+                </div>
+              </div>
+            )}
+          </div> {/* CORREGIDO: Cierre correcto del perfil */}
 
+          {/* 3. BOTÓN HAMBURGUESA */}
+          <button
+            className="dashboard-mobile-button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <MdClose /> : <MdMenu />}
+          </button>
+        </div>
+      </nav>
+
+      {/* MENÚ MÓVIL (SIDEBAR LATERAL) */}
+      <div className={`dashboard-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
+            <div className="dashboard-mobile-header">Menú</div>
+
+        {menuItems.map((item) => (
+          <div
+            key={item.path}
+            className="dashboard-mobile-item"
+            onClick={() => go(item.path)}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </div>
+        ))}
+
+        <div className="dashboard-mobile-divider" />
+
+        <div className="dashboard-mobile-item" onClick={() => go("/profile")}>
+          <FaUser />
+          <span>{t("nav.profile")}</span>
+        </div>
+
+        <div className="dashboard-mobile-item" onClick={() => go("/settings")}>
+          <IoSettings />
+          <span>{t("nav.settings")}</span>
+        </div>
+
+        <div className="dashboard-mobile-item logout" onClick={() => go("/landing")}>
+          <IoLogOut />
+          <span>{t("nav.logout")}</span>
+        </div>
+      </div>
+
+      <NotificationPanel
+        isOpen={notificationsOpen}
+        onClose={() => setNotificationsOpen(false)}
+      />
+    </>
+  );
 }
 
 export default Navbar;
