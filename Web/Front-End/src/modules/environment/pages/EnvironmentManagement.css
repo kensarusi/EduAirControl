@@ -47,7 +47,7 @@
   background: var(--lb-surface);
   border: 1px solid var(--lb-glass-border);
   border-radius: 12px;
-  color: var(--accent);
+  color: #27f5d2;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0,184,148,0.12);
 }
@@ -112,10 +112,10 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  background: var(--accent);
+  background: #27f5d2;
   border: none;
   border-radius: 12px;
-  color: #ffffff;
+  color: #03171c;
   font-size: 14px;
   font-weight: 700;
   padding: 9px 18px;
@@ -543,4 +543,59 @@
 
 .env-management {
   margin: 40px auto;
+}
+
+/* ─── Gestión general: vistas ───────────────────────────────── */
+.env-management-tabs {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px;
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 14px;
+  background: var(--lb-glass-bg);
+  box-shadow: var(--lb-glass-shadow);
+}
+
+.env-management-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color .2s, background .2s, border-color .2s, transform .2s;
+}
+
+.env-management-tabs button:hover { 
+  color: var(--text-primary); 
+  background: var(--lb-surface); }
+
+.env-management-tabs button.active { 
+  color: #27f5d2; 
+  background: var(--lb-surface); 
+  border-color: var(--lb-glass-border); 
+  box-shadow: 0 3px 12px rgba(0, 184, 148, .08); }
+
+.env-management-tabs button span { 
+  display: inline-grid; 
+  place-items: center; 
+  min-width: 20px; 
+  height: 20px; 
+  padding: 0 5px; 
+  border-radius: 999px; 
+  background: var(--accent); 
+  color: #fff; 
+  font-size: 10px; }
+
+@media (max-width: 600px) {
+  .env-management-tabs { width: 100%; }
+  .env-management-tabs button { flex: 1; padding: 0 8px; font-size: 11px; }
 }

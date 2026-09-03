@@ -59,7 +59,7 @@
     background:linear-gradient(
         135deg,
         var(--accent),
-        #0fd7b0
+        #27f5d2
     );
 
     color:white;
@@ -108,7 +108,7 @@
 
     margin:0;
 
-    color:var(--accent);
+    color:#27f5d2;
 
     font-size:15px;
 
@@ -167,9 +167,9 @@
 
     border-radius:12px;
 
-    background:var(--accent);
+    background: #27f5d2;
 
-    color:white;
+    color:#03171c;
 
     font-size:14px;
     font-weight:700;
@@ -327,7 +327,7 @@
 
     background:rgba(0,184,148,.10);
 
-    color:var(--accent);
+    color: #27f5d2;
 
     display:flex;
     align-items:center;
@@ -449,7 +449,7 @@
 
     background:rgba(255,107,107,.10);
 
-    color:#ff6b6b;
+    color:#ff4d5b;
 
     cursor:pointer;
 

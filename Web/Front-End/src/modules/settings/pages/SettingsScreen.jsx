@@ -9,6 +9,10 @@ import Navbar from "../../dashboard/components/Navbar/Navbar";
 import { EditModal } from "../../../shared/components";
 import { useDarkMode } from "../../../shared/hooks/useDarkMode";
 import { saveDateFormat } from "../../../shared/hooks/useDateFormat";
+import {
+  getAccessibilitySettings,
+  saveAccessibilitySettings,
+} from "../../../shared/accessibility/accessibilitySettings";
 
 // CSS
 import "./Settings.css";
@@ -28,11 +32,6 @@ const TIMEZONES = [
   { value: 'Asia/Dubai',          label: 'Dubái (UTC+4)' },
   { value: 'Australia/Sydney',    label: 'Sídney (UTC+10/+11)' },
 ]
-
-function applyBodyClasses(theme, dark) {
-  const classes = [theme, dark ? 'dark-mode' : ''].filter(Boolean).join(' ')
-  document.body.className = classes
-}
 
 const THEMES = [
   { key: '',                   dot: { light: '#5de6c8', dark: '#3ab8a0' } },
@@ -68,7 +67,7 @@ function SettingsScreen() {
     const activeLang = localStorage.getItem('language') || i18n.language || 'es'
     return { ...saved, language: LANG_NAMES[activeLang] || saved.language }
   })
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || localStorage.getItem('a11y-color-theme') || '')
+  const [theme, setTheme] = useState(() => getAccessibilitySettings().colorTheme)
   const [modalOpen, setModalOpen] = useState(false)
   const [editField, setEditField] = useState('')
   const [editValue, setEditValue] = useState('')
@@ -85,6 +84,11 @@ function SettingsScreen() {
   useEffect(() => { localStorage.setItem('autoTimezone', JSON.stringify(autoTimezone)) }, [autoTimezone])
   useEffect(() => { localStorage.setItem('settings', JSON.stringify(settings)) }, [settings])
   useEffect(() => { localStorage.setItem('reminders', JSON.stringify(reminders)) }, [reminders])
+  useEffect(() => {
+    const handleAccessibilityChange = () => setTheme(getAccessibilitySettings().colorTheme)
+    window.addEventListener('a11y-change', handleAccessibilityChange)
+    return () => window.removeEventListener('a11y-change', handleAccessibilityChange)
+  }, [])
 
   const handleTimezoneToggle = (val) => {
     setAutoTimezone(val)
@@ -97,9 +101,7 @@ function SettingsScreen() {
     window.dispatchEvent(new CustomEvent('timezoneChanged', { detail: tz }))
   }
   const changeTheme = (newTheme) => {
-    localStorage.setItem('theme', newTheme)
-    localStorage.setItem('a11y-color-theme', newTheme)
-    applyBodyClasses(newTheme, darkMode)
+    saveAccessibilitySettings({ ...getAccessibilitySettings(), colorTheme: newTheme, darkMode })
     setTheme(newTheme)
   }
   const handleEdit = (field, value) => { setEditField(field); setEditValue(value); setModalOpen(true) }
@@ -337,7 +339,7 @@ function SettingsScreen() {
 
           <div className="settings-field">
             <div className="field-info">
-              <span className="field-label" style={{ color: '#dc3545' }}>{t('settings.deleteAccount')}</span>
+              <span className="field-label" style={{ color: '#ff4d5b' }}>{t('settings.deleteAccount')}</span>
               <span className="field-value">{t('settings.deleteAccountSub')}</span>
             </div>
             <button className="btn-delete-icon" onClick={handleOpenDeleteModal}>
@@ -458,7 +460,7 @@ function SettingsScreen() {
           <div className="lang-modal" onClick={(e) => e.stopPropagation()}>
             {deleteStep === 'confirm' ? (
               <>
-                <h3 style={{ color: '#dc3545' }}>⚠️ {t('settings.deleteAccount')}</h3>
+                <h3 style={{ color: '#ff4d5b' }}>⚠️ {t('settings.deleteAccount')}</h3>
                 <p style={{ fontSize: 14, color: 'var(--text-secondary)', textAlign: 'center', margin: '0 0 4px' }}>
                   {t('settings.deleteAccountConfirm')}
                 </p>
@@ -468,7 +470,7 @@ function SettingsScreen() {
                 <button onClick={() => setShowDeleteModal(false)} style={{ background: 'var(--bg-subtle)' }}>
                   {t('editModal.cancel')}
                 </button>
-                <button onClick={handleDeleteRequest} style={{ background: '#dc3545', color: 'white', border: 'none' }}>
+                <button onClick={handleDeleteRequest} style={{ background: '#ff4d5b', color: 'white', border: 'none' }}>
                   {t('settings.deleteBtn')}
                 </button>
               </>

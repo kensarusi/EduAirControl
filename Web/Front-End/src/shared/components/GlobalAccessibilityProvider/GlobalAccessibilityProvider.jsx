@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import AccessibilityWidget from "../../../modules/landing/components/AccessibilityWidget/AccessibilityWidget";
+import {
+    applyAccessibilitySettings,
+    getAccessibilitySettings,
+} from "../../accessibility/accessibilitySettings";
 
 /**
  * GlobalAccessibilityProvider
@@ -16,32 +20,7 @@ function GlobalAccessibilityProvider({ children }) {
     const isLanding = location.pathname === "/" || location.pathname === "/landing";
 
     const applyA11ySettings = () => {
-        const savedFontSize = localStorage.getItem("a11y-font-size") || "base";
-        const savedDarkMode = JSON.parse(localStorage.getItem("darkMode")) || false;
-        const savedTheme =
-        localStorage.getItem("a11y-color-theme") || localStorage.getItem("theme") || "";
-
-        // Aplicar tamaño de fuente
-        const fontSizes = { base: "16px", lg: "18px", xl: "20px" };
-        document.documentElement.style.setProperty(
-            "--a11y-font-size",
-            fontSizes[savedFontSize] || "16px"
-        );
-        document.documentElement.setAttribute("data-font-size", savedFontSize);
-
-        // Aplicar tema al body (tema daltónico + dark mode)
-        const classes = [savedTheme, savedDarkMode ? "dark-mode" : ""]
-            .filter(Boolean)
-            .join(" ");
-
-        // Forzar la aplicación de clases incluso si ya están
-        document.body.className = classes;
-
-        // Sincronizar atributo data-theme para selectores CSS adicionales
-        document.documentElement.setAttribute(
-            "data-theme",
-            savedDarkMode ? "dark" : "light"
-        );
+        applyAccessibilitySettings(getAccessibilitySettings());
     };
 
     useEffect(() => {

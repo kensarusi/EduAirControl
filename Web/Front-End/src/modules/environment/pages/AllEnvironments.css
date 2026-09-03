@@ -60,15 +60,15 @@
 
 /* ── Colores de estado usando variables de acento ── */
 .normal span{
-    color:#16a34a;
+    color:#25e77c;
 }
 
 .warning span{
-    color:#f59e0b;
+    color:#ffb11a;
 }
 
 .danger span{
-    color:#ef4444;
+    color:#ff4d5b;
 }
 
 .favorite span{

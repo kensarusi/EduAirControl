@@ -22,11 +22,11 @@ function FavoritesScreen() {
   const getStatusColor = (statusKey) => {
     switch (statusKey) {
       case 'dashboard.statusNormal':
-        return '#238636'
+        return '#25e77c'
       case 'dashboard.statusWarning':
-        return '#d29922'
+        return '#ffb11a'
       case 'dashboard.statusAlert':
-        return '#da3633'
+        return '#ff4d5b'
       default:
         return '#8b949e'
     }
@@ -61,7 +61,7 @@ function FavoritesScreen() {
         {/* HEADER */}
         <div className="favorites-header">
           <div className="favorites-header-content">
-            <FaHeart size={32} color="#ff6b6b" />
+            <FaHeart size={32} color="#ff4d5b" />
             <div>
               <h1>{t('favorites.title')}</h1>
               <p className="favorites-subtitle">
@@ -177,7 +177,7 @@ function FavoritesScreen() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header modal-header-warning">
-              <FaHeart size={24} color="#ff6b6b" />
+              <FaHeart size={24} color="#ff4d5b" />
               <h2>Eliminar de Favoritos</h2>
             </div>
 

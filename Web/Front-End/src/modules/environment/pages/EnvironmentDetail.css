@@ -94,15 +94,15 @@
 }
 
 .detail-fav-btn:hover {
-  border-color: #ff6b6b;
-  color: #ff6b6b;
+  border-color: #ff4d5b;
+  color: #ff4d5b;
   transform: translateY(-1px);
 }
 
 .detail-fav-btn.active {
-  color: #ff6b6b;
-  border-color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.08);
+  color: #ff4d5b;
+  border-color: #ff4d5b;
+  background: rgba(255, 77, 91, 0.08);
 }
 
 /* Daltonismo: reemplazar el rosa por el acento del tema */

@@ -110,6 +110,7 @@ const stats = useMemo(() => ({
 
   return {
     // state
+    environments,
     filtered,
     stats,
     search,

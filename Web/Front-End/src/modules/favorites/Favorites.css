@@ -58,8 +58,8 @@
 .fav-card-impact {
   position: relative;
   background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 14px;
   overflow: hidden;
@@ -231,7 +231,7 @@ body.dark-mode .fav-metric-box:hover {
 .fav-heart-btn-impact {
   background: var(--lb-surface);
   border: 1px solid var(--lb-glass-border);
-  color: #ff6b6b;
+  color: #ff4d5b;
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
@@ -244,9 +244,9 @@ body.dark-mode .fav-metric-box:hover {
 
 .fav-heart-btn-impact:hover {
   transform: scale(1.1);
-  background: rgba(255, 107, 107, 0.12);
-  border-color: rgba(255, 107, 107, 0.4);
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
+  background: rgba(255, 77, 91, 0.12);
+  border-color: rgba(255, 77, 91, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 77, 91, 0.15);
 }
 
 .fav-heart-btn-impact:active {
@@ -281,8 +281,8 @@ body.theme-tritanopia .fav-heart-btn-impact:hover {
   text-align: center;
   gap: 20px;
   background: var(--lb-glass-bg);
-  backdrop-filter: var(--lb-glass-blur);
   -webkit-backdrop-filter: var(--lb-glass-blur);
+  backdrop-filter: var(--lb-glass-blur);
   border: 1px solid var(--lb-glass-border);
   border-radius: 20px;
   box-shadow: var(--lb-glass-shadow);
@@ -387,11 +387,11 @@ body.dark-mode .modal-header {
 }
 
 .modal-header-warning {
-  background: rgba(255, 107, 107, 0.08);
+  background: rgba(255, 77, 91, 0.08);
 }
 
 body.dark-mode .modal-header-warning {
-  background: rgba(255, 107, 107, 0.1);
+  background: rgba(255, 77, 91, 0.1);
 }
 
 .modal-header h2 {
@@ -415,7 +415,7 @@ body.dark-mode .modal-header-warning {
 
 .modal-body strong {
   font-weight: 700;
-  color: #ff6b6b;
+  color: #ff4d5b;
 }
 
 body.dark-mode .modal-body p {
@@ -476,12 +476,12 @@ body.dark-mode .modal-btn-cancel {
 }
 
 .modal-btn-danger {
-  background: #ff6b6b;
+  background: #ff4d5b;
 }
 
 .modal-btn-danger:hover {
-  background: #ff5252;
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  background: #ff4d5b;
+  box-shadow: 0 4px 12px rgba(255, 77, 91, 0.3);
 }
 
 /* ══════════════════════════════════════════════════════════════

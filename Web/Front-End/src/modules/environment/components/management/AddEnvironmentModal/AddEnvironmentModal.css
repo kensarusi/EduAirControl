@@ -80,7 +80,7 @@
   color: var(--text-primary);
 }
 
-.add-env-modal__required { color: #f85149; margin-left: 2px; }
+.add-env-modal__required { color: #ff4d5b; margin-left: 2px; }
 
 /* ─── Inputs ────────────────────────────────────────────────── */
 .add-env-modal__input {
@@ -177,8 +177,8 @@
 }
 
 .add-env-modal__btn-save {
-  background: #238636;
-  border: 1px solid #2ea043;
+  background: #25e77c;
+  border: 1px solid #25e77c;
   border-radius: 8px;
   color: #fff;
   font-size: 14px;
@@ -188,7 +188,7 @@
   transition: background 0.2s;
 }
 
-.add-env-modal__btn-save:hover:not(:disabled) { background: #2ea043; }
+.add-env-modal__btn-save:hover:not(:disabled) { background: #25e77c; }
 .add-env-modal__btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ─── Delete variant ────────────────────────────────────────── */
@@ -200,9 +200,9 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  background: rgba(248, 81, 73, 0.12);
+  background: rgba(255, 77, 91, 0.12);
   border-radius: 50%;
-  color: #f85149;
+  color: #ff4d5b;
   margin: 0 auto 4px;
 }
 
@@ -217,8 +217,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #da3633;
-  border: 1px solid #f85149;
+  background: #ff4d5b;
+  border: 1px solid #ff4d5b;
   border-radius: 8px;
   color: #fff;
   font-size: 14px;
@@ -228,4 +228,4 @@
   transition: background 0.2s;
 }
 
-.add-env-modal__btn-delete:hover { background: #f85149; }
+.add-env-modal__btn-delete:hover { background: #ff4d5b; }

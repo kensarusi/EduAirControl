@@ -107,8 +107,8 @@
 }
 
 .env-modal__btn-save {
-  background: #238636;
-  border: 1px solid #2ea043;
+  background: #25e77c;
+  border: 1px solid #25e77c;
   border-radius: 8px;
   color: #fff;
   font-size: 14px;
@@ -119,7 +119,7 @@
 }
 
 .env-modal__btn-save:hover {
-  background: #2ea043;
+  background: #25e77c;
 }
 
 /* ─── Delete modal ──────────────────────────────────────────── */
@@ -132,13 +132,13 @@
 .env-modal__delete-icon {
   width: 52px;
   height: 52px;
-  background: rgba(248, 81, 73, 0.12);
-  border: 1px solid rgba(248, 81, 73, 0.3);
+  background: rgba(255, 77, 91, 0.12);
+  border: 1px solid rgba(255, 77, 91, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f85149;
+  color: #ff4d5b;
   margin-bottom: 4px;
 }
 
@@ -159,9 +159,9 @@
   align-items: center;
   gap: 6px;
   background: rgba(248, 81, 73, 0.12);
-  border: 1px solid rgba(248, 81, 73, 0.4);
+  border: 1px solid rgba(255, 77, 91, 0.4);
   border-radius: 8px;
-  color: #f85149;
+  color: #ff4d5b;
   font-size: 14px;
   font-weight: 600;
   padding: 9px 18px;
@@ -170,6 +170,6 @@
 }
 
 .env-modal__btn-delete:hover {
-  background: rgba(248, 81, 73, 0.2);
-  border-color: #f85149;
+  background: rgba(255, 77, 91, 0.2);
+  border-color: #ff4d5b;
 }

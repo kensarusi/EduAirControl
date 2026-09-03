@@ -219,7 +219,7 @@ body:not(.dark-mode) .sensor-card small{
 
 .modal-favorite-btn.active{
 
-    background:#ff6b6b;
+    background:#ff4d5b;
 
     color:white;
 
@@ -555,7 +555,7 @@ body:not(.dark-mode)
 
 .environment-modal .modal-close:hover{
     background:rgba(255, 107, 107, .16);
-    color:#ff6b6b;
+    color:#ff4d5b;
     transform:none;
 }
 

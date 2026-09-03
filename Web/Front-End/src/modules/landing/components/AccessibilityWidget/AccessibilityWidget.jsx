@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import "./AccessibilityWidget.css";
+import {
+    getAccessibilitySettings,
+    resetAccessibilitySettings,
+    saveAccessibilitySettings,
+} from "../../../../shared/accessibility/accessibilitySettings";
 
 /* ── Constantes ── */
 const FONT_SIZES = [
@@ -15,48 +20,29 @@ const COLOR_THEMES = [
     { key: "theme-tritanopia",   label: "Tritanopia",   color: "#D55E00" },
 ];
 
-const STORAGE_KEYS = {
-    fontSize: "a11y-font-size",
-    darkMode: "darkMode",
-    colorTheme: "a11y-color-theme",
-};
-
-/* ── Helpers ── */
-function applyBodyClasses(theme, dark) {
-    const classes = [theme, dark ? "dark-mode" : ""].filter(Boolean).join(" ");
-    document.body.className = classes;
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    // Notificar al GlobalAccessibilityProvider y demás oyentes
-    window.dispatchEvent(new CustomEvent("a11y-change"));
-}
-
-function applyFontSize(key) {
-    const entry = FONT_SIZES.find((f) => f.key === key) || FONT_SIZES[0];
-    document.documentElement.style.setProperty("--a11y-font-size", entry.size);
-    document.documentElement.setAttribute("data-font-size", key);
-    window.dispatchEvent(new CustomEvent("a11y-change"));
-}
-
 /* ── Componente ── */
 function AccessibilityWidget({ raised = false }) {
     const [open, setOpen] = useState(false);
     const widgetRef = useRef(null);
 
     /* Estado inicial desde localStorage */
-    const [fontSize, setFontSize] = useState(
-        () => localStorage.getItem(STORAGE_KEYS.fontSize) || "base"
-    );
-    const [darkMode, setDarkMode] = useState(
-        () => JSON.parse(localStorage.getItem(STORAGE_KEYS.darkMode)) || false
-    );
-    const [colorTheme, setColorTheme] = useState(
-        () => localStorage.getItem(STORAGE_KEYS.colorTheme) || ""
-    );
+    const initialSettings = getAccessibilitySettings();
+    const [fontSize, setFontSize] = useState(initialSettings.fontSize);
+    const [darkMode, setDarkMode] = useState(initialSettings.darkMode);
+    const [colorTheme, setColorTheme] = useState(initialSettings.colorTheme);
 
     /* Aplicar al montar */
     useEffect(() => {
-        applyFontSize(fontSize);
-        applyBodyClasses(colorTheme, darkMode);
+        const handleSettingsChange = () => {
+            const settings = getAccessibilitySettings();
+            setFontSize(settings.fontSize);
+            setDarkMode(settings.darkMode);
+            setColorTheme(settings.colorTheme);
+        };
+
+        handleSettingsChange();
+        window.addEventListener("a11y-change", handleSettingsChange);
+        return () => window.removeEventListener("a11y-change", handleSettingsChange);
     }, []);
 
     /* Cerrar al hacer click fuera */
@@ -82,31 +68,24 @@ function AccessibilityWidget({ raised = false }) {
     /* ── Handlers ── */
     const handleFontSize = (key) => {
         setFontSize(key);
-        localStorage.setItem(STORAGE_KEYS.fontSize, key);
-        applyFontSize(key);
+        saveAccessibilitySettings({ fontSize: key, darkMode, colorTheme });
     };
 
     const handleDarkMode = (val) => {
         setDarkMode(val);
-        localStorage.setItem(STORAGE_KEYS.darkMode, JSON.stringify(val));
-        applyBodyClasses(colorTheme, val);
+        saveAccessibilitySettings({ fontSize, darkMode: val, colorTheme });
     };
 
     const handleColorTheme = (key) => {
         setColorTheme(key);
-        localStorage.setItem(STORAGE_KEYS.colorTheme, key);
-        applyBodyClasses(key, darkMode);
+        saveAccessibilitySettings({ fontSize, darkMode, colorTheme: key });
     };
 
     const handleReset = () => {
         setFontSize("base");
         setDarkMode(false);
         setColorTheme("");
-        localStorage.setItem(STORAGE_KEYS.fontSize, "base");
-        localStorage.setItem(STORAGE_KEYS.darkMode, JSON.stringify(false));
-        localStorage.setItem(STORAGE_KEYS.theme, "");
-        applyFontSize("base");
-        applyBodyClasses("", false);
+        resetAccessibilitySettings();
     };
 
     return (

@@ -391,7 +391,7 @@ input, button { max-width: 100%; }
 
 .navbar-icon { font-size: 18px; display: flex; align-items: center; }
 .navbar-label { font-weight: 500; }
-.navbar-item.logout { color: #ff6b6b; }
+.navbar-item.logout { color: #ff4d5b; }
 .navbar-item.logout:hover { background-color: #ffe0e0; color: #ff4444; }
 
 .navbar-info {
@@ -446,8 +446,8 @@ input, button { max-width: 100%; }
 }
 
 .profile-dropdown-item:hover { background: var(--accent-light); color: var(--accent); }
-.profile-dropdown-item.logout { color: #ff6b6b; }
-.profile-dropdown-item.logout:hover { background: #ffe0e0; color: #ff4444; }
+.profile-dropdown-item.logout { color: #ff4d5b; }
+.profile-dropdown-item.logout:hover { background: #ffe0e0; color: #ff4d5b; }
 
 .profile-dropdown-divider {
   height: 1px;
@@ -470,7 +470,7 @@ input, button { max-width: 100%; }
   flex-shrink: 0;
 }
 
-.toggle.active { background-color: var(--accent); }
+.toggle.active { background-color: #27f5d2; }
 
 .toggle-circle {
   width: 22px;
@@ -501,7 +501,7 @@ button:active { transform: scale(0.97); }
   border: 2px solid var(--accent);
   border-radius: 8px;
   padding: 8px 15px;
-  color: var(--accent);
+  color: #27f5d2;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -1040,7 +1040,7 @@ button:active { transform: scale(0.97); }
 .settings-field:last-child { border-bottom: none; }
 .settings-field .field-label { color: var(--text-muted); }
 .settings-field .field-value { color: var(--text-primary); }
-.settings-field .field-icon { color: var(--accent); }
+.settings-field .field-icon { color: #27f5d2; }
 
 .theme-card {
   border: 2px solid var(--border-card);

@@ -1,4 +1,5 @@
-import { IoSearchOutline, IoAddOutline, IoSwapVerticalOutline } from 'react-icons/io5'
+import { useState } from 'react'
+import { IoSearchOutline, IoAddOutline, IoSwapVerticalOutline, IoRadioOutline } from 'react-icons/io5'
 import { MdOutlineGridView } from 'react-icons/md'
 import { TbBuildingCommunity } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
@@ -7,13 +8,15 @@ import ManagementCard from "../components/management/ManagementCard/ManagementCa
 import AddEnvironmentModal from "../components/management/AddEnvironmentModal/AddEnvironmentModal";
 import EditEnvironmentModal from "../components/management/EditEnvironmentModal/EditEnvironmentModal";
 import DeleteEnvironmentModal from "../components/management/DeleteEnvironmentModal/DeleteEnvironmentModal";
+import SensorVariablePanel from "../components/management/SensorVariablePanel/SensorVariablePanel";
 import { useManagementVM } from "../../../viewmodels/useManagementVM";
 import "./EnvironmentManagement.css";
 
 function EnvironmentManagement() {
   const { t } = useTranslation()
+  const [activeView, setActiveView] = useState('environments')
   const {
-    filtered, stats, search, minCapacity, maxCapacity, showAdd, editEnv, deleteEnv,
+    environments, filtered, stats, search, minCapacity, maxCapacity, showAdd, editEnv, deleteEnv,
     activeFilter, sortBy,
     setSearch, setMinCapacity, setMaxCapacity, setShowAdd, setEditEnv, openDelete, setDeleteEnv,
     handleAdd, handleEdit, handleDelete,
@@ -32,7 +35,7 @@ function EnvironmentManagement() {
               <MdOutlineGridView size={19} />
             </span>
             <h1 className="env-management-topbar__title">
-              {t('management.title', 'Gestión de Ambientes')}
+              {t('management.title', 'Gestión general')}
             </h1>
           </div>
 
@@ -48,12 +51,23 @@ function EnvironmentManagement() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <button className="env-management-add-btn" onClick={() => setShowAdd(true)}>
+            {activeView === 'environments' && <button className="env-management-add-btn" onClick={() => setShowAdd(true)}>
               <IoAddOutline size={17} />
               {t('management.addBtn', 'Agregar Ambiente')}
-            </button>
+            </button>}
           </div>
         </div>
+
+        <div className="env-management-tabs" role="tablist" aria-label="Gestión general">
+          <button type="button" role="tab" aria-selected={activeView === 'environments'} className={activeView === 'environments' ? 'active' : ''} onClick={() => setActiveView('environments')}>
+            <TbBuildingCommunity size={17} /> Ambientes <span>{stats.total}</span>
+          </button>
+          <button type="button" role="tab" aria-selected={activeView === 'sensors'} className={activeView === 'sensors' ? 'active' : ''} onClick={() => setActiveView('sensors')}>
+            <IoRadioOutline size={17} /> Sensores y variables
+          </button>
+        </div>
+
+        {activeView === 'sensors' ? <SensorVariablePanel environments={environments} /> : <>
 
         {/* ── Summary cards ── */}
         <div className="env-management-summary">
@@ -205,6 +219,7 @@ function EnvironmentManagement() {
             ))
           )}
         </div>
+        </>}
       </div>
 
       {showAdd   && <AddEnvironmentModal    onClose={() => setShowAdd(false)}          onAdd={handleAdd}       />}

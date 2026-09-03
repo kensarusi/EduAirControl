@@ -240,7 +240,7 @@ function ProfileScreen() {
 
               <IoLogOut
                 size={30}
-                color="#ff6b6b"
+                color="#ff4d5b"
               />
 
               <h3>
