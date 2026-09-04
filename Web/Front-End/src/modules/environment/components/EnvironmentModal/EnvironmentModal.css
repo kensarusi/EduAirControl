@@ -64,7 +64,7 @@ body:not(.dark-mode) .environment-modal{
 
     cursor:pointer;
 
-    color:#27F5D2;
+    color:var(--accent);
 
 }
 
@@ -92,7 +92,7 @@ body:not(.dark-mode) .environment-modal{
 
     border-radius:40px;
 
-    background:#27F5D2;
+    background:var(--accent);
 
     color:#08111E;
 
@@ -112,7 +112,7 @@ body:not(.dark-mode) .environment-modal{
 
     font-size:72px;
 
-    color:#27F5D2;
+    color:var(--accent);
 
     margin:0;
 
@@ -148,7 +148,7 @@ body:not(.dark-mode) .sensor-card{
 
     font-size:34px;
 
-    color:#27F5D2;
+    color:var(--accent);
 
 }
 
@@ -211,7 +211,7 @@ body:not(.dark-mode) .sensor-card small{
 .favorite-btn,
 .modal-favorite-btn{
 
-    background:#27F5D2;
+    background:var(--accent);
 
     color:#08111E;
 
@@ -245,9 +245,9 @@ RECOMENDACIONES
 
     border-radius:20px;
 
-    background:rgba(39,245,210,.05);
+    background:rgb(var(--accent-rgb) / .05);
 
-    border:1px solid rgba(39,245,210,.12);
+    border:1px solid rgb(var(--accent-rgb) / .12);
 
 }
 
@@ -262,7 +262,7 @@ body:not(.dark-mode)
 
     margin-bottom:18px;
 
-    color:#27F5D2;
+    color:var(--accent);
 
     font-size:22px;
 
@@ -286,7 +286,7 @@ body:not(.dark-mode)
 
 .modal-status.normal{
 
-    background:#27F5D2;
+    background:var(--accent);
 
     color:#08111E;
 
@@ -349,7 +349,7 @@ SCORE
     background:
     conic-gradient(
 
-        #27F5D2 var(--score),
+        var(--accent) var(--score),
 
         rgba(255,255,255,.08) 0
 
@@ -398,7 +398,7 @@ body:not(.dark-mode)
 
     margin-bottom:8px;
 
-    color:#27F5D2;
+    color:var(--accent);
 
 }
 
@@ -424,7 +424,7 @@ EXPLICACIÓN
 
     margin-bottom:22px;
 
-    color:#27F5D2;
+    color:var(--accent);
 
 }
 
@@ -446,7 +446,7 @@ EXPLICACIÓN
 
     background:rgba(255,255,255,.05);
 
-    border:1px solid rgba(39,245,210,.10);
+    border:1px solid rgb(var(--accent-rgb) / .10);
 
     transition:.3s;
 
@@ -469,7 +469,7 @@ body:not(.dark-mode)
 
     margin:12px 0;
 
-    color:#27F5D2;
+    color:var(--accent);
 
 }
 

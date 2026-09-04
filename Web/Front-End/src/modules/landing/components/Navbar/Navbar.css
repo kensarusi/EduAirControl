@@ -165,7 +165,7 @@ body:not(.dark-mode) .landing-navbar__brand span {
 .landing-navbar__login:hover {
     background: var(--accent);
     color: #ffffff;
-    box-shadow: 0 12px 28px rgba(0, 184, 148, 0.28);
+    box-shadow: 0 12px 28px rgb(var(--accent-rgb) /  0.28);
     transform: translateY(-2px);
 }
 
@@ -468,7 +468,7 @@ body:not(.dark-mode) .landing-navbar__toggle:hover {
         border: 0;
         border-radius: 14px;
         background: var(--accent);
-        box-shadow: 0 10px 24px rgba(0, 184, 148, 0.22);
+        box-shadow: 0 10px 24px rgb(var(--accent-rgb) /  0.22);
         color: #ffffff;
         font-weight: 800;
         cursor: pointer;
@@ -477,7 +477,7 @@ body:not(.dark-mode) .landing-navbar__toggle:hover {
 
     .landing-navbar__mobile-login:hover {
         filter: brightness(1.05);
-        box-shadow: 0 14px 28px rgba(0, 184, 148, 0.3);
+        box-shadow: 0 14px 28px rgb(var(--accent-rgb) /  0.3);
         transform: translateY(-2px);
     }
 

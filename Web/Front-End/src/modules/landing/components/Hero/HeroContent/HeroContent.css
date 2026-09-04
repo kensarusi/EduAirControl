@@ -17,8 +17,8 @@
 }
 
 body:not(.dark-mode) .hero-badge {
-    background: rgba(0, 184, 148, 0.08);
-    border-color: rgba(0, 184, 148, 0.18);
+    background: rgb(var(--accent-rgb) /  0.08);
+    border-color: rgb(var(--accent-rgb) /  0.18);
     color: #1b6f5d;
 }
 
@@ -71,7 +71,7 @@ body:not(.dark-mode) .trusted-item {
 
 .hero-badge svg{
 
-    color:#27F5D2;
+    color:var(--accent);
 }
 
 .hero-stats{
@@ -90,7 +90,7 @@ body:not(.dark-mode) .trusted-item {
 }
 
 .stat-item h3{
-    color:#27F5D2;
+    color:var(--accent);
     font-size:clamp(1.65rem, 2.4vw, 2.25rem);
     font-weight:800;
     margin:0;
@@ -122,7 +122,7 @@ body:not(.dark-mode) .trusted-item {
     background:linear-gradient(
         90deg,
         transparent,
-        rgba(39,245,210,.45),
+        rgb(var(--accent-rgb) / .45),
         transparent
     );
 
@@ -189,9 +189,9 @@ body:not(.dark-mode) .trusted-item {
 
     transform:translateY(-4px);
 
-    border-color:rgba(39,245,210,.3);
+    border-color:rgb(var(--accent-rgb) / .3);
 
-    box-shadow:0 0 20px rgba(39,245,210,.12);
+    box-shadow:0 0 20px rgb(var(--accent-rgb) / .12);
 
 }
 
@@ -231,11 +231,11 @@ body:not(.dark-mode) .trusted-item {
 .hero-title-brand{
     width:fit-content;
     margin:0 auto;
-    background:linear-gradient(100deg, #27f5d2 5%, #4bdcff 52%, #27f5d2 100%);
+    background:linear-gradient(100deg, var(--accent) 5%, #4bdcff 52%, var(--accent) 100%);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
-    text-shadow:0 0 30px rgba(39, 245, 210, .18);
+    text-shadow:0 0 30px rgb(var(--accent-rgb) /  .18);
 }
 
 .hero-title-brand::after{
@@ -245,7 +245,7 @@ body:not(.dark-mode) .trusted-item {
     height:3px;
     margin:10px auto 0;
     border-radius:99px;
-    background:linear-gradient(90deg, transparent, #27f5d2, #00c2ff, transparent);
+    background:linear-gradient(90deg, transparent, var(--accent), #00c2ff, transparent);
 }
 
 .hero-description{
@@ -293,9 +293,9 @@ body:not(.dark-mode) .trusted-item {
 }
 
 .primary-btn{
-    background:#27F5D2;
+    background:var(--accent);
     color:#07131F;
-    box-shadow:0 10px 25px rgba(39,245,210,.20);
+    box-shadow:0 10px 25px rgb(var(--accent-rgb) / .20);
 }
 
 .primary-btn:hover{
@@ -303,7 +303,7 @@ body:not(.dark-mode) .trusted-item {
     transform:translateY(-4px);
 
     box-shadow:
-    0 15px 35px rgba(39,245,210,.35);
+    0 15px 35px rgb(var(--accent-rgb) / .35);
 
 }
 
@@ -319,9 +319,9 @@ body:not(.dark-mode) .trusted-item {
 
 .secondary-btn:hover{
 
-    border-color:#27F5D2;
+    border-color:var(--accent);
 
-    color:#27F5D2;
+    color:var(--accent);
 
     transform:translateY(-4px);
 

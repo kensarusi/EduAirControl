@@ -22,7 +22,7 @@ body:not(.dark-mode) .footer-contact h3,
 body:not(.dark-mode) .footer-social a:hover,
 body:not(.dark-mode) .footer-links a:hover,
 body:not(.dark-mode) .footer-contact svg {
-    color: #0a8b6f;
+    color: var(--accent);
 }
 
 body:not(.dark-mode) .footer-brand p,
@@ -52,7 +52,7 @@ body:not(.dark-mode) .footer-contact div {
     display:flex;
     align-items:center;
     gap:12px;
-    color:#39F4D8;
+    color:var(--accent);
     font-size:1.8rem;
     font-weight:700;
     margin-bottom:20px;
@@ -82,7 +82,7 @@ body:not(.dark-mode) .footer-contact div {
 }
 
 .footer-social a:hover{
-    background:#39F4D8;
+    background:var(--accent);
     color:#111827;
     transform:translateY(-5px);
 }
@@ -107,7 +107,7 @@ body:not(.dark-mode) .footer-contact div {
 }
 
 .footer-links a:hover{
-    color:#39F4D8;
+    color:var(--accent);
     padding-left:8px;
 }
 
@@ -120,7 +120,7 @@ body:not(.dark-mode) .footer-contact div {
 }
 
 .footer-contact svg{
-    color:#39F4D8;
+    color:var(--accent);
 }
 
 .footer-bottom{

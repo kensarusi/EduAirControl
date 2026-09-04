@@ -10,6 +10,7 @@ import { EditModal } from "../../../shared/components";
 import { useDarkMode } from "../../../shared/hooks/useDarkMode";
 import { saveDateFormat } from "../../../shared/hooks/useDateFormat";
 import {
+  ACCESSIBILITY_THEMES,
   getAccessibilitySettings,
   saveAccessibilitySettings,
 } from "../../../shared/accessibility/accessibilitySettings";
@@ -33,12 +34,14 @@ const TIMEZONES = [
   { value: 'Australia/Sydney',    label: 'Sídney (UTC+10/+11)' },
 ]
 
-const THEMES = [
-  { key: '',                   dot: { light: '#5de6c8', dark: '#3ab8a0' } },
-  { key: 'theme-protanopia',   dot: { light: '#0072b2', dark: '#4aa8d8' } },
-  { key: 'theme-deuteranopia', dot: { light: '#8a5f00', dark: '#c8880a' } },
-  { key: 'theme-tritanopia',   dot: { light: '#a34600', dark: '#e8743a' } },
-]
+const THEME_COLORS = {
+  '': { light: '#28F4D6', dark: '#28F4D6' },
+  'theme-protanopia': { light: '#0072b2', dark: '#4aa8d8' },
+  'theme-deuteranopia': { light: '#8a5f00', dark: '#c8880a' },
+  'theme-tritanopia': { light: '#a34600', dark: '#e8743a' },
+}
+
+const THEMES = ACCESSIBILITY_THEMES.map((key) => ({ key, dot: THEME_COLORS[key] }))
 
 function SettingsScreen() {
   const { t, i18n } = useTranslation()
@@ -164,14 +167,15 @@ function SettingsScreen() {
   }
 
   const themeLabel = (key) => {
-    if (key === '') return t('settings.themeNormal')
-    if (key === 'theme-protanopia') return t('settings.themeProtanopia')
-    if (key === 'theme-deuteranopia') return t('settings.themeDeuteranopia')
-    return t('settings.themeTritanopia')
+    const labels = {
+      '': t('settings.themeNormal'),
+      'theme-protanopia': t('settings.themeProtanopia'),
+      'theme-deuteranopia': t('settings.themeDeuteranopia'),
+      'theme-tritanopia': t('settings.themeTritanopia'),
+    }
+    return labels[key] || labels['']
   }
   const toggleReminder = (key) => setReminders(prev => ({ ...prev, [key]: !prev[key] }))
-  const themeTextColor = darkMode ? '#e2e8f0' : '#0f172a'
-  const themePreviewLineColor = darkMode ? '#e2e8f0' : '#0f172a'
 
   return (
     <div className={`settings-page ${darkMode ? 'dark' : ''}`}>
@@ -204,22 +208,20 @@ function SettingsScreen() {
               <button
                 key={key}
                 className={`theme-card ${theme === key ? 'theme-card--active' : ''}`}
+                type="button"
                 onClick={() => changeTheme(key)}
-                style={{
-                  color: themeTextColor,
-                  borderColor: theme === key ? (darkMode ? '#7dd3fc' : '#00b894') : undefined,
-                  background: theme === key ? (darkMode ? 'rgba(14, 116, 144, 0.18)' : 'rgba(0, 184, 148, 0.12)') : undefined,
-                }}
+                aria-label={`${t('settings.accessibleThemes')}: ${themeLabel(key)}`}
+                aria-pressed={theme === key}
               >
                 <div className="theme-preview">
                   <div className="preview-bar" style={{ background: darkMode ? dot.dark : dot.light }} />
                   <div className="preview-text">
-                    <span className="preview-line" style={{ background: themePreviewLineColor }} />
-                    <span className="preview-line short" style={{ background: themePreviewLineColor }} />
+                    <span className="preview-line" />
+                    <span className="preview-line short" />
                   </div>
                 </div>
-                <span className="theme-label" style={{ color: themeTextColor }}>{themeLabel(key)}</span>
-                {theme === key && <span className="theme-check" style={{ color: darkMode ? '#7dd3fc' : '#00b894' }}>✓</span>}
+                <span className="theme-label">{themeLabel(key)}</span>
+                {theme === key && <span className="theme-check" aria-hidden="true">✓</span>}
               </button>
             ))}
           </div>

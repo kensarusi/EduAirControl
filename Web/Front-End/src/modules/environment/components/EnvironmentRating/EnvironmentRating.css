@@ -56,6 +56,6 @@ body:not(.dark-mode) .environment-rating-desc{
 
 .environment-rating-thanks{
     margin-top:12px;
-    color:#27F5D2;
+    color:var(--accent);
     font-weight:600;
 }

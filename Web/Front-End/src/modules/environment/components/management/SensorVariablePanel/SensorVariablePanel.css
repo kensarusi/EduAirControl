@@ -16,7 +16,7 @@
 }
 
 .sensor-panel__eyebrow { 
-    color: #27f5d2; 
+    color: var(--accent); 
     font-size: 10px; 
     font-weight: 800; 
     letter-spacing: 1.3px; 
@@ -44,7 +44,7 @@
     padding: 10px 15px; 
     border: 0; 
     border-radius: 11px; 
-    background: #27f5d2; 
+    background: var(--accent); 
     color: #03171c; 
     font-weight: 700;
     cursor: pointer; 
@@ -201,7 +201,7 @@
 }
 .sensor-panel__sensor-icon--mint { 
     color: #00a77d; 
-    background: rgba(0,184,148,.12); 
+    background: rgb(var(--accent-rgb) / .12); 
 } 
 .sensor-panel__sensor-icon--blue { 
     color: #178dcc; 

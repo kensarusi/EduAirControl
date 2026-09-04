@@ -7,7 +7,7 @@
 /* Ícono */
 .verify-icon {
   font-size: 60px;
-  color: #5de6c8;
+  color: var(--accent);
   margin-bottom: 20px;
 }
 
@@ -44,12 +44,12 @@
 }
 
 .code-inputs input:focus {
-  border-color: #5de6c8;
+  border-color: var(--accent);
 }
 
 /* Resend code */
 .resend-code {
-  color: #5de6c8;
+  color: var(--accent);
   font-size: 14px;
   text-decoration: none;
   cursor: pointer;
@@ -65,7 +65,7 @@
 .btn-verify {
   width: 100%;
   padding: 12px;
-  background-color: #5de6c8;
+  background-color: var(--accent);
   color: white;
   border: none;
   border-radius: 5px;
@@ -96,5 +96,5 @@ body.dark-mode .code-inputs input {
 }
 
 body.dark-mode .code-inputs input:focus {
-  border-color: #5de6c8;
+  border-color: var(--accent);
 }

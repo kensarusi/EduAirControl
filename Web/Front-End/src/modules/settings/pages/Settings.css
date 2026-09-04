@@ -1,7 +1,5 @@
 /* ============================================================
    SETTINGS — EduAirControl
-   Configuracion completa. Cards glass, modales premium,
-   dark mode polish, responsive limpio.
    ============================================================ */
 
 .settings-page {
@@ -50,7 +48,7 @@
 .settings-field .field-icon {
   font-size: 18px;
   margin-right: 14px;
-  color: #27f5d2;
+  color: var(--accent);
   flex-shrink: 0;
 }
 
@@ -102,53 +100,35 @@
   color: var(--text-secondary);
 }
 
-body:not(.dark-mode) .theme-card,
-body:not(.dark-mode) .theme-card .theme-label,
-body:not(.dark-mode) .theme-card .theme-check {
-  color: var(--text-primary);
+.theme-card,
+.theme-card .theme-label,
+.theme-card .theme-check {
+  color: var(--text-primary) !important;
 }
 
-body.theme-protanopia .theme-card,
-body.theme-deuteranopia .theme-card,
-body.theme-tritanopia .theme-card,
-body.theme-protanopia .theme-label,
-body.theme-deuteranopia .theme-label,
-body.theme-tritanopia .theme-label {
-  color: var(--text-primary);
-}
-
-body:not(.dark-mode) .theme-card .theme-label,
-body:not(.dark-mode) .theme-card .theme-check,
-body:not(.dark-mode) .theme-card {
-  color: #0f172a;
-}
-
-body.dark-mode .theme-card .theme-label,
-body.dark-mode .theme-card .theme-check,
-body.dark-mode .theme-card {
-  color: #e2e8f0;
-}
-
-body.dark-mode.theme-protanopia .theme-card,
-body.dark-mode.theme-deuteranopia .theme-card,
-body.dark-mode.theme-tritanopia .theme-card,
-body.dark-mode.theme-protanopia .theme-label,
-body.dark-mode.theme-deuteranopia .theme-label,
-body.dark-mode.theme-tritanopia .theme-label {
-  color: #e2e8f0;
+.theme-card .theme-label {
+  display: block;
+  position: relative;
+  z-index: 1;
+  color: var(--text-primary) !important;
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--bg-card) 65%, transparent);
 }
 
 .theme-card:hover {
   transform: translateY(-2px);
-  border-color: var(--lb-glass-border-hover);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
-.theme-card--active,
-.theme-card:has(+ .theme-check) {
+.theme-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 2px;
+}
+
+.theme-card--active {
   border-color: var(--accent);
-  background: var(--lb-surface);
-  box-shadow: 0 4px 14px rgba(0, 184, 148, 0.20);
+  background: color-mix(in srgb, var(--accent) 22%, #ffffff);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 .theme-preview {
@@ -192,8 +172,16 @@ body.dark-mode.theme-tritanopia .theme-label {
 }
 
 .theme-card--active .theme-label,
-.theme-card:has(+ .theme-check) .theme-label {
-  color: var(--text-primary);
+.theme-card--active .theme-check,
+body.theme-protanopia .theme-card--active .theme-label,
+body.theme-protanopia .theme-card--active .theme-check,
+body.theme-deuteranopia .theme-card--active .theme-label,
+body.theme-deuteranopia .theme-card--active .theme-check,
+body.theme-tritanopia .theme-card--active .theme-label,
+body.theme-tritanopia .theme-card--active .theme-check {
+  color: #0f172a !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
+  -webkit-text-stroke: 0.1px rgba(255, 255, 255, 0.25);
 }
 
 /* ── Bandera junto al idioma actual ── */
@@ -629,13 +617,13 @@ body.dark-mode.theme-tritanopia .theme-label {
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 184, 148, 0.28);
+  box-shadow: 0 4px 14px rgb(var(--accent-rgb) /  0.28);
 }
 
 .password-actions .btn-save:hover {
   background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0, 184, 148, 0.38);
+  box-shadow: 0 8px 22px rgb(var(--accent-rgb) /  0.38);
 }
 
 .password-actions .btn-cancel {
@@ -682,4 +670,24 @@ body.dark-mode.theme-tritanopia .theme-label {
 @media (max-width: 480px) {
   .settings-content { padding: 76px 12px 32px; }
   .theme-picker { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* El tema seleccionado siempre usa texto negro, incluso en modo oscuro. */
+body .settings-page .theme-card--active .theme-label,
+body .settings-page .theme-card--active .theme-check,
+body.theme-protanopia .settings-page .theme-card--active .theme-label,
+body.theme-protanopia .settings-page .theme-card--active .theme-check,
+body.theme-deuteranopia .settings-page .theme-card--active .theme-label,
+body.theme-deuteranopia .settings-page .theme-card--active .theme-check,
+body.theme-tritanopia .settings-page .theme-card--active .theme-label,
+body.theme-tritanopia .settings-page .theme-card--active .theme-check,
+body.dark-mode.theme-protanopia .settings-page .theme-card--active .theme-label,
+body.dark-mode.theme-protanopia .settings-page .theme-card--active .theme-check,
+body.dark-mode.theme-deuteranopia .settings-page .theme-card--active .theme-label,
+body.dark-mode.theme-deuteranopia .settings-page .theme-card--active .theme-check,
+body.dark-mode.theme-tritanopia .settings-page .theme-card--active .theme-label,
+body.dark-mode.theme-tritanopia .settings-page .theme-card--active .theme-check {
+  color: #000000 !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
 }
