@@ -111,34 +111,34 @@ function FavoritesScreen() {
                     <div className="fav-section-metrics">
 
                       <div className="fav-metric-box">
-                        <span>🌡️</span>
-                        <div>
-                          <span>{t('dashboard.temperature')}</span>
-                          <span>{fav.temp}°C</span>
+                        <span className="fav-metric-icon">🌡️</span>
+                        <div className="fav-metric-info">
+                          <span className="fav-metric-label">{t('dashboard.temperature')}</span>
+                          <span className="fav-metric-value">{fav.temp}°C</span>
                         </div>
                       </div>
 
                       <div className="fav-metric-box">
-                        <span>💧</span>
-                        <div>
-                          <span>{t('dashboard.humidity')}</span>
-                          <span>{fav.humidity}%</span>
+                        <span className="fav-metric-icon">💧</span>
+                        <div className="fav-metric-info">
+                          <span className="fav-metric-label">{t('dashboard.humidity')}</span>
+                          <span className="fav-metric-value">{fav.humidity}%</span>
                         </div>
                       </div>
 
                       <div className="fav-metric-box">
-                        <span>🌫️</span>
-                        <div>
-                          <span>CO₂</span>
-                          <span>{fav.co2}ppm</span>
+                        <span className="fav-metric-icon">🌫️</span>
+                        <div className="fav-metric-info">
+                          <span className="fav-metric-label">CO₂</span>
+                          <span className="fav-metric-value">{fav.co2}ppm</span>
                         </div>
                       </div>
 
                       <div className="fav-metric-box">
-                        <span>🔊</span>
-                        <div>
-                          <span>{t('dashboard.noise')}</span>
-                          <span>{fav.noise} dB</span>
+                        <span className="fav-metric-icon">🔊</span>
+                        <div className="fav-metric-info">
+                          <span className="fav-metric-label">{t('dashboard.noise')}</span>
+                          <span className="fav-metric-value">{fav.noise} dB</span>
                         </div>
                       </div>
                     </div>
@@ -147,8 +147,8 @@ function FavoritesScreen() {
                     <div className="fav-section-right">
 
                       <div className="fav-quality-info">
-                        <span>{t('dashboard.airQuality')}</span>
-                        <span>{t(fav.qualityKey)}</span>
+                        <span className="fav-quality-label">{t('dashboard.airQuality')}</span>
+                        <span className="fav-quality-value">{t(fav.qualityKey)}</span>
                       </div>
 
                       <button
