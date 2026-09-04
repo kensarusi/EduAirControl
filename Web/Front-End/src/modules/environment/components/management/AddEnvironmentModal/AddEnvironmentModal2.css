@@ -37,7 +37,7 @@
 
 .env-modal__title {
   color: var(--text-primary);
-  font-size: 18px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
   font-weight: 700;
   margin: 0 0 4px 0;
 }
@@ -45,7 +45,7 @@
 /* ─── Form fields ───────────────────────────────────────────── */
 .env-modal__label {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: calc(var(--a11y-font-size) * 0.8125);
   font-weight: 600;
   margin-bottom: -6px;
 }
@@ -55,7 +55,7 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   padding: 10px 14px;
   outline: none;
   width: 100%;
@@ -94,7 +94,7 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 600;
   padding: 9px 18px;
   cursor: pointer;
@@ -111,7 +111,7 @@
   border: 1px solid #25e77c;
   border-radius: 8px;
   color: #fff;
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 600;
   padding: 9px 18px;
   cursor: pointer;
@@ -144,7 +144,7 @@
 
 .env-modal__delete-desc {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   line-height: 1.6;
   margin: 0;
 }
@@ -162,7 +162,7 @@
   border: 1px solid rgba(255, 77, 91, 0.4);
   border-radius: 8px;
   color: #ff4d5b;
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 600;
   padding: 9px 18px;
   cursor: pointer;

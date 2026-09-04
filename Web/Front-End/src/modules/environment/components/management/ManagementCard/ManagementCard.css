@@ -73,7 +73,7 @@
 
 .mgmt-card__name {
   color: var(--text-primary);
-  font-size: 16.5px;
+  font-size: calc(var(--a11y-font-size) * 1.03125);
   font-weight: 800;
   margin: 0;
   white-space: nowrap;
@@ -97,7 +97,7 @@
   border: 1px solid var(--lb-glass-border);
   border-radius: 999px;
   padding: 3px 11px;
-  font-size: 11.5px;
+  font-size: calc(var(--a11y-font-size) * 0.71875);
   color: var(--text-muted);
   font-weight: 600;
 }
@@ -113,7 +113,7 @@
 .mgmt-card__badge {
   padding: 4px 13px;
   border-radius: 999px;
-  font-size: 11.5px;
+  font-size: calc(var(--a11y-font-size) * 0.71875);
   font-weight: 700;
   letter-spacing: 0.2px;
   border: 1.5px solid transparent;
@@ -203,7 +203,7 @@
 }
 
 .mgmt-card__metric-label {
-  font-size: 11px;
+  font-size: calc(var(--a11y-font-size) * 0.6875);
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
@@ -211,7 +211,7 @@
 }
 
 .mgmt-card__metric-value {
-  font-size: 20px;
+  font-size: calc(var(--a11y-font-size) * 1.25);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.6px;
@@ -223,7 +223,7 @@
 }
 
 @media (max-width: 420px) {
-  .mgmt-card__metric-value { font-size: 17px; }
+  .mgmt-card__metric-value { font-size: calc(var(--a11y-font-size) * 1.0625); }
   .mgmt-card__header-right { gap: 6px; }
   .mgmt-card { padding: 16px 18px; }
 }

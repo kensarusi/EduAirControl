@@ -57,6 +57,16 @@ export function applyAccessibilitySettings(settings = getAccessibilitySettings()
   if (settings.darkMode) document.body.classList.add("dark-mode");
 }
 
+// Devuelve el tamaño de fuente accesible actual en píxeles (número).
+export function getComputedA11yFontSizePx() {
+  try {
+    const v = getComputedStyle(document.documentElement).getPropertyValue("--a11y-font-size").trim();
+    return v.endsWith("px") ? parseInt(v.replace("px", ""), 10) : parseInt(v, 10) || 16;
+  } catch {
+    return 16;
+  }
+}
+
 export function saveAccessibilitySettings(settings) {
   localStorage.setItem(ACCESSIBILITY_STORAGE_KEYS.fontSize, settings.fontSize);
   localStorage.setItem(ACCESSIBILITY_STORAGE_KEYS.darkMode, JSON.stringify(settings.darkMode));

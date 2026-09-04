@@ -94,7 +94,7 @@ body:not(.dark-mode) .dashboard-navbar{
 .dashboard-navbar-logo-text h2{
 
     margin:0;
-    font-size:30px;
+    font-size: calc(var(--a11y-font-size) * 1.875);
     font-weight:800;
 
     color:#27f5d2;
@@ -107,7 +107,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     margin-top:4px;
 
-    font-size:13px;
+    font-size: calc(var(--a11y-font-size) * 0.8125);
 
     color:var(--text-muted);
 
@@ -127,7 +127,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     color:var(--text-primary);
 
-    font-size:17px;
+    font-size: calc(var(--a11y-font-size) * 1.0625);
 
     font-weight:700;
 
@@ -139,7 +139,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     color:#27f5d2;
 
-    font-size:13px;
+    font-size: calc(var(--a11y-font-size) * 0.8125);
 
 }
 
@@ -175,7 +175,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     color:#e0e0e0;
 
-    font-size:14px;
+    font-size: calc(var(--a11y-font-size) * 0.875);
 
     font-weight:600;
 
@@ -187,7 +187,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
 .dashboard-navbar-item svg{
 
-    font-size:18px;
+    font-size: calc(var(--a11y-font-size) * 1.125);
 
 }
 

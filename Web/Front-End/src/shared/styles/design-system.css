@@ -182,7 +182,7 @@ body.dark-mode .ds-modal {
   right:         16px;
   background:    none;
   border:        none;
-  font-size:     20px;
+  font-size:     calc(var(--a11y-font-size) * 1.25);
   color:         var(--text-muted);
   cursor:        pointer;
   padding:       4px;
@@ -234,7 +234,7 @@ body.dark-mode .ds-panel {
 }
 
 .ds-panel__title {
-  font-size:   16px;
+  font-size:   calc(var(--a11y-font-size) * 1);
   font-weight: 700;
   color:       var(--text-primary);
   margin:      0;
@@ -480,8 +480,8 @@ body.dark-mode .ds-btn--primary:hover {
   transform:  translateY(-2px);
 }
 
-.ds-btn--sm { padding: 7px 14px;  font-size: 13px; border-radius: 9px; }
-.ds-btn--lg { padding: 14px 28px; font-size: 16px; border-radius: 14px; }
+.ds-btn--sm { padding: 7px 14px;  font-size: calc(var(--a11y-font-size) * 0.8125); border-radius: 9px; }
+.ds-btn--lg { padding: 14px 28px; font-size: calc(var(--a11y-font-size) * 1); border-radius: 14px; }
 
 .ds-btn-icon {
   display:         flex;
@@ -628,7 +628,7 @@ body.dark-mode .ds-btn--primary:hover {
     border-radius: 16px;
   }
 
-  .ds-page-header__title { font-size: 20px; }
+  .ds-page-header__title { font-size: calc(var(--a11y-font-size) * 1.25); }
 
   .ds-modal {
     border-radius: 20px;

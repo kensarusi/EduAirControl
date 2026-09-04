@@ -16,7 +16,7 @@
 }
 
 .settings-content h1 {
-  font-size: 26px;
+  font-size: calc(var(--a11y-font-size) * 1.625);
   font-weight: 800;
   margin-bottom: 28px;
   display: flex;
@@ -27,7 +27,7 @@
 
 /* ── Settings Card header ── */
 .settings-card h2 {
-  font-size: 17px;
+  font-size: calc(var(--a11y-font-size) * 1.0625);
   font-weight: 700;
   margin-bottom: 4px;
   display: flex;
@@ -48,7 +48,7 @@
 .settings-field:last-child { border-bottom: none; }
 
 .settings-field .field-icon {
-  font-size: 18px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
   margin-right: 14px;
   color: #27f5d2;
   flex-shrink: 0;
@@ -68,7 +68,7 @@
   text-overflow: ellipsis;
   max-width: 100%;
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 500;
 }
 
@@ -95,7 +95,7 @@
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 12px;
+  font-size: calc(var(--a11y-font-size) * 0.75);
   font-weight: 600;
   background: var(--lb-surface);
   border: 1.5px solid var(--lb-glass-border);
@@ -185,7 +185,7 @@ body.dark-mode.theme-tritanopia .theme-label {
 .preview-line.short { width: 55%; opacity: 0.35; }
 
 .theme-label {
-  font-size: 13px;
+  font-size: calc(var(--a11y-font-size) * 0.8125);
   font-weight: 700;
   text-align: center;
   color: var(--text-primary);
@@ -257,7 +257,7 @@ body.dark-mode.theme-tritanopia .theme-label {
   border-radius: 10px;
   background: var(--lb-surface);
   color: var(--text-primary);
-  font-size: 13px;
+  font-size: calc(var(--a11y-font-size) * 0.8125);
   cursor: pointer;
   transition: border-color 0.2s ease;
   appearance: none;

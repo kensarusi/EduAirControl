@@ -461,10 +461,10 @@ function SettingsScreen() {
             {deleteStep === 'confirm' ? (
               <>
                 <h3 style={{ color: '#ff4d5b' }}>⚠️ {t('settings.deleteAccount')}</h3>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', textAlign: 'center', margin: '0 0 4px' }}>
+                <p style={{ fontSize: 'calc(var(--a11y-font-size) * 0.875)', color: 'var(--text-secondary)', textAlign: 'center', margin: '0 0 4px' }}>
                   {t('settings.deleteAccountConfirm')}
                 </p>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', margin: '0 0 12px' }}>
+                <p style={{ fontSize: 'calc(var(--a11y-font-size) * 0.8125)', color: 'var(--text-muted)', textAlign: 'center', margin: '0 0 12px' }}>
                   {t('settings.deleteAccountDetail')}
                 </p>
                 <button onClick={() => setShowDeleteModal(false)} style={{ background: 'var(--bg-subtle)' }}>

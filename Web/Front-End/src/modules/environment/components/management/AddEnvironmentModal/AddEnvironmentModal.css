@@ -41,7 +41,7 @@
 
 .add-env-modal__title {
   color: var(--text-primary);
-  font-size: 18px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
   font-weight: 700;
   margin: 0;
 }
@@ -67,14 +67,14 @@
 /* ─── Labels ────────────────────────────────────────────────── */
 .add-env-modal__label {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: calc(var(--a11y-font-size) * 0.75);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .add-env-modal__label--section {
-  font-size: 13px;
+  font-size: calc(var(--a11y-font-size) * 0.8125);
   text-transform: none;
   letter-spacing: 0;
   color: var(--text-primary);
@@ -132,7 +132,7 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: calc(var(--a11y-font-size) * 0.8125);
   font-weight: 500;
   padding: 6px 14px;
   cursor: pointer;
@@ -164,7 +164,7 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 600;
   padding: 9px 18px;
   cursor: pointer;
@@ -181,7 +181,7 @@
   border: 1px solid #25e77c;
   border-radius: 8px;
   color: #fff;
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 600;
   padding: 9px 18px;
   cursor: pointer;
@@ -208,7 +208,7 @@
 
 .add-env-modal__delete-desc {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   line-height: 1.5;
   margin: 0;
 }
@@ -221,7 +221,7 @@
   border: 1px solid #ff4d5b;
   border-radius: 8px;
   color: #fff;
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   font-weight: 600;
   padding: 9px 18px;
   cursor: pointer;

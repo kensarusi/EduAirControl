@@ -96,7 +96,7 @@
 }
 
 .a11y-panel__title {
-    font-size: 14px;
+    font-size: calc(var(--a11y-font-size) * 0.875);
     font-weight: 700;
     color: #28F4D6;
     letter-spacing: 0.04em;
@@ -107,7 +107,7 @@
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.4);
-    font-size: 14px;
+    font-size: calc(var(--a11y-font-size) * 0.875);
     cursor: pointer;
     padding: 4px 6px;
     border-radius: 6px;
@@ -127,7 +127,7 @@
 }
 
 .a11y-section__label {
-    font-size: 11px;
+    font-size: calc(var(--a11y-font-size) * 0.6875);
     font-weight: 700;
     color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
@@ -197,7 +197,7 @@
     border: 1.5px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     color: rgba(255, 255, 255, 0.65);
-    font-size: 13px;
+    font-size: calc(var(--a11y-font-size) * 0.8125);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -216,7 +216,7 @@
 }
 
 .a11y-mode-icon {
-    font-size: 15px;
+    font-size: calc(var(--a11y-font-size) * 0.9375);
     line-height: 1;
 }
 

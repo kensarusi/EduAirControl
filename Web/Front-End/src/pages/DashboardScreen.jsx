@@ -33,6 +33,7 @@ import {
 } from "recharts";
 
 import { useEnvironment } from "../context/EnvironmentContext";
+import { getComputedA11yFontSizePx } from "../shared/accessibility/accessibilitySettings";
 import Navbar from "../modules/dashboard/components/Navbar/Navbar";
 
 import "./DashboardScreen.css";
@@ -264,6 +265,11 @@ function DashboardScreen() {
     counts[status.className] += 1;
     return counts;
   }, { normal: 0, warning: 0, alert: 0 }), [visibleEnvironments]);
+
+  // Tamaños de fuente escalables para ticks y elementos que requieren números
+  const baseA11yPx = typeof window !== 'undefined' ? getComputedA11yFontSizePx() : 16;
+  const tickFont11 = Math.max(10, Math.round((baseA11yPx * 11) / 16));
+  const tickFont10 = Math.max(9, Math.round((baseA11yPx * 10) / 16));
 
   const handleRefresh = () => {
     setLastUpdated("actualizado ahora");

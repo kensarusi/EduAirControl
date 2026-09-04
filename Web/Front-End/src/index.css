@@ -357,7 +357,7 @@ input, button { max-width: 100%; }
 .navbar-logo h2 {
   color: var(--accent);
   margin: 0;
-  font-size: 22px;
+  font-size: calc(var(--a11y-font-size) * 1.375);
   cursor: pointer;
 }
 
@@ -377,7 +377,7 @@ input, button { max-width: 100%; }
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   color: var(--text-nav);
 }
 
@@ -389,7 +389,7 @@ input, button { max-width: 100%; }
   color: var(--accent);
 }
 
-.navbar-icon { font-size: 18px; display: flex; align-items: center; }
+.navbar-icon { font-size: calc(var(--a11y-font-size) * 1.125); display: flex; align-items: center; }
 .navbar-label { font-weight: 500; }
 .navbar-item.logout { color: #ff4d5b; }
 .navbar-item.logout:hover { background-color: #ffe0e0; color: #ff4444; }
@@ -406,12 +406,12 @@ input, button { max-width: 100%; }
   margin-left: 20px;
 }
 
-.navbar-info-greeting { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-.navbar-info-time     { font-size: 13px; color: var(--accent); }
+.navbar-info-greeting { font-size: calc(var(--a11y-font-size) * 0.875); font-weight: 600; color: var(--text-primary); }
+.navbar-info-time     { font-size: calc(var(--a11y-font-size) * 0.8125); color: var(--accent); }
 
 /* Profile dropdown */
 .navbar-profile { position: relative; user-select: none; }
-.profile-chevron { font-size: 11px; margin-left: 2px; transition: transform 0.2s; opacity: 0.6; }
+.profile-chevron { font-size: calc(var(--a11y-font-size) * 0.6875); margin-left: 2px; transition: transform 0.2s; opacity: 0.6; }
 .profile-chevron.open { transform: rotate(180deg); }
 
 .profile-dropdown {
@@ -439,7 +439,7 @@ input, button { max-width: 100%; }
   gap: 10px;
   padding: 10px 14px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: calc(var(--a11y-font-size) * 0.875);
   color: var(--text-primary);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
@@ -512,7 +512,7 @@ button:active { transform: scale(0.97); }
 .back-button {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: calc(var(--a11y-font-size) * 1.5);
   cursor: pointer;
   color: var(--text-primary);
   align-self: flex-start;
@@ -536,14 +536,14 @@ button:active { transform: scale(0.97); }
   align-items: center;
   justify-content: center;
   color: var(--accent);
-  font-size: 18px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
   margin-right: 15px;
   transition: background-color 0.3s;
 }
 
-.field-label { font-size: 12px; color: var(--text-muted); margin-bottom: 3px; }
-.field-value { font-size: 15px; color: var(--text-primary); font-weight: 500; }
-.section-description { color: var(--text-muted); font-size: 14px; margin-bottom: 15px; }
+.field-label { font-size: calc(var(--a11y-font-size) * 0.75); color: var(--text-muted); margin-bottom: 3px; }
+.field-value { font-size: calc(var(--a11y-font-size) * 0.9375); color: var(--text-primary); font-weight: 500; }
+.section-description { color: var(--text-muted); font-size: calc(var(--a11y-font-size) * 0.875); margin-bottom: 15px; }
 
 /* ============================================ */
 /* MODALES                                      */

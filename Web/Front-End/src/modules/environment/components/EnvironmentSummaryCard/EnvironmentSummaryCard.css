@@ -41,7 +41,7 @@ body.dark-mode .summary-card:hover {
 }
 
 .summary-card-header h3 {
-  font-size: 18px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -64,7 +64,7 @@ body.dark-mode .summary-card:hover {
   width: fit-content;
   padding: 5px 12px;
   border-radius: 40px;
-  font-size: 12px;
+  font-size: calc(var(--a11y-font-size) * 0.75);
   font-weight: 700;
 }
 
@@ -96,7 +96,7 @@ body.dark-mode .summary-card:hover {
 }
 
 .summary-icon {
-  font-size: 26px;
+  font-size: calc(var(--a11y-font-size) * 1.625);
   padding: 9px;
   border-radius: 50%;
   background: var(--lb-glass-bg);
@@ -113,12 +113,12 @@ body.dark-mode .summary-icon {
 .summary-icon.noise    { color: #ffb020; }
 
 .summary-item small {
-  font-size: 11.5px;
+  font-size: calc(var(--a11y-font-size) * 0.71875);
   font-weight: 700;
 }
 
 .summary-label {
-  font-size: 12px;
+  font-size: calc(var(--a11y-font-size) * 0.75);
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
@@ -126,7 +126,7 @@ body.dark-mode .summary-icon {
 }
 
 .summary-value {
-  font-size: 19px;
+  font-size: calc(var(--a11y-font-size) * 1.1875);
   font-weight: 800;
   color: var(--text-primary);
 }
@@ -147,7 +147,7 @@ body.dark-mode .summary-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: calc(var(--a11y-font-size) * 1.125);
   font-weight: 800;
   color: var(--text-primary);
   flex-shrink: 0;
@@ -180,14 +180,14 @@ body:not(.dark-mode) .summary-score-circle::before {
 
 .summary-score h4 {
   margin: 0;
-  font-size: 15px;
+  font-size: calc(var(--a11y-font-size) * 0.9375);
   color: var(--text-primary);
 }
 
 .summary-score p {
   margin-top: 4px;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: calc(var(--a11y-font-size) * 0.75);
 }
 
 /* ── Favorite button ── */
@@ -201,7 +201,7 @@ body:not(.dark-mode) .summary-score-circle::before {
   border: 1px solid var(--lb-glass-border);
   background: var(--lb-surface);
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: calc(var(--a11y-font-size) * 0.9375);
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.2s ease;
