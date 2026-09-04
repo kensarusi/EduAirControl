@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./AccessibilityWidget.css";
 import {
+    ACCESSIBILITY_THEMES,
     getAccessibilitySettings,
     resetAccessibilitySettings,
     saveAccessibilitySettings,
@@ -13,12 +14,25 @@ const FONT_SIZES = [
     { key: "xl",   label: "XL",   size: "20px" },
 ];
 
-const COLOR_THEMES = [
-    { key: "",                   label: "Normal",       color: "#28F4D6" },
-    { key: "theme-protanopia",   label: "Protanopia",   color: "#0072b2" },
-    { key: "theme-deuteranopia", label: "Deuteranopia", color: "#E69F00" },
-    { key: "theme-tritanopia",   label: "Tritanopia",   color: "#D55E00" },
-];
+const THEME_LABELS = {
+    "": "Normal",
+    "theme-protanopia": "Protanopia",
+    "theme-deuteranopia": "Deuteranopia",
+    "theme-tritanopia": "Tritanopia",
+};
+
+const THEME_COLORS = {
+    "": "#28F4D6",
+    "theme-protanopia": "#0072b2",
+    "theme-deuteranopia": "#E69F00",
+    "theme-tritanopia": "#D55E00",
+};
+
+const COLOR_THEMES = ACCESSIBILITY_THEMES.map((key) => ({
+    key,
+    label: THEME_LABELS[key],
+    color: THEME_COLORS[key],
+}));
 
 /* ── Componente ── */
 function AccessibilityWidget({ raised = false }) {
@@ -165,6 +179,7 @@ function AccessibilityWidget({ raised = false }) {
                             {COLOR_THEMES.map((t) => (
                                 <button
                                     key={t.key}
+                                    type="button"
                                     className={`a11y-theme-btn${colorTheme === t.key ? " a11y-theme-btn--active" : ""}`}
                                     onClick={() => handleColorTheme(t.key)}
                                     aria-pressed={colorTheme === t.key}

@@ -34,7 +34,7 @@ body:not(.dark-mode) .hero::before {
     background:
     radial-gradient(
         circle,
-        rgba(39,245,210,.15),
+        rgb(var(--accent-rgb) / .15),
         transparent 70%
     );
 

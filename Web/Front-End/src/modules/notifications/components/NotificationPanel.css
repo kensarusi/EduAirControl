@@ -95,7 +95,7 @@ HEADER
 
       font-size:12px;
 
-      color:#27f5d2;
+      color:var(--accent);
 
       cursor:pointer;
 
@@ -195,7 +195,7 @@ HEADER
 
 .mark-read-btn:hover{
 
-    background:rgba(0,184,148,.08);
+    background:rgb(var(--accent-rgb) / .08);
 
 }
 
@@ -329,7 +329,7 @@ CARD
 
     border-left:6px solid var(--accent);
 
-    box-shadow:0 0 0 1px rgba(0,184,148,.12);
+    box-shadow:0 0 0 1px rgb(var(--accent-rgb) / .12);
 
 }
 

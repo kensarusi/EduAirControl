@@ -47,9 +47,9 @@
   background: var(--lb-surface);
   border: 1px solid var(--lb-glass-border);
   border-radius: 12px;
-  color: #27f5d2;
+  color: var(--accent);
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,184,148,0.12);
+  box-shadow: 0 2px 8px rgb(var(--accent-rgb) / 0.12);
 }
 
 .env-management-topbar__title {
@@ -112,7 +112,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  background: #27f5d2;
+  background: var(--accent);
   border: none;
   border-radius: 12px;
   color: #03171c;
@@ -579,10 +579,10 @@
   background: var(--lb-surface); }
 
 .env-management-tabs button.active { 
-  color: #27f5d2; 
+  color: var(--accent); 
   background: var(--lb-surface); 
   border-color: var(--lb-glass-border); 
-  box-shadow: 0 3px 12px rgba(0, 184, 148, .08); }
+  box-shadow: 0 3px 12px rgb(var(--accent-rgb) /  .08); }
 
 .env-management-tabs button span { 
   display: inline-grid; 

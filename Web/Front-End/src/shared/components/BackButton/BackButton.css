@@ -1,12 +1,12 @@
 .back-button {
   background: none;
-  border: 2px solid #5de6c8;
+  border: 2px solid var(--accent);
   border-radius: 50%;
   width: 40px;
   height: 40px;
   font-size: 20px;
   cursor: pointer;
-  color: #5de6c8;
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,6 +16,6 @@
 }
 
 .back-button:hover {
-  background-color: #5de6c8;
+  background-color: var(--accent);
   color: white;
 }

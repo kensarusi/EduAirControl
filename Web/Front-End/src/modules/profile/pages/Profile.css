@@ -42,7 +42,7 @@
 
 .profile-hero-final:hover{
     transform:translateY(-4px);
-    box-shadow:0 22px 60px rgba(0,184,148,.12);
+    box-shadow:0 22px 60px rgb(var(--accent-rgb) / .12);
 }
 
 /* ==========================================================
@@ -59,7 +59,7 @@
     background:linear-gradient(
         135deg,
         var(--accent),
-        #27f5d2
+        var(--accent)
     );
 
     color:white;
@@ -74,7 +74,7 @@
     flex-shrink:0;
 
     box-shadow:
-        0 10px 30px rgba(0,184,148,.35);
+        0 10px 30px rgb(var(--accent-rgb) / .35);
 }
 
 /* ==========================================================
@@ -108,7 +108,7 @@
 
     margin:0;
 
-    color:#27f5d2;
+    color:var(--accent);
 
     font-size: calc(var(--a11y-font-size) * 0.9375);
 
@@ -167,7 +167,7 @@
 
     border-radius:12px;
 
-    background: #27f5d2;
+    background: var(--accent);
 
     color:#03171c;
 
@@ -185,7 +185,7 @@
 
     background:var(--accent-hover);
 
-    box-shadow:0 8px 20px rgba(0,184,148,.25);
+    box-shadow:0 8px 20px rgb(var(--accent-rgb) / .25);
 }
 
 .btn-save-final{
@@ -311,7 +311,7 @@
 
 .info-item:hover{
 
-    background:rgba(0,184,148,.04);
+    background:rgb(var(--accent-rgb) / .04);
 }
 
 /* ==========================================================
@@ -325,9 +325,9 @@
 
     border-radius:14px;
 
-    background:rgba(0,184,148,.10);
+    background:rgb(var(--accent-rgb) / .10);
 
-    color: #27f5d2;
+    color: var(--accent);
 
     display:flex;
     align-items:center;
@@ -344,7 +344,7 @@
 
     transform:scale(1.08);
 
-    background:rgba(0,184,148,.16);
+    background:rgb(var(--accent-rgb) / .16);
 }
 
 /* ==========================================================
@@ -417,7 +417,7 @@
 
     border-color:var(--accent);
 
-    box-shadow:0 0 0 4px rgba(0,184,148,.12);
+    box-shadow:0 0 0 4px rgb(var(--accent-rgb) / .12);
 }
 
 /* ==========================================================

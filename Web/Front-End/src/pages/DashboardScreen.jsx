@@ -63,7 +63,7 @@ const METRICS = {
   co2: {
     label: "CO₂",
     unit: "ppm",
-    color: "#27F5D2",
+    color: "var(--accent)",
     softColor: "#0B4D54",
     comfort: 800,
     domain: [350, 1300],
@@ -104,7 +104,7 @@ const STATUS = {
   alert: { label: "Alerta", className: "alert", color: "#FF4D5B" },
 };
 
-const ENVIRONMENT_COLORS = ["#27F5D2", "#FFB11A", "#FF4D5B", "#9D73FF", "#49D17D", "#58AFFF"];
+const ENVIRONMENT_COLORS = ["var(--accent)", "#FFB11A", "#FF4D5B", "#9D73FF", "#49D17D", "#58AFFF"];
 
 function normalizeStatus(statusKey) {
   if (statusKey?.toLowerCase().includes("alert")) return STATUS.alert;
@@ -372,7 +372,7 @@ function DashboardScreen() {
             </article>
 
             <div className="analysis-secondary-grid">
-              <article className="analysis-panel comparison-chart"><div className="analysis-chart-header compact"><div><span className="analysis-section-label">COMPARACIÓN</span><h2>Por ambiente</h2><p>Promedio de {metricInfo.label.toLowerCase()} en el periodo</p></div><FaChartBar size={18} /></div><div className="analysis-bar-chart-wrap"><ResponsiveContainer width="100%" height="100%"><BarChart data={comparisonData} margin={{ top: 12, right: 8, left: -18, bottom: 0 }}><CartesianGrid stroke="rgba(167,188,208,.11)" strokeDasharray="3 5" vertical={false} /><XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: "#8394A8", fontSize: 10 }} interval={0} /><YAxis axisLine={false} tickLine={false} tick={{ fill: "#8394A8", fontSize: 10 }} width={38} /><Tooltip content={<ChartTooltip metric={metric} />} cursor={{ fill: "rgba(39,245,210,.05)" }} /><Bar dataKey="value" radius={[5, 5, 0, 0]} isAnimationActive={false}>{comparisonData.map((item) => <Cell key={item.name} fill={item.color} />)}</Bar></BarChart></ResponsiveContainer></div></article>
+              <article className="analysis-panel comparison-chart"><div className="analysis-chart-header compact"><div><span className="analysis-section-label">COMPARACIÓN</span><h2>Por ambiente</h2><p>Promedio de {metricInfo.label.toLowerCase()} en el periodo</p></div><FaChartBar size={18} /></div><div className="analysis-bar-chart-wrap"><ResponsiveContainer width="100%" height="100%"><BarChart data={comparisonData} margin={{ top: 12, right: 8, left: -18, bottom: 0 }}><CartesianGrid stroke="rgba(167,188,208,.11)" strokeDasharray="3 5" vertical={false} /><XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: "#8394A8", fontSize: 10 }} interval={0} /><YAxis axisLine={false} tickLine={false} tick={{ fill: "#8394A8", fontSize: 10 }} width={38} /><Tooltip content={<ChartTooltip metric={metric} />} cursor={{ fill: "rgb(var(--accent-rgb) / .05)" }} /><Bar dataKey="value" radius={[5, 5, 0, 0]} isAnimationActive={false}>{comparisonData.map((item) => <Cell key={item.name} fill={item.color} />)}</Bar></BarChart></ResponsiveContainer></div></article>
               <article className="analysis-panel network-status-chart"><div className="analysis-chart-header compact"><div><span className="analysis-section-label">ESTADO ACTUAL</span><h2>Salud de la red</h2></div><span className="analysis-network-pill"><span /> Monitoreando</span></div><div className="analysis-network-body"><div className="analysis-donut-wrap"><ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={[{ name: "Normal", value: statusCounts.normal }, { name: "Advertencia", value: statusCounts.warning }, { name: "Alerta", value: statusCounts.alert }].filter((item) => item.value > 0)} dataKey="value" innerRadius={48} outerRadius={65} startAngle={90} endAngle={-270} paddingAngle={4} stroke="none" isAnimationActive={false}><Cell fill="#25E77C" /><Cell fill="#FFB11A" /><Cell fill="#FF4D5B" /></Pie></PieChart></ResponsiveContainer><div className="analysis-donut-center"><strong>{visibleEnvironments.length ? Math.round((statusCounts.normal / visibleEnvironments.length) * 100) : 0}%</strong><span>en rango</span></div></div><div className="analysis-network-legend"><div><i className="normal" /><span>Normal</span><strong>{statusCounts.normal}</strong></div><div><i className="warning" /><span>Advertencia</span><strong>{statusCounts.warning}</strong></div><div><i className="alert" /><span>Alerta</span><strong>{statusCounts.alert}</strong></div><small><FaCheckCircle size={13} /> Datos actualizados</small></div></div></article>
             </div>
           </section>

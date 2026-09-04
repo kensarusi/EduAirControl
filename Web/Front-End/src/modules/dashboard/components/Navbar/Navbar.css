@@ -24,7 +24,7 @@
 
     backdrop-filter:blur(18px);
 
-    border-bottom:1px solid rgba(39,245,210,.12);
+    border-bottom:1px solid rgb(var(--accent-rgb) / .12);
 
     box-shadow:0 10px 30px rgba(0,0,0,.35);
 
@@ -34,7 +34,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     background:rgba(255,255,255,.92);
 
-    border-bottom:1px solid rgba(0,184,148,.15);
+    border-bottom:1px solid rgb(var(--accent-rgb) / .15);
 
 }
 
@@ -97,7 +97,7 @@ body:not(.dark-mode) .dashboard-navbar{
     font-size: calc(var(--a11y-font-size) * 1.875);
     font-weight:800;
 
-    color:#27f5d2;
+    color:var(--accent);
     line-height:1;
     white-space: nowrap;
 
@@ -137,7 +137,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     margin-top:4px;
 
-    color:#27f5d2;
+    color:var(--accent);
 
     font-size: calc(var(--a11y-font-size) * 0.8125);
 
@@ -205,7 +205,7 @@ body:not(.dark-mode) .dashboard-navbar{
 
     background:var(--lb-surface);
 
-    color:#27f5d2;
+    color:var(--accent);
 
 }
 
